@@ -1,0 +1,20 @@
+{
+    "pages": [
+        "pages/menu/menu",
+        "pages/transmitHB/transmitHB",
+        "pages/finishOrder/finishOrder",
+        "pages/confirmOrder/confirmOrder",
+        "pages/foodRemark/foodRemark",
+        "pages/shop/shop",
+        "pages/owndesk/owndesk",
+        "pages/index/index",
+        "pages/coupon/coupon",
+        "pages/logs/logs"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "boge点餐系统",
+        "navigationBarTextStyle": "black"
+    }
+}

@@ -1,0 +1,57 @@
+<view class="page-container">
+    <view class="page-head">
+        <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{700}}" circular>
+            <block wx:for="{{imgUrls}}">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" class="shop-slider-img"/>
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view class="page-section">
+      <view class="speak-content">
+        <view class="speak-txt-box">
+            <image src="../../assets/image/voice-icon.png" class="voice-img"></image>
+            <view class="speak-txt">谢谢老板</view>
+        </view>
+        <view clas="speak-btn-box">
+            <button type="primary" class="record-btn" bindlongtap="recordVoice" bindtouchend="stopRecord">长按说出以上口令领取赏金</button>
+        </view>
+        <view class="entry-box">
+            <view class="to-menu" bindtap="toMenu">
+                <image src="../../assets/image/menu-icon.png" class="icon-img"></image>
+                <view class="to-menu-txt v-txt">去菜单</view>
+            </view>
+            <view class="to-transmit" bindtap="toTransmit">
+                <image src="../../assets/image/share-icon.png" class="icon-img"></image>
+                <button class="to-transmit-txt v-txt" open-type="share">去转发</button>
+            </view>
+        </view>
+      </view>
+    </view>
+    <view class="page-foot">
+        <view class="hb-info-box">
+            <view class="hb-info">共10.00元,领取0/3个</view>
+            <view class="hb-right-txt">举报</view>
+        </view>
+        <view class="check-record" wx:if="{{!isSpeak}}">
+            <view class="check-record-txt" bindtap="toHbRecord">查看我的记录</view>
+        </view>
+        <view class="hb-notice" wx:if="{{!isSpeak}}">未领取的金额,将于24小时后退至余额</view>
+        <view class="hb-list-box" wx:if="{{isSpeak}}" wx:for="[3]">
+            <view class="hb-list-item">
+                <view class="hb-item-left">
+                    <image src="../../assets/image/voice-user-icon.jpg" class="voice-user-icon"></image>
+                    <view class="voice-box">
+                        <view class="user-name">gosling</view>
+                        <button class="voice-btn">4"</button>
+                    </view>
+                </view>
+                <view class="hb-item-right">
+                    <view class="hb-count">25.16元</view>
+                    <view class="hb-time">7月16日 20：55</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -11,3 +11,19 @@
 view{
     font-family: PingFangSC-Regular, sans-serif;
 }
+
+.ml {
+    margin-left: 24rpx;
+}
+
+.mr {
+    margin-right: 24rpx;
+}
+
+.txt-mid {
+    font-size: 24rpx;
+}
+
+.txt-lg {
+    font-size: 28rpx;
+}

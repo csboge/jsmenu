@@ -1,11 +1,17 @@
 {
     "pages": [
+        "pages/myRecord/myRecord",
+        "pages/myDiscount/myDiscount",
+        "pages/orderDetail/orderDetail",
         "pages/menu/menu",
+        "pages/speakVoice/speakVoice",
         "pages/transmitHB/transmitHB",
         "pages/finishOrder/finishOrder",
         "pages/confirmOrder/confirmOrder",
         "pages/foodRemark/foodRemark",
+        "pages/findOrder/findOrder",
         "pages/shop/shop",
+        "pages/hbRecord/hbRecord",
         "pages/owndesk/owndesk",
         "pages/index/index",
         "pages/coupon/coupon",

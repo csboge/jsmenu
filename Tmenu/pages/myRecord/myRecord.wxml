@@ -1,0 +1,78 @@
+<view class="page-container">
+    <view class="page-head" bindtap="toIndex">
+        <view class="page-head-box">
+            <view class="page-head-img">
+                <image src="../../assets/image/shop-logo.jpg" class="logo"></image>
+            </view>
+            <view class="page-head-detail">
+                <view class="page-head-title-box">
+                    <view class="page-head-title white txt-mid">寻味-园丁街店</view>
+                    <view class="arrow white arrow-title"></view>
+                </view>
+                <view class="page-head-notice white txt-small">
+                    公告: 联系电话(微信)15957496790，超出范围五份起送！
+                </view>
+                <view class="page-head-notice white txt-small">
+                    可送公司餐，团餐定制，团购餐
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="page-section">
+        <view class="shop-info-box">
+            <view class="shop-address ml" bindtap="showAddress">
+                <image src="../../assets/image/add-white-icon.png" class="add-white-icon"></image>
+                <view class="shop-address-txt txt-mid ml">浙江省宁波市江东区园丁街128号</view>
+            </view>
+            <view class="shop-tel mr" bindtap="call">
+                <image src="../../assets/image/tel-white-icon.png" class="tel-white-icon"></image>
+            </view>
+        </view>
+        <view class="hb-remain-box">
+            <view class="hb-remain-txt ml">红包余额</view>
+            <view class="hb-remain-count mr">
+                <view class="hb-remain-num">20元</view>
+                <view class="remain-arrow yearr"></view>
+            </view>
+        </view>
+        <view class="yhq-box" bindtap="toMydiscount">
+            <view class="yhq-txt ml">优惠券</view>
+            <view class="yhq-count mr">
+                <view class="yhq-num">3张</view>
+                <view class="remain-arrow yhqarr"></view>
+            </view>
+        </view>
+        <view class="order-box">
+            <view class="order-left ml">
+                <view class="order-shop-name">店铺：寻味-园丁街店</view>
+                <view class="order-no">订单编号：E20170707401320077831032</view>
+            </view>
+            <view class="order-right mr">交易关闭</view>
+        </view>
+        <view class="order-list">
+            <view class="shop-logo ml">
+                <image src="../../assets/image/shop-logo.jpg" class="shop-logo-img"></image>
+            </view>
+            <view class="food-detail ml">
+                <view class="food-name">番茄牛腩便当</view>
+                <view class="food-type">五格</view>
+                <view class="food-sned-type">外卖</view>
+            </view>
+            <view class="food-price mr">
+                <view class="food-price-num">￥25.00</view>
+                <view class="food-purchase-num">x1</view>
+            </view>
+        </view>
+        <view class="show-more" bindtap="showMore">查看全部2件商品</view>
+        <view class="total-price-box mr">
+            <view class="total-price-txt">合计</view>
+            <view class="total-price-count">￥41.00</view>
+        </view>
+        <view class="another-order mr">
+            <button class="another-boder-btn" type="default" bindtap="anotherOrder">再来一单</button>
+        </view>
+    </view>
+    <view class="page-foot">
+        <image src="../../assets/image/boge-logo.png" class="boge-logo-img"></image>
+    </view>
+</view>

@@ -19,7 +19,7 @@ Page({
   showAddress:function(){
       var la = 28.20198;
       var lo = 112.97106;
-      util.getAddress(la,lo);
+      util.getAddress(la, lo, "长沙伯格网络", "长沙市湘江中路万达总部C2座35楼3508室");
   },
   //点击打电话
   call:function(){

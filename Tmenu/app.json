@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/index/index",
         "pages/myRecord/myRecord",
         "pages/myDiscount/myDiscount",
         "pages/orderDetail/orderDetail",
@@ -13,14 +14,13 @@
         "pages/shop/shop",
         "pages/hbRecord/hbRecord",
         "pages/owndesk/owndesk",
-        "pages/index/index",
         "pages/coupon/coupon",
         "pages/logs/logs"
     ],
     "window": {
         "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "boge点餐系统",
-        "navigationBarTextStyle": "black"
+        "navigationBarBackgroundColor": "#1a191f",
+        "navigationBarTitleText": "电子菜谱",
+        "navigationBarTextStyle": "white"
     }
 }

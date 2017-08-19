@@ -1,10 +1,59 @@
 <!--index.wxml-->
-<view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+<view class="page-container">
+    <view class="page-section" animation="{{animationData}}">
+        <view class="shop-info">
+            <view class="shop-logo">
+                <image src="../../assets/image/shop-logo.jpg" class="shop-logo-img"></image>
+            </view>
+            <view class="shop-detail">
+                <view class="shop-name">寻味-园丁街店</view>
+                <view class="shop-add">
+                    <view class="shop-add-txt gray b">浙江省宁波市江东区园丁街128号</view>
+                    <view class="shop-add-arrow arrow"></view>
+                </view>
+                <view class="shop-runtime gray b">营业时间：周一至周日08:00至次日07:30</view>
+            </view>
+            <view class="line"></view>
+        </view>
+        <view class="menu-box">
+            <view class="menu-item" data-url="../menu/menu" bindtap="navi">
+                <view class="menu-item-logo">
+                    <image src="../../assets/image/menu-icon1.png" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">点外卖</view>
+            </view>
+            <view class="menu-item" bindtap="call">
+                <view class="menu-item-logo">
+                    <image src="../../assets/image/menu-icon2.png" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">电话联系</view>
+            </view>
+            <view class="menu-item" bindtap="showLoca">
+                <view class="menu-item-logo">
+                    <image src="../../assets/image/menu-icon3.png" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">导航前往</view>
+            </view>
+            <button class="share-btn" open-type="share">
+                <view class="menu-item share-item">
+                    <view class="menu-item-logo">
+                        <image src="../../assets/image/menu-icon4.png" class="menu-item-img"></image>
+                    </view>
+                    <view class="menu-item-txt b gray transmit-txt">推荐好友</view>
+                </view>
+            </button>
+            <view class="menu-item" data-url="../myDiscount/myDiscount" bindtap="navi">
+                <view class="menu-item-logo">
+                    <image src="../../assets/image/menu-icon5.png" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">领优惠券</view>
+            </view>
+            <view class="menu-item" data-url="../myRecord/myRecord" bindtap="navi">
+                <view class="menu-item-logo">
+                    <image src="../../assets/image/menu-icon6.png" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">我的记录</view>
+            </view>
+        </view>
+    </view>
 </view>

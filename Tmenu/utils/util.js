@@ -107,13 +107,13 @@ function getStorage(key,fn){
  * @params la(纬度值,Number)
  * @params lo(经度值,Number)
  */
-function getAddress(la,lo) {
+function getAddress(la,lo,name,add) {
     wx.openLocation({
         latitude: la,
         longitude: lo,
         scale: 28,
-        name: "长沙伯格网络",
-        address: "长沙市湘江中路万达总部C2座35楼3508室"
+        name: name,
+        address: add
     })
 }
 module.exports = {

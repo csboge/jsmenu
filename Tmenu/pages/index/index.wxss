@@ -1,21 +1,110 @@
-/**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+.page-container{
+    padding: 100rpx 0;
+    background: #1a191f;
+    width: 100%;
+    height: 1290rpx;
+}
+.page-section{
+    position: absolute;
+    left: 40rpx;
+    bottom: -300rpx;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 50rpx;
+    border-radius: 10rpx;
+    background: #fff;
+    width: calc(100% - 80rpx);
+    opacity: 0;
+}
+.shop-info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.shop-logo{
+    display: flex;
+    justify-content: center;
+    padding: 90rpx 0;
+}
+.shop-logo-img{
+    width: 160rpx;
+    height: 160rpx;
+}
+.shop-detail{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.shop-name{
+    color: #1e1e1e;
+    font-size: 46rpx;
+    font-weight: bold;  
+}
+.shop-add{
+    margin-top: 52rpx;
+    margin-bottom: 40rpx;
+}
+.shop-add-txt{
+    display: inline-block;
+    text-align: center;
+}
+.shop-add-arrow{
+    display: inline-block;
+    margin-left: 20rpx;
+}
+.gray{
+    color: #959595;
+}
+.b{
+    font-size: 28rpx;
+    font-weight: bold;
+}
+.line{
+    margin: 0 auto;
+    margin-top: 40rpx;
+    width: calc(100% - 90rpx);
+    height: 4rpx;
+    background: #f4f4f4;
 }
 
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.menu-box{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-top: 20rpx;
+    width: calc(100% - 140rpx);
+}
+.menu-item{
+    margin: 40rpx 20rpx;
 }
 
-.userinfo-nickname {
-  color: #aaa;
+.menu-item-img{
+    width: 100rpx;
+    height: 100rpx;
 }
-
-.usermotto {
-  margin-top: 200px;
+.menu-item-txt{
+    margin-top: 24rpx;
+    text-align: center;
+    font-size: 24rpx;
 }
+.share-btn{
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 0;
+    margin: 40rpx 20rpx;
+    background: transparent;
+}
+.share-btn::after{
+    border: none;
+}
+.share-item{
+    margin: 0;
+}
+.transmit-txt{
+     margin-top: 54rpx;
+ }

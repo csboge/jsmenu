@@ -1,0 +1,245 @@
+
+.page-container{
+    width: 100%;
+}
+.page-section {
+    background-color: #f9f9f9;
+}
+
+.page-head {
+    width: 100%;
+    background: linear-gradient(to bottom, #201f25, #515055);
+    height: 190rpx;
+    display: flex;
+    justify-content: space-around;
+}
+
+.page-head-img {
+    width: 136rpx;
+    height: 136rpx;
+}
+
+.logo {
+    width: 136rpx;
+    height: 136rpx;
+    position: relative;
+    top: 4rpx;
+    left: -10rpx;
+    box-shadow: 6rpx 6rpx 10rpx #222;
+    border-radius: 6rpx;
+}
+
+.white {
+    color: #fff;
+}
+
+.page-head-title-box {
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+    left: 2rpx;
+}
+
+.txt-mid {
+    font-size: 28rpx;
+}
+
+.txt-small {
+    font-size: 20rpx;
+}
+
+.page-head-title {
+    flex-grow: 1;
+    position: relative;
+    left: 2rpx;
+}
+
+.page-head-box {
+    width: 92%;
+    height: 190rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-head-notice {
+    line-height: 30rpx;
+}
+
+.page-head-detail {
+    position: relative;
+    right: 14rpx;
+    height: 116rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    left: -20rpx;
+}
+
+.arrow {
+    position: relative;
+    bottom: -10rpx;
+    right: -10rpx;
+}
+
+.arrow-title {
+    right: -12rpx;
+    top: 14rpx;
+}
+.shop-info-box {
+    width: 100%;
+    background-color: #3c3b40;
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx 0;
+}
+.shop-address {
+    display: flex;
+    color: #fff;
+}
+.add-white-icon {
+    width: 32rpx;
+    height: 40rpx;
+}
+.shop-address-txt {
+    line-height: 40rpx;
+}
+.shop-tel {
+    display: flex;
+    color: #fff;
+    position: relative;
+    width: 80rpx;
+}
+.shop-tel::after{
+    content: "";
+    display: block;
+    width: 2rpx;
+    background-color: rgba(255, 255, 255, .5);
+    height: 32rpx;
+    position: absolute;
+    left: 0;
+    top: 4rpx;
+}
+.tel-white-icon {
+    width: 40rpx;
+    height: 40rpx;
+    position: absolute;
+    right: 0;
+}
+.discount-title{
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #2d2d2d;
+    padding: 24rpx;
+    background-color: #Fff;
+}
+.discount-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.discount-list{
+    padding-bottom: 30rpx;
+    width: 100%;
+    margin: 0 auto;
+}
+.dicount-ticket-box{
+    display: flex;
+    width: 700rpx;
+    height: 200rpx;
+    background-color: #ff4445;
+    border-radius: 10rpx;
+    margin: 0 auto;
+    margin-top: 24rpx;
+}
+.discount-ticket-left{
+    width: 550rpx;
+    height: 192rpx;
+    background-color: #f9f9f9;
+    margin-left: 4rpx;
+    margin-top: 4rpx;
+    border-top-left-radius: 6rpx;
+    border-bottom-left-radius: 6rpx;
+}
+.discount-detail-box{
+    height: 174rpx;
+    width: 546rpx;
+    border: 2rpx dashed #ff4445;
+    margin-left: 4rpx;
+    border-radius: 10rpx;
+    margin-top: 6rpx;
+}
+.discount-detail-txt{
+    width: 490rpx;
+    font-size: 42rpx;
+    color: #ff4445;
+    margin: 0 auto;
+    margin-top: 40rpx;
+    border-bottom: 2rpx solid #f3f3f3;
+    padding-bottom: 8rpx;
+}
+.discount-detial-time{
+    width: 490rpx;
+    font-size: 20rpx;
+    color: #c0c0c0;
+    margin: 0 auto;
+    margin-top: 26rpx;
+}
+.discount-ticket-right{
+    color: #fff;
+    font-size: 32rpx;
+    font-weight: bold;
+    line-height: 200rpx;
+    text-align: center;
+    flex-grow: 1;
+    position: relative;
+}
+.discount-ticket-right::after{
+    content: "";
+    display: block;
+    border-left: 2rpx dashed #f9f9f9;
+    height: 100%;
+    position: absolute;
+    left: 4rpx;
+    top: 0;
+}
+.get-ticket{
+    font-size: 28rpx;
+    color: #3c8dfe;
+    width: 100%;
+    text-align: center;
+    border-top: 2rpx solid #f3f3f3;
+    border-bottom: 4rpx solid #f7f7f7;
+    padding: 24rpx 0;
+    font-weight: bold;
+}
+.bc-gray{
+    background-color: #f9f9f9;
+}
+.bc-dark-gray{
+    background-color: #ccc;
+}
+.txt-dark-gray{
+    color: #929292;
+}
+.txt-gray{
+    color: #bdbdbd;
+}
+.bd-gray{
+    border-color: #cbcbcb;
+    border-right: none;
+}
+.txt-light-gray{
+    color: #e9e9e9;
+}
+.page-foot{
+    background-color: #f9f9f9;
+    padding-top: 90rpx;
+    padding-bottom: 70rpx;
+    display: flex;
+    justify-content: center;
+}
+.boge-logo-img{
+    width: 200rpx;
+    height: 120rpx;
+}

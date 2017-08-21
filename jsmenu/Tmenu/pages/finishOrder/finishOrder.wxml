@@ -1,0 +1,40 @@
+<view class="page-container">
+    <view class="page-section">
+        <view class="pay-info">
+            <view class="pay-info-img bcenter">
+                <image src="../../assets/image/pay-icon.png" class="pay-img"></image>
+            </view>
+            <view class="pay-info-msg bcenter">
+                <view class="pay-info-txt">已完成支付</view>
+                <view class="pay-ifno-tomenu" bindtap="gotoMenu">去菜单</view>
+            </view>
+            <view class="pay-info-notice bcenter">
+                店家埋了用餐赏金，赶快领！
+            </view>
+        </view>
+        <view class="bc-container">
+            <image src="../../assets/image/hb-bc1.png" class="bc1-img"></image>
+            <view class="section-box">
+                <view class="hb-info">
+                    <view class="hb-info-img bcenter">
+                        <image src="../../assets/image/hb-kai.png" class="hb-kai-img"></image>
+                    </view>
+                    <view class="hb-info-count bcenter">￥20.00</view>
+                    <view class="hb-info-des bcenter">红包个数随机，转发就能领一份</view>
+                </view>
+                <view class="play-hb">
+                    <form bindsubmit="formSubmit">
+                        <view class="play-set-txt">
+                            <view class="play-set-title">设置口令</view>
+                            <input placeholder="谢谢老板" maxlength="10" class="txt-input" />
+                        </view>
+                        <view class="play-notice">小伙伴们说对口令就能获得随机的打赏</view>
+                        <view class="play-btn">
+                            <button type="primary" form-type="submit" class="play-btn">调戏一下好友们</button>
+                        </view>
+                    </form>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

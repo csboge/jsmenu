@@ -1,0 +1,64 @@
+<view class="page-container">
+    <view class="page-head" bindtap="toIndex">
+        <view class="page-head-box">
+            <view class="page-head-img">
+                <image src="../../assets/image/shop-logo.jpg" class="logo"></image>
+            </view>
+            <view class="page-head-detail">
+                <view class="page-head-title-box">
+                    <view class="page-head-title white txt-mid">寻味-园丁街店</view>
+                    <view class="arrow white arrow-title"></view>
+                </view>
+                <view class="page-head-notice white txt-small">
+                    公告: 联系电话(微信)15957496790，超出范围五份起送！
+                </view>
+                <view class="page-head-notice white txt-small">
+                    可送公司餐，团餐定制，团购餐
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="page-section">
+        <view class="shop-info-box">
+            <view class="shop-address ml" bindtap="showAddress">
+                <image src="../../assets/image/add-white-icon.png" class="add-white-icon"></image>
+                <view class="shop-address-txt txt-mid ml">浙江省宁波市江东区园丁街128号</view>
+            </view>
+            <view class="shop-tel mr" bindtap="call">
+                <image src="../../assets/image/tel-white-icon.png" class="tel-white-icon"></image>
+            </view>
+        </view>
+        <view class="discount-title">我的优惠券</view>
+        <view class="discount-box">
+            <view class="discount-list">
+                <view class="dicount-ticket-box" wx:for="{{[1,2,3]}}">
+                    <view class="discount-ticket-left">
+                        <view class="discount-detail-box">
+                            <view class="discount-detail-txt">满30减3</view>
+                            <view class="discount-detial-time">2017年7月21日 22:30:00 至 2017年9月3日 22:30:00</view>
+                        </view>
+                    </view>
+                    <view class="discount-ticket-right">使用</view>
+                </view>
+            </view>
+        </view>
+        <view class="get-ticket">一张优惠券可以领取</view>
+        <view class="discount-title">已失效的券</view>
+        <view class="discount-box">
+            <view class="discount-list">
+                <view class="dicount-ticket-box bc-dark-gray" wx:for="{{[1,2,3]}}">
+                    <view class="discount-ticket-left bc-gray">
+                        <view class="discount-detail-box bd-gray">
+                            <view class="discount-detail-txt txt-dark-gray">满30减3</view>
+                            <view class="discount-detial-time txt-gray">2017年7月21日 22:30:00 至 2017年9月3日 22:30:00</view>
+                        </view>
+                    </view>
+                    <view class="discount-ticket-right txt-light-gray">使用</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="page-foot">
+        <image src="../../assets/image/boge-logo.png" class="boge-logo-img"></image>
+    </view>
+</view>

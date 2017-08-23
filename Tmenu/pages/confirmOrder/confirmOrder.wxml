@@ -33,7 +33,7 @@
                     </view>
                 </view>
                 <view class="product-list" wx:for="{{foodList}}">
-                    <image src="{{item.imgUrl}}" class="product-img"></image>
+                    <image src="{{item.img_url}}" class="product-img"></image>
                     <view class="product-detail">
                         <view class="product-head">
                             <view class="product-name txt-head">{{item.name}}</view>

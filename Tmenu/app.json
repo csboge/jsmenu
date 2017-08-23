@@ -1,18 +1,19 @@
 {
     "pages": [
+        "pages/confirmOrder/confirmOrder",
+        "pages/voiceExample/voiceExample",
+        "pages/speakVoice/speakVoice",
+        "pages/hbRecord/hbRecord",
         "pages/menu/menu",
+        "pages/transmitHB/transmitHB",
         "pages/index/index",
         "pages/myRecord/myRecord",
         "pages/myDiscount/myDiscount",
         "pages/orderDetail/orderDetail",
-        "pages/speakVoice/speakVoice",
-        "pages/transmitHB/transmitHB",
         "pages/finishOrder/finishOrder",
-        "pages/confirmOrder/confirmOrder",
         "pages/foodRemark/foodRemark",
         "pages/findOrder/findOrder",
         "pages/shop/shop",
-        "pages/hbRecord/hbRecord",
         "pages/owndesk/owndesk",
         "pages/coupon/coupon",
         "pages/logs/logs"

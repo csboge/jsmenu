@@ -14,11 +14,17 @@ Page({
             "../../assets/image/menu-own3.jpg"
         ],
         cateList: [//一级分类
-            { id: 1, name: "热销", cateId: 1, isChecked: true },
-            { id: 2, name: "优惠", cateId: 2, isChecked: false },
-            { id: 3, name: "招牌必点", cateId: 3, isChecked: false },
-            { id: 4, name: "肉夹馍", cateId: 4, isChecked: false },
-            { id: 5, name: "精品凉菜", cateId: 5, isChecked: false }
+            { id: 1, name: "新推餐品", cateId: 1, isChecked: true },
+            { id: 2, name: "炭火烧肉饭(招牌)", cateId: 2, isChecked: false },
+            { id: 3, name: "炭烧牛肉饭", cateId: 3, isChecked: false },
+            { id: 4, name: "炭烧培根饭", cateId: 4, isChecked: false },
+            { id: 5, name: "炭烧猪扒饭", cateId: 5, isChecked: false },
+            { id: 6, name: "炭烧里脊肉饭", cateId: 6, isChecked: false },
+            { id: 7, name: "时尚小食", cateId: 7, isChecked: false },
+            { id: 8, name: "汤品", cateId: 8, isChecked: false },
+            { id: 9, name: "活动餐品", cateId: 9, isChecked: false },
+            { id: 10, name: "米饭", cateId: 10, isChecked: false },
+            { id: 11, name: "饮品", cateId: 11, isChecked: false }
         ],
         // allFoodList: [//二级分类过渡
         //     { id: 0, name: "套餐A", price: 168, forPerson: 3, parentCateId: 0 },
@@ -27,282 +33,417 @@ Page({
         //     { id: 3, name: "套餐D", price: 468, forPerson: 10, parentCateId: 0 },
         //     { id: 4, name: "套餐E", price: 568, forPerson: 14, parentCateId: 0 }
         // ],
-        foodDetail:[],//商品列表
-        foodDetailAll: [
-          {
-            id: 0,
-            parentid: 1,
-            parentname: "热销",
-            data: [
-              {
-                id: 1,
-                imgUrl: "../../assets/image/hot1.jpg",
-                name: "泰镇米皮",
-                price: 12.00,
-                stars: 5,
-                parentid: 1
-              },
-              {
-                id: 2,
-                imgUrl: "../../assets/image/hot2.jpg",
-                name: "腊汁肥瘦肉夹馍",
-                price: 12.00,
-                stars: 5,
-                parentid: 1
-              },
-              {
-                id: 3,
-                imgUrl: "../../assets/image/hot3.jpg",
-                name: "葫芦鸡",
-                price: 38.00,
-                stars: 5,
-                parentid: 1
-              },
-              {
-                id: 4,
-                imgUrl: "../../assets/image/hot4.jpg",
-                name: "涮豆腐皮",
-                price: 16.00,
-                stars: 5,
-                parentid: 1
-              }
-            ]
-          },
-          {
+        foodDetail:[],
+        foodDetailAll:[
+        {
             id: 1,
-            parentid: 2,
-            parentname: "优惠",
-            data: [
-              {
-                id: 1,
-                imgUrl: "../../assets/image/yh1.jpg",
-                name: "腊汁肥瘦肉夹馍",
-                price: 12.00,
-                stars: 5,
-                parentid: 2
-              },
-              {
-                id: 2,
-                imgUrl: "../../assets/image/yh2.jpg",
-                name: "羊肉肉夹馍",
-                price: 12.00,
-                stars: 5,
-                parentid: 2
-              },
-              {
-                id: 3,
-                imgUrl: "../../assets/image/yh3.jpg",
-                name: "辣椒肉夹馍",
-                price: 38.00,
-                stars: 5,
-                parentid: 2
-              }
-            ]
-          },
-          {
+            imgUrl: "../../assets/image/new1.jpg",
+            name: "腐竹烧肉",
+            price: 28.00,
+            stars: 5,
+            parentid: 1
+        },
+        {
             id: 2,
-            parentid: 3,
-            parentname: "招牌必点",
-            data: [
-              {
-                id: 1,
-                imgUrl: "../../assets/image/yh1.jpg",
-                name: "腊汁肥瘦肉夹馍",
-                price: 12.00,
-                stars: 5,
-                parentid: 3
-              },
-              {
-                id: 2,
-                imgUrl: "../../assets/image/yh2.jpg",
-                name: "羊肉肉夹馍",
-                price: 12.00,
-                stars: 5,
-                parentid: 3
-              },
-              {
-                id: 3,
-                imgUrl: "../../assets/image/yh3.jpg",
-                name: "辣椒肉夹馍",
-                price: 38.00,
-                stars: 5,
-                parentid: 3
-              },
-              {
-                id: 4,
-                imgUrl: "../../assets/image/hot1.jpg",
-                name: "泰镇米皮",
-                price: 38.00,
-                stars: 5,
-                parentid: 3
-              },
-              {
-                id: 5,
-                imgUrl: "../../assets/image/hot3.jpg",
-                name: "葫芦鸡",
-                price: 38.00,
-                stars: 5,
-                parentid: 3
-              }
-            ]
-          },
-          {
+            imgUrl: "../../assets/image/new2.jpg",
+            name: "台湾卤肉",
+            price: 28.00,
+            stars: 5,
+            parentid: 1
+        },
+        {
             id: 3,
-            parentid: 4,
-            parentname: "肉夹馍",
-            data: [
-              {
-                id: 1,
-                imgUrl: "../../assets/image/rjm1.jpg",
-                name: "菜夹馍",
-                price: 10.00,
-                stars: 5,
-                parentid: 4
-              },
-              {
-                id: 2,
-                imgUrl: "../../assets/image/rjm2.jpg",
-                name: "纯瘦肉夹馍",
-                price: 15.00,
-                stars: 5,
-                parentid: 4
-              }
-            ]
-          },
-          {
+            imgUrl: "../../assets/image/new3.jpg",
+            name: "梅菜扣肉",
+            price: 28.00,
+            stars: 5,
+            parentid: 1
+        },
+        {
             id: 4,
-            parentid: 5,
-            parentname: "精品凉菜",
-            data: [
-              {
-                id: 1,
-                imgUrl: "../../assets/image/hot4.jpg",
-                name: "涮豆腐皮",
-                price: 16.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 2,
-                imgUrl: "../../assets/image/lc1.jpg",
-                name: "涮土豆片",
-                price: 16.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 3,
-                imgUrl: "../../assets/image/lc2.jpg",
-                name: "拍黄瓜",
-                price: 8.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 4,
-                imgUrl: "../../assets/image/lc3.jpg",
-                name: "老醋花生",
-                price: 8.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 5,
-                imgUrl: "../../assets/image/lc4.jpg",
-                name: "农家浆水菜",
-                price: 8.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 6,
-                imgUrl: "../../assets/image/lc5.jpg",
-                name: "凉拌小木耳",
-                price: 8.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 7,
-                imgUrl: "../../assets/image/lc6.jpg",
-                name: "酱香萝卜",
-                price: 8.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 8,
-                imgUrl: "../../assets/image/lc7.jpg",
-                name: "酸辣蕨根粉",
-                price: 12.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 9,
-                imgUrl: "../../assets/image/lc8.jpg",
-                name: "桂花糖藕",
-                price: 12.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 10,
-                imgUrl: "../../assets/image/lc9.jpg",
-                name: "老陕皮冻",
-                price: 12.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 11,
-                imgUrl: "../../assets/image/lc10.jpg",
-                name: "糖醋小排",
-                price: 19.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 12,
-                imgUrl: "../../assets/image/lc11.jpg",
-                name: "炝牛肚",
-                price: 22.00,
-                stars: 5,
-                parentid: 5
-              },
-              {
-                id: 13,
-                imgUrl: "../../assets/image/lc12.jpg",
-                name: "手掰大块牛肉",
-                price: 26.00,
-                stars: 5,
-                parentid: 5
-              }
-            ]
-          },
-        ],
+            imgUrl: "../../assets/image/new4.jpg",
+            name: "红烧排骨",
+            price: 28.00,
+            stars: 5,
+            parentid: 1
+        },
+
+        {
+            id: 5,
+            imgUrl: "../../assets/image/new5.jpg",
+            name: "土豆牛肉",
+            price: 28.00,
+            stars: 5,
+            parentid: 1
+        },
+        {
+            id: 6,
+            imgUrl: "../../assets/image/zhao1.jpg",
+            name: "炭火烧肉饭(烧烤味)",
+            price: 24.00,
+            stars: 5,
+            parentid: 2
+        },
+        {
+            id: 7,
+            imgUrl: "../../assets/image/zhao2.jpg",
+            name: "炭火烧肉饭(番茄味)",
+            price: 24.00,
+            stars: 5,
+            parentid: 2
+        },
+        {
+            id: 8,
+            imgUrl: "../../assets/image/zhao3.jpg",
+            name: "炭火烧肉饭(黑胡椒)",
+            price: 24.00,
+            stars: 5,
+            parentid: 2
+        },
+        {
+            id: 9,
+            imgUrl: "../../assets/image/zhao4.jpg",
+            name: "炭火烧肉饭(甜辣味)",
+            price: 24.00,
+            stars: 5,
+            parentid: 2
+        },
+        {
+            id: 10,
+            imgUrl: "../../assets/image/niu1.jpg",
+            name: "炭烧牛肉饭(甜辣味)",
+            price: 28.00,
+            stars: 5,
+            parentid: 3
+        },
+
+        {
+            id: 11,
+            imgUrl: "../../assets/image/niu2.jpg",
+            name: "炭烧牛肉饭(黑椒味)",
+            price: 28.00,
+            stars: 5,
+            parentid: 3
+        },
+
+        {
+            id: 12,
+            imgUrl: "../../assets/image/niu3.jpg",
+            name: "炭烧牛肉饭(番茄味)",
+            price: 28.00,
+            stars: 5,
+            parentid: 3
+        },
+        {
+            id: 13,
+            imgUrl: "../../assets/image/niu4.jpg",
+            name: "炭烧牛肉饭(烧烤味)",
+            price: 28.00,
+            stars: 5,
+            parentid: 3
+        },
+        {
+            id: 14,
+            imgUrl: "../../assets/image/pei1.jpg",
+            name: "炭烧培根饭(甜辣味)",
+            price: 24.00,
+            stars: 5,
+            parentid: 4
+        },
+        {
+            id: 15,
+            imgUrl: "../../assets/image/pei2.jpg",
+            name: "炭烧培根饭(黑椒味)",
+            price: 24.00,
+            stars: 5,
+            parentid: 4
+        },
+        {
+            id: 16,
+            imgUrl: "../../assets/image/pei3.jpg",
+            name: "炭烧培根饭(番茄味)",
+            price: 24.00,
+            stars: 5,
+            parentid: 4
+        },
+        {
+            id: 17,
+            imgUrl: "../../assets/image/pei4.jpg",
+            name: "炭烧培根饭(烧烤味)",
+            price: 24.00,
+            stars: 5,
+            parentid: 4
+        },
+        {
+            id: 18,
+            imgUrl: "../../assets/image/zhu1.jpg",
+            name: "炭烧猪扒饭(烧烤味)",
+            price: 26.00,
+            stars: 5,
+            parentid: 5
+        },
+        {
+            id: 19,
+            imgUrl: "../../assets/image/zhu2.jpg",
+            name: "炭烧猪扒饭(番茄味)",
+            price: 26.00,
+            stars: 5,
+            parentid: 5
+        },
+        {
+            id: 20,
+            imgUrl: "../../assets/image/zhu3.jpg",
+            name: "炭烧猪扒饭(黑椒味)",
+            price: 26.00,
+            stars: 5,
+            parentid: 5
+        },
+        {
+            id: 21,
+            imgUrl: "../../assets/image/zhu4.jpg",
+            name: "炭烧猪扒饭(甜辣味)",
+            price: 26.00,
+            stars: 5,
+            parentid: 5
+        },
+        {
+            id: 22,
+            imgUrl: "../../assets/image/li1.jpg",
+            name: "炭烧里脊肉饭(番茄味)",
+            price: 26.00,
+            stars: 5,
+            parentid: 6
+        },
+        {
+            id: 23,
+            imgUrl: "../../assets/image/li2.jpg",
+            name: "炭烧里脊肉饭(黑椒味)",
+            price: 26.00,
+            stars: 5,
+            parentid: 6
+        },
+        {
+            id: 24,
+            imgUrl: "../../assets/image/li3.jpg",
+            name: "炭烧里脊肉饭(烧烤味)",
+            price: 26.00,
+            stars: 5,
+            parentid: 6
+        },
+        {
+            id: 25,
+            imgUrl: "../../assets/image/li4.jpg",
+            name: "炭烧里脊肉饭(甜辣味)",
+            price: 26.00,
+            stars: 5,
+            parentid: 6
+        },
+        {
+            id: 26,
+            imgUrl: "../../assets/image/xiao1.jpg",
+            name: "意式炭烤培根/片",
+            price: 5.00,
+            stars: 5,
+            parentid: 7
+        },
+        {
+            id: 27,
+            imgUrl: "../../assets/image/xiao2.jpg",
+            name: "台湾烤肠/根",
+            price: 3.00,
+            stars: 5,
+            parentid: 7
+        },
+        {
+            id: 28,
+            imgUrl: "../../assets/image/tang1.jpg",
+            name: "西红柿蛋花汤",
+            price: 3.00,
+            stars: 5,
+            parentid: 8
+        },
+        {
+            id: 29,
+            imgUrl: "../../assets/image/tang2.jpg",
+            name: "波菜蛋花汤",
+            price: 3.00,
+            stars: 5,
+            parentid: 8
+        },
+        {
+            id: 30,
+            imgUrl: "../../assets/image/tang3.jpg",
+            name: "紫菜蛋花汤",
+            price: 3.00,
+            stars: 5,
+            parentid: 8
+        },
+        {
+            id: 31,
+            imgUrl: "../../assets/image/tang4.jpg",
+            name: "绿豆粥（冰）",
+            price: 4.00,
+            stars: 5,
+            parentid: 8
+        },
+        {
+            id: 32,
+            imgUrl: "../../assets/image/tang5.jpg",
+            name: "绿豆粥",
+            price: 4.00,
+            stars: 5,
+            parentid: 8
+        },
+        {
+            id: 33,
+            imgUrl: "../../assets/image/tang6.jpg",
+            name: "红枣银耳羹",
+            price: 5.00,
+            stars: 5,
+            parentid: 8
+        },
+        {
+            id: 34,
+            imgUrl: "../../assets/image/tang7.jpg",
+            name: "皮蛋粥",
+            price: 5.00,
+            stars: 5,
+            parentid: 8
+        },
+        {
+            id: 35,
+            imgUrl: "../../assets/image/tang8.jpg",
+            name: "红豆粥",
+            price: 4.00,
+            stars: 5,
+            parentid: 8
+        },
+        {
+            id: 36,
+            imgUrl: "../../assets/image/tang9.jpg",
+            name: "白米粥",
+            price: 4.00,
+            stars: 5,
+            parentid: 8
+        },
+        {
+            id: 37,
+            imgUrl: "../../assets/image/huo1.jpg",
+            name: "炭火烧肉饭(4选1)",
+            price: 24.00,
+            stars: 5,
+            parentid: 9
+        },
+        {
+            id: 38,
+            imgUrl: "../../assets/image/huo2.jpg",
+            name: "炭火烧肉饭套餐(4选1)",
+            price: 28.00,
+            stars: 5,
+            parentid: 9
+        },
+        {
+            id: 39,
+            imgUrl: "../../assets/image/huo3.jpg",
+            name: "炭烧猪扒饭(4选1)",
+            price: 26.00,
+            stars: 5,
+            parentid: 9
+        },
+        {
+            id: 40,
+            imgUrl: "../../assets/image/huo4.jpg",
+            name: "炭烧牛肉饭(4选1)",
+            price: 28.00,
+            stars: 5,
+            parentid: 9
+        },
+        {
+            id: 41,
+            imgUrl: "../../assets/image/huo5.jpg",
+            name: "炭烧里脊肉饭(4选1)",
+            price: 26.00,
+            stars: 5,
+            parentid: 9
+        },
+        {
+            id: 42,
+            imgUrl: "../../assets/image/huo6.jpg",
+            name: "炭烧培根饭(4选1)",
+            price: 24.00,
+            stars: 5,
+            parentid: 9
+        },
+        {
+            id: 43,
+            imgUrl: "../../assets/image/mi1.jpg",
+            name: "米饭",
+            price: 2.00,
+            stars: 5,
+            parentid: 10
+        },
+        {
+            id: 44,
+            imgUrl: "../../assets/image/mi2.jpg",
+            name: "白米稀饭",
+            price: 2.00,
+            stars: 5,
+            parentid: 10
+        },
+        {
+            id: 45,
+            imgUrl: "../../assets/image/yin1.jpg",
+            name: "香浓奶茶(冰)",
+            price: 2.00,
+            stars: 5,
+            parentid: 11
+        },
+        {
+            id: 46,
+            imgUrl: "../../assets/image/yin2.jpg",
+            name: "香浓豆奶(冰)",
+            price: 2.00,
+            stars: 5,
+            parentid: 11
+        },
+        {
+            id: 47,
+            imgUrl: "../../assets/image/yin3.jpg",
+            name: "柠檬茶(冰)",
+            price: 2.00,
+            stars: 5,
+            parentid: 11
+        }
+        ],//商品列表
         foodList: [],//真实二级分类
-        cartList:[],//购物车商品列表
+        cartList: [],//购物车商品列表
         record: 0,  //记录数
         showMore: false, //显示更多的按钮
-        fixCateBar:false,//是否固定分类导航到顶部
-        totalPrice:0,//用户选中的商品总价格
-        totalNum:0,//用户选中的商品总数量
-        showCart:false,//是否弹出购物车
-        isFull:false,//购物车是否显示超过6条数据
-        cartAnimation:{}
+        fixCateBar: false,//是否固定分类导航到顶部
+        totalPrice: 0,//用户选中的商品总价格
+        totalNum: 0,//用户选中的商品总数量
+        showCart: false,//是否弹出购物车
+        isFull: false,//购物车是否显示超过6条数据
+        cartAnimation: {}
     },
     rowIndex: 0, //显示食物的行数,每行四
-    mark:0,//tap的坐标 x或y
-    newMark:0,//移动后的坐标 x或y
+    mark: 0,//tap的坐标 x或y
+    newMark: 0,//移动后的坐标 x或y
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.listData();
-        var o = util.clearAll(this.data.foodDetailAll[0].data, "num", 0);
+        // this.listData();//初始二级分类
+        var arr = [];
+        var fa = this.data.foodDetailAll;
+        for (var i = 0; i < fa.length;i++){
+            if (fa[i].parentid === 1){
+                arr.push(fa[i]);
+            }
+        }
+        var o = util.clearAll(arr, "num", 0);
         this.setData({
-            foodDetail:o,
+            foodDetail: o,
         })
     },
     //全部显示
@@ -314,31 +455,24 @@ Page({
     },
     //选择分类
     chooseCate: function (e) {
-        // var d = [
-        //     { id: 0, name: "番茄汤", price: 168, forPerson: 3, parentCateId: 0 },
-        //     { id: 1, name: "紫菜汤", price: 268, forPerson: 5, parentCateId: 0 },
-        //     { id: 2, name: "皮蛋汤", price: 368, forPerson: 7, parentCateId: 0 },
-        //     { id: 3, name: "蛋花汤", price: 468, forPerson: 10, parentCateId: 0 },
-        //     { id: 4, name: "搜肉汤", price: 568, forPerson: 14, parentCateId: 0 },
-        //     { id: 5, name: "水果汤", price: 568, forPerson: 14, parentCateId: 0 },
-        //     { id: 6, name: "套餐E", price: 568, forPerson: 14, parentCateId: 0 },
-        //     { id: 7, name: "套餐E", price: 568, forPerson: 14, parentCateId: 0 },
-        //     { id: 8, name: "套餐E", price: 568, forPerson: 14, parentCateId: 0 },
-        //     { id: 9, name: "套餐E", price: 568, forPerson: 14, parentCateId: 0 },
-        //     { id: 10, name: "套餐E", price: 568, forPerson: 14, parentCateId: 0 }
-        // ];
-      var i = this.findIndex(this.data.cateList, "id", e.currentTarget.dataset.id);
-        var newCate = util.clearAll(this.data.cateList,"isChecked", false);
-        newCate[i].isChecked = true;
-        var cateid = e.currentTarget.dataset.cateid;
-        var fooddetail = util.findchild(this.data.foodDetailAll, "parentid", cateid).data;
-        fooddetail = util.clearAll(fooddetail, "num", 0);
+
+        var cate = e.currentTarget.dataset.obj;//选中的分类对象
+        var origincatelist = this.data.cateList//原始分类的对象数组
+
+        var catelist = util.clearAll(origincatelist,"isChecked",false);
+        //选中当前分类
+        var newcatelist = util.findObj(catelist, cate.id, "id", "isChecked", true);
+
+        var fooddetailall = this.data.foodDetailAll;
+        //选出属于选中分类下的商品
+        var newfooddetail = util.findchild(fooddetailall, "parentid", cate.cateId);
+
+        //更新数据
         this.setData({
-            // allFoodList:d,
-            cateList: newCate,
-            foodDetail: fooddetail
+            cateList:newcatelist,
+            foodDetail: newfooddetail
         })
-        this.listData();
+        // this.listData();//显示二级分类
     },
     //选择食物
     choose: function (e) {
@@ -377,28 +511,28 @@ Page({
         // }
     },
     //点击领取优惠券
-    getHb:function(){
+    getHb: function () {
         wx.navigateTo({
             url: '../coupon/coupon'
         })
     },
     //减少数量
-    minus:function(e){
+    minus: function (e) {
         var that = this;
-        var newArr = [];
         var f = false;
-        var index =that.findIndex(that.data.foodDetail,"id",e.target.dataset.id);
+        var index = that.findIndex(that.data.foodDetail, "id", e.target.dataset.id);
         var newObj = that.data.foodDetail;
+        var newArr = that.data.cartList;
         if (newObj[index].num > 0) {
             newObj[index].num--;
-            for (var i = 0; i < that.data.foodDetail.length; i++) {
-                if (that.data.foodDetail[i].num > 0) {
-                    newArr.push(that.data.foodDetail[i]);
+            for (var i = 0; i < newArr.length; i++) {
+                if (newArr[i].id === newObj[index].id && newArr[i].parentid === newObj[index].parentid && newArr[i].num > 0) {
+                    newArr[i].num -= 1;
                 }
             }
-            if(newArr.length == 0){
+            if (newArr.length == 0) {
                 that.setData({
-                    showCart:false
+                    showCart: false
                 })
                 this.hideCartAnimation();
             }
@@ -406,98 +540,114 @@ Page({
             that.setData({
                 foodDetail: newObj,
                 cartList: newArr,
-                isFull: f
+                isFull: f,
+                totalNum: that.data.totalNum - 1
             });
-            that.countAll(newObj);
+            that.countAll(newArr);
         }
     },
     //添加数量
-    plus:function(e){
-        var that = this;
-        var newArr = [];
-        var f = false;
-        var index = that.findIndex(that.data.foodDetail, "id", e.currentTarget.dataset.id);
-        var newObj = that.data.foodDetail;
-        newObj[index].num++;
-        console.log(newObj)
-        for (var i = 0; i < that.data.foodDetail.length; i++) {
-            if (that.data.foodDetail[i].num > 0) {
-                newArr.push(that.data.foodDetail[i]);
-            }
+    plus: function (e) {
+
+        var isfull = false;//购物车商品数量不满7个(控制购物车高度)
+        var currentproduct = e.currentTarget.dataset.obj;//当前商品
+
+        var originfooddetail = this.data.foodDetail;
+        //当前商品数量增加
+        var newfooddetail = util.plus(originfooddetail, "id", currentproduct.id, "num");
+
+        var origincartlist = this.data.cartList;
+        //购物车中该商品数量增加 或 新增该商品
+        if (origincartlist.length > 0){
+            origincartlist.forEach(function(ele,i){
+                if (ele.id === currentproduct.id){
+                    ele.num += 1;
+                }
+                if (i === origincartlist.length - 1){
+                    origincartlist.push(ele);
+                }
+            });
+        }else{
+            currentproduct.num += 1;
+            origincartlist.push(currentproduct);
         }
-        newArr.length > 7 ? f=true : f=false;
-        that.setData({
-            foodDetail:newObj,
-            cartList: newArr,
-            isFull:f
-        });
-        that.countAll(newObj);
+        console.log(origincartlist);
+        this.setData({
+            foodDetail: newfooddetail,
+            cartList:origincartlist
+        })
+        // this.countAll(newArr);
     },
     //商品数量变化时统计总数据并更新
-    countAll:function(obj){
-        var totalPrice=0;
-        var totalNum = 0;
-        for (var i = 0; i < obj.length;i++){
+    countAll: function (obj) {
+
+        var totalPrice = 0;
+        var totalnum = 0;
+
+        //计算总数量和总价格
+        for (var i = 0; i < obj.length; i++) {
             totalPrice += (obj[i].price * obj[i].num);
-            totalNum += obj[i].num;
+            totalnum += obj[i].num;
         }
+
+        //更新数据
         this.setData({
-            totalPrice: totalPrice.toFixed(2)-0,
-            totalNum: totalNum
+            totalPrice: totalPrice.toFixed(2) - 0,
+            totalNum: totalnum
         })
     },
     //监听滚动
-    scroll:function(e){
+    scroll: function (e) {
         //页面向下移动
-        if (e.detail.deltaY<0){
-            if (e.detail.scrollTop >= 143){
+        if (e.detail.deltaY < 0) {
+            if (e.detail.scrollTop >= 143) {
                 this.setData({
-                    fixCateBar:true
+                    fixCateBar: true
                 })
             }
         }
         //页面向上移动
-        if (e.detail.deltaY>0){
+        if (e.detail.deltaY > 0) {
             if (e.detail.scrollTop <= 143) {
                 this.setData({
-                    fixCateBar:false
+                    fixCateBar: false
                 })
             }
         }
     },
     //匹配索引并返回
-    findIndex:function(obj,attr,val){
+    findIndex: function (obj, attr, val) {
         var newObj = obj;
-        for(var i=0;i<newObj.length;i++){
-            if(obj[i][attr] === val){
+        for (var i = 0; i < newObj.length; i++) {
+            if (obj[i][attr] === val) {
                 return i;
             }
-            if(i == obj.length -1){
+            if (i == obj.length - 1) {
                 return -1;
             }
         }
     },
     //商家信息
-    goShopInfo:function(){
+    goShopInfo: function () {
         wx.navigateTo({
             url: '../shop/shop'
         })
     },
     //本桌信息、其他桌点菜信息
-    gotoOwndesk:function(){
+    gotoOwndesk: function () {
         wx.navigateTo({
             url: '../owndesk/owndesk'
         })
     },
     //购物车信息
-    showCart:function(){
+    showCart: function () {
         var that = this;
-        if (that.data.showCart === true){
+        if (that.data.showCart === true) {
             that.setData({
                 showCart: false
             })
             that.hideCartAnimation();
-        }else{
+        } else {
             if (that.data.totalNum > 0) {
                 that.setData({
                     showCart: true
@@ -507,7 +657,7 @@ Page({
         }
     },
     //弹出购物车动画
-    showCartAnimation:function(){
+    showCartAnimation: function () {
         var showAnimation = wx.createAnimation({
             duration: 400,
             timingFunction: "ease",
@@ -519,7 +669,7 @@ Page({
         })
     },
     //隐藏购物车动画
-    hideCartAnimation:function(){
+    hideCartAnimation: function () {
         var hideAnimation = wx.createAnimation({
             duration: 400,
             timingFunction: "ease",
@@ -531,7 +681,7 @@ Page({
         })
     },
     //清空购物车
-    clearCart:function(){
+    clearCart: function () {
         var that = this;
         var newObj = that.data.foodDetail;
         wx.showModal({
@@ -555,8 +705,8 @@ Page({
         })
     },
     //关闭购物车信息
-    closeCart:function(){
-        if(this.data.showCart === true){
+    closeCart: function () {
+        if (this.data.showCart === true) {
             this.setData({
                 showCart: false
             })
@@ -564,17 +714,29 @@ Page({
         }
     },
     //去结算
-    gotoConfirmOrder:function(){
+    gotoConfirmOrder: function () {
         var that = this;
-        if (this.data.totalPrice > 0){
-            wx.setStorage({
-                key: "shopCart",
-                data: that.data.cartList
-            })
+        if (this.data.totalPrice > 0) {
+            var cartlist = that.data.cartList;
+            var totalprice = 0;
+            cartlist.forEach(function (obj) {
+                totalprice += obj.price * obj.num;
+            });
+            var shopcart = {
+                totalprice: totalprice,
+                totalnum: this.data.totalnum,
+                products: cartlist
+            };
+            //同步存入缓存
+            try {
+                wx.setStorageSync('shopCart', shopcart);
+            } catch (e) {
+                console.log(e);
+            }
             wx.navigateTo({
                 url: '../confirmOrder/confirmOrder'
             })
-        }else{
+        } else {
             return;
         }
     }

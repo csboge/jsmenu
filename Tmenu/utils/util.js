@@ -23,7 +23,7 @@ function formatNumber(n) {
  * @params cattrName(需要修改的属性名，String)
  * @params cval(需要修改后的值，any)
  * @return 返回修改后的数组
- */
+ */findObj
 function findObj(obj, id, attrName, cattrName, cval) {
     var newObj = obj;
     for (var i = 0; i < newObj.length; i++) {
@@ -118,22 +118,37 @@ function getAddress(la,lo,name,add) {
 }
 /*
  *@des 根据一级分类找子类
- * @params arr(需要找的数组)
- * @params attr(需要找的属性)
- * @params val(需要找的属性值)
- * @return 返回找到的子类对象
+ * @params arr(需要找的子类数组)
+ * @params attr(需要找的子类属性)
+ * @params val(需要找的与子类匹配的父类的属性的值)
+ * @return 返回找到的子类数组
  * 
  */ 
 function findchild(arr,attr,val){
-  var obj = {};
-  arr.forEach(function(ele,i,arr){
+  var arrary = [];
+  arr.forEach(function(ele){
     if(ele[attr] === val){
-      obj = ele;
+        arrary.push(ele);
     }
   });
-  return obj;
+  return arrary;
 }
-
+/*
+ *@des 从数组中找到相应对象的相应属性增加值并返回数组
+ * @params arr(需要找的数组)
+ * @params findattr(需要找的属性)
+ * @params findval(需要找的属性的值)
+ * @params plusattr(需要增加数量的属性)
+ * @return 返回增加数量后的整个数组
+ */
+function plus(arr,findattr,findval,plusattr){
+    arr.forEach(function(ele){
+        if(ele[findattr] === findval){
+            ele[plusattr] += 1;
+        }
+    });
+    return arr;
+} 
 module.exports = {
     formatTime: formatTime,
     findObj: findObj,
@@ -142,5 +157,6 @@ module.exports = {
     moveY: moveY,
     getStorage:getStorage,
     getAddress:getAddress,
-    findchild: findchild
+    findchild: findchild,
+    plus: plus
 }

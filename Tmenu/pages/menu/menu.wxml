@@ -39,7 +39,7 @@
             <view class="food-cate">
                 <view class="food-cate-box {{fixCateBar?'fix-cate-bar':''}}">
                     <scroll-view scroll-x class="food-cate-scroll">
-                        <view class="cate-name txt-mid {{item.isChecked?'txt-green':''}}  txt-title {{item.isChecked?'title-bold':''}}" data-id="{{item.id}}" data-cateid="{{item.cateId}}" wx:for="{{cateList}}" wx:key="id" bindtap="chooseCate">
+                        <view class="cate-name txt-mid {{item.isChecked?'txt-green':''}}  txt-title {{item.isChecked?'title-bold':''}}" data-obj="{{item}}" wx:for="{{cateList}}" wx:key="id" bindtap="chooseCate">
                             {{item.name}}
                             <view class="cate-arrow" style="display:{{item.isChecked?'block':'none'}}"></view>
                         </view>
@@ -81,7 +81,7 @@
                         <view class="food-detail-num">
                             <view data-id="{{item.id}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus">-</view>
                             <view class="food-detail-number" style="visibility:{{item.num>0?'visible':'hidden'}}">{{item.num}}</view>
-                            <view data-id="{{item.id}}" class="count-img plus-img" bindtap="plus">+</view>
+                            <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus">+</view>
                         </view>
                     </view>
                 </view>
@@ -126,7 +126,7 @@
                             </view>
                             <view class="detail-number">{{item.num}}</view>
                             <view class="plus-num">
-                                <view class="x-y-center-plus" data-id="{{item.id}}" bindtap="plus">+</view>
+                                <view class="x-y-center-plus" data-i="{{index}}" data-id="{{item.id}}" bindtap="plus">+</view>
                             </view>
                         </view>
                     </view>

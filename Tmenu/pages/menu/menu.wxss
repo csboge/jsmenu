@@ -70,7 +70,6 @@
 
 .page-head-detail {
     position: relative;
-    right: 14rpx;
     height: 116rpx;
     display: flex;
     flex-direction: column;
@@ -357,7 +356,7 @@ swiper-item {
 
 .food-detail-num-box {
     position: absolute;
-    right: 26rpx;
+    right: 34rpx;
     bottom: 50rpx;
     width: 160rpx;
     height: 44rpx;
@@ -606,7 +605,7 @@ swiper-item {
 }
 
 .detail-title {
-    margin-left: 26rpx;
+    margin-left: 34rpx;
     font-size: 28rpx;
     font-weight: bold;
     color: #4d4d4d;
@@ -616,7 +615,7 @@ swiper-item {
     display: flex;
     justify-content: space-between;
     position: relative;
-    left: -266rpx;
+    width: 45%;
 }
 
 .detail-num-box {
@@ -650,6 +649,7 @@ swiper-item {
 }
 
 .minus-num {
+    position: relative;
     width: 46rpx;
     height: 46rpx;
     border-radius: 50%;

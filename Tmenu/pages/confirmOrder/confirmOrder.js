@@ -163,68 +163,69 @@ Page({
                 wx.login({//登录获取用户code
                     success: function (res) {
                         console.log(res)
-                        // if (res.code) {
-                        //     //发起请求获得openid
-                        //     wx.request({
-                        //         url: 'https://api.ai-life.me/api/Member/login/',
-                        //         method: "POST",
-                        //         data: {
-                        //             jscode: res.code,
-                        //             userinfo: JSON.stringify(data.userInfo)
-                        //         },
-                        //         success: function (res) {
-                        //             console.log(res.data.data.access_token);
-                        //             try {
-                        //                 wx.setStorageSync('access_token', res.data.data.access_token);
-                        //             } catch (e) {
-                        //                 throw new Error("access_token 存储失败");
-                        //             }
-                        //             //拉取购物车商品信息生成订单
-                        //             wx.getStorage({
-                        //                 key: 'shopCart',
-                        //                 success: function (res) {
-                        //                     console.log(res.data)
-                        //                     try {
-                        //                         var access_token = wx.getStorageSync('access_token');
-                        //                     } catch (e) {
-                        //                         throw new Error("access_token 存储失败");
-                        //                     }
-                        //                     wx.request({
-                        //                         url: 'https://api.ai-life.me//api/Buy/submitOrder',
-                        //                         data: {
-                        //                             total:0.01,
-                        //                             access_token: access_token
-                        //                         },
-                        //                         method: 'POST',
-                        //                         success: function(res) {
-                        //                             console.log(res);
-                        //                             wx.requestPayment({
-                        //                                 'timeStamp': res.data.data.timeStamp + "",
-                        //                                 'nonceStr': res.data.data.nonceStr,
-                        //                                 'package': res.data.data.package,
-                        //                                 'signType': 'MD5',
-                        //                                 'paySign': res.data.data.paySign,
-                        //                                 'success': function (res) {
-                        //                                     console.log("支付成功")
-                        //                                     wx.navigateTo({
-                        //                                         url: '../finishOrder/finishOrder?id=1'
-                        //                                     })
-                        //                                 },
-                        //                                 'fail': function (res) {
-                        //                                 }
-                        //                             })
-                        //                         }
-                        //                     })
-                        //                 },
-                        //                 fail: function(res){
-                        //                     console.log("拉取购物车信息失败")
-                        //                 }
-                        //             })
-                        //         }
-                        //     })
-                        // } else {
-                        //     console.log('获取用户登录态失败！' + res.errMsg)
-                        // }
+                        if (res.code) {
+                            //发起请求获得openid
+                            wx.request({
+                                url: 'https://api.ai-life.me/api/Member/login/',
+                                method: "POST",
+                                data: {
+                                    jscode: res.code,
+                                    userinfo: JSON.stringify(data.userInfo)
+                                        // grd: app.globalData.system_version
+                                },
+                                success: function (res) {
+                                    console.log(res.data.data.access_token);
+                                    try {
+                                        wx.setStorageSync('access_token', res.data.data.access_token);
+                                    } catch (e) {
+                                        throw new Error("access_token 存储失败");
+                                    }
+                                    //拉取购物车商品信息生成订单
+                                    wx.getStorage({
+                                        key: 'shopCart',
+                                        success: function (res) {
+                                            console.log(res.data)
+                                            try {
+                                                var access_token = wx.getStorageSync('access_token');
+                                            } catch (e) {
+                                                throw new Error("access_token 存储失败");
+                                            }
+                                            wx.request({
+                                                url: 'https://api.ai-life.me//api/Buy/submitOrder',
+                                                data: {
+                                                    total:0.01,
+                                                    access_token: access_token
+                                                },
+                                                method: 'POST',
+                                                success: function(res) {
+                                                    console.log(res);
+                                                    wx.requestPayment({
+                                                        'timeStamp': res.data.data.timeStamp + "",
+                                                        'nonceStr': res.data.data.nonceStr,
+                                                        'package': res.data.data.package,
+                                                        'signType': 'MD5',
+                                                        'paySign': res.data.data.paySign,
+                                                        'success': function (res) {
+                                                            console.log("支付成功")
+                                                            wx.navigateTo({
+                                                                url: '../finishOrder/finishOrder?id=1'
+                                                            })
+                                                        },
+                                                        'fail': function (res) {
+                                                        }
+                                                    })
+                                                }
+                                            })
+                                        },
+                                        fail: function(res){
+                                            console.log("拉取购物车信息失败")
+                                        }
+                                    })
+                                }
+                            })
+                        } else {
+                            console.log('获取用户登录态失败！' + res.errMsg)
+                        }
                     }
                 });
             }

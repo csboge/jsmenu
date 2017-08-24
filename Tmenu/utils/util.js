@@ -1,19 +1,19 @@
 function formatTime(date) {
-    var year = date.getFullYear()
-    var month = date.getMonth() + 1
-    var day = date.getDate()
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
 
-    var hour = date.getHours()
-    var minute = date.getMinutes()
-    var second = date.getSeconds()
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
 
 
-    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
 function formatNumber(n) {
-    n = n.toString()
-    return n[1] ? n : '0' + n
+  n = n.toString()
+  return n[1] ? n : '0' + n
 }
 /*
  *@description 根据id找到对象改变相应属性值并返回新的对象
@@ -25,16 +25,16 @@ function formatNumber(n) {
  * @return 返回修改后的数组
  */findObj
 function findObj(obj, id, attrName, cattrName, cval) {
-    var newObj = obj;
-    for (var i = 0; i < newObj.length; i++) {
-        if (newObj[i][attrName] === id) {
-            newObj[i][cattrName] = cval;
-            return newObj;
-        }
-        if (i == newObj.length - 1) {
-            return -1;
-        }
+  var newObj = obj;
+  for (var i = 0; i < newObj.length; i++) {
+    if (newObj[i][attrName] === id) {
+      newObj[i][cattrName] = cval;
+      return newObj;
     }
+    if (i == newObj.length - 1) {
+      return -1;
+    }
+  }
 }
 /*
  *@description 将数组中指定的所有对象的某个键统一赋值
@@ -42,79 +42,79 @@ function findObj(obj, id, attrName, cattrName, cval) {
  * @params  attr(指定的键key,String)
  * @params  val(需要统一赋的值,any)
  * @return 返回修改后的数组
- */ 
+ */
 function clearAll(obj, attr, val) {
-    var newObj = obj;
-    for (var i = 0; i < newObj.length; i++) {
-        newObj[i][attr] = val;
-    }
-    return newObj;
+  var newObj = obj;
+  for (var i = 0; i < newObj.length; i++) {
+    newObj[i][attr] = val;
+  }
+  return newObj;
 }
 /*
  * @description 判断左右滑动
  * @params  mark(手指按下时的坐标,Number)
  * @params  newMark(手指滑动结束时的坐标,Number)
  * @return 返回滑动方向标识字符串
- */ 
+ */
 function moveX(mark, newMark) {
-    /*
-     * 手指从左向右移动 
-     * @newmark是指移动的最新点的x轴坐标 ， @mark是指原点x轴坐标 
-     */
-    if (mark < newMark) {
-        return "toRight";
-    }
-    /* 
-     * 手指从右向左移动 
-     * @newmark是指移动的最新点的x轴坐标 ， @mark是指原点x轴坐标 
-     */
-    if (mark > newMark) {
-        return "toLeft";
-    }
+  /*
+   * 手指从左向右移动 
+   * @newmark是指移动的最新点的x轴坐标 ， @mark是指原点x轴坐标 
+   */
+  if (mark < newMark) {
+    return "toRight";
+  }
+  /* 
+   * 手指从右向左移动 
+   * @newmark是指移动的最新点的x轴坐标 ， @mark是指原点x轴坐标 
+   */
+  if (mark > newMark) {
+    return "toLeft";
+  }
 }
 //判断上下滑动
 function moveY() {
-    /*
-    * 手指从上到下移动 
-    * @newmark是指移动的最新点的x轴坐标 ， @mark是指原点x轴坐标 
-    */
-    if (mark < newMark) {
-        return "toDown";
-    }
-    /* 
-     * 手指从下到上移动 
-     * @newmark是指移动的最新点的x轴坐标 ， @mark是指原点x轴坐标 
-     */
-    if (mark > newMark) {
-        return "toUp";
-    }
+  /*
+  * 手指从上到下移动 
+  * @newmark是指移动的最新点的x轴坐标 ， @mark是指原点x轴坐标 
+  */
+  if (mark < newMark) {
+    return "toDown";
+  }
+  /* 
+   * 手指从下到上移动 
+   * @newmark是指移动的最新点的x轴坐标 ， @mark是指原点x轴坐标 
+   */
+  if (mark > newMark) {
+    return "toUp";
+  }
 }
 /*
  * @descirption 从本地缓存取数据
  * @params  key(要取的值的key,String)
  * @params  fn(回调函数,Function)
  */
-function getStorage(key,fn){
-    wx.getStorage({
-        key: key,
-        success: function (res) {
-            fn(res.data);
-        }
-    });
+function getStorage(key, fn) {
+  wx.getStorage({
+    key: key,
+    success: function (res) {
+      fn(res.data);
+    }
+  });
 }
 /*
  *@description 打开地图查看位置
  * @params la(纬度值,Number)
  * @params lo(经度值,Number)
  */
-function getAddress(la,lo,name,add) {
-    wx.openLocation({
-        latitude: la,
-        longitude: lo,
-        scale: 28,
-        name: name,
-        address: add
-    })
+function getAddress(la, lo, name, add) {
+  wx.openLocation({
+    latitude: la,
+    longitude: lo,
+    scale: 28,
+    name: name,
+    address: add
+  })
 }
 /*
  *@des 根据一级分类找子类
@@ -123,40 +123,115 @@ function getAddress(la,lo,name,add) {
  * @params val(需要找的与子类匹配的父类的属性的值)
  * @return 返回找到的子类数组
  * 
- */ 
-function findchild(arr,attr,val){
+ */
+function findchild(arr, attr, val) {
   var arrary = [];
-  arr.forEach(function(ele){
-    if(ele[attr] === val){
-        arrary.push(ele);
+  arr.forEach(function (ele) {
+    if (ele[attr] === val) {
+      arrary.push(ele);
     }
   });
   return arrary;
 }
 /*
- *@des 从数组中找到相应对象的相应属性增加值并返回数组
+ *@des 从数组中找到相应商品增加数量并返回数组
  * @params arr(需要找的数组)
- * @params findattr(需要找的属性)
- * @params findval(需要找的属性的值)
- * @params plusattr(需要增加数量的属性)
+ * @params id(需要找的id)
  * @return 返回增加数量后的整个数组
  */
-function plus(arr,findattr,findval,plusattr){
-    arr.forEach(function(ele){
-        if(ele[findattr] === findval){
-            ele[plusattr] += 1;
+function plus(arr, id) {
+  arr.forEach(function (ele) {
+    if (ele.id === id) {
+      ele.num ++;
+    }
+  });
+  return arr;
+}
+/*
+ *@des 从数组中找到相应商品减少数量并返回数组
+ * @params arr(需要找的数组)
+ * @params id(需要找的id)
+ * @return 返回增加数量后的整个数组
+ */
+function minus(arr, id) {
+  arr.forEach(function (ele) {
+    if (ele.id === id) {
+      ele.num --;
+    }
+  });
+  return arr;
+}
+/*
+ *@des 本地购物车增加单个商品
+ * @arr obj(添加的商品信息)
+ */
+function addShopCart(obj) {
+
+  var origin_list = wx.getStorageSync("shopCart");
+  if (origin_list.length > 0) {
+    for (var i = 0; i < origin_list.length; i++) {
+      if (origin_list[i].id === obj.id) {
+        origin_list[i].num++;
+        break;
+      }
+    }
+    if (i === origin_list.length) {
+      obj.num++;
+      origin_list.push(obj);
+    }
+  } else {
+    obj.num++;
+    origin_list.push(obj);
+  }
+  console.log(origin_list)
+  try {
+    wx.setStorageSync("shopCart", origin_list);
+  } catch (e) {
+    throw new Error("本地购物车存储失败");
+  }
+}
+/*
+ *@des 本地购物车减少单个商品
+ * @arr id(移除的商品id)
+ */
+function cutShopCart(id) {
+      var origin_list = wx.getStorageSync("shopCart");
+      origin_list.forEach(function (product,i) {
+        if(product.id === id && product.num > 0){
+          product.num --;
+          if(product.num === 0){
+            origin_list.splice(i,1);
+          }
         }
-    });
-    return arr;
-} 
+      });
+      console.log(origin_list)
+      try {
+        wx.setStorageSync("shopCart", origin_list);
+      } catch (e) {
+        throw new Error("本地购物车存储失败");
+      }
+}
+/*
+ *@des 获取购物车
+ * 
+ */
+function getShopCart() {
+  var shopCart = wx.getStorageSync("shopCart");
+  return shopCart;
+}
+
 module.exports = {
-    formatTime: formatTime,
-    findObj: findObj,
-    clearAll: clearAll,
-    moveX: moveX,
-    moveY: moveY,
-    getStorage:getStorage,
-    getAddress:getAddress,
-    findchild: findchild,
-    plus: plus
+  formatTime: formatTime,
+  findObj: findObj,
+  clearAll: clearAll,
+  moveX: moveX,
+  moveY: moveY,
+  getStorage: getStorage,
+  getAddress: getAddress,
+  findchild: findchild,
+  plus: plus,
+  minus: minus,
+  addShopCart: addShopCart,
+  cutShopCart: cutShopCart,
+  getShopCart: getShopCart
 }

@@ -22,9 +22,22 @@ App({
             })
         }
     },
+    // getParams:function(config){
+
+    //     var json = { 'TOKEN': '', 'grd': this.globalData.system_version};
+
+    //     for(config){
+
+    //         json.kk
+    //     }
+
+    //     return json;
+    // },
     globalData: {
         userInfo: null,
-        order: {}//订单信息
+        order: {},//订单信息,
+        voice_path:[],
+        system_version:'BGmenu-1.0-@)!&*@#'
     },
     //拨打电话
     makeCall: function(phoneNum){

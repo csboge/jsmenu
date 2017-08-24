@@ -67,10 +67,10 @@
                 </scroll-view>
             </view>
             <view class="food-detail-box">
-                <view class="food-detail" wx:for="{{foodDetail}}" wx:key="id">
+                <view class="food-detail" wx:for="{{page_menu}}" wx:key="id">
                     <view class="food-detail-main">
                         <view class="food-detail-img">
-                            <image src="{{item.imgUrl}}" class="detail-img" mode="aspectFit"></image>
+                            <image src="{{item.img_url}}" class="detail-img" mode="aspectFit"></image>
                         </view>
                         <view class="food-detail-des">
                             <view class="food-detail-title txt-title">{{item.name}}</view>
@@ -126,7 +126,7 @@
                             </view>
                             <view class="detail-number">{{item.num}}</view>
                             <view class="plus-num">
-                                <view class="x-y-center-plus" data-i="{{index}}" data-id="{{item.id}}" bindtap="plus">+</view>
+                                <view class="x-y-center-plus" data-obj="{{item}}" bindtap="plus">+</view>
                             </view>
                         </view>
                     </view>

@@ -32,18 +32,18 @@
     <view class="page-foot">
         <view class="hb-info-box">
             <view class="hb-info">共10.00元,领取0/3个</view>
-            <view class="hb-right-txt">举报</view>
+            <view class="hb-right-txt" bindtap="goaaa">举报</view>
         </view>
-        <view class="check-record" wx:if="{{!isSpeak}}">
+        <view class="check-record" wx:if="{{false}}">
             <view class="check-record-txt" bindtap="toHbRecord">查看我的记录</view>
         </view>
-        <view class="hb-notice" wx:if="{{!isSpeak}}">未领取的金额,将于24小时后退至余额</view>
-        <view class="hb-list-box" wx:if="{{isSpeak}}" wx:for="[3]">
+        <view class="hb-notice" wx:if="{{false}}">未领取的金额,将于24小时后退至余额</view>
+        <view class="hb-list-box" wx:for="{{voices}}">
             <view class="hb-list-item">
                 <view class="hb-item-left">
                     <image src="../../assets/image/voice-user-icon.jpg" class="voice-user-icon"></image>
                     <view class="voice-box">
-                        <view class="user-name">gosling</view>
+                        <view class="user-name">gosling {{item.createTime}}</view>
                         <button class="voice-btn">4"</button>
                     </view>
                 </view>

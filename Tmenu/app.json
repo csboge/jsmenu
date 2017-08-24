@@ -1,10 +1,10 @@
 {
     "pages": [
-        "pages/confirmOrder/confirmOrder",
-        "pages/voiceExample/voiceExample",
         "pages/speakVoice/speakVoice",
-        "pages/hbRecord/hbRecord",
+        "pages/confirmOrder/confirmOrder",
         "pages/menu/menu",
+        "pages/voiceExample/voiceExample",
+        "pages/hbRecord/hbRecord",
         "pages/transmitHB/transmitHB",
         "pages/index/index",
         "pages/myRecord/myRecord",

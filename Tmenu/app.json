@@ -1,12 +1,9 @@
 {
     "pages": [
-<<<<<<< HEAD
-        "pages/speakVoice/speakVoice",
-=======
         "pages/menu/menu",
->>>>>>> 3ee40067df9e209e5fd135f5af08549cb5770afc
         "pages/confirmOrder/confirmOrder",
-        "pages/menu/menu",
+        "pages/speakVoice/speakVoice",
+        "pages/finishOrder/finishOrder",
         "pages/voiceExample/voiceExample",
         "pages/hbRecord/hbRecord",
         "pages/transmitHB/transmitHB",
@@ -14,7 +11,6 @@
         "pages/myRecord/myRecord",
         "pages/myDiscount/myDiscount",
         "pages/orderDetail/orderDetail",
-        "pages/finishOrder/finishOrder",
         "pages/foodRemark/foodRemark",
         "pages/findOrder/findOrder",
         "pages/shop/shop",

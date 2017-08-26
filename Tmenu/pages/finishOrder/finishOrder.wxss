@@ -118,8 +118,16 @@
     margin-top: 40rpx;
 }
 .play-notice{
+    display: flex;
     font-size: 28rpx;
     color: #999;
     margin-left: 40rpx;
     margin-top: 20rpx;
+}
+.example-voice-img{
+    position: relative;
+    top: 4rpx;
+    margin-left: 20rpx;
+    width: 32rpx;
+    height: 32rpx;
 }

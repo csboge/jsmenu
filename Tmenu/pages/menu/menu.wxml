@@ -47,8 +47,8 @@
                 </view>
 
             </view>
-            <view class="food-list" wx:if="{{record > 0?true:false}}">
-                <view class="food-name txt-middle food {{item.isChecked?'checked':''}}" data-fid="{{item.id}}" wx:for="{{foodList}}" wx:key="id" bindtap="choose">{{item.name}}</view>
+            <view class="food-list" wx:if="{{page_second_cate.length > 0?true:false}}">
+                <view class="food-name txt-middle food {{item.isChecked?'checked':''}}" data-fid="{{item.id}}" wx:for="{{page_second_cate}}" wx:key="id" bindtap="choose">{{item.name}}</view>
                 <view class="more-food txt-middle food" wx:if="{{showMore}}">
                     <view class="more-food-txt" bindtap="showMore">更多</view>
                     <view class="more-arrow"></view>

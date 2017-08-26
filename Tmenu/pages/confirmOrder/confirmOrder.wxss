@@ -579,3 +579,7 @@
     position: relative;
     top: 4rpx;
 }
+.bc-white{
+    margin-top: 2rpx;
+    background: #fff;
+}

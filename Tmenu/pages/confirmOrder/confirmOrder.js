@@ -1,83 +1,137 @@
 // pages/confirmOrder/confirmOrder.js
 import util from "../../utils/util.js";
+import order from "../../modules/order.js";
+
 var app = getApp();
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        honbaoList:[
-            {id:0,discount:5,isChecked:false},
-            {id:1,discount:10,isChecked:false},
-            {id:2,discount:15,isChecked:false},
-            {id:3,discount:20,isChecked:false},
-            {id:4,discount:25,isChecked:false},
-            {id:5,discount:30,isChecked:false},
-            {id:6,discount:35,isChecked:false}
+        honbaoList: [
+            { id: 0, discount: 5, isChecked: false },
+            { id: 1, discount: 10, isChecked: false },
+            { id: 2, discount: 15, isChecked: false },
+            { id: 3, discount: 20, isChecked: false },
+            { id: 4, discount: 25, isChecked: false },
+            { id: 5, discount: 30, isChecked: false },
+            { id: 6, discount: 35, isChecked: false }
         ],
-        honbaoTxt:"",//使用红包的金额展示
+        honbaoTxt: "",//使用红包的金额展示
         foodList: [],
         hideShowMore: true, // 是否隐藏展开更多按钮
         showModal: false,//是否显示模态框
-        showHonbao:false,//是否显示红包弹出框
+        showHonbao: false,//是否显示红包弹出框
         animationData: {},
-        order: {},//订单信息
         remarkText: "",
-        newCustDiscount:5, //折扣金额
-        totalPrice:0, //商品总金额
-        discountPrice:0,//折扣后的价格
-        realPrice:0 //应付金额
+        newCustDiscount: 5, //折扣金额
+        totalPrice: 0, //商品总金额
+        discountPrice: 0,//折扣后的价格
+        realPrice: 0,//应付金额
+        taxPrice: 0//手续费
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        
+
     },
     //显示页面时调用
     onShow: function () {
-        var that = this;
-        var orderObj = that.data.order;
-        if (app.globalData.order.remark) {
-            orderObj.remark = app.globalData.order.remark;
-            if (orderObj.remark.length > 8) {
-                that.setData({
-                    remarkText: orderObj.remark.substring(0, 8) + "..."
+
+        //更新口味备注显示
+        this.showRemark();
+        //计算价格、手续费等
+        this.countPrice();
+        //渲染商品
+        this.showProducts();
+
+        // util.getStorage("shopCart", function (data) {
+        //     console.log(data);
+        //     var totalPrice = 0;
+        //     var newCustDiscount = that.data.newCustDiscount;
+        //     for (var i = 0; i < data.products.length; i++) {
+        //         totalPrice += data.products[i].price * data.products[i].num;
+        //     }
+        //     totalPrice = totalPrice.toFixed(2) - 0;
+
+        //     var discountPrice = totalPrice - newCustDiscount;
+
+        //     if (data.products.length > 2) {
+        //         that.setData({
+        //             foodList: data.products.slice(0, 2),
+        //             hideShowMore: false,
+        //             totalPrice: totalPrice,
+        //             discountPrice: discountPrice,
+        //             taxPrice: (discountPrice * 0.02).toFixed(2) - 0,
+        //             realPrice: (discountPrice * 1.02).toFixed(2) - 0
+        //         })
+        //     } else {
+        //         that.setData({
+        //             foodList: data.products,
+        //             hideShowMore: true,
+        //             totalPrice: totalPrice,
+        //             discountPrice: discountPrice,
+        //             taxPrice: (discountPrice * 0.02).toFixed(2) - 0,
+        //             realPrice: (discountPrice * 1.02).toFixed(2) - 0
+        //         })
+        //     }
+        // });
+    },
+    //显示口味备注
+    showRemark: function () {
+
+        let order = order.getOrderSync();
+
+        if (order.remark) {
+
+            if (order.remrk.length > 8) {
+                this.setData({
+                    remarkText: order.remark.substring(0, 8) + "..."
                 })
             } else {
-                that.setData({
-                    remarkText: orderObj.remark
+                this.setData({
+                    remarkText: order.remark
                 })
             }
+
+        } else {
+            //初始化
+            order.remark = "";
+            util.setStorageSync("order", order);
         }
-        util.getStorage("shopCart", function (data) {
-            console.log(data);
-            var totalPrice = 0;
-            var newCustDiscount = that.data.newCustDiscount;
-            for (var i = 0; i < data.products.length; i++) {
-                totalPrice += data.products[i].price * data.products[i].num;
-            }
-            totalPrice = totalPrice.toFixed(2) - 0;
-            if (data.products.length > 2) {
-                that.setData({
-                    foodList: data.products.slice(0, 2),
-                    hideShowMore: false,
-                    totalPrice: totalPrice,
-                    discountPrice: totalPrice - newCustDiscount,
-                    realPrice: totalPrice - newCustDiscount
-                })
-            } else {
-                that.setData({
-                    foodList: data.products,
-                    hideShowMore: true,
-                    totalPrice: totalPrice,
-                    discountPrice: totalPrice - newCustDiscount,
-                    realPrice: totalPrice - newCustDiscount
-                })
-            }
+    },
+    //计算价格
+    countPrice: function () {
+
+        let shop_cart = getStorage;
+        let total_price = 0;        //总价
+        let total_num = 0;          //总数量
+        let discount_money = this.data.newCustDiscount;     //折扣金额
+
+        shop_cart.forEach(function (product) {
+            total_price += (product.price * product.num).toFixed(2) - 0;
+            total_num += product.num;
         });
+
+        let discount_price = total_price - discount_money;      //折扣后的总价格
+
+
+        this.setData({
+            totalPrice: total_price,
+            discountPrice: discount_price,
+            taxPrice: (discount_price * 0.02).toFixed(2) - 0,
+            realPrice: (discount_price * 1.02).toFixed(2) - 0
+        });
+
+    },
+    ////////////////////////////////
+    //渲染商品
+    showProducts:function(){
+
     },
     //展开更多
     showMore: function () {
@@ -99,8 +153,8 @@ Page({
         this.hHonbao();
         this.setData({
             showModal: false,
-            showHonbao:false,
-            honbaoTxt: e.target.dataset.hb+"元现金红包"
+            showHonbao: false,
+            honbaoTxt: e.target.dataset.hb + "元现金红包"
         })
     },
     //不使用红包
@@ -108,7 +162,7 @@ Page({
         this.hHonbao();
         this.setData({
             showModal: false,
-            showHonbao:false,
+            showHonbao: false,
             honbaoTxt: "暂不使用现金红包"
         })
     },
@@ -158,76 +212,45 @@ Page({
     },
     //提交订单
     formSubmit: function (e) {
-        wx.getUserInfo({
-            success: function (data) {
-                wx.login({//登录获取用户code
+        //拉取购物车商品信息生成订单
+        wx.getStorage({
+            key: 'shopCart',
+            success: function (res) {
+                console.log(res.data)
+                try {
+                    var access_token = wx.getStorageSync('access_token');
+                } catch (e) {
+                    throw new Error("access_token 获取失败");
+                }
+                wx.request({
+                    url: 'https://api.ai-life.me//api/Buy/submitOrder',
+                    data: {
+                        total: 0.01,
+                        access_token: access_token
+                    },
+                    method: 'POST',
                     success: function (res) {
-                        console.log(res)
-                        if (res.code) {
-                            //发起请求获得openid
-                            wx.request({
-                                url: 'https://api.ai-life.me/api/Member/login/',
-                                method: "POST",
-                                data: {
-                                    jscode: res.code,
-                                    userinfo: JSON.stringify(data.userInfo)
-                                        // grd: app.globalData.system_version
-                                },
-                                success: function (res) {
-                                    console.log(res.data.data.access_token);
-                                    try {
-                                        wx.setStorageSync('access_token', res.data.data.access_token);
-                                    } catch (e) {
-                                        throw new Error("access_token 存储失败");
-                                    }
-                                    //拉取购物车商品信息生成订单
-                                    wx.getStorage({
-                                        key: 'shopCart',
-                                        success: function (res) {
-                                            console.log(res.data)
-                                            try {
-                                                var access_token = wx.getStorageSync('access_token');
-                                            } catch (e) {
-                                                throw new Error("access_token 存储失败");
-                                            }
-                                            wx.request({
-                                                url: 'https://api.ai-life.me//api/Buy/submitOrder',
-                                                data: {
-                                                    total:0.01,
-                                                    access_token: access_token
-                                                },
-                                                method: 'POST',
-                                                success: function(res) {
-                                                    console.log(res);
-                                                    wx.requestPayment({
-                                                        'timeStamp': res.data.data.timeStamp + "",
-                                                        'nonceStr': res.data.data.nonceStr,
-                                                        'package': res.data.data.package,
-                                                        'signType': 'MD5',
-                                                        'paySign': res.data.data.paySign,
-                                                        'success': function (res) {
-                                                            console.log("支付成功")
-                                                            wx.navigateTo({
-                                                                url: '../finishOrder/finishOrder?id=1'
-                                                            })
-                                                        },
-                                                        'fail': function (res) {
-                                                        }
-                                                    })
-                                                }
-                                            })
-                                        },
-                                        fail: function(res){
-                                            console.log("拉取购物车信息失败")
-                                        }
-                                    })
-                                }
-                            })
-                        } else {
-                            console.log('获取用户登录态失败！' + res.errMsg)
-                        }
+                        console.log(res);
+                        wx.requestPayment({
+                            'timeStamp': res.data.data.timeStamp + "",
+                            'nonceStr': res.data.data.nonceStr,
+                            'package': res.data.data.package,
+                            'signType': 'MD5',
+                            'paySign': res.data.data.paySign,
+                            'success': function (res) {
+                                console.log("支付成功")
+                                wx.navigateTo({
+                                    url: '../finishOrder/finishOrder?id=1'
+                                })
+                            },
+                            'fail': function (res) {
+                            }
+                        })
                     }
-                });
+                })
+            },
+            fail: function (res) {
+                console.log("拉取购物车信息失败")
             }
         })
     }

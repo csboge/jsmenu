@@ -28,7 +28,10 @@
                             <view class="play-set-title">设置口令</view>
                             <input placeholder="谢谢老板" maxlength="10" class="txt-input" />
                         </view>
-                        <view class="play-notice">小伙伴们说对口令就能获得随机的打赏</view>
+                        <view class="play-notice">
+                            <view class="notice-title">小伙伴们说对口令就能获得随机的打赏</view>
+                            <image src="../../assets/image/example-voice.png" class="example-voice-img" bindtap="gotoExample"></image>
+                        </view>
                         <view class="play-btn">
                             <button type="primary" form-type="submit" class="play-btn">调戏一下好友们</button>
                         </view>

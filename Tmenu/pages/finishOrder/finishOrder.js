@@ -26,5 +26,11 @@ Page({
       wx.navigateTo({
           url: '../menu/menu'
       })
+  },
+  //跳转到录音示例
+  gotoExample:function(){
+      wx.navigateTo({
+          url: '../speakVoice/speakVoice'
+      })
   }
 })

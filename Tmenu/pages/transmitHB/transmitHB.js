@@ -41,7 +41,7 @@ Page({
       }
       return {
           title: '悬赏令   ',
-          path: '/pages/menu/menu',
+          path: '/pages/speakVoice/speakVoice',
           success: function (res) {
               // 转发成功
               console.log("转发成功");

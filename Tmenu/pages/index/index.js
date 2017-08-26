@@ -14,7 +14,7 @@ Page({
             { id: 5, imgUrl: "../../assets/image/menu-icon6.png", menuName: "我的记录", menuUrl: "../myRecord/myRecord", type: 1 }
         ]
     },
-    onLoad: function () {
+    onLoad: function (option) {
         console.log('onLoad')
         var that = this
         //调用应用实例的方法获取全局数据

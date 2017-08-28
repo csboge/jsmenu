@@ -189,7 +189,7 @@ function getAddress(la, lo, name, add) {
  * 
  */
 function findchild(arr, attr, val) {
-    console.log(111)
+    // console.log(111)
     var arrary = [];
     arr.forEach(function (ele) {
         if (ele[attr] === val) {
@@ -297,7 +297,7 @@ function cutShopCart(id) {
 function getShopCart() {
     try {
         var shopCart = wx.getStorageSync('shopCart');
-    console.log(333)
+    // console.log(333)
         if (shopCart) {
             return shopCart;
         }else{

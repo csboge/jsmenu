@@ -37,7 +37,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        // console.log(util.getStorageSync("shopCart"))
     },
     //显示页面时调用
     onShow: function () {
@@ -84,30 +84,30 @@ Page({
     //显示口味备注
     showRemark: function () {
 
-        let order = order.getOrderSync();
+        let _order = order.getOrderSync();
+        console.log(_order)
+        if (_order.remark) {
 
-        if (order.remark) {
-
-            if (order.remrk.length > 8) {
+            if (_order.remrk.length > 8) {
                 this.setData({
-                    remarkText: order.remark.substring(0, 8) + "..."
+                    remarkText: _order.remark.substring(0, 8) + "..."
                 })
             } else {
                 this.setData({
-                    remarkText: order.remark
+                    remarkText: _order.remark
                 })
             }
 
         } else {
             //初始化
-            order.remark = "";
-            util.setStorageSync("order", order);
+            _order.remark = "";
+            util.setStorageSync("order", _order);
         }
     },
     //计算价格
     countPrice: function () {
 
-        let shop_cart = getStorage;
+        let shop_cart = util.getStorageSync("shopCart");
         let total_price = 0;        //总价
         let total_num = 0;          //总数量
         let discount_money = this.data.newCustDiscount;     //折扣金额
@@ -128,20 +128,35 @@ Page({
         });
 
     },
-    ////////////////////////////////
     //渲染商品
-    showProducts:function(){
+    showProducts: function () {
+
+        let shop_cart = util.getStorageSync("shopCart");
+
+        if (shop_cart.length > 2) {
+            this.setData({
+                foodList: shop_cart.slice(0, 2),
+                hideShowMore: false
+            })
+        } else {
+            this.setData({
+                foodList: shop_cart,
+                hideShowMore: true
+            })
+        }
 
     },
     //展开更多
     showMore: function () {
+
         var that = this;
-        util.getStorage("shopCart", function (data) {
-            that.setData({
-                foodList: data.products,
-                hideShowMore: true,
-            })
-        });
+        let shop_cart = util.getStorageSync("shopCart");
+
+        this.setData({
+            foodList: shop_cart,
+            hideShowMore: true
+        })
+
     },
     //使用红包
     chooseHonbao: function () {
@@ -212,46 +227,37 @@ Page({
     },
     //提交订单
     formSubmit: function (e) {
-        //拉取购物车商品信息生成订单
-        wx.getStorage({
-            key: 'shopCart',
+
+        let access_token = util.getStorageSync('access_token');
+        let order = util.getStorageSync("order");
+        console.log(order);
+
+        wx.request({
+            url: 'https://api.ai-life.me//api/Buy/submitOrder',
+            data: {
+                total: 0.01,
+                access_token: access_token
+            },
+            method: 'POST',
             success: function (res) {
-                console.log(res.data)
-                try {
-                    var access_token = wx.getStorageSync('access_token');
-                } catch (e) {
-                    throw new Error("access_token 获取失败");
-                }
-                wx.request({
-                    url: 'https://api.ai-life.me//api/Buy/submitOrder',
-                    data: {
-                        total: 0.01,
-                        access_token: access_token
-                    },
-                    method: 'POST',
-                    success: function (res) {
-                        console.log(res);
-                        wx.requestPayment({
-                            'timeStamp': res.data.data.timeStamp + "",
-                            'nonceStr': res.data.data.nonceStr,
-                            'package': res.data.data.package,
-                            'signType': 'MD5',
-                            'paySign': res.data.data.paySign,
-                            'success': function (res) {
-                                console.log("支付成功")
-                                wx.navigateTo({
-                                    url: '../finishOrder/finishOrder?id=1'
-                                })
-                            },
-                            'fail': function (res) {
-                            }
+                console.log(res.data);
+                wx.requestPayment({
+                    'timeStamp': res.data.data.timeStamp,
+                    'nonceStr': res.data.data.nonceStr,
+                    'package': res.data.data.package,
+                    'signType': 'MD5',
+                    'paySign': res.data.data.paySign,
+                    'success': function (res) {
+                        console.log("支付成功")
+                        wx.navigateTo({
+                            url: '../finishOrder/finishOrder?id=1'
                         })
+                    },
+                    'fail': function (res) {
                     }
                 })
-            },
-            fail: function (res) {
-                console.log("拉取购物车信息失败")
             }
         })
+
     }
 })

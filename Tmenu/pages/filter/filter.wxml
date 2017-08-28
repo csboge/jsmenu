@@ -1,0 +1,4 @@
+<!--pages/filter/filter.wxml-->
+<text style="position:absolute;top:45%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;">
+    {{error_txt}}
+</text>

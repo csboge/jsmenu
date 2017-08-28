@@ -43,12 +43,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        
         var that = this;
-
-        //获取用户所在商店id,桌位id
-        // var shop_params = JSON.parse(options.shop_params);
-        // user.updateUserStorage("shop_id",shop_params.shop_id);
-        // user.updateUserStorage("desk_id",shop_params.desk_id);
 
         var cate_list = [];//一级分类
         var page_second_cate = [];//当前页面二级分类
@@ -159,14 +155,14 @@ Page({
         var cate = e.currentTarget.dataset.obj;//选中的分类对象
         var origincatelist = this.data.cateList//原始分类的对象数组
         var menu_list = util.clearAll(this.data.menu_list, "num", 0);//所有商品列表
-        console.log(menu_list)
+        // console.log(menu_list)
         //选中当前分类
         var catelist = util.clearAll(origincatelist, "isChecked", false);
         var newcatelist = util.findObj(catelist, cate.id, "id", "isChecked", true);
 
         //选出属于选中分类下的商品
         var new_page_menu = util.findchild(menu_list, "cate_id", cate.id);
-        console.log(cate.id)
+        // console.log(cate.id)
         // console.log(new_page_menu)
         //选出属于选中分类下的购物车中的商品
         var cart_products = this.getCartChild(cate.id);
@@ -193,7 +189,7 @@ Page({
         }
         // console.log(page_second_cate)
 
-        console.log(update_page_menu)
+        // console.log(update_page_menu)
 
         //更新数据
         this.setData({
@@ -223,7 +219,7 @@ Page({
     },
     //在一级菜单中标明哪些二级菜单被选中
     signForSecondMenu: function (id) {
-        console.log(id)
+        // console.log(id)
         var that = this;
         var cate_list = that.data.cateList;
         var second_cate_list = [];
@@ -233,7 +229,7 @@ Page({
                 for (var k = 0; k < cate_list[i].list.length; k++) {
                     if (cate_list[i].list[k].id === id) {
                         second_cate_list = util.clearAll(cate_list[i].list, "isChecked", false);
-                        console.log(second_cate_list)
+                        // console.log(second_cate_list)
                         second_cate_list[k].isChecked = true;
                     }
                 }
@@ -242,7 +238,7 @@ Page({
 
         cate_list.list = second_cate_list;
 
-        console.log(cate_list)
+        // console.log(cate_list)
         that.setData({
             cateList: cate_list
         })
@@ -473,21 +469,33 @@ Page({
     gotoConfirmOrder: function () {
 
         let shop_cart = util.getShopCart();
-        let goods_price = 0;         //商品总价
-        let goods_count = 0;           //订单商品总数量
 
         if (shop_cart.length > 0) {
+
+            let goods_price = 0;           //商品总价
+            let goods_count = 0;           //订单商品总数量
+            let is_first;               //是否是第一次消费
 
             shop_cart.forEach(function (product) {
                 goods_price += product.price * product.num;
                 goods_count += product.num;
             });
 
+            wx.request({
+                url: 'https://api.ai-life.me/api/Buy/isFirst',
+                method: 'GET',
+                success: function(res) {
+                    is_first = res.data.data.is_first;
+                }
+            })
+
             //创建订单并存入缓存
             let order = {
-                goods_price: totalPrice,
+                create_time: new Date().getTime(),
+                goods_price: goods_price,
                 goods_count: goods_count,
-                goods_list: shop_cart
+                goods_list: shop_cart,
+                is_first: is_first
             };
             util.setStorageSync('order', order);
 
@@ -505,7 +513,7 @@ Page({
         var arr = [];
         var shopCart = util.getShopCart();
 
-        console.log(shopCart)
+        // console.log(shopCart)
         shopCart.forEach(function (obj) {
             if (obj.cate_id === id) {
                 arr.push(obj);

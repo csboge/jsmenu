@@ -137,113 +137,11 @@
 <view class="user-num-box" wx:if="{{show_user_box}}">
 <swiper indicator-dots="{{true}}" autoplay="{{false}}" interval="{{5000}}" duration="650" class="num-swiper">
   <block>
-    <swiper-item>
+    <swiper-item wx:for="{{num_box}}">
       <view class="num-slier-box">
-        <view class="num-line">
-            <view class="num-no" data-num="1" bindtap="chooseNum">
-                <view class="no">1</view>
-            </view>
-            <view class="num-no" data-num="2" bindtap="chooseNum">
-                <view class="no">2</view>
-            </view>
-            <view class="num-no" data-num="3" bindtap="chooseNum">
-                <view class="no">3</view>
-            </view>
-        </view>
-        <view class="num-line">
-            <view class="num-no" data-num="4" bindtap="chooseNum">
-                <view class="no">4</view>
-            </view>
-            <view class="num-no" data-num="5" bindtap="chooseNum">
-                <view class="no">5</view>
-            </view>
-            <view class="num-no" data-num="6" bindtap="chooseNum">
-                <view class="no">6</view>
-            </view>
-        </view>
-        <view class="num-line">
-            <view class="num-no" data-num="7" bindtap="chooseNum">
-                <view class="no">7</view>
-            </view>
-            <view class="num-no" data-num="8" bindtap="chooseNum">
-                <view class="no">8</view>
-            </view>
-            <view class="num-no" data-num="9" bindtap="chooseNum">
-                <view class="no">9</view>
-            </view>
-        </view>
-      </view>
-    </swiper-item>
-    <swiper-item>
-      <view class="num-slier-box">
-        <view class="num-line">
-            <view class="num-no" data-num="10" bindtap="chooseNum">
-                <view class="no">10</view>
-            </view>
-            <view class="num-no" data-num="11" bindtap="chooseNum">
-                <view class="no">11</view>
-            </view>
-            <view class="num-no" data-num="12" bindtap="chooseNum">
-                <view class="no">12</view>
-            </view>
-        </view>
-        <view class="num-line">
-            <view class="num-no" data-num="13" bindtap="chooseNum">
-                <view class="no">13</view>
-            </view>
-            <view class="num-no" data-num="14" bindtap="chooseNum">
-                <view class="no">14</view>
-            </view>
-            <view class="num-no" data-num="15" bindtap="chooseNum">
-                <view class="no">15</view>
-            </view>
-        </view>
-        <view class="num-line">
-            <view class="num-no" data-num="16" bindtap="chooseNum">
-                <view class="no">16</view>
-            </view>
-            <view class="num-no" data-num="17" bindtap="chooseNum">
-                <view class="no">17</view>
-            </view>
-            <view class="num-no" data-num="18" bindtap="chooseNum">
-                <view class="no">18</view>
-            </view>
-        </view>
-      </view>
-    </swiper-item>
-    <swiper-item>
-      <view class="num-slier-box">
-        <view class="num-line">
-            <view class="num-no" data-num="19" bindtap="chooseNum">
-                <view class="no">19</view>
-            </view>
-            <view class="num-no" data-num="20" bindtap="chooseNum">
-                <view class="no">20</view>
-            </view>
-            <view class="num-no" data-num="21" bindtap="chooseNum">
-                <view class="no">21</view>
-            </view>
-        </view>
-        <view class="num-line">
-            <view class="num-no" data-num="22" bindtap="chooseNum">
-                <view class="no">22</view>
-            </view>
-            <view class="num-no" data-num="23" bindtap="chooseNum">
-                <view class="no">23</view>
-            </view>
-            <view class="num-no" data-num="24" bindtap="chooseNum">
-                <view class="no">24</view>
-            </view>
-        </view>
-        <view class="num-line">
-            <view class="num-no" data-num="25" bindtap="chooseNum">
-                <view class="no">25</view>
-            </view>
-            <view class="num-no" data-num="26" bindtap="chooseNum">
-                <view class="no">26</view>
-            </view>
-            <view class="num-no" data-num="27" bindtap="chooseNum">
-                <view class="no">27</view>
+        <view class="num-line" wx:for="{{item.page}}">
+            <view class="num-no {{item.num===customer_num?'num-checked':''}}" data-num="{{item.num}}" bindtap="chooseNum" wx:for="{{item.line}}">
+                <view class="no">{{item.num}}</view>
             </view>
         </view>
       </view>

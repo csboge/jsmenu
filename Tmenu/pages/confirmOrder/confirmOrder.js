@@ -11,7 +11,34 @@ Page({
      * 页面的初始数据
      */
     data: {
-        honbaoList: [
+        num_box: [                   //人数选择数字
+            {
+                page: [
+                    { line: [{ num: 1, is_checked: false }, { num: 2, is_checked: false }, { num: 3, is_checked: false }] },
+                    { line: [{ num: 4, is_checked: false }, { num: 5, is_checked: false }, { num: 6, is_checked: false }] },
+                    { line: [{ num: 7, is_checked: false }, { num: 8, is_checked: false }, { num: 9, is_checked: false }] },
+                ]
+            },
+            {
+                page: [
+                    { line: [{ num: 10, is_checked: false }, { num: 11, is_checked: false }, { num: 12, is_checked: false }] },
+                    { line: [{ num: 13, is_checked: false }, { num: 14, is_checked: false }, { num: 15, is_checked: false }] },
+                    { line: [{ num: 16, is_checked: false }, { num: 17, is_checked: false }, { num: 18, is_checked: false }] },
+                ]
+            },
+            {
+                page: [
+                    { line: [{ num: 19, is_checked: false }, { num: 20, is_checked: false }, { num: 21, is_checked: false }] },
+                    { line: [{ num: 22, is_checked: false }, { num: 23, is_checked: false }, { num: 24, is_checked: false }] },
+                    { line: [{ num: 25, is_checked: false }, { num: 26, is_checked: false }, { num: 27, is_checked: false }] },
+                ]
+            }
+        ],
+        show_user_box: false,        //是否弹出人数选择框
+        customer_num: 0,             //用餐人数
+        show_btn: false,             //是否显示确认按钮
+
+        honbaoList: [               //红包列表数据
             { id: 0, discount: 5, isChecked: false },
             { id: 1, discount: 10, isChecked: false },
             { id: 2, discount: 15, isChecked: false },
@@ -21,23 +48,25 @@ Page({
             { id: 6, discount: 35, isChecked: false }
         ],
         honbaoTxt: "",              //使用红包的金额展示
-        foodList: [],
-        hideShowMore: true,         // 是否隐藏展开更多按钮
-        showModal: false,           //是否显示模态框
+        animationData: {},          //红包弹出动画
+        showModal: false,           //是否显示红包模态框
         showHonbao: false,          //是否显示红包弹出框
-        animationData: {},
-        remarkText: "",
-        show_modal: false,          //是否显示全屏模态框
+
+        foodList: [],               //商品列表
+        hideShowMore: true,         //是否隐藏展开更多按钮
+        
+        remarkText: "",             //口味备注
+
         newCustDiscount: 0,         //折扣金额
         totalPrice: 0,              //商品总金额
         discountPrice: 0,           //折扣后的价格
         realPrice: 0,               //应付金额
         taxPrice: 0,                //手续费
         order_rate: 0,              //手续费比率
+
         mode_rate: 0,               //红包比率(可以发出去的红包的比率, * 折扣后的价格)
-        show_user_box: false,        //是否弹出人数选择框
-        customer_num: 0,             //用餐人数
-        show_btn: false              //是否显示确认按钮
+
+        show_modal: false           //是否显示立即购买时全屏模态框
     },
 
     /**
@@ -66,7 +95,7 @@ Page({
         });
 
     },
-    //关闭选择人数框
+    //点击蒙版层关闭选择人数框
     closeNumModal() {
         this.setData({
             show_user_box: false
@@ -81,7 +110,7 @@ Page({
 
         this.setData({
             customer_num: num,
-            show_user_box: false
+            // show_user_box: false
         });
 
     },

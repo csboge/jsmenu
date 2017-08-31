@@ -1,5 +1,9 @@
 // pages/foodRemark/foodRemark.js
+
+import order from "../../modules/order.js";
+
 var app = getApp();
+
 Page({
 
     /**
@@ -18,7 +22,10 @@ Page({
     },
     //点击完成
     formSubmit: function () {
-        app.globalData.order.remark = this.data.text;
+        
+        order.updateOrderSync("remark",this.data.text);
+        let remark = wx.getStorageSync("order").remark;
+        console.log(remark)
         wx.navigateBack({
             delta: 1
         })

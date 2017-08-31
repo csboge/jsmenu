@@ -104,21 +104,6 @@
     margin-top: 22rpx;
 }
 
-.product-shop {
-    display: flex;
-    align-items: center;
-    height: 100rpx;
-    position: relative;
-}
-
-.product-shop-info {
-    display: flex;
-}
-
-.desk-cutomers {
-    position: absolute;
-    right: 24rpx;
-}
 
 .shop-img {
     width: 30rpx;
@@ -127,9 +112,13 @@
 }
 
 .shop-name {
-    margin-left: 20rpx;
+    margin-left: 28rpx;
+    width: 360rpx;
+    height: 108rpx;
+    line-height: 108rpx;
     font-size: 28rpx;
     font-weight: bold;
+    color: #4a4a4a;
 }
 
 .shop-add {
@@ -582,4 +571,66 @@
 .bc-white{
     margin-top: 2rpx;
     background: #fff;
+}
+ .global-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    background: rgba(0, 0, 0, .5);
+    width: 100%;
+    height: 1290rpx;
+    z-index: 10001;
+} 
+.desk-customer{
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 108rpx;
+}
+.cutomers {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 24rpx;
+}
+.user-num-box{
+    /* display: none; */
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10rpx;
+    width: 80%;
+    height: 700rpx;
+    background: #fff;
+    z-index: 10002
+}
+.num-swiper{
+    width: 100%;
+    height: 700rpx;
+}
+.num-slier-box{
+    width: 90%;
+    height: 90%;
+    margin: 0 auto;
+    margin-top: 20rpx;
+}
+.num-line{
+    display: flex;
+    height: calc(100% / 3);
+    background: #eee;
+}
+.num-no{
+    position: relative;
+    flex-grow: 1;
+    height: 100%;
+    text-align: center;
+    border: 2rpx solid #f4f4f4;
+}
+.no{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }

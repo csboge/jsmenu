@@ -10,7 +10,7 @@
                     <image src="../../assets/image/hb-icon.png" class="hb-img"></image>
                 </view>
             </view>
-            <view class="hb-voice-txt">XXXX店发的红包</view>
+            <view class="hb-voice-txt">{{utxt}}</view>
         </view>
         <view class="page-body">
             <image src="../../assets/image/hb-bc1.png" class="body-bc-img"></image>
@@ -20,7 +20,7 @@
         </view>
         <view class="hb-operation">
             <view class="hb-operation-box">
-                <button type="primary" open-type="share" class="transmit-btn btn-mid">转发到群聊</button>
+                <button type="primary" open-type="share" disabled="{{is_transimit?true:false}}" class="transmit-btn btn-mid">转发到群聊</button>
                 <button class="share-btn btn-mid" bindtap="share">生成朋友圈分享图</button>
                 <view class="try" bindtap="transmit">
                     <button class="try-txt" open-type="share">我也试一试</button>

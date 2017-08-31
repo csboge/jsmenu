@@ -1,6 +1,7 @@
-import util from "../../utils/util";
 
+import util from "../../utils/util";
 import user from "../../modules/user.js";
+import data from "../../utils/data";
 
 var app = getApp();
 
@@ -43,7 +44,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        
+
         var that = this;
 
         var cate_list = [];//一级分类
@@ -55,69 +56,80 @@ Page({
             method: "GET",
             success: function (res) {
 
-                cate_list = res.data.data.cate_list;
-                cate_list.forEach(function (obj) {
-                    obj.isChecked = false;
-                });
-                cate_list[0].isChecked = true;
+                if (res.data.code === 1) {
+                    cate_list = res.data.data.cate_list;
+                    cate_list.forEach(function (obj) {
+                        obj.isChecked = false;
+                    });
+                    cate_list[0].isChecked = true;
 
-                //默认选中第一级分类下的第一种二级分类
-                page_second_cate = cate_list[0].list;
+                    //默认选中第一级分类下的第一种二级分类
+                    page_second_cate = cate_list[0].list;
 
-                //默认选中二级分类中的第一类
-                page_second_cate.forEach(function (obj) {
-                    obj.isChecked = false;
-                });
+                    //默认选中二级分类中的第一类
+                    page_second_cate.forEach(function (obj) {
+                        obj.isChecked = false;
+                    });
 
-                page_second_cate[0].isChecked = true;
+                    page_second_cate[0].isChecked = true;
 
-                that.setData({
-                    cateList: cate_list,
-                    page_second_cate: page_second_cate
-                });
+                    that.setData({
+                        cateList: cate_list,
+                        page_second_cate: page_second_cate
+                    });
+                    
+                }else{
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    })
+                }
+            },
+            fail(res) {
+                util.disconnectModal();
             }
         });
 
 
 
         //加载所有商品
-        wx.request({
-            url: 'https://api.ai-life.me/api/menu/goods',
-            method: "GET",
-            success: function (res) {
+        // wx.request({
+        //     url: 'https://api.ai-life.me/api/menu/goods',
+        //     method: "GET",
+        //     success: function (res) {
 
-                var good_list = res.data.data.goods_list;
+        // var good_list = res.data.data.goods_list;
+        let good_list = data.goods_list;//使用模拟数据
+        console.log(good_list)
+        var shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
+        var init_page_menu = [];
 
-                var shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
+        good_list.forEach(function (obj) {
+            obj.num = 0;
+        });
 
-                var init_page_menu = [];
-
-                good_list.forEach(function (obj) {
-                    obj.num = 0;
-                });
-
-                good_list.forEach(function (obj) {
-                    if (obj.cate_id === 1) {
-                        init_page_menu.push(obj);
-                    }
-                });
-
-                // console.log(shop_cart)
-                // console.log(init_page_menu)
-                if (shop_cart.length > 0) {
-                    init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
-                }
-
-                //计算购物车商品总数量和总价格
-                that.countAll(shop_cart);
-
-                that.setData({
-                    menu_list: good_list,
-                    page_menu: init_page_menu,
-                    cartList: shop_cart
-                })
+        good_list.forEach(function (obj) {
+            if (obj.cate_id === 101) {
+                init_page_menu.push(obj);
             }
         });
+        console.log(init_page_menu);
+        // console.log(shop_cart)
+        // console.log(init_page_menu)
+        if (shop_cart.length > 0) {
+            init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
+            //计算购物车商品总数量和总价格
+            that.countAll(shop_cart);
+        }
+
+        that.setData({
+            menu_list: good_list,
+            page_menu: init_page_menu,
+            cartList: shop_cart
+        })
+        // }
+        // });
 
         //初始化所有商品购买数量 为 0
         var init_page_menu = [];
@@ -125,10 +137,12 @@ Page({
         var new_menu_list = util.clearAll(fa, "num", 0);
 
         for (var i = 0; i < fa.length; i++) {
-            if (fa[i].cate_id === 1) {
+            if (fa[i].cate_id === 101) {
                 init_page_menu.push(fa[i]);
             }
         }
+
+        init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
 
         this.setData({
             page_menu: init_page_menu,
@@ -138,9 +152,11 @@ Page({
     },
     //显示时调用
     onShow: function () {
-        var shopCart = wx.getStorageSync("shopCart");
-        var origin_shopCart = shopCart.products || shopCart;
+
+        let shopCart = wx.getStorageSync("shopCart");
+        let origin_shopCart = shopCart.products || shopCart;
         wx.setStorageSync("shopCart", origin_shopCart);
+        
     },
     //全部显示
     showMore: function () {
@@ -152,7 +168,9 @@ Page({
     //选择分类
     chooseCate: function (e) {
 
-        var cate = e.currentTarget.dataset.obj;//选中的分类对象
+        let that = this;
+
+        var cate = e.currentTarget.dataset.obj;//选中的一级
         var origincatelist = this.data.cateList//原始分类的对象数组
         var menu_list = util.clearAll(this.data.menu_list, "num", 0);//所有商品列表
         // console.log(menu_list)
@@ -160,21 +178,12 @@ Page({
         var catelist = util.clearAll(origincatelist, "isChecked", false);
         var newcatelist = util.findObj(catelist, cate.id, "id", "isChecked", true);
 
-        //选出属于选中分类下的商品
-        var new_page_menu = util.findchild(menu_list, "cate_id", cate.id);
-        // console.log(cate.id)
-        // console.log(new_page_menu)
-        //选出属于选中分类下的购物车中的商品
-        var cart_products = this.getCartChild(cate.id);
-        //更新当前页商品的数量
-        var update_page_menu = this.updatePageMenuNum(cart_products, new_page_menu);
-        // console.log(update_page_menu)
-
         //二级分类
-        var page_second_cate = cate.list;
-        var new_page_second_cate = [];
+        let page_second_cate = cate.list;
+        let new_page_second_cate = [];
+        let update_page_menu = [];
 
-        if (page_second_cate.length > 0) {
+        if (page_second_cate.length > 0) {//有二级分类则选二级分类下的商品
             for (var a = 0; a < page_second_cate.length; a++) {
                 if (page_second_cate[a].isChecked) {
                     new_page_second_cate = page_second_cate;
@@ -186,23 +195,33 @@ Page({
                 new_page_second_cate = util.clearAll(page_second_cate, "isChecked", false);
                 new_page_second_cate[0].isChecked = true;
             }
+            //选出选中的二级分类下的商品
+            new_page_second_cate.forEach((obj) => {
+                if (obj.isChecked === true) {
+                    that.listData(obj.id);
+                }
+            });
+
+        } else {//没有则直接选择一级分类下面的商品
+            that.listData(cate.id);
         }
+
         // console.log(page_second_cate)
 
-        // console.log(update_page_menu)
+        console.log(update_page_menu)
 
         //更新数据
         this.setData({
             cateList: newcatelist,
-            page_menu: update_page_menu,
             page_second_cate: new_page_second_cate
         })
     },
     //选择二级菜单
     choose: function (e) {
-        var that = this;
-        var d = util.clearAll(that.data.page_second_cate, "isChecked", false);
-        var obj = util.findObj(d, e.target.dataset.fid, "id", "isChecked", true);
+
+        let that = this;
+        let d = util.clearAll(that.data.page_second_cate, "isChecked", false);
+        let obj = util.findObj(d, e.target.dataset.fid, "id", "isChecked", true);
 
         if (that.data.showMore) {
             that.setData({
@@ -213,6 +232,7 @@ Page({
                 page_second_cate: obj
             })
         }
+
         that.signForSecondMenu(e.target.dataset.fid);
 
         that.listData(e.target.dataset.fid);
@@ -244,20 +264,26 @@ Page({
         })
     },
     //列出当前页面商品列表
-    listData: function (parentid) {
-        var that = this;
-        var menu_list = that.data.menu_list;
-        var new_page_menu = [];
+    listData: function (parent_id) {
 
-        menu_list.forEach(function (obj) {
-            if (obj.id === parentid) {
-                new_page_menu.push(obj);
+        let that = this;
+        let shop_cart = util.getStorageSync("shopCart");
+        let menu_list = that.data.menu_list;
+        let page_menu = [];
+        // console.log(parent_id)
+
+        menu_list.forEach((obj) => {
+            if (obj.cate_id === parent_id) {
+                page_menu.push(obj);
             }
         });
+
+        let new_page_menu = that.updatePageMenuNum(shop_cart, page_menu);
 
         that.setData({
             page_menu: new_page_menu
         });
+
     },
     //点击领取优惠券
     getHb: function () {
@@ -307,6 +333,7 @@ Page({
         var currentproduct = e.currentTarget.dataset.obj;//当前商品
 
         var originpage_menu = this.data.page_menu;
+        console.log(originpage_menu)
         //当前页面该商品数量增加
         var newpage_menu = util.plus(originpage_menu, currentproduct.id);
 
@@ -392,15 +419,23 @@ Page({
     },
     //购物车信息
     showCart: function () {
-        var that = this;
+
+        let that = this;
+        let isfull = false;
+        let shop_cart = util.getStorageSync("shopCart");
+
+        shop_cart.length > 7 ? isfull = true : isfull = false;
+
         if (that.data.showCart === true) {
             that.setData({
+                isFull: isfull,
                 showCart: false
             })
             that.hideCartAnimation();
         } else {
             if (that.data.totalNum > 0) {
                 that.setData({
+                    isFull: isfull,
                     showCart: true
                 })
                 that.showCartAnimation();
@@ -471,38 +506,10 @@ Page({
         let shop_cart = util.getShopCart();
 
         if (shop_cart.length > 0) {
-
-            let goods_price = 0;           //商品总价
-            let goods_count = 0;           //订单商品总数量
-            let is_first;               //是否是第一次消费
-
-            shop_cart.forEach(function (product) {
-                goods_price += product.price * product.num;
-                goods_count += product.num;
-            });
-
-            wx.request({
-                url: 'https://api.ai-life.me/api/Buy/isFirst',
-                method: 'GET',
-                success: function(res) {
-                    is_first = res.data.data.is_first;
-                }
-            })
-
-            //创建订单并存入缓存
-            let order = {
-                create_time: new Date().getTime(),
-                goods_price: goods_price,
-                goods_count: goods_count,
-                goods_list: shop_cart,
-                is_first: is_first
-            };
-            util.setStorageSync('order', order);
-
             wx.navigateTo({
                 url: '../confirmOrder/confirmOrder'
             });
-            
+
         } else {
             return;
         }

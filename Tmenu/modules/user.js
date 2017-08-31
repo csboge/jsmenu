@@ -5,34 +5,54 @@
  * 
  */
 
+import util from "../utils/util.js";
 
 
 /*
- * @des     获取用户本地缓存信息
+ * @des     获取用户所有本地缓存信息
  * 
- */ 
+ */
 function getUserStorage() {
-    var user = wx.getStorageSync("user");
+    let user = util.getStorageSync('user');
     return user;
 }
+
+
+
+/*
+ * @des     根据属性从用户信息中获取单个信息
+ * @param   string                              key
+ * 
+ * @return  any                                 value
+ */
+function getUserStorageAttr(key) {
+
+    let user = wx.getStorageSync("user");
+
+    let value = user.hasOwnProperty(key) ? user[key] : null;
+    
+    return value;
+
+}
+
 
 
 /*
  * @des     更新用户本地缓存信息
  * 
- */ 
-function updateUserStorage (key, value) {
-    var user = wx.getStorageSync("user");
+ */
+function updateUserStorage(key, value) {
+    let user = wx.getStorageSync("user");
     user[key] = value;
     wx.setStorageSync("user", user);
 }
 
 
 /*
- * @des     移除用户本地缓存信息
+ * @des     清空用户本地缓存信息
  * 
- */ 
-function removeUserStorage () {
+ */
+function clearUserStorage() {
     wx.setStorageSync("user", {});
 }
 
@@ -47,7 +67,8 @@ module.exports = {
 
     updateUserStorage: updateUserStorage,
 
-    removeUserStorage: removeUserStorage
+    clearUserStorage: clearUserStorage,
 
+    getUserStorageAttr: getUserStorageAttr
 
 };

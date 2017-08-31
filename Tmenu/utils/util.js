@@ -3,7 +3,7 @@
  * @des         工具模块
  * 
  * 
- */ 
+ */
 
 
 
@@ -12,7 +12,7 @@
  * @param       Date            date
  * 
  * @return      string          yyyy/MM/dd hh:MM:ss
- */ 
+ */
 function formatTime(date) {
     var year = date.getFullYear()
     var month = date.getMonth() + 1
@@ -32,7 +32,7 @@ function formatTime(date) {
  * @param       Date            date
  * 
  * @return      string          MM/dd hh:mm
- */ 
+ */
 function formatTimeS(date) {
     var year = date.getFullYear()
     var month = date.getMonth() + 1
@@ -53,7 +53,7 @@ function formatTimeS(date) {
  * @param           number          n
  * 
  * @return          string               
- */ 
+ */
 function formatNumber(n) {
     n = n.toString()
     return n[1] ? n : '0' + n
@@ -297,10 +297,10 @@ function cutShopCart(id) {
 function getShopCart() {
     try {
         var shopCart = wx.getStorageSync('shopCart');
-    // console.log(333)
+        // console.log(333)
         if (shopCart) {
             return shopCart;
-        }else{
+        } else {
             try {
                 wx.setStorageSync('shopCart', []);
                 return [];
@@ -325,6 +325,8 @@ function getStorageSync(key) {
         var value = wx.getStorageSync(key)
         if (value) {
             return value;
+        }else{
+            return -1;
         }
     } catch (e) {
         throw new Error("获取本地缓存" + key + "失败")
@@ -346,6 +348,58 @@ function setStorageSync(key, value) {
 }
 
 
+
+/*
+ * @des             封装request请求为promise格式
+ * @params          string                  url
+ * @return          object                  promise
+ */
+function request(url) {
+
+    let method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'POST';
+    let data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    let header = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
+
+    return new Promise(function (resolve, reject) {
+        wx.request({
+            url: url,
+            data: data,
+            method: method,
+            header: header,
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (res) {
+                reject(res)
+            }
+        })
+    })
+
+}
+
+
+
+/*
+ * @des         网络链接失败模态框
+ * 
+ * 
+ */ 
+function disconnectModal(){
+    wx.showModal({
+        title: '提示',
+        content: '网络链接失败，请重新尝试!',
+        showCancel: false,
+        cancelText: '',
+        cancelColor: '',
+        confirmText: '',
+        confirmColor: '',
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+    })
+}
+
+
 //导出工具方法
 module.exports = {
     formatTime: formatTime,
@@ -363,5 +417,8 @@ module.exports = {
     cutShopCart: cutShopCart,
     getShopCart: getShopCart,
     getStorageSync: getStorageSync,
-    setStorageSync: setStorageSync
+    setStorageSync: setStorageSync,
+    request: request,
+    disconnectModal: disconnectModal
+    
 }

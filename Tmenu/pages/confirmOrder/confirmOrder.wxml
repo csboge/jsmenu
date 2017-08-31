@@ -7,11 +7,11 @@
                 </view>
                 <view class="page-head-detail">
                     <view class="page-head-title-box">
-                        <view class="page-head-title white txt-mid">寻味-园丁街店</view>
+                        <view class="page-head-title white txt-mid">真功夫-万达店</view>
                         <view class="arrow white arrow-title"></view>
                     </view>
                     <view class="page-head-notice white txt-small">
-                        公告: 联系电话(微信)15957496790，超出范围五份起送！
+                        公告: 联系电话(微信)0731-85056818，超出范围五份起送！
                     </view>
                     <view class="page-head-notice white txt-small">
                         可送公司餐，团餐定制，团购餐
@@ -21,11 +21,12 @@
         </view>
         <view class="order-detail">
             <view class="product-info">
-                <view class="product-shop">
-                    <image src="../../assets/image/address.png" class="shop-img"></image>
-                    <view class="product-shop-info">
-                        <view class="shop-name">2号桌</view>
-                        <view class="desk-cutomers">
+                <view class="desk-customer">
+                    <view class="customer-box">
+                        <view class="shop-name" bindtap="showUserBox">
+                            {{customer_num===0?'点击此处输入用餐人数':'用餐人数：'+customer_num+' 人'}}
+                        </view>
+                        <view class="cutomers">
                             <image src="../../assets/image/menu-own1.jpg" class="customer-img"></image>
                             <image src="../../assets/image/menu-own2.jpg" class="customer-img"></image>
                             <image src="../../assets/image/menu-own3.jpg" class="customer-img"></image>
@@ -110,7 +111,7 @@
                             <view class="sum">合计</view>
                             <view class="price-num txt-red">￥{{realPrice}}</view>
                         </view>
-                        <button form-type="submit" class="submit-btn" hover-class="click-submit">提交订单</button>
+                        <button form-type="submit" class="submit-btn" hover-class="click-submit">立即支付</button>
                     </view>
                 </view>
             </form>
@@ -132,3 +133,123 @@
         </view>
     </scroll-view>
 </view>
+<view class="{{show_modal?'global-modal':''}}"></view>
+<view class="user-num-box" wx:if="{{show_user_box}}">
+<swiper indicator-dots="{{true}}" autoplay="{{false}}" interval="{{5000}}" duration="650" class="num-swiper">
+  <block>
+    <swiper-item>
+      <view class="num-slier-box">
+        <view class="num-line">
+            <view class="num-no" data-num="1" bindtap="chooseNum">
+                <view class="no">1</view>
+            </view>
+            <view class="num-no" data-num="2" bindtap="chooseNum">
+                <view class="no">2</view>
+            </view>
+            <view class="num-no" data-num="3" bindtap="chooseNum">
+                <view class="no">3</view>
+            </view>
+        </view>
+        <view class="num-line">
+            <view class="num-no" data-num="4" bindtap="chooseNum">
+                <view class="no">4</view>
+            </view>
+            <view class="num-no" data-num="5" bindtap="chooseNum">
+                <view class="no">5</view>
+            </view>
+            <view class="num-no" data-num="6" bindtap="chooseNum">
+                <view class="no">6</view>
+            </view>
+        </view>
+        <view class="num-line">
+            <view class="num-no" data-num="7" bindtap="chooseNum">
+                <view class="no">7</view>
+            </view>
+            <view class="num-no" data-num="8" bindtap="chooseNum">
+                <view class="no">8</view>
+            </view>
+            <view class="num-no" data-num="9" bindtap="chooseNum">
+                <view class="no">9</view>
+            </view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="num-slier-box">
+        <view class="num-line">
+            <view class="num-no" data-num="10" bindtap="chooseNum">
+                <view class="no">10</view>
+            </view>
+            <view class="num-no" data-num="11" bindtap="chooseNum">
+                <view class="no">11</view>
+            </view>
+            <view class="num-no" data-num="12" bindtap="chooseNum">
+                <view class="no">12</view>
+            </view>
+        </view>
+        <view class="num-line">
+            <view class="num-no" data-num="13" bindtap="chooseNum">
+                <view class="no">13</view>
+            </view>
+            <view class="num-no" data-num="14" bindtap="chooseNum">
+                <view class="no">14</view>
+            </view>
+            <view class="num-no" data-num="15" bindtap="chooseNum">
+                <view class="no">15</view>
+            </view>
+        </view>
+        <view class="num-line">
+            <view class="num-no" data-num="16" bindtap="chooseNum">
+                <view class="no">16</view>
+            </view>
+            <view class="num-no" data-num="17" bindtap="chooseNum">
+                <view class="no">17</view>
+            </view>
+            <view class="num-no" data-num="18" bindtap="chooseNum">
+                <view class="no">18</view>
+            </view>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="num-slier-box">
+        <view class="num-line">
+            <view class="num-no" data-num="19" bindtap="chooseNum">
+                <view class="no">19</view>
+            </view>
+            <view class="num-no" data-num="20" bindtap="chooseNum">
+                <view class="no">20</view>
+            </view>
+            <view class="num-no" data-num="21" bindtap="chooseNum">
+                <view class="no">21</view>
+            </view>
+        </view>
+        <view class="num-line">
+            <view class="num-no" data-num="22" bindtap="chooseNum">
+                <view class="no">22</view>
+            </view>
+            <view class="num-no" data-num="23" bindtap="chooseNum">
+                <view class="no">23</view>
+            </view>
+            <view class="num-no" data-num="24" bindtap="chooseNum">
+                <view class="no">24</view>
+            </view>
+        </view>
+        <view class="num-line">
+            <view class="num-no" data-num="25" bindtap="chooseNum">
+                <view class="no">25</view>
+            </view>
+            <view class="num-no" data-num="26" bindtap="chooseNum">
+                <view class="no">26</view>
+            </view>
+            <view class="num-no" data-num="27" bindtap="chooseNum">
+                <view class="no">27</view>
+            </view>
+        </view>
+      </view>
+    </swiper-item>
+  </block>
+</swiper>
+</view>
+
+<view class="{{show_user_box?'global-modal':''}}" bindtap="closeNumModal"></view>

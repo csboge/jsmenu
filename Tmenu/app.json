@@ -1,12 +1,12 @@
 {
     "pages": [
+        "pages/confirmOrder/confirmOrder",
         "pages/filter/filter",
+        "pages/finishOrder/finishOrder",
         "pages/menu/menu",
         "pages/index/index",
-        "pages/confirmOrder/confirmOrder",
-        "pages/speakVoice/speakVoice",
-        "pages/finishOrder/finishOrder",
         "pages/voiceExample/voiceExample",
+        "pages/speakVoice/speakVoice",
         "pages/hbRecord/hbRecord",
         "pages/transmitHB/transmitHB",
         "pages/myRecord/myRecord",
@@ -24,5 +24,10 @@
         "navigationBarBackgroundColor": "#1a191f",
         "navigationBarTitleText": "电子菜谱",
         "navigationBarTextStyle": "white"
+    },
+    "networkTimeout": {
+        "request": 3000,
+        "downloadFile": 5000,
+        "uploadFile": 5000
     }
 }

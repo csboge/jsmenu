@@ -3,7 +3,7 @@
         <view class="page-head">
             <view class="page-head-box">
                 <view class="page-head-img">
-                    <image src="../../assets/image/shop-logo.jpg" class="logo"></image>
+                    <image src="http://img.my-shop.cc/image/shop-logo.jpg" class="logo"></image>
                 </view>
                 <view class="page-head-detail">
                     <view class="page-head-title-box">
@@ -22,13 +22,13 @@
         <view class="order-detail">
             <view class="product-info">
                 <view class="product-shop">
-                    <image src="../../assets/image/address.png" class="shop-img"></image>
+                    <image src="http://img.my-shop.cc/image/address.png" class="shop-img"></image>
                     <view class="product-shop-info">
                         <view class="shop-name">2号桌</view>
                         <view class="desk-cutomers">
-                            <image src="../../assets/image/menu-own1.jpg" class="customer-img"></image>
-                            <image src="../../assets/image/menu-own2.jpg" class="customer-img"></image>
-                            <image src="../../assets/image/menu-own3.jpg" class="customer-img"></image>
+                            <image src="http://img.my-shop.cc/image/menu-own1.jpg" class="customer-img"></image>
+                            <image src="http://img.my-shop.cc/image/menu-own2.jpg" class="customer-img"></image>
+                            <image src="http://img.my-shop.cc/image/menu-own3.jpg" class="customer-img"></image>
                         </view>
                     </view>
                 </view>
@@ -59,7 +59,7 @@
             <view class="discount-info">
                 <view class="discount-new-customer discount-box">
                     <view class="discount-left ml">
-                        <image src="../../assets/image/new.jpg" class="new-img"></image>
+                        <image src="http://img.my-shop.cc/image/new.jpg" class="new-img"></image>
                         <view class="discount-detail txt-head">门店新客立减</view>
                     </view>
                     <view class="discount-right mr txt-red">- ￥{{newCustDiscount}}</view>
@@ -112,6 +112,6 @@
         <view class="order-create-time">创建时间：20170707 10:43:20</view>
     </view>
     <view class="page-foot">
-        <image src="../../assets/image/boge-logo.png" class="boge-log-img"></image>
+        <image src="http://img.my-shop.cc/image/boge-logo.png" class="boge-log-img"></image>
     </view>
 </view>

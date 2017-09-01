@@ -3,7 +3,7 @@
         <view class="page-head" bindtap="goShopInfo">
             <view class="page-head-box">
                 <view class="page-head-img">
-                    <image src="../../assets/image/shop-logo.jpg" class="logo"></image>
+                    <image src="http://img.my-shop.cc/image/shop-logo.jpg" class="logo"></image>
                 </view>
                 <view class="page-head-detail">
                     <view class="page-head-title-box">
@@ -22,7 +22,7 @@
         <view class="page-section">
             <view class="desk-menu" bindtap="gotoOwndesk">
                 <view class="menu-other txt-middle">
-                    <image src="../../assets/image/laba.png" class="laba-img"></image>
+                    <image src="http://img.my-shop.cc/image/laba.png" class="laba-img"></image>
                     <swiper indicator-dots="{{false}}" autoplay="{{true}}" interval="{{5000}}" duration="{{650}}" circular="{{true}}" vertical="{{true}}">
                         <block wx:for="{{[0,1,2]}}">
                             <swiper-item>
@@ -57,7 +57,7 @@
             <view class="yhq">
                 <scroll-view scroll-x class="yhq-scroll">
                     <view class="yhq-item" wx:for="[3]" bindtap="getHb">
-                        <image src="../../assets/image/dot.png" class="dot-img"></image>
+                        <image src="http://img.my-shop.cc/image/dot.png" class="dot-img"></image>
                         <view class="yhq-price white txt-big">
                             <text class="yhq-sign txt-small">￥</text>3
                         </view>
@@ -95,7 +95,7 @@
         <view class="p-num-box">
             <view class="p-num {{totalNum>0?'':'p-num-hidden'}}">{{totalNum}}</view>
         </view>
-        <image src="{{totalNum >0?'../../assets/image/cart-red.jpg':'../../assets/image/cart.jpg'}}" class="cart-img"></image>
+        <image src="{{totalNum >0?'http://img.my-shop.cc/image/cart-red.jpg':'http://img.my-shop.cc/image/cart.jpg'}}" class="cart-img"></image>
         <view class="txt-ft cart-text {{totalNum >0?'cart-text-hidden':''}}">购物车</view>
         <view class="sumprice {{totalNum >0?'':'sumprice-hidden'}}">
             <view class="price-num">￥ {{totalPrice}}</view>
@@ -109,7 +109,7 @@
     <view class="cart-head top-border">
         <view class="cart-title">购物车</view>
         <view class="clear-btn" bindtap="clearCart">
-            <image src="../../assets/image/del.png" class="del-img"></image>
+            <image src="http://img.my-shop.cc/image/del.png" class="del-img"></image>
             <view class="clear-txt">清空</view>
         </view>
     </view>

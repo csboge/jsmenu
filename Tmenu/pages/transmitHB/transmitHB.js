@@ -37,8 +37,8 @@ Page({
     //分享二维码
     share: function () {
         wx.previewImage({
-            //   current: '../../assets/image/qr-code.png', // 当前显示图片的http链接
-            urls: ['../../assets/image/qr-code.png'] // 需要预览的图片http链接列表
+            //   current: 'http://img.my-shop.cc/image/qr-code.png', // 当前显示图片的http链接
+            urls: ['http://img.my-shop.cc/image/qr-code.png'] // 需要预览的图片http链接列表
         })
     },
     //转发

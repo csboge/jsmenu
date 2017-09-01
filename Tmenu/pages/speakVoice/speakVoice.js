@@ -11,9 +11,9 @@ Page({
      */
     data: {
         imgUrls: [
-            "../../assets/image/shop-slider1.jpg",
-            "../../assets/image/shop-slider2.jpg",
-            "../../assets/image/shop-slider3.jpg"
+            "http://img.my-shop.cc/image/shop-slider1.jpg",
+            "http://img.my-shop.cc/image/shop-slider2.jpg",
+            "http://img.my-shop.cc/image/shop-slider3.jpg"
         ],
         isSpeak: false,//是否已经领取赏金
         voices: [],

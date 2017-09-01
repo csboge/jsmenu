@@ -6,12 +6,12 @@ Page({
         animationData:{},
         userInfo: {},
         menuList: [
-            { id: 0, imgUrl: "../../assets/image/menu-icon1.png", menuName: "点外卖", menuUrl: "../menu/menu", type: 1 },
-            { id: 1, imgUrl: "../../assets/image/menu-icon2.png", menuName: "电话联系", menuUrl: "", type: 0 },
-            { id: 2, imgUrl: "../../assets/image/menu-icon3.png", menuName: "导航前往", menuUrl: "", type: 2 },
-            { id: 3, imgUrl: "../../assets/image/menu-icon4.png", menuName: "推荐好友", menuUrl: "", type: 3 },
-            { id: 4, imgUrl: "../../assets/image/menu-icon5.png", menuName: "领优惠券", menuUrl: "../myDiscount/myDiscount", type: 1 },
-            { id: 5, imgUrl: "../../assets/image/menu-icon6.png", menuName: "我的记录", menuUrl: "../myRecord/myRecord", type: 1 }
+            { id: 0, imgUrl: "http://img.my-shop.cc/image/menu-icon1.png", menuName: "点外卖", menuUrl: "../menu/menu", type: 1 },
+            { id: 1, imgUrl: "http://img.my-shop.cc/image/menu-icon2.png", menuName: "电话联系", menuUrl: "", type: 0 },
+            { id: 2, imgUrl: "http://img.my-shop.cc/image/menu-icon3.png", menuName: "导航前往", menuUrl: "", type: 2 },
+            { id: 3, imgUrl: "http://img.my-shop.cc/image/menu-icon4.png", menuName: "推荐好友", menuUrl: "", type: 3 },
+            { id: 4, imgUrl: "http://img.my-shop.cc/image/menu-icon5.png", menuName: "领优惠券", menuUrl: "../myDiscount/myDiscount", type: 1 },
+            { id: 5, imgUrl: "http://img.my-shop.cc/image/menu-icon6.png", menuName: "我的记录", menuUrl: "../myRecord/myRecord", type: 1 }
         ]
     },
     onLoad: function (option) {
@@ -31,7 +31,7 @@ Page({
             timingFunction: 'ease-out',
         })
 
-        animation.opacity(1).bottom(0).step()
+        animation.opacity(1).top(0).step()
 
         this.setData({
             animationData: animation.export()
@@ -44,7 +44,7 @@ Page({
     //拨打电话
     call:function(){
         wx.makePhoneCall({
-            phoneNumber: '0737-132465',
+            phoneNumber: '0731-85056818',
             success: function(res) {},
             fail: function(res) {
                 console.log("失败")

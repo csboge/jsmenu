@@ -52,9 +52,23 @@ Page({
         showModal: false,           //是否显示红包模态框
         showHonbao: false,          //是否显示红包弹出框
 
+        yhq_list: [                 //优惠券列表数据
+            { id: 0, yhq_price: 5, isChecked: false },
+            { id: 1, yhq_price: 10, isChecked: false },
+            { id: 2, yhq_price: 15, isChecked: false },
+            { id: 3, yhq_price: 20, isChecked: false },
+            { id: 4, yhq_price: 25, isChecked: false },
+            { id: 5, yhq_price: 30, isChecked: false },
+            { id: 6, yhq_price: 35, isChecked: false }
+        ],
+        yhq_txt: "",                //使用优惠券的金额展示
+        yhq_animationData: {},      //优惠券弹出动画
+        showYhq: false,             //是否显示优惠券弹出框
+
         foodList: [],               //商品列表
-        hideShowMore: true,         //是否隐藏展开更多按钮
-        
+        is_show_more: true,         //是否是展开更多状态
+        use_base: {},               //碗具、纸巾等标配用品
+
         remarkText: "",             //口味备注
 
         newCustDiscount: 0,         //折扣金额
@@ -66,7 +80,9 @@ Page({
 
         mode_rate: 0,               //红包比率(可以发出去的红包的比率, * 折扣后的价格)
 
-        show_modal: false           //是否显示立即购买时全屏模态框
+        show_modal: false,          //是否显示立即购买时全屏模态框
+
+        pay_type: 1                 //支付类型,0 现金支付, 1 在线支付(默认)
     },
 
     /**
@@ -105,15 +121,30 @@ Page({
     chooseNum(e) {
 
         let num = e.currentTarget.dataset.num;
+        let _shop_cart = util.getStorageSync("shopCart");
 
         console.log(num);
 
         this.setData({
             customer_num: num,
-            // show_user_box: false
+            show_user_box: false
         });
 
+        //更改餐具套数
+        _shop_cart.forEach((obj) => {
+            if (obj.num === 0) {      //数量为0的餐具用品根据人数来确定,其他的已写死
+                obj.num = num;
+            }
+        });
+        util.setStorageSync("shopCart", _shop_cart);
+
+        this.showProducts();
+
+        //此处人数定了，餐具套数也定了，再一次计算商品价格
+        this.countPrice();
+
     },
+
     //获取用户折扣信息
     getDiscount() {
 
@@ -124,12 +155,32 @@ Page({
                 if (res.data.code === 1) {
 
                     console.log(res.data);
-                    let is_first = null;
-                    is_first = res.data.data.is_first;
+                    let is_first = res.data.data.is_first;
+                    let _use_base = res.data.data.use_base;     //标配餐具、纸巾
+
+                    //将标配用品加入购物车
+                    let shop_cart = util.getStorageSync("shopCart");
+                    app.setGlobalData("is_add_base",);
+                    //node
+                    if (that.data.is_add_base){
+                        return;
+                    }else{
+                        _use_base.forEach((obj) => {
+                            shop_cart.push(obj);
+                        });
+                        that.setData({
+                            is_add_base: true
+                        });
+                    }
+
+                    util.setStorageSync("shopCart",shop_cart);
+                    console.log(shop_cart)
+
                     that.setData({
                         newCustDiscount: res.data.data.first_money,
                         order_rate: res.data.data.order_rate,
-                        mode_rate: res.data.data.mode_rate
+                        mode_rate: res.data.data.mode_rate,
+                        use_base: _use_base
                     });
                     //存入订单
                     let order = {
@@ -176,6 +227,7 @@ Page({
     },
     //计算价格
     countPrice: function () {
+
         let shop_cart = util.getStorageSync("shopCart");
         let total_price = 0;                                    //总价
         let total_num = 0;                                      //总数量
@@ -184,13 +236,16 @@ Page({
         console.log(_order_rate)
 
         shop_cart.forEach(function (product) {
-            total_price += (product.price * product.num).toFixed(2) - 0;
+            if (product.num > 0) {
+                total_price += (product.price * product.num).toFixed(2) - 0;
+            }
             total_num += product.num;
         });
 
-        let discount_price = total_price - discount_money;      //折扣后的总价格(应付金额)
-        let taxtPrice = (discount_price * _order_rate).toFixed(2) - 0; //手续费
-        let realPrice = (discount_price * (_order_rate + 1)).toFixed(2) - 0; //实际支付金额                              
+        let discount_price = total_price - discount_money;                      //折扣后的总价格(应付金额)
+        let taxtPrice = (discount_price * _order_rate).toFixed(2) - 0;          //手续费
+        let realPrice = (discount_price * (_order_rate + 1)).toFixed(2) - 0;    //实际支付金额
+        let pay_type = this.data.pay_type;
 
         this.setData({
             totalPrice: total_price,
@@ -200,23 +255,24 @@ Page({
         });
 
         //生成一条订单
-        order.createOrder(total_price, 1, 5, discount_price, realPrice, taxtPrice, 0, total_price, JSON.stringify(shop_cart), 1);
+        order.createOrder(total_price, 1, 5, discount_price, realPrice, taxtPrice, 0, total_price, JSON.stringify(shop_cart), pay_type);
 
     },
     //渲染商品
     showProducts: function () {
 
         let shop_cart = util.getStorageSync("shopCart");
+        console.log(shop_cart)
 
         if (shop_cart.length > 2) {
             this.setData({
                 foodList: shop_cart.slice(0, 2),
-                hideShowMore: false
+                is_show_more: false
             })
         } else {
             this.setData({
                 foodList: shop_cart,
-                hideShowMore: true
+                is_show_more: true
             })
         }
 
@@ -227,11 +283,44 @@ Page({
         var that = this;
         let shop_cart = util.getStorageSync("shopCart");
 
+        if (this.data.is_show_more) {
+            this.setData({
+                foodList: shop_cart.slice(0, 2),
+                is_show_more: false
+            })
+        } else {
+            this.setData({
+                foodList: shop_cart,
+                is_show_more: true
+            })
+        }
+
+    },
+    // //弹出优惠券选择框
+    showYhq: function () {
+        this.sYhq();
+    },
+    //选择优惠券
+    useYhq: function (e) {
+
+        let yhq_price = e.currentTarget.dataset.yhq;
+
+        this.hYhq();
         this.setData({
-            foodList: shop_cart,
-            hideShowMore: true
+            showModal: false,
+            showYhq: false,
+            yhq_txt: "使用" + yhq_price + "元优惠券抵扣"
         })
 
+    },
+    //不使用优惠券
+    cancelUseYhq: function () {
+        this.hYhq();
+        this.setData({
+            showModal: false,
+            showHonbao: false,
+            yhq_txt: "暂不使用优惠券"
+        })
     },
     //使用红包
     chooseHonbao: function () {
@@ -244,7 +333,7 @@ Page({
         this.setData({
             showModal: false,
             showHonbao: false,
-            honbaoTxt: e.target.dataset.hb + "元现金红包"
+            honbaoTxt: "使用" + e.target.dataset.hb + "元现金红包抵扣"
         })
     },
     //不使用红包
@@ -259,12 +348,13 @@ Page({
     //点击蒙版隐藏红包
     hideHonbao: function () {
         this.hHonbao();
+        this.hYhq();
     },
     //弹出红包动画
     sHonbao: function () {
-        var that = this;
+        let that = this;
 
-        var animation = wx.createAnimation({
+        let animation = wx.createAnimation({
             duration: 250,
             timingFunction: "linear",
             delay: 0,
@@ -280,8 +370,8 @@ Page({
     },
     //隐藏红包动画
     hHonbao: function () {
-        var that = this;
-        var animation = wx.createAnimation({
+        let that = this;
+        let animation = wx.createAnimation({
             duration: 250,
             timingFunction: "linear",
             delay: 0,
@@ -294,6 +384,41 @@ Page({
             animationData: animation.export()
         })
     },
+    //弹出优惠券动画
+    sYhq: function () {
+        let that = this;
+
+        let animation = wx.createAnimation({
+            duration: 250,
+            timingFunction: "linear",
+            delay: 0,
+        });
+        animation.bottom(0).step();
+
+        that.setData({
+            showModal: true,
+            showYhq: true,
+            yhq_animationData: animation.export()
+        })
+
+    },
+    //隐藏优惠券动画
+    hYhq: function () {
+        let that = this;
+
+        let animation = wx.createAnimation({
+            duration: 250,
+            timingFunction: "linear",
+            delay: 0,
+        });
+        animation.bottom("-500rpx").step();
+
+        that.setData({
+            showModal: false,
+            showYhq: false,
+            yhq_animationData: animation.export()
+        })
+    },
     //选择备注
     goFoodRemark: function () {
         wx.navigateTo({
@@ -304,6 +429,18 @@ Page({
     formSubmit: function (e) {
 
         let that = this;
+        let _customer_num = this.data.customer_num;
+
+        console.log(_customer_num)
+
+        if (_customer_num === 0) {
+            wx.showModal({
+                title: '提示',
+                content: '请输入用餐人数后重新尝试',
+                showCancel: false
+            });
+            return;
+        }
 
         this.setData({
             show_modal: true

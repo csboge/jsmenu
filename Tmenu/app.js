@@ -4,6 +4,21 @@ import user from "modules/user.js";
 
 App({
     onLaunch: function () {
+        wx.request({
+            url: 'https://api.ai-life.me/system/comman/get_status',
+            data: {
+                name:"category",
+                id: 1,
+                status:"status",
+                value:0
+            },
+            method: 'POST',
+            success: function(res) {
+                
+            },
+            fail: function(res) {},
+            complete: function(res) {},
+        })
 
         //调用API从本地缓存中获取数据
         var logs = wx.getStorageSync('logs') || []
@@ -14,13 +29,13 @@ App({
     //小程序启动或后台进入前台的时候调用
     onShow() {
         // console.log("onshow")
+        let that = this;
         //检查登录态
         wx.checkSession({
             success: function () {
                 //登录态有效，不做任何处理
                 console.log("登录态有效");
 
-                return;
             },
             fail: function () {
                 //登录态过期
@@ -54,7 +69,7 @@ App({
     //全局数据
     globalData: {
         voice_path: [],
-        system_version: 'BGmenu-1.0-@)!&*@#'  //系统版本号
+        system_version: 'BGmenu-1.0-@)!&*@#',  //系统版本号
     },
     //设置全局数据
     setGlobalData(key, value) {
@@ -106,9 +121,8 @@ App({
                 that.login();
 
                 wx.showLoading({
-                    title: '加载中...'
+                    title: '加载中'
                 });
-
                 wx.redirectTo({
                     url: '../menu/menu'
                 })
@@ -214,6 +228,14 @@ App({
                 }
             }
         });
+    },
+    getCurrentPageUrl: function () {
+
+        var pages = getCurrentPages();                //获取加载的页面
+        var currentPage = pages[pages.length - 1];    //获取当前页面的对象
+        var url = currentPage.route;                  //当前页面url
+        return url
+
     }
 
 })

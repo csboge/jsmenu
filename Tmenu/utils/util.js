@@ -236,7 +236,7 @@ function minus(arr, id) {
 
 
 /*
- *@des 本地购物车增加单个商品
+ *@des 本地购物车增加单个商品数量
  * @arr obj(添加的商品信息)
  */
 function addShopCart(obj) {

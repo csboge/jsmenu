@@ -2,7 +2,7 @@
     <view class="page-section">
         <view class="pay-info">
             <view class="pay-info-img bcenter">
-                <image src="../../assets/image/pay-icon.png" class="pay-img"></image>
+                <image src="http://img.my-shop.cc/image/pay-icon.png" class="pay-img"></image>
             </view>
             <view class="pay-info-msg bcenter">
                 <view class="pay-info-txt">已完成支付</view>
@@ -13,11 +13,11 @@
             </view>
         </view>
         <view class="bc-container">
-            <image src="../../assets/image/hb-bc1.png" class="bc1-img"></image>
+            <image src="http://img.my-shop.cc/image/hb-bc1.png" class="bc1-img"></image>
             <view class="section-box">
                 <view class="hb-info">
                     <view class="hb-info-img bcenter">
-                        <image src="../../assets/image/hb-kai.png" class="hb-kai-img"></image>
+                        <image src="http://img.my-shop.cc/image/hb-kai.png" class="hb-kai-img"></image>
                     </view>
                     <view class="hb-info-count bcenter">￥{{mode_money}}</view>
                     <view class="hb-info-des bcenter">红包个数随机，转发就能领一份</view>
@@ -30,7 +30,7 @@
                         </view>
                         <view class="play-notice">
                             <view class="notice-title">小伙伴们说对口令就能获得随机的打赏</view>
-                            <image src="../../assets/image/example-voice.png" class="example-voice-img" bindtap="gotoExample"></image>
+                            <image src="http://img.my-shop.cc/image/example-voice.png" class="example-voice-img" bindtap="gotoExample"></image>
                         </view>
                         <view class="play-btn">
                             <button type="primary" disabled="{{is_dilivery?true:false}}" form-type="submit" class="play-btn">调戏一下好友们</button>

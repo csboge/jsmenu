@@ -11,7 +11,7 @@
     <view class="page-section">
       <view class="speak-content">
         <view class="speak-txt-box">
-            <image src="../../assets/image/voice-icon.png" class="voice-img"></image>
+            <image src="http://img.my-shop.cc/image/voice-icon.png" class="voice-img"></image>
             <view class="speak-txt">谢谢老板</view>
         </view>
         <view clas="speak-btn-box">
@@ -19,11 +19,11 @@
         </view>
         <view class="entry-box">
             <view class="to-menu" bindtap="toMenu">
-                <image src="../../assets/image/menu-icon.png" class="icon-img"></image>
+                <image src="http://img.my-shop.cc/image/menu-icon.png" class="icon-img"></image>
                 <view class="to-menu-txt v-txt">去菜单</view>
             </view>
             <view class="to-transmit" bindtap="toTransmit">
-                <image src="../../assets/image/share-icon.png" class="icon-img"></image>
+                <image src="http://img.my-shop.cc/image/share-icon.png" class="icon-img"></image>
                 <button class="to-transmit-txt v-txt" open-type="share">去转发</button>
             </view>
         </view>

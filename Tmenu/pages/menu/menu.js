@@ -12,9 +12,9 @@ Page({
      */
     data: {
         menuOwnUrl: [//本桌用户头像图片
-            "../../assets/image/menu-own1.jpg",
-            "../../assets/image/menu-own2.jpg",
-            "../../assets/image/menu-own3.jpg"
+            "http://img.my-shop.cc/image/menu-own1.jpg",
+            "http://img.my-shop.cc/image/menu-own2.jpg",
+            "http://img.my-shop.cc/image/menu-own3.jpg"
         ],
         cateList: [],//一级分类
         // page_second_cate: [//二级分类过渡
@@ -55,7 +55,7 @@ Page({
             url: 'https://api.ai-life.me/api/menu/category',
             method: "GET",
             success: function (res) {
-
+                // console.log(res.data)
                 if (res.data.code === 1) {
                     cate_list = res.data.data.cate_list;
                     cate_list.forEach(function (obj) {
@@ -77,8 +77,8 @@ Page({
                         cateList: cate_list,
                         page_second_cate: page_second_cate
                     });
-                    
-                }else{
+
+                } else {
                     wx.showModal({
                         title: '提示',
                         content: res.data.message,
@@ -148,6 +148,13 @@ Page({
             page_menu: init_page_menu,
             menu_list: new_menu_list
         })
+        //播放问候语
+        wx.playBackgroundAudio({
+            dataUrl: 'https://www.csboge.com/voice/test1.mp3',
+            fail: function (res) {
+                console.log("问候语播放失败");
+            }
+        });
 
     },
     //显示时调用
@@ -156,7 +163,7 @@ Page({
         let shopCart = wx.getStorageSync("shopCart");
         let origin_shopCart = shopCart.products || shopCart;
         wx.setStorageSync("shopCart", origin_shopCart);
-        
+
     },
     //全部显示
     showMore: function () {

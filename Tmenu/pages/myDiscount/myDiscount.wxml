@@ -2,7 +2,7 @@
     <view class="page-head" bindtap="toIndex">
         <view class="page-head-box">
             <view class="page-head-img">
-                <image src="../../assets/image/shop-logo.jpg" class="logo"></image>
+                <image src="http://img.my-shop.cc/image/shop-logo.jpg" class="logo"></image>
             </view>
             <view class="page-head-detail">
                 <view class="page-head-title-box">
@@ -21,11 +21,11 @@
     <view class="page-section">
         <view class="shop-info-box">
             <view class="shop-address ml" bindtap="showAddress">
-                <image src="../../assets/image/add-white-icon.png" class="add-white-icon"></image>
+                <image src="http://img.my-shop.cc/image/add-white-icon.png" class="add-white-icon"></image>
                 <view class="shop-address-txt txt-mid ml">浙江省宁波市江东区园丁街128号</view>
             </view>
             <view class="shop-tel mr" bindtap="call">
-                <image src="../../assets/image/tel-white-icon.png" class="tel-white-icon"></image>
+                <image src="http://img.my-shop.cc/image/tel-white-icon.png" class="tel-white-icon"></image>
             </view>
         </view>
         <view class="discount-title">我的优惠券</view>
@@ -59,6 +59,6 @@
         </view>
     </view>
     <view class="page-foot">
-        <image src="../../assets/image/boge-logo.png" class="boge-logo-img"></image>
+        <image src="http://img.my-shop.cc/image/boge-logo.png" class="boge-logo-img"></image>
     </view>
 </view>

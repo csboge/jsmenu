@@ -9,9 +9,9 @@ Page({
      */
     data: {
         imgUrls: [
-            "../../assets/image/shop-slider1.jpg",
-            "../../assets/image/shop-slider2.jpg",
-            "../../assets/image/shop-slider3.jpg"
+            "http://img.my-shop.cc/image/shop-slider1.jpg",
+            "http://img.my-shop.cc/image/shop-slider2.jpg",
+            "http://img.my-shop.cc/image/shop-slider3.jpg"
         ],
         voice_urls: [
             "https://www.csboge.com/voice/test1.mp3",

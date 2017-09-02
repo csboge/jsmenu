@@ -4,22 +4,22 @@ import user from "modules/user.js";
 
 App({
     onLaunch: function () {
-        wx.request({
-            url: 'https://api.ai-life.me/system/comman/get_status',
-            data: {
-                name:"category",
-                id: 1,
-                status:"status",
-                value:0
-            },
-            method: 'POST',
-            success: function(res) {
-                
-            },
-            fail: function(res) {},
-            complete: function(res) {},
-        })
-
+        // wx.request({
+        //     url: 'https://api.ai-life.me/api/Member/login/',
+        //     // url: 'https://api.ai-life.me/system/comman/get_status',
+        //     data: {
+        //         name:'category',
+        //         id:1,
+        //         status:'status',
+        //         value:0
+        //     },
+        //     method: 'POST',
+        //     success: function(res) {
+        //     },
+        //     fail: function(res) {},
+        //     complete: function(res) {},
+        // })
+        
         //调用API从本地缓存中获取数据
         var logs = wx.getStorageSync('logs') || []
         logs.unshift(Date.now())

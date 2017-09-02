@@ -43,27 +43,17 @@
                         <view class="product-num">x{{item.num}}</view>
                     </view>
                 </view>
-                <!-- <view class="product-list">
+                <view class="product-list" wx:for="{{use_base}}">
                     <image src="http://img.my-shop.cc/image/wan.jpg" class="product-img"></image>
                     <view class="product-detail">
                         <view class="product-head">
-                            <view class="product-name txt-head">消毒碗筷</view>
-                            <view class="product-price txt-head">￥ 1</view>
+                            <view class="product-name txt-head">{{item.name}}</view>
+                            <view class="product-price txt-head">￥ {{item.price}}</view>
                         </view>
-                        <view class="product-num">x5</view>
+                        <view class="product-num">x{{item.num}}</view>
                     </view>
                 </view>
-                <view class="product-list">
-                    <image src="http://img.my-shop.cc/image/paper.jpg" class="product-img"></image>
-                    <view class="product-detail">
-                        <view class="product-head">
-                            <view class="product-name txt-head">餐巾纸</view>
-                            <view class="product-price txt-head">￥ 1</view>
-                        </view>
-                        <view class="product-num">x2</view>
-                    </view>
-                </view> -->
-                <view class="show-more">
+                <view class="show-more" wx:if="{{!hide_show_more}}">
                     <view class="show-btn {{is_show_more?'up-arrow':''}}" bindtap="showMore">{{is_show_more?'收起更多':'展开更多'}}</view>
                 </view>
             </view>

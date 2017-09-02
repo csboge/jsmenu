@@ -34,9 +34,9 @@ Page({
                 ]
             }
         ],
-        show_user_box: false,        //是否弹出人数选择框
-        customer_num: 0,             //用餐人数
-        show_btn: false,             //是否显示确认按钮
+        show_user_box: false,       //是否弹出人数选择框
+        customer_num: 0,            //用餐人数
+        show_btn: false,            //是否显示确认按钮
 
         honbaoList: [               //红包列表数据
             { id: 0, discount: 5, isChecked: false },
@@ -67,6 +67,7 @@ Page({
 
         foodList: [],               //商品列表
         is_show_more: true,         //是否是展开更多状态
+        hide_show_more: false,       //是否隐藏展开更多按钮
         use_base: {},               //碗具、纸巾等标配用品
 
         remarkText: "",             //口味备注
@@ -121,9 +122,9 @@ Page({
     chooseNum(e) {
 
         let num = e.currentTarget.dataset.num;
-        let _shop_cart = util.getStorageSync("shopCart");
+        let _use_base = this.data.use_base;
 
-        console.log(num);
+        // console.log(num);
 
         this.setData({
             customer_num: num,
@@ -131,12 +132,18 @@ Page({
         });
 
         //更改餐具套数
-        _shop_cart.forEach((obj) => {
-            if (obj.num === 0) {      //数量为0的餐具用品根据人数来确定,其他的已写死
+        _use_base.forEach((obj) => {
+            if (obj.is_change_item) {
                 obj.num = num;
             }
         });
-        util.setStorageSync("shopCart", _shop_cart);
+
+        //覆盖全局变量中餐具用品
+        app.setGlobalData("use_base", _use_base);
+
+        this.setData({
+            use_base: _use_base
+        });
 
         this.showProducts();
 
@@ -154,27 +161,19 @@ Page({
             .then((res) => {
                 if (res.data.code === 1) {
 
-                    console.log(res.data);
+                    // console.log(res.data);
                     let is_first = res.data.data.is_first;
                     let _use_base = res.data.data.use_base;     //标配餐具、纸巾
 
-                    //将标配用品加入购物车
-                    let shop_cart = util.getStorageSync("shopCart");
-                    app.setGlobalData("is_add_base",);
-                    //node
-                    if (that.data.is_add_base){
-                        return;
-                    }else{
-                        _use_base.forEach((obj) => {
-                            shop_cart.push(obj);
-                        });
-                        that.setData({
-                            is_add_base: true
-                        });
-                    }
+                    _use_base.forEach((obj) => {
+                        if (obj.num <= 0) {
+                            obj.is_change_item = true;
+                        } else {
+                            obj.is_change_item = false;
+                        }
+                    });
 
-                    util.setStorageSync("shopCart",shop_cart);
-                    console.log(shop_cart)
+                    app.setGlobalData("use_base", _use_base);
 
                     that.setData({
                         newCustDiscount: res.data.data.first_money,
@@ -207,7 +206,7 @@ Page({
     showRemark: function () {
 
         let _order = order.getOrderSync();
-        console.log(_order);
+        // console.log(_order);
         // console.log(_order.remark)
 
         if (_order.remark) {
@@ -229,11 +228,13 @@ Page({
     countPrice: function () {
 
         let shop_cart = util.getStorageSync("shopCart");
+        let _use_base = this.data.use_base;
         let total_price = 0;                                    //总价
         let total_num = 0;                                      //总数量
+        let base_price = 0;                                     //餐具、餐巾纸等标配物品价格
         let discount_money = this.data.newCustDiscount;         //折扣金额
-        let _order_rate = this.data.order_rate;
-        console.log(_order_rate)
+        let _order_rate = this.data.order_rate;                 //手续费费率
+        // console.log(_order_rate)
 
         shop_cart.forEach(function (product) {
             if (product.num > 0) {
@@ -241,11 +242,18 @@ Page({
             }
             total_num += product.num;
         });
+        // console.log(total_price)
+        //计算餐具、纸巾等用品价格
+        _use_base.forEach((obj) => {
+            base_price += (obj.num * obj.price).toFixed(2) - 0;
+        });
+        // console.log(base_price);
+        total_price += base_price;
 
         let discount_price = total_price - discount_money;                      //折扣后的总价格(应付金额)
         let taxtPrice = (discount_price * _order_rate).toFixed(2) - 0;          //手续费
         let realPrice = (discount_price * (_order_rate + 1)).toFixed(2) - 0;    //实际支付金额
-        let pay_type = this.data.pay_type;
+        let pay_type = this.data.pay_type;                                      //支付类型
 
         this.setData({
             totalPrice: total_price,
@@ -255,24 +263,25 @@ Page({
         });
 
         //生成一条订单
-        order.createOrder(total_price, 1, 5, discount_price, realPrice, taxtPrice, 0, total_price, JSON.stringify(shop_cart), pay_type);
+        order.createOrder(total_price, 1, 5, discount_price, realPrice, taxtPrice, 0, total_price, shop_cart, pay_type);
 
     },
     //渲染商品
     showProducts: function () {
 
         let shop_cart = util.getStorageSync("shopCart");
-        console.log(shop_cart)
 
         if (shop_cart.length > 2) {
             this.setData({
                 foodList: shop_cart.slice(0, 2),
-                is_show_more: false
+                is_show_more: false,
+                hide_show_more: false
             })
         } else {
             this.setData({
                 foodList: shop_cart,
-                is_show_more: true
+                is_show_more: true,
+                hide_show_more: true
             })
         }
 
@@ -328,7 +337,7 @@ Page({
     },
     //选择红包
     useHonbao: function (e) {
-        console.log(e.target.dataset.hb)
+        // console.log(e.target.dataset.hb)
         this.hHonbao();
         this.setData({
             showModal: false,
@@ -431,7 +440,7 @@ Page({
         let that = this;
         let _customer_num = this.data.customer_num;
 
-        console.log(_customer_num)
+        // console.log(_customer_num)
 
         if (_customer_num === 0) {
             wx.showModal({
@@ -454,14 +463,23 @@ Page({
         order.updateOrderSync("user_count", 3);             //人数
         order.updateOrderSync("mode_money", mode_money);
         app.setGlobalData("mode_money", mode_money);
-        console.log(mode_money)
+        // console.log(mode_money)
 
         let _order = util.getStorageSync("order");
+        let _goods_list = _order.goods_list;
+        let _use_base = app.globalData.use_base;
+
+        //加入餐具、纸巾等标配物品
+        _use_base.forEach((obj) => {
+            _goods_list.push(obj);
+        });
+        _order.goods_list = JSON.stringify(_goods_list);
+
         console.log(_order);
 
         //组合请求数据
         let data = app.getParams({ order: JSON.stringify(_order) });
-        console.log(data);
+        // console.log(data);
 
         //统一下单
         wx.request({
@@ -469,12 +487,12 @@ Page({
             data: data,
             method: 'POST',
             success: function (res) {
-                console.log(res.data.data.order);
+                // console.log(res.data.data.order);
                 if (res.data.code === 1) {
                     let _order = res.data.data.order;
                     //覆盖当前订单，防止重复提交
-                    util.setStorageSync("order", _order);
-                    console.log(_order);
+                    // util.setStorageSync("order", _order);
+                    // console.log(_order);
 
                     wx.requestPayment({
                         'timeStamp': res.data.data.timeStamp,

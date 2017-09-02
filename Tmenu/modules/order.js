@@ -53,6 +53,28 @@ function getOrderSync() {
 
 
 /*
+ * @des         获取订单单个属性        同步
+ * @param       string                key
+ * @return      any                   value
+ */
+function getOrderAttrSync(key) {
+
+    try {
+        let value = wx.getStorageSync('order')[key];
+        if (value) {
+            return value;
+        } else {
+            return -1;
+        }
+    } catch (e) {
+        throw new Error("获取订单失败");
+    }
+
+}
+
+
+
+/*
  * @des         更新订单            同步
  * @param       string              key     
  * @param       object/string       value
@@ -86,6 +108,8 @@ module.exports = {
 
     updateOrderSync: updateOrderSync,
 
-    removeOrderSync: removeOrderSync
+    removeOrderSync: removeOrderSync,
+
+    getOrderAttrSync: getOrderAttrSync
 
 };

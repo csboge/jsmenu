@@ -7,9 +7,9 @@
  @License：LGPL
 
  */
- 
+
 ;!function(win){
-  
+
 "use strict";
 
 var Lay = function(){
@@ -22,7 +22,9 @@ var doc = document, config = Lay.fn.cache = {},
 
 //获取layui所在目录
 getPath = function(){
+  //在这里修改地址
   var js = doc.scripts, jsPath = js[js.length - 1].src;
+  //console.log(js);
   return jsPath.substring(0, jsPath.lastIndexOf('/') + 1);
 }(),
 
@@ -54,7 +56,7 @@ modules = {
   ,mobile: 'modules/mobile' //移动大模块
 
   ,jquery: 'lib/jquery' //DOM库（第三方）
-  
+
   ,'layui.mod': 'dest/layui.mod' //PC模块合并版
 };
 
@@ -91,7 +93,7 @@ Lay.fn.use = function(apps, callback, exports){
   var head = doc.getElementsByTagName('head')[0];
 
   apps = typeof apps === 'string' ? [apps] : apps;
-  
+
   //如果页面已经存在jQuery1.7+库且所定义的模块依赖jQuery，则不加载内部jquery模块
   if(window.jQuery && jQuery.fn.on){
     that.each(apps, function(index, item){
@@ -101,13 +103,13 @@ Lay.fn.use = function(apps, callback, exports){
     });
     layui.jquery = jQuery;
   }
-  
+
   var item = apps[0], timeout = 0;
   exports = exports || [];
 
   //静态资源host
   config.host = config.host || (dir.match(/\/\/([\s\S]+?)\//)||['//'+ location.host +'/'])[0];
-  
+
   if(apps.length === 0 || (layui['layui.all'] && modules[item])){
     return typeof callback === 'function' && callback.apply(layui, exports), that;
   }
@@ -134,12 +136,12 @@ Lay.fn.use = function(apps, callback, exports){
   node.async = true;
   node.charset = 'utf-8';
   node.src = url + function(){
-    var version = config.version === true 
+    var version = config.version === true
     ? (config.v || (new Date()).getTime())
     : (config.version||'');
     return version ? ('?v=' + version) : '';
   }();
-  
+
   //首次加载
   if(!config.modules[item]){
     head.appendChild(node);
@@ -157,14 +159,14 @@ Lay.fn.use = function(apps, callback, exports){
       if(++timeout > config.timeout * 1000 / 4){
         return error(item + ' is not a valid module');
       };
-      (typeof config.modules[item] === 'string' && config.status[item]) 
-      ? onCallback() 
+      (typeof config.modules[item] === 'string' && config.status[item])
+      ? onCallback()
       : setTimeout(poll, 4);
     }());
   }
-  
+
   config.modules[item] = url;
-  
+
   //回调
   function onCallback(){
     exports.push(layui[item]);
@@ -190,17 +192,17 @@ Lay.fn.link = function(href, fn, cssname){
   if(typeof fn === 'string') cssname = fn;
   var app = (cssname || href).replace(/\.|\//g, '');
   var id = link.id = 'layuicss-'+app, timeout = 0;
-  
+
   link.rel = 'stylesheet';
   link.href = href + (config.debug ? '?v='+new Date().getTime() : '');
   link.media = 'all';
-  
+
   if(!doc.getElementById(id)){
     head.appendChild(link);
   }
 
   if(typeof fn !== 'function') return ;
-  
+
   //轮询css是否加载完毕
   (function poll() {
     if(++timeout > config.timeout * 1000 / 100){
@@ -218,9 +220,9 @@ Lay.fn.addcss = function(firename, fn, cssname){
 };
 
 //图片预加载
-Lay.fn.img = function(url, callback, error) {   
+Lay.fn.img = function(url, callback, error) {
   var img = new Image();
-  img.src = url; 
+  img.src = url;
   if(img.complete){
     return callback(img);
   }
@@ -231,7 +233,7 @@ Lay.fn.img = function(url, callback, error) {
   img.onerror = function(e){
     img.onerror = null;
     error(e);
-  };  
+  };
 };
 
 //全局配置
@@ -265,7 +267,7 @@ Lay.fn.extend = function(options){
       that.modules[o] = options[o];
     }
   }
-  
+
   return that;
 };
 
@@ -290,28 +292,28 @@ Lay.fn.router = function(hash){
 //本地存储
 Lay.fn.data = function(table, settings){
   table = table || 'layui';
-  
+
   if(!win.JSON || !win.JSON.parse) return;
-  
+
   //如果settings为null，则删除表
   if(settings === null){
     return delete localStorage[table];
   }
-  
-  settings = typeof settings === 'object' 
-    ? settings 
+
+  settings = typeof settings === 'object'
+    ? settings
   : {key: settings};
-  
+
   try{
     var data = JSON.parse(localStorage[table]);
   } catch(e){
     var data = {};
   }
-  
+
   if(settings.value) data[settings.key] = settings.value;
   if(settings.remove) delete data[settings.key];
   localStorage[table] = JSON.stringify(data);
-  
+
   return settings.key ? data[settings.key] : data;
 };
 
@@ -343,16 +345,16 @@ Lay.fn.device = function(key){
     }()
     ,weixin: getVersion('micromessenger')  //是否微信
   };
-  
+
   //任意的key
   if(key && !result[key]){
     result[key] = getVersion(key);
   }
-  
+
   //移动设备
   result.android = /android/.test(agent);
   result.ios = result.os === 'ios';
-  
+
   return result;
 };
 
@@ -388,17 +390,17 @@ Lay.fn.stope = function(e){
 
 //自定义模块事件
 Lay.fn.onevent = function(modName, events, callback){
-  if(typeof modName !== 'string' 
+  if(typeof modName !== 'string'
   || typeof callback !== 'function') return this;
   config.event[modName + '.' + events] = [callback];
-  
+
   //不再对多次事件监听做支持
   /*
-  config.event[modName + '.' + events] 
-    ? config.event[modName + '.' + events].push(callback) 
+  config.event[modName + '.' + events]
+    ? config.event[modName + '.' + events].push(callback)
   : config.event[modName + '.' + events] = [callback];
   */
-  
+
   return this;
 };
 

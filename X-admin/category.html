@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/xadmin.css">
     <link rel="stylesheet" href="css/swiper-3.4.2.min.css">
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/modules/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/swiper-3.4.2.jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
-
+    <script type="text/javascript" src="js/require.js"></script>
 </head>
 <body>
 <!-- 顶部开始 -->
@@ -207,6 +207,7 @@
                 <div class="layui-form-pane" style="text-align: center;">
                     <div class="layui-form-item" style="display: inline-block;">
                         <label class="layui-form-label xbs768">日期范围</label>
+
                         <div class="layui-input-inline xbs768">
                             <input class="layui-input" placeholder="开始日" id="LAY_demorange_s">
                         </div>
@@ -247,9 +248,6 @@
                         父级id
                     </th>
                     <th>
-                        排序(默认ASC)
-                    </th>
-                    <th>
                         店铺id
                     </th>
                     <th>
@@ -283,9 +281,6 @@
                         男
                     </td>
                     <td>
-                        13000000000
-                    </td>
-                    <td>
                         admin@mail.com
                     </td>
                     <td>
@@ -295,9 +290,9 @@
                         2017-01-01 11:11:42
                     </td>
                     <td class="td-status">
-                            <span class="layui-btn layui-btn-normal layui-btn-mini">
-                                已启用
-                            </span>
+<span class="layui-btn layui-btn-normal layui-btn-mini">
+已启用
+</span>
                     </td>
                     <td class="td-manage">
                         <a style="text-decoration:none" onclick="member_stop(this,'10001')" href="javascript:;"
@@ -335,9 +330,6 @@
                         男
                     </td>
                     <td>
-                        13000000000
-                    </td>
-                    <td>
                         admin@mail.com
                     </td>
                     <td>
@@ -347,9 +339,9 @@
                         2017-01-01 11:11:42
                     </td>
                     <td class="td-status">
-                            <span class="layui-btn layui-btn-normal layui-btn-mini">
-                                已启用
-                            </span>
+<span class="layui-btn layui-btn-normal layui-btn-mini">
+已启用
+</span>
                     </td>
                     <td class="td-manage">
                         <a style="text-decoration:none" onclick="member_stop(this,'10001')" href="javascript:;"

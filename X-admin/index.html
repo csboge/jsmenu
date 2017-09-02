@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>伯格后台管理系统</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <title>伯格后台管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="./css/font.css">
-	<link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
     <link rel="stylesheet" href="css/swiper-3.4.2.min.css">
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/modules/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/swiper-3.4.2.jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
-
+    <script type="text/javascript" src="js/require.js" data-main="js/modules/main"></script>
 </head>
 <body>
     <!-- 顶部开始 -->
@@ -212,6 +212,8 @@
     <div class="footer">
         <div class="copyright">Copyright ©2017-9-2 湖南伯格网络科技有限公司  突突突突突冒蓝火小队</div>
     </div>
-
+    <script>
+        require(['test']);
+    </script>
 </body>
 </html>

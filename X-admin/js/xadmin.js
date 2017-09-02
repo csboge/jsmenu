@@ -1,3 +1,4 @@
+
 $(function () {
     //加载弹出层
     layui.use(['form', 'element'],
@@ -9,7 +10,7 @@ $(function () {
     //初如化背景
     function bgint() {
         if (localStorage.bglist) {
-            var arr = JSON.parse(localStorage.bglist);// 
+            var arr = JSON.parse(localStorage.bglist);//
             // console.log(arr);
             //全局背景统一
             if (arr['bgSrc']) {
@@ -87,7 +88,7 @@ $(function () {
     var timer = setInterval(function () {
         var cur_src = bc_arr[parseInt(Math.random() * bc_arr.length)];
         $('body').css('background-image', 'url(' + cur_src + ')');
-    }, 3000);
+    }, 4000);
 
 
     //背景主题切换

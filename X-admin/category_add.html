@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/xadmin.css">
     <link rel="stylesheet" href="css/swiper-3.4.2.min.css">
-    <script type="text/javascript" src="js/modules/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/swiper-3.4.2.jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
-    <script type="text/javascript" src="js/require.js"></script>
 </head>
 <body>
 <!-- 中部开始 -->
@@ -26,8 +25,9 @@
                     <label for="L_email" class="layui-form-label">
                         <span class="x-red">*</span>分类名称
                     </label>
+
                     <div class="layui-input-inline">
-                        <input type="text" id="L_email" name="email" required="" lay-verify=""
+                        <input type="text" id="L_email" name="category" required="" lay-verify=""
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -35,8 +35,9 @@
                     <label for="L_username" class="layui-form-label">
                         <span class="x-red">*</span>父级id
                     </label>
+
                     <div class="layui-input-inline">
-                        <input type="text" id="L_username" name="username" required="" lay-verify="number"
+                        <input type="text" id="L_username" name="parent_id" required="" lay-verify="number"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -44,8 +45,9 @@
                     <label for="L_pass" class="layui-form-label">
                         <span class="x-red">*</span>店铺id
                     </label>
+
                     <div class="layui-input-inline">
-                        <input type="text" id="L_pass" name="pass" required="" lay-verify="number"
+                        <input type="text" id="L_pass" name="shop_id" required="" lay-verify="number"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -53,15 +55,16 @@
                     <label for="L_repass" class="layui-form-label">
                         <span class="x-red">*</span>是否隐藏
                     </label>
+
                     <div class="layui-input-inline">
-                        <input type="password" id="L_repass" name="repass" required="" lay-verify="number"
+                        <input type="password" id="L_repass" name="status" required="" lay-verify="number"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label for="L_repass" class="layui-form-label">
                     </label>
-                    <button  class="layui-btn" lay-filter="add" lay-submit="">
+                    <button class="layui-btn" id="add-btn" lay-filter="add" lay-submit="">
                         增加
                     </button>
                 </div>
@@ -71,5 +74,19 @@
     </div>
     <!-- 右侧主体结束 -->
 </div>
+<script>
+    $("#add-btn").click(function () {
+        var data = [];
+        layui.use('form', function () {
+            var form = layui.form();
+            //监听提交
+            form.on('submit(add)', function (data) {
+                console.log(data.field);
+                window.parent.addRow({"category": "分类名称", "parent_id": "父级id","shop_id":"店铺id","status":"是否隐藏"},data.field);
+                return false;
+            });
+        });
+    })
+</script>
 </body>
 </html>

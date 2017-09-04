@@ -1,4 +1,4 @@
-// pages/register/register.js
+// pages/addTable/addTalbe.js
 Page({
 
   /**

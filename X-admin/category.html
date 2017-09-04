@@ -11,6 +11,7 @@
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/swiper-3.4.2.jquery.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script src="lib/laydate/laydate.js"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
     <script type="text/javascript" src="js/modules/utils.js"></script>
     <script type="text/javascript" src="js/modules/category.js"></script>
@@ -234,6 +235,7 @@
             <span class="x-right" style="line-height:40px">共有数据：88 条</span>
         </xblock>
         <!-- 右侧内容框架，更改从这里结束 -->
+    </xblock>
 </div>
 </div>
 <!-- 右侧主体结束 -->
@@ -244,7 +246,15 @@
     <div class="copyright">Copyright ©2017-9-2 湖南伯格网络科技有限公司 突突突突突冒蓝火小队</div>
 </div>
 <script>
-
+    layui.use(['laydate'], function () {
+        var laydate = layui.laydate;//日期插件
+        //时间范围
+        laydate.render({
+            elem: '#LAY_demorange_s'
+            ,type: 'time'
+            ,range: true
+        });
+    })
 </script>
 </body>
 </html>

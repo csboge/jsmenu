@@ -37,6 +37,8 @@ Page({
             user.updateUserStorage("shop_id", shop_id);
             user.updateUserStorage("desk_sn", desk_sn);
 
+            app.globalData.is_first_login = false;
+
             //获取用户信息
             app.getUserInfo();
 

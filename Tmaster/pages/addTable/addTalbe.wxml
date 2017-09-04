@@ -1,0 +1,66 @@
+<view class="page-container">
+    <view class="page-section">
+
+        <view class="room-box">
+            <view class="room-name-title">包间名称</view>
+            <view class="room-slide-box">
+
+                <swiper indicator-dots="{{true}}" autoplay="{{false}}" interval="{{5000}}" duration="{{650}}">
+                    <block>
+                        <swiper-item>
+                            <view class="slide-box">
+                                <view class="slide-table-line">
+                                    <view class="slide-table-item">
+                                        <view class="talbe-img-box">
+                                            <image src="../../assets/image/table_icon.png" class="table-img"></image>
+                                            <view class="room-name">恶风听雨</view>
+                                        </view>
+                                        <view class="talbe-img-box table-mid">
+                                            <image src="../../assets/image/table_icon.png" class="table-img"></image>
+                                            <view class="room-name">恶风听雨</view>
+                                        </view>
+                                        <view class="talbe-img-box table-right">
+                                            <image src="../../assets/image/table_icon.png" class="table-img tb-right"></image>
+                                            <view class="room-name">恶风听雨</view>
+                                        </view>
+                                    </view>
+                                    <view class="slide-table-item">
+                                        <view class="talbe-img-box">
+                                            <image src="../../assets/image/table_icon.png" class="table-img"></image>
+                                            <view class="room-name">恶风听雨</view>
+                                        </view>
+                                        <view class="talbe-img-box table-mid">
+                                            <image src="../../assets/image/table_icon.png" class="table-img"></image>
+                                            <view class="room-name">恶风听雨</view>
+                                        </view>
+                                        <view class="talbe-img-box table-right">
+                                            <image src="../../assets/image/table_icon.png" class="table-img tb-right"></image>
+                                            <view class="room-name">恶风听雨</view>
+                                        </view>
+                                    </view>
+                                    <view class="slide-table-item">
+                                        <view class="talbe-img-box">
+                                            <image src="../../assets/image/table_icon.png" class="table-img"></image>
+                                            <view class="room-name">恶风听雨</view>
+                                        </view>
+                                        <view class="talbe-img-box table-mid">
+                                            <image src="../../assets/image/table_icon.png" class="table-img"></image>
+                                            <view class="room-name">恶风听雨</view>
+                                        </view>
+                                        <view class="talbe-img-box table-right">
+                                            <image src="../../assets/image/table_icon.png" class="table-img tb-right"></image>
+                                            <view class="room-name">恶风听雨</view>
+                                        </view>
+                                    </view>
+                                </view>
+
+                            </view>
+                        </swiper-item>
+                    </block>
+                </swiper>
+
+            </view>
+        </view>
+
+    </view>
+</view>

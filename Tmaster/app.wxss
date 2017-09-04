@@ -1,0 +1,11 @@
+
+view{
+    font-family: PingFangSC-Regular, sans-serif;
+    width: 100%;
+}
+
+.page-container{
+    display: block;
+    width: 100%;
+}
+

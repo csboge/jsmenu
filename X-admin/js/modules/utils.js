@@ -7,6 +7,7 @@
  *
  */
 function initTable(head, data) {
+
     var th = "";
     var cell = "";
     var tr = "";
@@ -17,10 +18,11 @@ function initTable(head, data) {
     th = '<th><input type="checkbox" name="" value=""></th>' + th + '<th>状态 </th><th>操作</th>';
 
     data.forEach(function (obj, i) {
+        console.log(obj)
         for (var k in head) {
             cell += "<td>" + obj[k] + "</td>";
         }
-        tr += '<tr><td><input type="checkbox" value="'+(i+1)+'" name=""></td>' + cell + '<td class="td-status">' +
+        tr += '<tr><td><input type="checkbox" value="'+obj.id+'" name=""></td>' + cell + '<td class="td-status">' +
         '<span class="layui-btn layui-btn-normal layui-btn-mini">' +
         '已启用' +
         '</span>' +
@@ -63,41 +65,17 @@ function initTable(head, data) {
  * @des         日期插件
  *
  */
-+function(){
-    layui.use(['laydate'], function () {
-        laydate = layui.laydate;//日期插件
-
-        //以上模块根据需要引入
-        var start = {
-            min: laydate.now()
-            , max: '2099-06-16 23:59:59'
-            , istoday: false
-            , choose: function (datas) {
-                end.min = datas; //开始日选好后，重置结束日的最小日期
-                end.start = datas; //将结束日的初始值设定为开始日
-            }
-        };
-
-        var end = {
-            min: laydate.now()
-            , max: '2099-06-16 23:59:59'
-            , istoday: false
-            , choose: function (datas) {
-                start.max = datas; //结束日选好后，重置开始日的最大日期
-            }
-        };
-
-        document.getElementById('LAY_demorange_s').onclick = function () {
-            start.elem = this;
-            laydate(start);
-        };
-        document.getElementById('LAY_demorange_e').onclick = function () {
-            end.elem = this;
-            laydate(end);
-        }
-
-    });
-}();
+// +function(){
+//     layui.use(['laydate'], function () {
+//         var laydate = layui.laydate;//日期插件
+//         //时间范围
+//         laydate.render({
+//             elem: '#LAY_demorange_s'
+//             ,type: 'time'
+//             ,range: true
+//         });
+//     })
+// }();
 
 
 
@@ -183,12 +161,29 @@ function edit(title, url, id, w, h) {
  */
 function del() {
     $("tbody").on("click",".del", function () {
+
+        var id = $(this).parent().parent().find("input").attr("value");     //这条数据的id
         var ele = $(this).parent().parent();
+
         layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            ele.remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
+            $.ajax({
+                type: "POST",
+                url: "",
+                data: {id:id},
+                success: function(msg){
+                    if(msg.data.code === 1){
+
+                        ele.remove();
+                        layer.msg('已删除!', {icon: 1, time: 1000});
+
+                    }else{
+                        layer.msg("")
+                    }
+                }
+            });
         });
+
+
     });
 }
 

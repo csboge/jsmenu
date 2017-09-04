@@ -1,7 +1,7 @@
 $(function () {
 
-    var head = {"category": "分类名称", "parent_id": "父级id","shop_id":"店铺id","status":"是否隐藏"};
-    var data = [
+    var head_data = {"category": "分类名称", "parent_id": "父级id","shop_id":"店铺id","status":"是否隐藏"};
+    var body_data = [
         {id:1,"category": "套餐", "parent_id": 0, "shop_id": 1,"status":0},
         {id:2,"category": "铁板饭", "parent_id": 0, "shop_id": 1,"status":0},
         {id:3,"category": "清蒸", "parent_id": 0, "shop_id": 1,"status":0},
@@ -15,12 +15,12 @@ $(function () {
     ];
 
     //初始化表格
-    var table = initTable(head, data);
+    var table = initTable(head_data, body_data);
     $("#table-block").append(table);
 
     //跳转添加页
     $("#category_add").click(function () {
-        jumbAdd('添加分类', 'category_add.html', '1', '500','400');
+        jumbAdd('添加商家', 'member_add.html', '1', '500','400');
     });
 
     //跳转编辑页

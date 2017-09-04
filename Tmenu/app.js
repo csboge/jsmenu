@@ -4,22 +4,7 @@ import user from "modules/user.js";
 
 App({
     onLaunch: function () {
-        // wx.request({
-        //     url: 'https://api.ai-life.me/api/Member/login/',
-        //     // url: 'https://api.ai-life.me/system/comman/get_status',
-        //     data: {
-        //         name:'category',
-        //         id:1,
-        //         status:'status',
-        //         value:0
-        //     },
-        //     method: 'POST',
-        //     success: function(res) {
-        //     },
-        //     fail: function(res) {},
-        //     complete: function(res) {},
-        // })
-        
+
         //调用API从本地缓存中获取数据
         var logs = wx.getStorageSync('logs') || []
         logs.unshift(Date.now())
@@ -28,7 +13,7 @@ App({
     },
     //小程序启动或后台进入前台的时候调用
     onShow() {
-        // console.log("onshow")
+        console.log("onshow")
         let that = this;
         //检查登录态
         wx.checkSession({
@@ -70,6 +55,7 @@ App({
     globalData: {
         voice_path: [],
         system_version: 'BGmenu-1.0-@)!&*@#',  //系统版本号
+        is_first_login: true                   //是否是第一次登录 
     },
     //设置全局数据
     setGlobalData(key, value) {
@@ -118,14 +104,12 @@ App({
                     user.updateUserStorage(key, res.userInfo[key]);
                 }
 
-                that.login();
-
                 wx.showLoading({
                     title: '加载中'
                 });
-                wx.redirectTo({
-                    url: '../menu/menu'
-                })
+
+                that.login();
+
             },
             fail: function () {//用户拒绝授权
                 // console.log("拒绝");
@@ -160,15 +144,12 @@ App({
                                 user.updateUserStorage(key, res.userInfo[key]);
                             }
 
-                            that.login();
-
                             wx.showLoading({
                                 title: '加载中...'
                             });
 
-                            wx.redirectTo({
-                                url: '../menu/menu'
-                            })
+                            that.login();
+
                         }
                     });
                 } else {//再次拒绝授权
@@ -214,6 +195,9 @@ App({
                             util.setStorageSync('access_token', res.data.data.access_token);
 
                             // console.log(util.getStorageSync("user"));
+                            wx.redirectTo({
+                                url: '../menu/menu'
+                            })
                         },
                         fail() {
                             util.disconnectModal();

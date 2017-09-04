@@ -1,13 +1,13 @@
 {
   "pages":[
+    "pages/addTable/addTalbe",
     "pages/index/index",
-    "pages/register/register",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "电子菜谱",
+    "navigationBarTitleText": "店铺管理",
     "navigationBarTextStyle":"black"
   }
 }

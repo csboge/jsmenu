@@ -1,0 +1,68 @@
+
+
+.page-container{
+    padding-top: 50rpx;
+    background: #4f9863;
+    width: 100%;
+}
+.page-section{
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 6rpx;
+    width: 90%;
+}
+.room-box{
+    display: flex;
+    flex-direction: column;
+}
+.room-name-title{
+    padding: 40rpx 0 30rpx 40rpx;
+    font-weight: bold;
+}.slide-table-line{
+    display: flex;
+    flex-direction: column;
+}
+.slide-table-item{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 86%;
+}
+.table-img{
+    width: 160rpx;
+    height: 80rpx;
+}
+swiper{
+    height: 400rpx;
+}
+.slide-box{
+    height: 330rpx;
+}
+.slide-table-line{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 330rpx;
+}
+.table-mid{
+    display: flex;
+    justify-content: center;
+}
+.table-right{
+    display: flex;
+    flex-direction: column;
+}
+.tb-right{
+    align-self: flex-end;
+}
+.talbe-img-box{
+    position: relative;
+}
+.room-name{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-size: 24rpx;
+}

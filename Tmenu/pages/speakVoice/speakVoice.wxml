@@ -12,7 +12,7 @@
       <view class="speak-content">
         <view class="speak-txt-box">
             <image src="http://img.my-shop.cc/image/voice-icon.png" class="voice-img"></image>
-            <view class="speak-txt">谢谢老板</view>
+            <view class="speak-txt">这家店的菜真好吃</view>
         </view>
         <view clas="speak-btn-box">
             <button type="primary" class="record-btn" bindlongtap="recordVoice" bindtouchend="stopRecord">长按说出以上口令领取赏金</button>

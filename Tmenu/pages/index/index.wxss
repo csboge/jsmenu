@@ -338,12 +338,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 26rpx;
+    margin-top: 36rpx;
 }
 .service-voice-img{
     margin-left: 10rpx;
-    width: 100rpx;
-    height: 40rpx;
+    width: 120rpx;
+    height: 50rpx;
 }
 .shop-voice-title{
     font-size: 24rpx;

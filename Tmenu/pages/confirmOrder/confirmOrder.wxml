@@ -63,11 +63,9 @@
                     <view class="msg-title">买家留言</view>
                     <input name="umsg" class="msg-input" placeholder="点击给卖家留言" maxlength="12" />
                 </view>
-                <view class="use-honbao" bindtap="chooseHonbao">
-                    <view class="msg-title">使用红包</view>
-                    <view class="honbao-box">
-                        <view class="honbao-txt">{{honbaoTxt?honbaoTxt:"当前无红包可以使用"}}</view>
-                    </view>
+                <view class="discount-dyq discount-box">
+                    <view class="discount-detail ml txt-head">金额</view>
+                    <view class="discount-right mr txt-red">￥{{totalPrice}}</view>
                 </view>
                 <view class="discount-info">
                     <view class="discount-new-customer discount-box">
@@ -77,9 +75,12 @@
                         </view>
                         <view class="discount-right mr txt-red">- ￥{{newCustDiscount}}</view>
                     </view>
-                    <view class="discount-dyq discount-box">
-                        <view class="discount-detail ml txt-head">金额</view>
-                        <view class="discount-right mr txt-red">￥{{totalPrice}}</view>
+                
+                    <view class="use-honbao" bindtap="chooseHonbao">
+                        <view class="msg-title">使用红包</view>
+                        <view class="honbao-box">
+                            <view class="honbao-txt">{{honbaoTxt?honbaoTxt:"当前无红包可以使用"}}</view>
+                        </view>
                     </view>
                 </view>
                 <view class="reduction-info" bindtap="showYhq">
@@ -167,8 +168,8 @@
 <view class="honbao-item-box" animation="{{yhq_animationData}}">
     <view class="honbao-title">选择优惠券</view>
     <view class="honbao-list">
-        <view class="honbao-box-x" data-yhq="{{item.yhq_price}}" data-discount="{{item.discount}}" data-index="{{index}}" bindtap="useYhq" wx:for="{{yhq_list}}">
-            <image src="{{item.isChecked?'http://img.my-shop.cc/image/hb_arrow_red.png':'http://img.my-shop.cc/image/hb_arrow_gray.png'}}" class="hb-arrow"></image>
+        <view class="honbao-box-x" data-yhq="{{item.yhq_price}}" data-discount="{{item.discount}}" data-index="{{index}}" data-index="{{index}}" bindtap="useYhq" wx:for="{{yhq_list}}">
+            <image src="{{item.isChecked?'http://img.my-shop.cc/image/hb_arrow_red.png':''}}" class="hb-arrow"></image>
             <view class="honbao-txt-x">满{{item.yhq_price}}元减{{item.discount}}元</view>
         </view>
     </view>
@@ -183,28 +184,18 @@
 <!-- 人数选择 -->
 <view class="user-num-box" wx:if="{{show_user_box}}">
     <view class="check-num-box">
-        <view class="check-num-txt">用餐人数</view>
+        <view class="check-num-txt">{{customer_num===0?'用餐人数':customer_num}}</view>
         <image src="http://img.my-shop.cc/image/hand.png?1" class="hand-img" mode="aspectFit"></image>
     </view>
-    <swiper indicator-dots="{{true}}" indicator-active-color="#fca71f" indicator-color="rgba(252,167,31,.4)" autoplay="{{false}}" interval="{{5000}}" duration="{{300}}" class="num-swiper">
-        <block>
-            <swiper-item wx:for="{{num_box}}">
-                <view class="num-slier-box">
-                    <view class="num-line" wx:for="{{item.page}}" wx:for-index="out_index">
-                        <view wx:for="{{item.line}}" wx:for-index="innerIndex" class="num-no {{item.num===customer_num?'num-checked':''}} {{(out_index%2===0&&innerIndex%2===1)||(out_index%2===1&&innerIndex%2===0)?'block-white':'block-gray'}}" data-num="{{item.num}}" bindtap="chooseNum">
-                            <view class="no">{{item.num}}</view>
-                        </view>
-                    </view>
-                </view>
-            </swiper-item>
-            <swiper-item>
-                <view class="input-box">
-                    <view class="input-title">用餐人数较多？请输入</view>
-                    <input type="number" name="num" class="input-num" confirm-type="done" placeholder="请输入用餐人数" placeholder-class="placeholder-txt" value="{{input_num_val}}" bindinput="inputNum"/>
-                </view>
-            </swiper-item>
-        </block>
-    </swiper>
+    <view class="num-box">
+        <view class="num-box-line" wx:for="{{num_box}}" wx:for-index="out_index">
+            <view class="num-box-item {{(out_index%2===1&&inner_index%2===0)||(out_index%2===0&&inner_index%2===1)?'block-white':'block-gray'}} {{item.is_checked?'num-checked':''}}" wx:for="{{item.line}}" wx:for-index="inner_index" data-num="{{item.num}}" data-inner_index="{{inner_index}}" data-line_index="{{out_index}}" bindtap="chooseNum">{{item.num}}</view>
+        </view>
+        <view class="num-box-line">
+            <view class="num-box-item block-light {{is_zero?'num-checked':''}}" data-num="{{0}}" bindtap="chooseNum">0</view>
+            <view class="num-box-item reset block-yellow {{is_reset?'reset-block':''}}" bindtap="clearNum">重输</view>
+        </view>
+    </view>
     <view class="close-icon-box">
         <view class="close-icon" bindtap="closeNumBox"></view>
     </view>

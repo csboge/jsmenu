@@ -79,9 +79,9 @@
                     </view>
                     <view class="food-detail-num-box">
                         <view class="food-detail-num">
-                            <view data-id="{{item.id}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus">-</view>
+                            <view data-id="{{item.id}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus"></view>
                             <view class="food-detail-number" style="visibility:{{item.num>0?'visible':'hidden'}}">{{item.num}}</view>
-                            <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus">+</view>
+                            <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus"></view>
                         </view>
                     </view>
                 </view>
@@ -122,11 +122,11 @@
                     <view class="detail-num-box">
                         <view class="detail-num">
                             <view class="minus-num">
-                                <view class="x-y-center-minus" data-id="{{item.id}}" bindtap="minus">-</view>
+                                <view class="x-y-center-minus" data-id="{{item.id}}" bindtap="minus"></view>
                             </view>
                             <view class="detail-number">{{item.num}}</view>
                             <view class="plus-num">
-                                <view class="x-y-center-plus" data-obj="{{item}}" bindtap="plus">+</view>
+                                <view class="x-y-center-plus" data-obj="{{item}}" bindtap="plus"></view>
                             </view>
                         </view>
                     </view>

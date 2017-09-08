@@ -13,19 +13,16 @@ Page({
     tel: "",                //商户电话
 
     data: {
-        num_box: [                   //人数选择数字
-            {
-                page: [
-                    { line: [{ num: 1, is_checked: false }, { num: 2, is_checked: false }, { num: 3, is_checked: false }] },
-                    { line: [{ num: 4, is_checked: false }, { num: 5, is_checked: false }, { num: 6, is_checked: false }] },
-                    { line: [{ num: 7, is_checked: false }, { num: 8, is_checked: false }, { num: 9, is_checked: false }] },
-                ]
-            }
+        num_box: [          //人数选择数字框
+            { line: [{ num: 1, is_checked: false }, { num: 2, is_checked: false }, { num: 3, is_checked: false }] },
+            { line: [{ num: 4, is_checked: false }, { num: 5, is_checked: false }, { num: 6, is_checked: false }] },
+            { line: [{ num: 7, is_checked: false }, { num: 8, is_checked: false }, { num: 9, is_checked: false }] },
         ],
         show_user_box: false,       //是否弹出人数选择框
         customer_num: 0,            //用餐人数
         show_btn: false,            //是否显示确认按钮
-        input_num_val: "",          //人数输入框值
+        // input_num_val: "",          //人数输入框值
+        is_zero: false,             //是否选中0
 
         honbaoList: [               //红包列表数据
             { id: 0, discount: 5, isChecked: false },
@@ -109,7 +106,8 @@ Page({
         let that = this;
 
         that.setData({
-            show_user_box: true
+            show_user_box: true,
+            customer_num: 0
         });
 
     },
@@ -122,25 +120,98 @@ Page({
     //点击数字按钮选择人数
     chooseNum(e) {
 
-        let num = e.currentTarget.dataset.num;      //点击数字按钮的数字
+        let that = this;
 
-        this.setData({
-            input_num_val: ""
-        });
+        let line_index = e.currentTarget.dataset.line_index;//行数索引
+        let index = e.currentTarget.dataset.inner_index;  //点击数字的索引
+        let num_list = this.data.num_box;           //数字框数据
+
+        let num = e.currentTarget.dataset.num;      //点击数字按钮的数字
+        let prev_num = this.data.customer_num;      //前面一个数字
+        let str_num = prev_num + "" + num;
+
+        if (num > 0) {
+
+            num_list.forEach((obj) => {
+                obj.line.forEach((o) => {
+                    o.is_checked = false;
+                });
+            });
+            num_list[line_index].line[index].is_checked = true;
+
+            this.setData({
+                num_box: num_list
+            });
+
+            setTimeout(function () {
+
+                num_list.forEach((obj) => {
+                    obj.line.forEach((o) => {
+                        o.is_checked = false;
+                    });
+                });
+
+                that.setData({
+                    num_box: num_list
+                });
+            }, 100);
+
+        }
+
+        if (num === 0) {
+
+            this.setData({
+                is_zero: true
+            });
+
+            setTimeout(function () {
+                that.setData({
+                    is_zero: false
+                });
+            }, 100)
+
+        } else {
+            this.setData({
+                is_zero: false
+            });
+        }
+
+        if (str_num.length < 3) {
+            num = str_num - 0;
+        } else {
+            return;
+        }
 
         this.changeNum(num);
 
     },
     //输入框输入人数
-    inputNum(e) {
+    // inputNum(e) {
 
-        let input_num = e.detail.value - 0;             //输入框输入的数字
+    //     let input_num = e.detail.value - 0;             //输入框输入的数字
+
+    //     this.setData({
+    //         customer_num: input_num
+    //     });
+
+    //     this.changeNum(input_num);
+
+    // },
+    //重新输入
+    clearNum() {
+
+        let that = this;
 
         this.setData({
-            customer_num: input_num
+            customer_num: 0,
+            is_reset:true
         });
-
-        this.changeNum(input_num);
+        
+        setTimeout(function(){
+            that.setData({
+                is_reset: false
+            });
+        },100);
 
     },
     //改变人数
@@ -167,18 +238,20 @@ Page({
             use_base: _use_base
         });
 
+    },
+    //关闭人数选择框
+    closeNumBox() {
+
+        this.setData({
+            show_user_box: false,
+            show_use_base: true
+        });
+
         this.showProducts();
 
         //再一次计算商品价格
         this.countPrice();
 
-    },
-    //关闭人数选择框
-    closeNumBox() {
-        this.setData({
-            show_user_box: false,
-            show_use_base: true
-        });
     },
     //获取用户折扣信息
     getDiscount() {
@@ -356,13 +429,22 @@ Page({
 
         let yhq_price = e.currentTarget.dataset.yhq;
         let yhq_discount = e.currentTarget.dataset.discount;
+        let index = e.currentTarget.dataset.index;
+        let _yhq_list = this.data.yhq_list;
+
+        _yhq_list.forEach((obj) => {
+            obj.isChecked = false
+        });
+
+        _yhq_list[index].isChecked = true;
 
         this.hYhq();
         this.setData({
             showModal: false,
             showYhq: false,
             yhq_discount: yhq_discount,
-            yhq_txt: "满" + yhq_price + "元减" + yhq_discount + "元"
+            yhq_txt: "满" + yhq_price + "元减" + yhq_discount + "元",
+            yhq_list: _yhq_list
         });
 
         this.countPrice();

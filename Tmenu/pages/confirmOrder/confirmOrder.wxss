@@ -205,12 +205,14 @@
 .discount-box {
     display: flex;
     justify-content: space-between;
+    background: #fff;
 }
 
 .discount-left {
     display: flex;
 }
-.discount-new-customer{
+
+.discount-new-customer {
     position: relative;
 }
 
@@ -221,7 +223,8 @@
     width: 60rpx;
     height: 60rpx;
 }
-.discount-detail-new{
+
+.discount-detail-new {
     padding-left: 36rpx;
 }
 
@@ -282,7 +285,7 @@
     width: 300rpx;
 }
 
- .honbao-txt::after {
+.honbao-txt::after {
     position: absolute;
     content: "";
     display: block;
@@ -293,7 +296,7 @@
     transform: rotate(45deg);
     right: -44rpx;
     top: 12rpx;
-} 
+}
 
 .honbao-item-box {
     /* display: none; */
@@ -416,10 +419,11 @@
     background-color: #f6f6f6;
 }
 
-.reduction-count-box{
+.reduction-count-box {
     display: flex;
 }
-.reduction-price{
+
+.reduction-price {
     margin-left: 10rpx;
 }
 
@@ -647,33 +651,9 @@
     transform: translate(-50%, -50%);
     border-right: 0;
     width: 80%;
-    height: 660rpx;
+    height: 750rpx;
     background: #fff;
     z-index: 10002;
-}
-
-.num-swiper {
-    width: 100%;
-    height: calc(660rpx - 190rpx);
-}
-
-.num-slier-box {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-}
-
-.num-line {
-    display: flex;
-    height: 136rpx;
-}
-
-.num-no {
-    position: relative;
-    flex-grow: 1;
-    height: 100%;
-    text-align: center;
-    background: #ccc;
 }
 
 .no {
@@ -694,8 +674,12 @@
     background: #f2f2f2;
 }
 
+.block-light {
+    background: #fff;
+}
+
 .num-checked {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.25);
     color: #fff;
 }
 
@@ -820,6 +804,7 @@
     display: flex;
     align-items: center;
     width: 400rpx;
+    background: #fff;
 }
 
 .people-num-img {
@@ -840,6 +825,7 @@
 
 .check-num-box {
     position: relative;
+    background: #fff;
 }
 
 .check-num-txt {
@@ -893,20 +879,29 @@
     line-height: 64rpx;
     color: #333;
 }
-.input-box{
+
+.num-box {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 70rpx;
 }
-.input-title{
-    align-self: flex-start;
-    padding-left: 30rpx;
-    font-size: 26rpx;
-    color: #4a4a4a;
+
+.num-box-line {
+    display: flex;
 }
-.input-num{
-    margin-top: 20rpx;
-    padding-left: 20rpx;
-    border: 2rpx solid #808080;
+
+.num-box-item {
+    line-height: 140rpx;
+    text-align: center;
+    width: calc(100% / 3);
+    height: 140rpx;
+    font-size: 56rpx;
+}
+
+.reset {
+    width: calc(100% * 2 / 3);
+    background: #fee4bb;
+}
+
+.reset-block{
+    background: rgba(0, 0, 0, .5);
 }

@@ -67,24 +67,25 @@ Page({
             tel: shop_info.mobile
         });
 
-        let cate_data = {
-            shop_id: _shop_id
-        };
+        // let cate_data = {
+        //     shop_id: _shop_id
+        // };
 
-        let cate_config = app.getParams(data);
+        // let cate_config = app.getParams(data);
 
-        util.request(app.globalData.ev_url + '/menu/category_list', "POST", cate_config)
+        util.request(app.globalData.ev_url + '/menu/category', "GET")
             .then((res) => {
-                if (res.data.code === 200) {
+                if (res.data.code === 1) {
+                    console.log(cate_list)
 
                     //默认选中第一种一级分类
-                    cate_list = res.data.data;
+                    cate_list = res.data.data.cate_list;
                     cate_list.forEach(function (obj) {
                         obj.isChecked = false;
                     });
                     cate_list[0].isChecked = true;
 
-                    let page_second_cate = cate_list[0].lsit || [];
+                    let page_second_cate = cate_list[0].list || [];
 
                     //默认选中第一级分类下的第一种二级分类
                     if (page_second_cate.length > 0) {
@@ -101,7 +102,6 @@ Page({
                         cateList: cate_list,
                         page_second_cate: page_second_cate
                     });
-
                 } else {
                     wx.showModal({
                         title: '提示',
@@ -113,22 +113,22 @@ Page({
                 util.disconnectModal();
             });
 
-        let goods_data = {
-            shop_id: this._shop_id
-        };
+        // let goods_data = {
+        //     shop_id: this._shop_id
+        // };
 
 
 
-        let goods_config = app.getParams(goods_data);
+        // let goods_config = app.getParams(goods_data);
         //加载所有商品
-        wx.request({
-            url: app.globalData.ev_url + '/menu/goods_list',
-            method: "POST",
-            data: goods_config,
-            success: function (res) {
+        // wx.request({
+        //     url: app.globalData.ev_url + '/menu/goods_list',
+        //     method: "POST",
+        //     data: goods_config,
+        //     success: function (res) {
 
-                var good_list = res.data.data;
-                // let good_list = data.goods_list;//使用模拟数据
+        //         var good_list = res.data.data;
+                let good_list = data.goods_list;//使用模拟数据
                 console.log(good_list)
                 var shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
                 var init_page_menu = [];
@@ -153,24 +153,25 @@ Page({
 
                 that.setData({
                     menu_list: good_list,
+                    // page_menu: res.data.data,
                     page_menu: init_page_menu,
                     cartList: shop_cart
                 })
-            }
-        });
+        //     }
+        // });
 
-        let data = {
-            "shop_id": _shop_id,
-            // "cat_id": 1,
-            // "package": 1
-        };
+        // let data = {
+        //     "shop_id": _shop_id,
+        //     // "cat_id": 1,
+        //     // "package": 1
+        // };
 
-        let config = app.getParams(data);
+        // let config = app.getParams(data);
 
-        util.request(app.globalData.ev_url + '/menu/goods_list', "POST", config)
-            .then((res) => {
-                console.log(res.data.data);
-            });
+        // util.request(app.globalData.ev_url + '/menu/goods_list', "POST", config)
+        //     .then((res) => {
+        //         console.log(res.data.data);
+        //     });
 
         //初始化所有商品购买数量 为 0
         var init_page_menu = [];
@@ -290,7 +291,7 @@ Page({
         that.listData(e.target.dataset.fid);
     },
     //选择商品
-    listData: function () {
+    listData: function (parent_id) {
 
         let that = this;
         let shop_cart = util.getStorageSync("shopCart");

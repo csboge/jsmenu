@@ -7,30 +7,34 @@
             </view>
             <view class="shop-detail">
                 <view class="shop-name">{{shop_name}}</view>
-                <view class="shop-add">
+                <view class="shop-add" bindtap="showLoca">
                     <view class="shop-add-txt gray">湖南省长沙市湘江中路123号</view>
                     <view class="arrow"></view>
                 </view>
                 <view class="shop-runtime gray">营业时间：周一至周五 08:00-17:30</view>
+                <view class="shop-voice-box">
+                    <view class="shop-voice-title gray">服务宣言</view>
+                    <image src="http://img.my-shop.cc/image/service_voice.png" class="service-voice-img"></image>
+                </view>
             </view>
             <view class="line"></view>
         </view>
         <view class="menu-box">
             <view class="menu-item" bindtap="navi" data-url="../menu/menu">
                 <view class="menu-item-logo">
-                    <image src="http://img.my-shop.cc/image/menu-icon1.png" class="menu-item-img"></image>
+                    <image src="http://img.my-shop.cc/image/menu-icon1.png?1" class="menu-item-img"></image>
                 </view>
                 <view class="menu-item-txt b gray">点外卖</view>
             </view>
             <view class="menu-item" bindtap="call">
                 <view class="menu-item-logo">
-                    <image src="http://img.my-shop.cc/image/menu-icon2.png" class="menu-item-img"></image>
+                    <image src="http://img.my-shop.cc/image/menu-icon2.png?1" class="menu-item-img"></image>
                 </view>
                 <view class="menu-item-txt b gray">电话联系</view>
             </view>
             <view class="menu-item" bindtap="showLoca">
                 <view class="menu-item-logo">
-                    <image src="http://img.my-shop.cc/image/menu-icon3.png" class="menu-item-img"></image>
+                    <image src="http://img.my-shop.cc/image/menu-icon3.png?1" class="menu-item-img"></image>
                 </view>
                 <view class="menu-item-txt b gray">导航前往</view>
             </view>
@@ -38,7 +42,7 @@
                 <button class="share-btn" open-type="share">
                     <view class="menu-item share-item">
                         <view class="menu-item-logo">
-                            <image src="http://img.my-shop.cc/image/menu-icon4.png" class="menu-item-img"></image>
+                            <image src="http://img.my-shop.cc/image/menu-icon4.png?1" class="menu-item-img"></image>
                         </view>
                         <view class="menu-item-txt b gray transmit-txt">推荐好友</view>
                     </view>
@@ -46,13 +50,13 @@
             </view>
             <view class="menu-item" bindtap="navi" data-url="../myDiscount/myDiscount">
                 <view class="menu-item-logo">
-                    <image src="http://img.my-shop.cc/image/menu-icon5.png" class="menu-item-img"></image>
+                    <image src="http://img.my-shop.cc/image/menu-icon5.png?1" class="menu-item-img"></image>
                 </view>
                 <view class="menu-item-txt b gray">优惠券</view>
             </view>
             <view class="menu-item" bindtap="navi" data-url="../myRecord/myRecord">
                 <view class="menu-item-logo">
-                    <image src="http://img.my-shop.cc/image/menu-icon6.png" class="menu-item-img"></image>
+                    <image src="http://img.my-shop.cc/image/menu-icon6.png?1" class="menu-item-img"></image>
                 </view>
                 <view class="menu-item-txt b gray">订单记录</view>
             </view>
@@ -66,7 +70,7 @@
                 </view>
                 <view class="slide-content">
                     <swiper class="mid-slide" indicator-dots="{{true}}" indicator-active-color="#ff4246" autoplay="{{true}}" interval="{{5000}}" duration="{{600}}">
-                        <block wx:for="{{img_urls}}">
+                        <block wx:for="{{ev_slide_urls}}">
                             <swiper-item>
                                 <image src="{{item}}" class="slide-image" />
                             </swiper-item>
@@ -82,7 +86,7 @@
                 </view>
                 <view class="slide-content">
                     <swiper class="mid-slide" indicator-dots="{{true}}" indicator-active-color="#ff4246" autoplay="{{true}}" interval="{{5000}}" duration="{{600}}">
-                        <block wx:for="{{img_urls}}">
+                        <block wx:for="{{ac_slide_urls}}">
                             <swiper-item>
                                 <image src="{{item}}" class="slide-image" />
                             </swiper-item>
@@ -98,7 +102,7 @@
                 </view>
                 <view class="slide-content recommend">
                     <swiper class="big-slide" indicator-dots="{{false}}" autoplay="{{true}}" indicator-active-color="#ff4246" interval="{{5000}}" duration="{{600}}">
-                        <block wx:for="{{img_urls}}">
+                        <block wx:for="{{re_slide_urls}}">
                             <swiper-item>
                                 <image src="{{item}}" class="slide-image-big" />
                                 <view class="recommend-box">

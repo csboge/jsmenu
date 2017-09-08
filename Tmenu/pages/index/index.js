@@ -16,10 +16,19 @@ Page({
             { id: 4, imgUrl: "http://img.my-shop.cc/image/menu-icon5.png", menuName: "优惠券", menuUrl: "../myDiscount/myDiscount", type: 1 },
             { id: 5, imgUrl: "http://img.my-shop.cc/image/menu-icon6.png", menuName: "订单记录", menuUrl: "../myRecord/myRecord", type: 1 }
         ],
-        img_urls: [
-            "http://img.my-shop.cc/image/index_slide1.jpg",
-            "http://img.my-shop.cc/image/index_slide2.jpg",
-            "http://img.my-shop.cc/image/index_slide3.jpg"
+        ev_slide_urls:[
+            "http://img.my-shop.cc/image/ev_slide1.jpg",
+            "http://img.my-shop.cc/image/ev_slide2.jpg",
+            "http://img.my-shop.cc/image/ev_slide3.jpg"
+        ],
+        ac_slide_urls:[
+            "http://img.my-shop.cc/image/ac_slide1.png",
+            "http://img.my-shop.cc/image/ac_slide2.png"
+        ],
+        re_slide_urls: [
+            "http://img.my-shop.cc/image/re_slide1.jpg",
+            "http://img.my-shop.cc/image/re_slide2.jpg",
+            "http://img.my-shop.cc/image/re_slide3.jpg"
         ],
         curr:0,                 //当前图片索引
 

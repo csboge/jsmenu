@@ -42,10 +42,11 @@ Page({
         cartAnimation: {}       //购物车动画
 
     },
-    rowIndex: 0, //显示食物的行数,每行四
-    mark: 0,//tap的坐标 x或y
-    newMark: 0,//移动后的坐标 x或y
-    /**
+    rowIndex: 0,                //显示食物的行数,每行四
+    mark: 0,                    //tap的坐标 x或y
+    newMark: 0,                 //移动后的坐标 x或y
+    _shop_id: 0,                 //商户id 
+    /** 
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
@@ -56,6 +57,8 @@ Page({
         let _shop_id = shop_info.id;            //商户id
         let cate_list = [];                     //一级分类
 
+        this._shop_id = _shop_id;
+
         //渲染商户信息
         that.setData({
             shop_logo: shop_info.logo,
@@ -63,47 +66,6 @@ Page({
             notice: shop_info.notice,
             tel: shop_info.mobile
         });
-
-        //加载一级分类
-        // wx.request({
-        //     url: app.globalData.ev_url + '/menu/category',
-        //     method: "GET",
-        //     success: function (res) {
-        //         // console.log(res.data)
-        //         if (res.data.code === 1) {
-        //             cate_list = res.data.data.cate_list;
-        //             cate_list.forEach(function (obj) {
-        //                 obj.isChecked = false;
-        //             });
-        //             cate_list[0].isChecked = true;
-
-        //             //默认选中第一级分类下的第一种二级分类
-        //             page_second_cate = cate_list[0].list;
-
-        //             //默认选中二级分类中的第一类
-        //             page_second_cate.forEach(function (obj) {
-        //                 obj.isChecked = false;
-        //             });
-
-        //             page_second_cate[0].isChecked = true;
-
-        //             that.setData({
-        //                 cateList: cate_list,
-        //                 page_second_cate: page_second_cate
-        //             });
-
-        //         } else {
-        //             wx.showModal({
-        //                 title: '提示',
-        //                 content: res.data.message,
-        //                 showCancel: false
-        //             })
-        //         }
-        //     },
-        //     fail(res) {
-        //         util.disconnectModal();
-        //     }
-        // });
 
         let cate_data = {
             shop_id: _shop_id
@@ -133,7 +95,7 @@ Page({
 
                         page_second_cate[0].isChecked = true;
 
-                    }                    
+                    }
 
                     that.setData({
                         cateList: cate_list,
@@ -151,44 +113,51 @@ Page({
                 util.disconnectModal();
             });
 
+        let goods_data = {
+            shop_id: this._shop_id
+        };
+
+
+
+        let goods_config = app.getParams(goods_data);
         //加载所有商品
-        // wx.request({
-        //     url: app.globalData.ev_url + '/menu/goods',
-        //     method: "POST",
-        //     data:{},
-        //     success: function (res) {
+        wx.request({
+            url: app.globalData.ev_url + '/menu/goods_list',
+            method: "POST",
+            data: goods_config,
+            success: function (res) {
 
-        //         var good_list = res.data.data;
-        //         // let good_list = data.goods_list;//使用模拟数据
-        //         console.log(good_list)
-        //         var shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
-        //         var init_page_menu = [];
+                var good_list = res.data.data;
+                // let good_list = data.goods_list;//使用模拟数据
+                console.log(good_list)
+                var shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
+                var init_page_menu = [];
 
-        //         good_list.forEach(function (obj) {
-        //             obj.num = 0;
-        //         });
+                good_list.forEach(function (obj) {
+                    obj.num = 0;
+                });
 
-        //         good_list.forEach(function (obj) {
-        //             if (obj.cate_id === 101) {
-        //                 init_page_menu.push(obj);
-        //             }
-        //         });
-        //         console.log(init_page_menu);
-        //         // console.log(shop_cart)
-        //         // console.log(init_page_menu)
-        //         if (shop_cart.length > 0) {
-        //             init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
-        //             //计算购物车商品总数量和总价格
-        //             that.countAll(shop_cart);
-        //         }
+                good_list.forEach(function (obj) {
+                    if (obj.cate_id === 101) {
+                        init_page_menu.push(obj);
+                    }
+                });
+                console.log(init_page_menu);
+                // console.log(shop_cart)
+                // console.log(init_page_menu)
+                if (shop_cart.length > 0) {
+                    init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
+                    //计算购物车商品总数量和总价格
+                    that.countAll(shop_cart);
+                }
 
-        //         that.setData({
-        //             menu_list: good_list,
-        //             page_menu: init_page_menu,
-        //             cartList: shop_cart
-        //         })
-        //     }
-        // });
+                that.setData({
+                    menu_list: good_list,
+                    page_menu: init_page_menu,
+                    cartList: shop_cart
+                })
+            }
+        });
 
         let data = {
             "shop_id": _shop_id,
@@ -225,7 +194,6 @@ Page({
     },
     onReady() {
         //播放问候语
-
         wx.playBackgroundAudio({
             dataUrl: 'https://www.csboge.com/voice/test1.mp3',
             fail: function (res) {
@@ -321,6 +289,28 @@ Page({
 
         that.listData(e.target.dataset.fid);
     },
+    //选择商品
+    listData: function () {
+
+        let that = this;
+        let shop_cart = util.getStorageSync("shopCart");
+        let menu_list = that.data.menu_list;
+        let page_menu = [];
+        // console.log(parent_id)
+
+        menu_list.forEach((obj) => {
+            if (obj.cate_id === parent_id) {
+                page_menu.push(obj);
+            }
+        });
+
+        let new_page_menu = that.updatePageMenuNum(shop_cart, page_menu);
+
+        that.setData({
+            page_menu: new_page_menu
+        });
+
+    },
     //在一级菜单中标明哪些二级菜单被选中
     signForSecondMenu: function (id) {
         // console.log(id)
@@ -346,28 +336,6 @@ Page({
         that.setData({
             cateList: cate_list
         })
-    },
-    //列出当前页面商品列表
-    listData: function (parent_id) {
-
-        let that = this;
-        let shop_cart = util.getStorageSync("shopCart");
-        let menu_list = that.data.menu_list;
-        let page_menu = [];
-        // console.log(parent_id)
-
-        menu_list.forEach((obj) => {
-            if (obj.cate_id === parent_id) {
-                page_menu.push(obj);
-            }
-        });
-
-        let new_page_menu = that.updatePageMenuNum(shop_cart, page_menu);
-
-        that.setData({
-            page_menu: new_page_menu
-        });
-
     },
     //点击领取优惠券
     getHb: function () {

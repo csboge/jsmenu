@@ -1,9 +1,9 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/menu/menu",
         "pages/confirmOrder/confirmOrder",
         "pages/orderDetail/orderDetail",
-        "pages/menu/menu",
         "pages/filter/filter",
         "pages/speakVoice/speakVoice",
         "pages/finishOrder/finishOrder",

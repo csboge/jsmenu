@@ -3,18 +3,18 @@
         <view class="page-head" bindtap="goShopInfo">
             <view class="page-head-box">
                 <view class="page-head-img">
-                    <image src="http://img.my-shop.cc/image/shop-logo.jpg" class="logo"></image>
+                    <image src="{{shop_logo}}" class="logo"></image>
                 </view>
                 <view class="page-head-detail">
                     <view class="page-head-title-box">
-                        <view class="page-head-title white txt-mid">真功夫-万达店</view>
+                        <view class="page-head-title white txt-mid">{{shop_name}}</view>
                         <view class="arrow white arrow-title"></view>
                     </view>
                     <view class="page-head-notice white txt-small">
-                        公告: 联系电话0731-85056818，超出范围五份起送！
+                        {{notice}}
                     </view>
                     <view class="page-head-notice white txt-small">
-                        可送公司餐，团餐定制，团购餐
+                        联系电话:{{tel}}
                     </view>
                 </view>
             </view>

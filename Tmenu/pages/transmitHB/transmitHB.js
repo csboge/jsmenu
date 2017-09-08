@@ -1,6 +1,7 @@
 // pages/transmitHB/transmitHB.js
 
 import user from "../../modules/user";
+import util from "../../utils/util";
 
 let app = getApp();
 
@@ -28,6 +29,7 @@ Page({
         this.setData({
             userInfo: user.getUserStorage(),
             utxt: _utxt,
+
             is_transimit: _is_transimit
         });
     },
@@ -36,22 +38,44 @@ Page({
     },
     //分享二维码
     share: function () {
-        wx.previewImage({
-            //   current: 'http://img.my-shop.cc/image/qr-code.png', // 当前显示图片的http链接
-            urls: ['http://img.my-shop.cc/image/qr-code.png'] // 需要预览的图片http链接列表
-        })
+    console.log(111)
+        util.request(app.globalData.ev_url + "/Discount/robimg", { bagid: app.globalData.mode_data.bagid })
+            .then((res) => {
+                if (res.data.code === 1) {
+
+                    // let img_url = res.data.data.imgurl;
+                    let img_url = 'http://img.my-shop.cc/image/qr-code.png';
+
+                    wx.previewImage({
+                        current: img_url, // 当前显示图片的http链接
+                        urls: [] // 需要预览的图片http链接列表
+                    })
+
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
+            });
+            
     },
     //转发
     onShareAppMessage: function (res) {
 
         let that = this;
 
+        let bagid = app.globalData.mode_data.bagid;
+        let count = app.globalData.mode_data.count;
+        let speed = app.globalData.mode_data.speed;
+
         return {
             title: '口令红包',
-            path: '/pages/speakVoice/speakVoice',
+            path: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed,
             success: function (res) {
 
-                app.setGlobalData("is_transimit",true);
+                app.setGlobalData("is_transimit", true);
 
                 that.setData({
                     is_transimit: true
@@ -61,9 +85,9 @@ Page({
                     title: '转发成功',
                     icon: 'success',
                     duration: 750,
-                    success(){
+                    success() {
                         wx.redirectTo({
-                            url: '../menu/menu'
+                            url: '/pages/voiceExample/voiceExample?bagid=' + bagid + "&count=" + count + "&speed=" + speed,
                         });
                     }
                 });

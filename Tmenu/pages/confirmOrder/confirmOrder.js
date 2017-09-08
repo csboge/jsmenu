@@ -7,9 +7,11 @@ var app = getApp();
 
 Page({
 
-    /**
-     * 页面的初始数据
-     */
+    shop_logo: "",          //商户logo
+    shop_name: "",          //商户名
+    noitce: "",             //商户公告
+    tel: "",                //商户电话
+
     data: {
         num_box: [                   //人数选择数字
             {
@@ -18,25 +20,12 @@ Page({
                     { line: [{ num: 4, is_checked: false }, { num: 5, is_checked: false }, { num: 6, is_checked: false }] },
                     { line: [{ num: 7, is_checked: false }, { num: 8, is_checked: false }, { num: 9, is_checked: false }] },
                 ]
-            },
-            {
-                page: [
-                    { line: [{ num: 10, is_checked: false }, { num: 11, is_checked: false }, { num: 12, is_checked: false }] },
-                    { line: [{ num: 13, is_checked: false }, { num: 14, is_checked: false }, { num: 15, is_checked: false }] },
-                    { line: [{ num: 16, is_checked: false }, { num: 17, is_checked: false }, { num: 18, is_checked: false }] },
-                ]
-            },
-            {
-                page: [
-                    { line: [{ num: 19, is_checked: false }, { num: 20, is_checked: false }, { num: 21, is_checked: false }] },
-                    { line: [{ num: 22, is_checked: false }, { num: 23, is_checked: false }, { num: 24, is_checked: false }] },
-                    { line: [{ num: 25, is_checked: false }, { num: 26, is_checked: false }, { num: 27, is_checked: false }] },
-                ]
             }
         ],
         show_user_box: false,       //是否弹出人数选择框
         customer_num: 0,            //用餐人数
         show_btn: false,            //是否显示确认按钮
+        input_num_val: "",          //人数输入框值
 
         honbaoList: [               //红包列表数据
             { id: 0, discount: 5, isChecked: false },
@@ -44,31 +33,32 @@ Page({
             { id: 2, discount: 15, isChecked: false },
             { id: 3, discount: 20, isChecked: false },
             { id: 4, discount: 25, isChecked: false },
-            { id: 5, discount: 30, isChecked: false },
-            { id: 6, discount: 35, isChecked: false }
+            { id: 5, discount: 30, isChecked: false }
         ],
         honbaoTxt: "",              //使用红包的金额展示
         animationData: {},          //红包弹出动画
         showModal: false,           //是否显示红包模态框
         showHonbao: false,          //是否显示红包弹出框
+        hb_money: 0,                 //使用红包抵扣的金额
 
         yhq_list: [                 //优惠券列表数据
-            { id: 0, yhq_price: 5, isChecked: false },
-            { id: 1, yhq_price: 10, isChecked: false },
-            { id: 2, yhq_price: 15, isChecked: false },
-            { id: 3, yhq_price: 20, isChecked: false },
-            { id: 4, yhq_price: 25, isChecked: false },
-            { id: 5, yhq_price: 30, isChecked: false },
-            { id: 6, yhq_price: 35, isChecked: false }
+            { id: 0, yhq_price: 10, discount: 5, isChecked: false },
+            { id: 0, yhq_price: 15, discount: 7, isChecked: false },
+            { id: 0, yhq_price: 20, discount: 12, isChecked: false },
+            { id: 0, yhq_price: 30, discount: 15, isChecked: false },
+            { id: 0, yhq_price: 40, discount: 18, isChecked: false },
+            { id: 0, yhq_price: 60, discount: 20, isChecked: false }
         ],
         yhq_txt: "",                //使用优惠券的金额展示
         yhq_animationData: {},      //优惠券弹出动画
         showYhq: false,             //是否显示优惠券弹出框
+        yhq_discount: 0,             //优惠券优惠的金额
 
         foodList: [],               //商品列表
         is_show_more: true,         //是否是展开更多状态
-        hide_show_more: false,       //是否隐藏展开更多按钮
-        use_base: {},               //碗具、纸巾等标配用品
+        hide_show_more: false,      //是否隐藏展开更多按钮
+        use_base: {},               //碗具、纸巾等标配商品
+        show_use_base: false,       //是否显示碗具、纸巾等商品
 
         remarkText: "",             //口味备注
 
@@ -90,7 +80,18 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+
         let that = this;
+        let shop_info = app.globalData.shop_info;
+
+        //渲染商户信息
+        that.setData({
+            shop_logo: shop_info.logo,
+            shop_name: shop_info.title,
+            notice: shop_info.notice,
+            tel: shop_info.mobile
+        });
+
         //抓取用户折扣信息、并计算价格、渲染商品
         this.getDiscount();
 
@@ -118,17 +119,37 @@ Page({
             show_user_box: false
         });
     },
-    //选择人数
+    //点击数字按钮选择人数
     chooseNum(e) {
 
-        let num = e.currentTarget.dataset.num;
-        let _use_base = this.data.use_base;
-
-        // console.log(num);
+        let num = e.currentTarget.dataset.num;      //点击数字按钮的数字
 
         this.setData({
-            customer_num: num,
-            show_user_box: false
+            input_num_val: ""
+        });
+
+        this.changeNum(num);
+
+    },
+    //输入框输入人数
+    inputNum(e) {
+
+        let input_num = e.detail.value - 0;             //输入框输入的数字
+
+        this.setData({
+            customer_num: input_num
+        });
+
+        this.changeNum(input_num);
+
+    },
+    //改变人数
+    changeNum(num) {
+
+        let _use_base = app.globalData.use_base;
+
+        this.setData({
+            customer_num: num
         });
 
         //更改餐具套数
@@ -136,6 +157,7 @@ Page({
             if (obj.is_change_item) {
                 obj.num = num;
             }
+            obj.count_price = (obj.num * obj.price).toFixed(2) - 0;
         });
 
         //覆盖全局变量中餐具用品
@@ -147,17 +169,23 @@ Page({
 
         this.showProducts();
 
-        //此处人数定了，餐具套数也定了，再一次计算商品价格
+        //再一次计算商品价格
         this.countPrice();
 
     },
-
+    //关闭人数选择框
+    closeNumBox() {
+        this.setData({
+            show_user_box: false,
+            show_use_base: true
+        });
+    },
     //获取用户折扣信息
     getDiscount() {
 
         let that = this;
 
-        util.request('https://api.ai-life.me/api/Buy/isFirst', "GET")
+        util.request(app.globalData.ev_url + '/Buy/isFirst', "GET")
             .then((res) => {
                 if (res.data.code === 1) {
 
@@ -178,8 +206,7 @@ Page({
                     that.setData({
                         newCustDiscount: res.data.data.first_money,
                         order_rate: res.data.data.order_rate,
-                        mode_rate: res.data.data.mode_rate,
-                        use_base: _use_base
+                        mode_rate: res.data.data.mode_rate
                     });
                     //存入订单
                     let order = {
@@ -191,6 +218,7 @@ Page({
                     that.showProducts();
                     //计算价格、手续费等
                     that.countPrice();
+
                 } else {
                     wx.showModal({
                         title: '提示',
@@ -232,7 +260,11 @@ Page({
         let total_price = 0;                                    //总价
         let total_num = 0;                                      //总数量
         let base_price = 0;                                     //餐具、餐巾纸等标配物品价格
-        let discount_money = this.data.newCustDiscount;         //折扣金额
+
+        let discount_money = this.data.yhq_discount;            //优惠券金额
+        let hb_money = this.data.hb_money;                      //使用红包抵扣金额
+        let first_money = this.data.newCustDiscount;            //新客立减金额
+
         let _order_rate = this.data.order_rate;                 //手续费费率
         // console.log(_order_rate)
 
@@ -242,18 +274,21 @@ Page({
             }
             total_num += product.num;
         });
-        // console.log(total_price)
-        //计算餐具、纸巾等用品价格
-        _use_base.forEach((obj) => {
-            base_price += (obj.num * obj.price).toFixed(2) - 0;
-        });
-        // console.log(base_price);
-        total_price += base_price;
+        console.log(_use_base)
 
-        let discount_price = total_price - discount_money;                      //折扣后的总价格(应付金额)
-        let taxtPrice = (discount_price * _order_rate).toFixed(2) - 0;          //手续费
-        let realPrice = (discount_price * (_order_rate + 1)).toFixed(2) - 0;    //实际支付金额
-        let pay_type = this.data.pay_type;                                      //支付类型
+        //计算餐具、纸巾等用品价格
+        if (_use_base.length > 0) {
+            _use_base.forEach((obj) => {
+                base_price += (obj.num * obj.price).toFixed(2) - 0;
+            });
+        }
+        total_price += base_price;
+        console.log(base_price)
+
+        let discount_price = total_price - discount_money - hb_money - first_money;     //红包抵扣、优惠券优惠后的金额(应付金额)
+        let taxtPrice = (discount_price * _order_rate).toFixed(2) - 0;                  //手续费
+        let realPrice = (discount_price * (_order_rate + 1)).toFixed(2) - 0;            //实际支付金额
+        let pay_type = this.data.pay_type;                                              //支付类型
 
         this.setData({
             totalPrice: total_price,
@@ -271,18 +306,25 @@ Page({
 
         let shop_cart = util.getStorageSync("shopCart");
 
+        //计算单个商品的总价格
+        shop_cart.forEach((product) => {
+            product.count_price = (product.num * product.price).toFixed(2) - 0;
+        });
+
+        // util.setStorageSync("shopCart", shop_cart);
+
         if (shop_cart.length > 2) {
             this.setData({
                 foodList: shop_cart.slice(0, 2),
                 is_show_more: false,
                 hide_show_more: false
-            })
+            });
         } else {
             this.setData({
                 foodList: shop_cart,
                 is_show_more: true,
                 hide_show_more: true
-            })
+            });
         }
 
     },
@@ -296,7 +338,7 @@ Page({
             this.setData({
                 foodList: shop_cart.slice(0, 2),
                 is_show_more: false
-            })
+            });
         } else {
             this.setData({
                 foodList: shop_cart,
@@ -305,7 +347,7 @@ Page({
         }
 
     },
-    // //弹出优惠券选择框
+    //弹出优惠券选择框
     showYhq: function () {
         this.sYhq();
     },
@@ -313,13 +355,17 @@ Page({
     useYhq: function (e) {
 
         let yhq_price = e.currentTarget.dataset.yhq;
+        let yhq_discount = e.currentTarget.dataset.discount;
 
         this.hYhq();
         this.setData({
             showModal: false,
             showYhq: false,
-            yhq_txt: "使用" + yhq_price + "元优惠券抵扣"
-        })
+            yhq_discount: yhq_discount,
+            yhq_txt: "满" + yhq_price + "元减" + yhq_discount + "元"
+        });
+
+        this.countPrice();
 
     },
     //不使用优惠券
@@ -333,17 +379,31 @@ Page({
     },
     //使用红包
     chooseHonbao: function () {
+
         this.sHonbao();
     },
     //选择红包
     useHonbao: function (e) {
-        // console.log(e.target.dataset.hb)
+        //console.log(e.target.dataset.hb)
+        let index = e.currentTarget.dataset.index;
+        let hb_list = this.data.honbaoList;
+        hb_list.forEach((obj) => {
+            obj.isChecked = false;
+        });
+        hb_list[index].isChecked = true;
+
         this.hHonbao();
         this.setData({
             showModal: false,
             showHonbao: false,
-            honbaoTxt: "使用" + e.target.dataset.hb + "元现金红包抵扣"
-        })
+            honbaoList: hb_list,
+            hb_money: e.currentTarget.dataset.hb,
+            honbaoTxt: "使用" + e.currentTarget.dataset.hb + "元现金红包抵扣"
+        });
+
+        //计算价格
+        this.countPrice();
+
     },
     //不使用红包
     cancelUse: function () {
@@ -428,6 +488,12 @@ Page({
             yhq_animationData: animation.export()
         })
     },
+    //选择支付方式
+    checkPayWay(e) {
+        this.setData({
+            pay_type: e.currentTarget.dataset.v - 0
+        });
+    },
     //选择备注
     goFoodRemark: function () {
         wx.navigateTo({
@@ -441,12 +507,10 @@ Page({
         let _customer_num = this.data.customer_num;
 
         // console.log(_customer_num)
-
+        //如果没有输入人数，就弹出选择人数框
         if (_customer_num === 0) {
-            wx.showModal({
-                title: '提示',
-                content: '请输入用餐人数后重新尝试',
-                showCancel: false
+            that.setData({
+                show_user_box: true
             });
             return;
         }
@@ -483,7 +547,7 @@ Page({
 
         //统一下单
         wx.request({
-            url: 'https://api.ai-life.me//api/Buy/submitOrder',
+            url: app.globalData.ev_url + '/Buy/submitOrder',
             data: data,
             method: 'POST',
             success: function (res) {
@@ -491,8 +555,8 @@ Page({
                 if (res.data.code === 1) {
                     let _order = res.data.data.order;
                     //覆盖当前订单，防止重复提交
-                    // util.setStorageSync("order", _order);
-                    // console.log(_order);
+                    util.setStorageSync("finish_order", _order);
+                    console.log(_order);
 
                     wx.requestPayment({
                         'timeStamp': res.data.data.timeStamp,

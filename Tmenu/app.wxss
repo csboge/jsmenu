@@ -1,4 +1,6 @@
+
 /**app.wxss**/
+
 .page-container{
     width: 100%;
 }
@@ -22,6 +24,9 @@ view{
     font-size: 28rpx;
 }
 .arrow{
+    position: absolute;
+    right: 14rpx;
+    top: 4rpx;
     display: block;
     width: 14rpx;
     height: 14rpx;
@@ -36,4 +41,8 @@ view{
 .b{
     font-size: 28rpx;
     font-weight: bold;
+}
+.placeholder-txt{
+    color: #d3d3d3;
+    font-size: 24rpx;
 }

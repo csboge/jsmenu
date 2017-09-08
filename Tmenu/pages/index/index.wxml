@@ -3,26 +3,25 @@
     <view class="page-section" animation="{{animationData}}">
         <view class="shop-info">
             <view class="shop-logo">
-                <image src="http://img.my-shop.cc/image/official_logo.jpg" class="shop-logo-img"></image>
+                <image src="{{logo}}" class="shop-logo-img"></image>
             </view>
             <view class="shop-detail">
-                <view class="shop-name">电子菜谱</view>
+                <view class="shop-name">{{shop_name}}</view>
                 <view class="shop-add">
-                    <view class="shop-add-txt gray b">伯格小程序工作室</view>
+                    <view class="shop-add-txt gray">湖南省长沙市湘江中路123号</view>
+                    <view class="arrow"></view>
                 </view>
-                <view class="shop-runtime gray b">上班时间：周一至周五 08:00-17:30</view>
+                <view class="shop-runtime gray">营业时间：周一至周五 08:00-17:30</view>
             </view>
             <view class="line"></view>
         </view>
         <view class="menu-box">
-            <button class="share-btn" open-type="share">
-                <view class="menu-item share-item">
-                    <view class="menu-item-logo">
-                        <image src="http://img.my-shop.cc/image/menu-icon4.png" class="menu-item-img"></image>
-                    </view>
-                    <view class="menu-item-txt b gray transmit-txt">推荐好友</view>
+            <view class="menu-item" bindtap="navi" data-url="../menu/menu">
+                <view class="menu-item-logo">
+                    <image src="http://img.my-shop.cc/image/menu-icon1.png" class="menu-item-img"></image>
                 </view>
-            </button>
+                <view class="menu-item-txt b gray">点外卖</view>
+            </view>
             <view class="menu-item" bindtap="call">
                 <view class="menu-item-logo">
                     <image src="http://img.my-shop.cc/image/menu-icon2.png" class="menu-item-img"></image>
@@ -35,12 +34,117 @@
                 </view>
                 <view class="menu-item-txt b gray">导航前往</view>
             </view>
-        </view>
-        <view class="company-img-box">
-            <view class="img-box">
-                <image src="http://img.my-shop.cc/image/card1.png" class="company-img" mode="aspectFit"></image>
-                <image src="http://img.my-shop.cc/image/card2.png" class="company-img img2" mode="aspectFit"></image>
+            <view class="menu-item">
+                <button class="share-btn" open-type="share">
+                    <view class="menu-item share-item">
+                        <view class="menu-item-logo">
+                            <image src="http://img.my-shop.cc/image/menu-icon4.png" class="menu-item-img"></image>
+                        </view>
+                        <view class="menu-item-txt b gray transmit-txt">推荐好友</view>
+                    </view>
+                </button>
             </view>
+            <view class="menu-item" bindtap="navi" data-url="../myDiscount/myDiscount">
+                <view class="menu-item-logo">
+                    <image src="http://img.my-shop.cc/image/menu-icon5.png" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">优惠券</view>
+            </view>
+            <view class="menu-item" bindtap="navi" data-url="../myRecord/myRecord">
+                <view class="menu-item-logo">
+                    <image src="http://img.my-shop.cc/image/menu-icon6.png" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">订单记录</view>
+            </view>
+        </view>
+        <view class="mid-line">welcome</view>
+        <view class="company-info">
+            <view class="slide-box">
+                <view class="slide-title-box">
+                    <view class="slide-title-ch txt-title-ch">餐厅环境</view>
+                    <view class="slide-title-en txt-title-en">ENVIRONMENT</view>
+                </view>
+                <view class="slide-content">
+                    <swiper class="mid-slide" indicator-dots="{{true}}" indicator-active-color="#ff4246" autoplay="{{true}}" interval="{{5000}}" duration="{{600}}">
+                        <block wx:for="{{img_urls}}">
+                            <swiper-item>
+                                <image src="{{item}}" class="slide-image" />
+                            </swiper-item>
+                        </block>
+                    </swiper>
+                </view>
+                <view class="slide-line"></view>
+            </view>
+            <view class="slide-box">
+                <view class="slide-title-box">
+                    <view class="slide-title-ch txt-title-ch">营销活动</view>
+                    <view class="slide-title-en txt-title-en">ACTIVITY</view>
+                </view>
+                <view class="slide-content">
+                    <swiper class="mid-slide" indicator-dots="{{true}}" indicator-active-color="#ff4246" autoplay="{{true}}" interval="{{5000}}" duration="{{600}}">
+                        <block wx:for="{{img_urls}}">
+                            <swiper-item>
+                                <image src="{{item}}" class="slide-image" />
+                            </swiper-item>
+                        </block>
+                    </swiper>
+                </view>
+                <view class="slide-line"></view>
+            </view>
+            <view class="slide-box">
+                <view class="slide-title-box">
+                    <view class="slide-title-ch txt-title-ch">推荐菜品</view>
+                    <view class="slide-title-en txt-title-en">RECOMMEND</view>
+                </view>
+                <view class="slide-content recommend">
+                    <swiper class="big-slide" indicator-dots="{{false}}" autoplay="{{true}}" indicator-active-color="#ff4246" interval="{{5000}}" duration="{{600}}">
+                        <block wx:for="{{img_urls}}">
+                            <swiper-item>
+                                <image src="{{item}}" class="slide-image-big" />
+                                <view class="recommend-box">
+                                    <view class="recommend-title">
+                                        <view class="recommend-title-box">
+                                            <image src="http://img.my-shop.cc/image/rec_icon.png" class="rec-img"></image>
+                                            <view class="title-txt">虾仁蛋羮</view>
+                                        </view>
+                                        <view class="recommend-price">￥12</view>
+                                    </view>
+                                    <view class="recommend-detail">
+                                        蛋香醇厚，入伙慢炖，脂肪充分分解晶莹剔透的肉皮，入口即化香而胶原蛋白丰富的美容佳品
+                                    </view>
+                                </view>
+                            </swiper-item>
+                        </block>
+                    </swiper>
+                    <!-- <view class="pre-btn" bindtap="preRecm"></view>
+                    <view class="next-btn" bindtap="nextRecm"></view> -->
+                </view>
+
+            </view>
+        </view>
+        <view class="zhaopin-box">
+            <view class="zhaopin-title-box">
+                <view class="title-txt-ch">招牌贤士</view>
+                <view class="title-txt-en">RECRUIT</view>
+            </view>
+            <view class="zhaopin-detail-box">
+                <view class="zhaopin-detail-title">
+                    <view class="detail-title">招聘岗位：</view>
+                    <view class="detail-position">前厅部长</view>
+                </view>
+                <view class="position-detail">
+                    <view class="position-detail-title">岗位职务：</view>
+                    <view class="position-detail-des">
+                        <view class="des-item">1.负责前台电话接听、客户接待、快递收发;</view>
+                        <view class="des-item">2.负责维护办公环境;</view>
+                        <view class="des-item">3.负责公司邮件收发、会议纪要、快递收发;</view>
+                        <view class="des-item">4.负责每月行政费用的审核及申请;</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="foot">
+            © 伯格网络提供支持
         </view>
     </view>
 </view>

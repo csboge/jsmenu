@@ -13,7 +13,7 @@ App({
     },
     //小程序启动或后台进入前台的时候调用
     onShow() {
-        console.log("onshow")
+        
         let that = this;
         //检查登录态
         wx.checkSession({
@@ -53,6 +53,8 @@ App({
     },
     //全局数据
     globalData: {
+        ev_url: "https://demo.ai-life.me/api",  //测试环境
+        // ev_url:"https://api.ai-life.me/api", //生产环境
         voice_path: [],
         system_version: 'BGmenu-1.0-@)!&*@#',  //系统版本号
         is_first_login: true                   //是否是第一次登录 
@@ -104,10 +106,6 @@ App({
                     user.updateUserStorage(key, res.userInfo[key]);
                 }
 
-                wx.showLoading({
-                    title: '加载中'
-                });
-
                 that.login();
 
             },
@@ -144,10 +142,6 @@ App({
                                 user.updateUserStorage(key, res.userInfo[key]);
                             }
 
-                            wx.showLoading({
-                                title: '加载中...'
-                            });
-
                             that.login();
 
                         }
@@ -172,6 +166,8 @@ App({
     //登录
     login: function () {
 
+        let that = this;
+
         wx.login({//登录获取用户code
             success: function (res) {
                 console.log(res.code)
@@ -179,7 +175,7 @@ App({
                 if (res.code) {
                     //发起请求获得openid
                     wx.request({
-                        url: 'https://api.ai-life.me/api/Member/login/',
+                        url: that.globalData.ev_url + '/Member/login/',
                         method: "POST",
                         data: {
                             jscode: res.code,
@@ -195,9 +191,6 @@ App({
                             util.setStorageSync('access_token', res.data.data.access_token);
 
                             // console.log(util.getStorageSync("user"));
-                            wx.redirectTo({
-                                url: '../menu/menu'
-                            })
                         },
                         fail() {
                             util.disconnectModal();
@@ -212,14 +205,6 @@ App({
                 }
             }
         });
-    },
-    getCurrentPageUrl: function () {
-
-        var pages = getCurrentPages();                //获取加载的页面
-        var currentPage = pages[pages.length - 1];    //获取当前页面的对象
-        var url = currentPage.route;                  //当前页面url
-        return url
-
     }
 
 })

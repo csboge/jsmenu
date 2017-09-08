@@ -1,4 +1,0 @@
-<view class="get-phone-no">
-    <view class="txt">是否允许应用获取您的手机号码？</view>
-    <button class="btn" open-type="getPhoneNumber" type="primary" bindgetphonenumber="getPhoneNumber">允许</button>
-</view>

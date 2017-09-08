@@ -12,7 +12,7 @@ Page({
     data: {
         mode_money: 0,          //发红包的金额
         ordersn: 0,             //订单号
-        is_dilivery: false      //是否已经发过红包
+        is_dilivery: false,     //是否已经发过红包
     },
 
     /**
@@ -21,13 +21,11 @@ Page({
     onLoad: function (options) {
 
         let that = this;
-        let _ordersn = options.ordersn;
+        let _order = util.getStorageSync("finish_order");
 
         that.setData({
-            // mode_money: app.globalData.mode_money,   
-            // ordersn: _ordersn                        
-            mode_money: 10,
-            ordersn: 201708311012
+            mode_money: _order.mode_money,   
+            ordersn: _order.order_sn                        
         })
 
     },
@@ -35,14 +33,16 @@ Page({
     formSubmit: function (e) {
 
         let that = this;
-        let utxt = e.detail.value.utxt;
+        let utxt = e.detail.value.utxt || "我在这家店吃饭";
+        let _order = util.getStorageSync("finish_order");
+
         let options = {
-            ordersn: this.data.ordersn,
+            ordersn: _order.order_sn,
             words: utxt
         }
         let data = app.getParams(options);
 
-        util.request("https://api.ai-life.me/api/Discount/create", "POST", data)
+        util.request(app.globalData.ev_url + "/Discount/create", "POST", data)
             .then((res) => {
                 console.log(res.data);
 

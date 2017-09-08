@@ -75,6 +75,28 @@ function getOrderAttrSync(key) {
 
 
 /*
+ * @des         设置订单单个属性        同步
+ * @param       string                key
+ * 
+ */
+function setOrderAttrSync(key) {
+
+    try {
+        let value = wx.getStorageSync('order')[key];
+        if (value) {
+            return value;
+        } else {
+            return -1;
+        }
+    } catch (e) {
+        throw new Error("获取订单失败");
+    }
+
+}
+
+
+
+/*
  * @des         更新订单            同步
  * @param       string              key     
  * @param       object/string       value

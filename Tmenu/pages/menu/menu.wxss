@@ -60,7 +60,6 @@
     width: 92%;
     height: 190rpx;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -70,11 +69,12 @@
 
 .page-head-detail {
     position: relative;
+    width: 100%;
     height: 116rpx;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    left: -20rpx;
+    margin-left: 20rpx;
 }
 
 .arrow {
@@ -84,7 +84,7 @@
 }
 
 .arrow-title {
-    right: -12rpx;
+    right: 8rpx;
     top: 14rpx;
 }
 

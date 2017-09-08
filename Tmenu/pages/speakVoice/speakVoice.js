@@ -17,7 +17,8 @@ Page({
         ],
         isSpeak: false,//是否已经领取赏金
         voices: [],
-        time_list: []
+        time_list: [],
+        bagid: ""   //红包数据
     },
 
     /**
@@ -25,9 +26,43 @@ Page({
      */
     onLoad: function (options) {
 
+        //获取录音授权
+        wx.startRecord({
+            success: function(res) {},
+            fail: function(res) {
+                wx.showModal({
+                    title: '提示',
+                    content: '请授权允许应用访问您的麦克风',
+                    showCancel: false
+                });
+            }
+        });
+
+        this.setData({
+            bagid : options.bagid
+        })
+
     },
     //点击开始录音
     recordVoice: function () {
+
+        let data = {
+            bagid: this.data.bagid,
+            audio: "dfsag4ebhda"
+        }
+        let json = app.getParams(data);
+
+        wx.request({
+            url: app.globalData.ev_url + '/Discount/robbed',
+            data: json,
+            method: 'POST',
+            success: function(res) {
+                console.log(res.data.message);
+            },
+            fail: function(res) {},
+            complete: function(res) {},
+        });
+        
         var that = this;
         wx.startRecord({
             success: function (res) {
@@ -92,11 +127,11 @@ Page({
     //松开按钮结束录音
     stopRecord: function () {
         var that = this;
-        // var time_list = that.data.time_list;
-        // clearInterval(timer);
-        // timer = null;
-        // time_list.unshift(s);
-        // s = 0;
+        var time_list = that.data.time_list;
+        clearInterval(timer);
+        timer = null;
+        time_list.unshift(s);
+        s = 0;
 
         wx.stopRecord();
 
@@ -132,9 +167,9 @@ Page({
     //查看红包记录
     toHbRecord: function () {
 
-        // wx.navigateTo({
-        //     url: '../hbRecord/hbRecord'
-        // })
+        wx.navigateTo({
+            url: '../hbRecord/hbRecord'
+        })
     },
     //转发
     onShareAppMessage: function (res) {

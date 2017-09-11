@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/hbRecord/hbRecord",
         "pages/menu/menu",
         "pages/confirmOrder/confirmOrder",
         "pages/orderDetail/orderDetail",
@@ -8,7 +9,6 @@
         "pages/speakVoice/speakVoice",
         "pages/finishOrder/finishOrder",
         "pages/voiceExample/voiceExample",
-        "pages/hbRecord/hbRecord",
         "pages/transmitHB/transmitHB",
         "pages/myRecord/myRecord",
         "pages/myDiscount/myDiscount",

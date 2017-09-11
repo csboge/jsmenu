@@ -15,10 +15,10 @@ Page({
             "http://img.my-shop.cc/image/shop-slider2.jpg",
             "http://img.my-shop.cc/image/shop-slider3.jpg"
         ],
-        isSpeak: false,//是否已经领取赏金
+        isSpeak: false,             //是否已经领取赏金
         voices: [],
         time_list: [],
-        bagid: ""   //红包数据
+        mode_data: {}               //红包数据
     },
 
     /**
@@ -26,21 +26,78 @@ Page({
      */
     onLoad: function (options) {
 
+        let that = this;
+
+        let bagid = options.bagid;              //红包id
+        let count = options.count;              //红包个数
+        let speed = options.speed;              //抢红包速度
+        let mode_money = options.mode_money;    //红包金额
+
+        let mode_data = {
+            bagid: bagid,
+            count: count,
+            speed: speed,
+            mode_money: mode_money
+        };
+
         //获取录音授权
         wx.startRecord({
-            success: function(res) {},
-            fail: function(res) {
+            success: function (res) {
+                console.log("允许录音");
+            },
+            fail: function (res) {
                 wx.showModal({
                     title: '提示',
                     content: '请授权允许应用访问您的麦克风',
-                    showCancel: false
+                    showCancel: false,
+                    success(res) {
+                        if (res.confirm) {
+                            //调起用户授权设置界面
+                            that.openVoiceSetting();
+                        }
+                    }
                 });
             }
         });
 
         this.setData({
-            bagid : options.bagid
+            mode_data: mode_data
         })
+
+    },
+    //吊起用户麦克风授权设置面板
+    openVoiceSetting() {
+
+        let that = this;
+
+        wx.openSetting({
+            success: function (res) {
+
+                if (res.authSetting["scope.record"]) {//允许授权
+                    console.log("允许录音");
+                } else {//再次拒绝授权
+                    wx.showModal({
+                        title: '提示',
+                        content: '请授权允许应用访问您的麦克风',
+                        showCancel: false,
+                        success(res) {
+                            if (res.confirm) {
+                                //反复调用
+                                that.openVoiceSetting();
+                            }
+                        }
+                    })
+                }
+
+            },
+            fail: function (res) {
+                wx.showModal({
+                    title: '提示',
+                    content: '录音授权出错',
+                    showCancel: false
+                });
+            }
+        });
 
     },
     //点击开始录音
@@ -56,13 +113,13 @@ Page({
             url: app.globalData.ev_url + '/Discount/robbed',
             data: json,
             method: 'POST',
-            success: function(res) {
+            success: function (res) {
                 console.log(res.data.message);
             },
-            fail: function(res) {},
-            complete: function(res) {},
+            fail: function (res) { },
+            complete: function (res) { },
         });
-        
+
         var that = this;
         wx.startRecord({
             success: function (res) {
@@ -71,7 +128,7 @@ Page({
                 // }, 1000);
                 var tempFilePath = res.tempFilePath//录音文件地址
                 that.setData({
-                    isSpeak:true
+                    isSpeak: true
                 })
                 wx.saveFile({
                     tempFilePath: tempFilePath,

@@ -16,24 +16,26 @@ Page({
             { id: 4, imgUrl: "http://img.my-shop.cc/image/menu-icon5.png", menuName: "优惠券", menuUrl: "../myDiscount/myDiscount", type: 1 },
             { id: 5, imgUrl: "http://img.my-shop.cc/image/menu-icon6.png", menuName: "订单记录", menuUrl: "../myRecord/myRecord", type: 1 }
         ],
-        ev_slide_urls:[
-            "http://img.my-shop.cc/image/ev_slide1.jpg",
-            "http://img.my-shop.cc/image/ev_slide2.jpg",
-            "http://img.my-shop.cc/image/ev_slide3.jpg"
+        ev_slide_urls: [
+            // "http://img.my-shop.cc/image/ev_slide1.jpg",
+            // "http://img.my-shop.cc/image/ev_slide2.jpg",
+            // "http://img.my-shop.cc/image/ev_slide3.jpg"
         ],
-        ac_slide_urls:[
-            "http://img.my-shop.cc/image/ac_slide1.png",
-            "http://img.my-shop.cc/image/ac_slide2.png"
+        ac_slide_urls: [
+            // "http://img.my-shop.cc/image/ac_slide1.png",
+            // "http://img.my-shop.cc/image/ac_slide2.png"
         ],
         re_slide_urls: [
-            "http://img.my-shop.cc/image/re_slide1.jpg",
-            "http://img.my-shop.cc/image/re_slide2.jpg",
-            "http://img.my-shop.cc/image/re_slide3.jpg"
+            // "http://img.my-shop.cc/image/re_slide1.jpg",
+            // "http://img.my-shop.cc/image/re_slide2.jpg",
+            // "http://img.my-shop.cc/image/re_slide3.jpg"
         ],
-        curr:0,                 //当前图片索引
+        curr: 0,                 //当前图片索引
 
         logo: "",               //商户Logo
         shop_name: "",          //商户名
+
+        curr_index: 0            //推荐菜品当前图片索引
     },
     onLoad: function (options) {
 
@@ -69,6 +71,22 @@ Page({
                     });
 
                 });
+            //获取餐厅环境和优惠活动轮播图片
+            util.request(app.globalData.ev_url + "/banner/banner_hongbao", "POST", { shop: shop_id, cat: 2 })
+                .then((res) => {
+                    console.log(res.data.data.shop)
+                    that.setData({
+                        ev_slide_urls: res.data.data.shop,
+                        ac_slide_urls: res.data.data.discount
+                    });
+                });
+            util.request(app.globalData.ev_url + "/shop/rec", "POST", { shop: shop_id })
+                .then((res) => {
+                    console.log(res.data.data.shop)
+                    that.setData({
+                        re_slide_urls: res.data.data
+                    });
+                });
 
         } else {
 
@@ -79,6 +97,45 @@ Page({
             })
 
         }
+
+    },
+    //切换事件
+    change(e) {
+
+        let curr = e.detail.current;
+
+        this.setData({
+            curr_index: curr
+        });
+
+    },
+    //切换到前一张
+    preRecm(e) {
+
+        let curr = this.data.curr_index;
+
+        if (curr > 0) {
+            curr--;
+        }
+
+        this.setData({
+            curr_index: curr
+        });
+
+    },
+    //切换到后面一张
+    nextRecm(e) {
+
+        let max_length = this.data.re_slide_urls.length;
+        let curr = this.data.curr_index;
+
+        if (curr < max_length - 1) {
+            curr++;
+        }
+
+        this.setData({
+            curr_index: curr
+        });
 
     },
     onShow: function () {

@@ -846,6 +846,10 @@
     height: 52rpx;
 }
 
+.honbao-box-x:active{
+    background: rgba(0, 0, 0, .2)
+}
+
 .hb-arrow {
     width: 32rpx;
     height: 34rpx;
@@ -878,6 +882,10 @@
     text-align: center;
     line-height: 64rpx;
     color: #333;
+}
+
+.hb-no-btn:active{
+    background: rgba(0, 0, 0, .2)
 }
 
 .num-box {

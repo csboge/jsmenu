@@ -1,4 +1,3 @@
-// pages/finishOrder/finishOrder.js
 
 import util from "../../utils/util";
 
@@ -24,8 +23,8 @@ Page({
         let _order = util.getStorageSync("finish_order");
 
         that.setData({
-            mode_money: _order.mode_money,   
-            ordersn: _order.order_sn                        
+            mode_money: _order.mode_money,
+            ordersn: _order.order_sn
         })
 
     },
@@ -44,19 +43,19 @@ Page({
 
         util.request(app.globalData.ev_url + "/Discount/create", "POST", data)
             .then((res) => {
-                console.log(res.data);
 
-                if(res.data.code === 1){
+                if (res.data.code === 1) {
                     that.setData({
                         // is_dilivery:true
-                        is_dilivery:false
+                        is_dilivery: false
                     });
 
                     //设置全局变量: 本次发放红包的金额和个数
                     let data = {
                         bagid: res.data.data.bagid,
                         count: res.data.data.count,
-                        speed: res.data.data.speed
+                        speed: res.data.data.speed,
+                        mode_money: _order.mode_money
                     }
                     app.setGlobalData("mode_data", data);
 
@@ -64,7 +63,7 @@ Page({
                         url: '../transmitHB/transmitHB?utxt=' + utxt
                     });
 
-                }else{
+                } else {
                     wx.showModal({
                         title: '提示',
                         content: res.data.message,

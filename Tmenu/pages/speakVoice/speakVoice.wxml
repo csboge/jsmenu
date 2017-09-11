@@ -31,7 +31,7 @@
     </view>
     <view class="page-foot">
         <view class="hb-info-box">
-            <view class="hb-info">共10.00元,领取0/3个</view>
+            <view class="hb-info">共{{mode_data.mode_money}}元,领取0/{{mode_data.count}}个</view>
             <view class="hb-right-txt" bindtap="goaaa">举报</view>
         </view>
         <view class="check-record" wx:if="{{!isSpeak}}">

@@ -36,7 +36,7 @@ Page({
         animationData: {},          //红包弹出动画
         showModal: false,           //是否显示红包模态框
         showHonbao: false,          //是否显示红包弹出框
-        hb_money: 0,                 //使用红包抵扣的金额
+        hb_money: 0,                //使用红包抵扣的金额
 
         yhq_list: [                 //优惠券列表数据
             { id: 0, yhq_price: 10, discount: 5, isChecked: false },
@@ -49,7 +49,7 @@ Page({
         yhq_txt: "",                //使用优惠券的金额展示
         yhq_animationData: {},      //优惠券弹出动画
         showYhq: false,             //是否显示优惠券弹出框
-        yhq_discount: 0,             //优惠券优惠的金额
+        yhq_discount: 0,            //优惠券优惠的金额
 
         foodList: [],               //商品列表
         is_show_more: true,         //是否是展开更多状态
@@ -70,7 +70,7 @@ Page({
 
         show_modal: false,          //是否显示立即购买时全屏模态框
 
-        pay_type: 1                 //支付类型,0 现金支付, 1 在线支付(默认)
+        pay_type: {}                 //支付方式,1 现金支付, 0 在线支付(默认)
     },
 
     /**
@@ -89,8 +89,8 @@ Page({
             tel: shop_info.mobile
         });
 
-        //抓取用户折扣信息、并计算价格、渲染商品
-        this.getDiscount();
+        //获取订单所有信息
+        this.getOrderDetail();
 
     },
     //显示页面时调用
@@ -113,9 +113,7 @@ Page({
     },
     //点击蒙版层关闭选择人数框
     closeNumModal() {
-        this.setData({
-            show_user_box: false
-        });
+        this.closeNumBox();
     },
     //点击数字按钮选择人数
     chooseNum(e) {
@@ -204,14 +202,14 @@ Page({
 
         this.setData({
             customer_num: 0,
-            is_reset:true
+            is_reset: true
         });
-        
-        setTimeout(function(){
+
+        setTimeout(function () {
             that.setData({
                 is_reset: false
             });
-        },100);
+        }, 100);
 
     },
     //改变人数
@@ -253,8 +251,8 @@ Page({
         this.countPrice();
 
     },
-    //获取用户折扣信息
-    getDiscount() {
+    //获取订单所有信息
+    getOrderDetail() {
 
         let that = this;
 
@@ -265,6 +263,7 @@ Page({
                     // console.log(res.data);
                     let is_first = res.data.data.is_first;
                     let _use_base = res.data.data.use_base;     //标配餐具、纸巾
+                    let _pay_type = res.data.data.pay_type;     //支付类型      
 
                     _use_base.forEach((obj) => {
                         if (obj.num <= 0) {
@@ -276,15 +275,26 @@ Page({
 
                     app.setGlobalData("use_base", _use_base);
 
+                    _pay_type = util.clearAll(_pay_type, "is_checked", false);
+                    //选中默认
+                    _pay_type.forEach((obj) => {
+                        if (obj.is_default) {
+                            obj.is_checked = true;
+                        }
+                    });
+
                     that.setData({
                         newCustDiscount: res.data.data.first_money,
                         order_rate: res.data.data.order_rate,
-                        mode_rate: res.data.data.mode_rate
+                        mode_rate: res.data.data.mode_rate,
+                        pay_type: _pay_type
                     });
                     //存入订单
                     let order = {
                         // createTime: new Date().getTime(),
-                        is_first: is_first
+                        is_first: is_first,
+                        first_money: res.data.data.first_money,
+
                     };
                     util.setStorageSync('order', order);
                     //渲染商品
@@ -363,6 +373,12 @@ Page({
         let realPrice = (discount_price * (_order_rate + 1)).toFixed(2) - 0;            //实际支付金额
         let pay_type = this.data.pay_type;                                              //支付类型
 
+        pay_type.forEach((obj) => {
+            if (obj.is_checked) {
+                pay_type = obj.typeid
+            }
+        });
+
         this.setData({
             totalPrice: total_price,
             discountPrice: discount_price,
@@ -370,8 +386,24 @@ Page({
             realPrice: realPrice
         });
 
+        let _order = util.getStorageSync("order");
         //生成一条订单
-        order.createOrder(total_price, 1, 5, discount_price, realPrice, taxtPrice, 0, total_price, shop_cart, pay_type);
+        let order_data = {
+            shop_id: app.globalData.shop_info.id,       //商户id        
+            is_first: _order.is_first,                  //是否是新客
+            first_money: _order.first_money,            //新客立减金额
+            total_price: total_price,                   //总价
+            coupon_list_id: 1,                          //优惠券id
+            coupon_price: this.data.yhq_discount,       //优惠金额
+            must_price: discount_price,                 //应该支付金额
+            pay_price: realPrice,                       //实际支付金额
+            order_money: taxtPrice,                     //手续费
+            offset_money: this.data.hb_money,           //使用红包抵扣金额
+            goods_price: total_price,                   //商品总价
+            goods_list: shop_cart,                      //商品列表
+            pay_way: pay_type                           //支付方式
+        };
+        order.createOrder(order_data);
 
     },
     //渲染商品
@@ -384,7 +416,7 @@ Page({
             product.count_price = (product.num * product.price).toFixed(2) - 0;
         });
 
-        // util.setStorageSync("shopCart", shop_cart);
+        util.setStorageSync("shopCart", shop_cart);
 
         if (shop_cart.length > 2) {
             this.setData({
@@ -404,7 +436,7 @@ Page({
     //展开更多
     showMore: function () {
 
-        var that = this;
+        let that = this;
         let shop_cart = util.getStorageSync("shopCart");
 
         if (this.data.is_show_more) {
@@ -452,12 +484,22 @@ Page({
     },
     //不使用优惠券
     cancelUseYhq: function () {
+
+        let _yhq_list = this.data.yhq_list;
+
+        _yhq_list = util.clearAll(_yhq_list, "isChecked", false);
+
         this.hYhq();
         this.setData({
             showModal: false,
             showHonbao: false,
+            yhq_discount: 0,
+            yhq_list: _yhq_list,
             yhq_txt: "暂不使用优惠券"
-        })
+        });
+
+        this.countPrice();
+
     },
     //使用红包
     chooseHonbao: function () {
@@ -489,12 +531,22 @@ Page({
     },
     //不使用红包
     cancelUse: function () {
+
+        let hb_list = this.data.honbaoList;
+
+        hb_list = util.clearAll(hb_list, "isChecked", false);
+
         this.hHonbao();
         this.setData({
             showModal: false,
             showHonbao: false,
+            hb_money: 0,
+            honbaoList: hb_list,
             honbaoTxt: "暂不使用现金红包"
         })
+
+        this.countPrice();
+
     },
     //点击蒙版隐藏红包
     hideHonbao: function () {
@@ -572,15 +624,26 @@ Page({
     },
     //选择支付方式
     checkPayWay(e) {
-        this.setData({
-            pay_type: e.currentTarget.dataset.v - 0
+
+        let index = e.currentTarget.dataset.i;
+        let _pay_type = this.data.pay_type;
+
+        //选中当前点击的
+        _pay_type.forEach((obj) => {
+            obj.is_checked = false
         });
+        _pay_type[index].is_checked = true;
+
+        this.setData({
+            pay_type: _pay_type
+        });
+
     },
     //选择备注
     goFoodRemark: function () {
         wx.navigateTo({
             url: '../foodRemark/foodRemark'
-        })
+        });
     },
     //立即支付
     formSubmit: function (e) {
@@ -625,7 +688,7 @@ Page({
 
         //组合请求数据
         let data = app.getParams({ order: JSON.stringify(_order) });
-        // console.log(data);
+        console.log(app.globalData);
 
         //统一下单
         wx.request({
@@ -637,7 +700,8 @@ Page({
                 if (res.data.code === 1) {
                     let _order = res.data.data.order;
                     //覆盖当前订单，防止重复提交
-                    util.setStorageSync("finish_order", _order);
+                    // util.setStorageSync("finish_order", _order);
+                    util.setStorageSync("order", _order);
                     console.log(_order);
 
                     wx.requestPayment({

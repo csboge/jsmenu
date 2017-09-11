@@ -51,6 +51,20 @@ Page({
      */
     onLoad: function (options) {
 
+        // util.request(app.globalData.ev_url + "/menu/goods_list", "POST", { shop_id: 1 })
+        //     .then((res) => {
+
+        //         let shop_info = res.data.data;
+
+        //         //商户数据存到全局
+        //         app.setGlobalData("shop_info", shop_info);
+        //         that.setData({
+        //             logo: shop_info.logo,
+        //             shop_name: shop_info.title
+        //         });
+
+        //     });
+
         let that = this;
         let shop_info = app.globalData.shop_info;
 
@@ -128,35 +142,35 @@ Page({
         //     success: function (res) {
 
         //         var good_list = res.data.data;
-                let good_list = data.goods_list;//使用模拟数据
-                console.log(good_list)
-                var shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
-                var init_page_menu = [];
+        let good_list = data.goods_list;//使用模拟数据
+        console.log(good_list)
+        var shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
+        var init_page_menu = [];
 
-                good_list.forEach(function (obj) {
-                    obj.num = 0;
-                });
+        good_list.forEach(function (obj) {
+            obj.num = 0;
+        });
 
-                good_list.forEach(function (obj) {
-                    if (obj.cate_id === 101) {
-                        init_page_menu.push(obj);
-                    }
-                });
-                console.log(init_page_menu);
-                // console.log(shop_cart)
-                // console.log(init_page_menu)
-                if (shop_cart.length > 0) {
-                    init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
-                    //计算购物车商品总数量和总价格
-                    that.countAll(shop_cart);
-                }
+        good_list.forEach(function (obj) {
+            if (obj.cate_id === 101) {
+                init_page_menu.push(obj);
+            }
+        });
+        console.log(init_page_menu);
+        // console.log(shop_cart)
+        // console.log(init_page_menu)
+        if (shop_cart.length > 0) {
+            init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
+            //计算购物车商品总数量和总价格
+            that.countAll(shop_cart);
+        }
 
-                that.setData({
-                    menu_list: good_list,
-                    // page_menu: res.data.data,
-                    page_menu: init_page_menu,
-                    cartList: shop_cart
-                })
+        that.setData({
+            menu_list: good_list,
+            // page_menu: res.data.data,
+            page_menu: init_page_menu,
+            cartList: shop_cart
+        })
         //     }
         // });
 
@@ -286,11 +300,11 @@ Page({
             })
         }
 
-        that.signForSecondMenu(e.target.dataset.fid);
+        that.signForSecondMenu(e.currentTarget.dataset.fid);
 
-        that.listData(e.target.dataset.fid);
+        that.listData(e.currentTarget.dataset.fid);
     },
-    //选择商品
+    //列出商品
     listData: function (parent_id) {
 
         let that = this;
@@ -584,14 +598,28 @@ Page({
     },
     //匹配当前页面列表商品数量和购物车对应商品数量一致
     updatePageMenuNum: function (cart_products, page_menu) {
-        for (var i = 0; i < cart_products.length; i++) {
-            for (var k = 0; k < page_menu.length; k++) {
-                if (cart_products[i].id === page_menu[k].id) {
-                    page_menu[k].num = cart_products[i].num;
-                    break;
+
+        if (cart_products.length > 0 && page_menu.length > 0) {
+
+            page_menu.forEach((obj) => {
+                obj.num = 0;
+            });
+
+            for (var i = 0; i < cart_products.length; i++) {
+                for (var k = 0; k < page_menu.length; k++) {
+                    if (cart_products[i].id === page_menu[k].id) {
+                        page_menu[k].num = cart_products[i].num;
+                        break;
+                    }
                 }
             }
+
+        } else {
+            page_menu.forEach((obj) => {
+                obj.num = 0;
+            });
         }
+
         return page_menu;
     }
 })

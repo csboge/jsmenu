@@ -1,1 +1,232 @@
-/* pages/hbRecord/hbRecord.wxss */
+page {
+    background: #f2f2f2;
+}
+
+.page-container {
+    background: #f2f2f2;
+}
+
+.page-head {
+    position: relative;
+}
+
+.bc-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.bc-top {
+    width: 100%;
+    height: 186rpx;
+    background: #fce2c3;
+}
+
+.bc-bottom {
+    width: 100%;
+    height: 100rpx;
+    background: #f9cd9d;
+}
+
+.img-left {
+    position: absolute;
+    top: 46rpx;
+    left: 78rpx;
+    width: 304rpx;
+    height: 162rpx;
+}
+
+.img-right {
+    position: absolute;
+    top: 10rpx;
+    right: 138rpx;
+    width: 216rpx;
+    height: 278rpx;
+}
+
+.tab-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab {
+    position: relative;
+    padding: 26rpx;
+    font-size: 34rpx;
+    width: 50%;
+    color: #333;
+    background: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tab-in {
+    position: relative;
+}
+
+.tab-in::after {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+    width: 4rpx;
+    height: 54rpx;
+    background: #f2f2f2;
+}
+
+.line {
+    position: absolute;
+    bottom: 2rpx;
+    width: 330rpx;
+    height: 4rpx;
+    background: #ff474b;
+}
+
+.txt-red {
+    color: #ff474b;
+}
+
+.in-list-box {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16rpx;
+    margin-bottom: 12rpx;
+}
+
+.in-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 6rpx;
+    background: #fff;
+}
+
+.in-title-box {
+    position: relative;
+    display: flex;
+    height: 48rpx;
+    padding-top: 10rpx;
+}
+
+.in-title {
+    position: absolute;
+    left: 30rpx;
+    display: flex;
+    font-size: 24rpx;
+    color: #333;
+}
+
+.title-txt {
+    margin-left: 14rpx;
+    align-self: center;
+}
+
+.in-time {
+    position: absolute;
+    right: 36rpx;
+    font-size: 24rpx;
+    color: #999;
+}
+
+.logo-img {
+    border-radius: 50%;
+    width: 36rpx;
+    height: 36rpx;
+}
+
+.in-content-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20rpx 0;
+    height: 76rpx;
+    border-top: 2rpx solid #f2f2f2;
+}
+
+.content-des {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 82rpx;
+    display: flex;
+}
+
+.content-txt {
+    margin-left: 20rpx;
+    font-size: 28rpx;
+    font-weight: bold;
+}
+
+.vic-img {
+    width: 26rpx;
+    height: 34rpx;
+}
+
+.content-price {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 36rpx;
+    font-size: 30rpx;
+    color: #386a1a;
+    font-weight: bold;
+}
+
+.show-more {
+    padding: 24rpx 0;
+    font-size: 24rpx;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    background: #fff;
+}
+
+.page-foot {
+    padding-top: 242rpx;
+    padding-bottom: 110rpx;
+    text-align: center;
+    font-size: 20rpx;
+    color: #bfbfbf;
+    background: #f2f2f2;
+}
+
+.out-list-box {
+    margin-top: 14rpx;
+    margin-bottom: 22rpx;
+}
+
+.out-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 32rpx 30rpx 20rpx 30rpx;
+    margin-bottom: 6rpx;
+    background: #fff;
+}
+
+.out-logo {
+    width: 64rpx;
+    height: 64rpx;
+}
+
+.out-title-des {
+    display: flex;
+}
+
+.out-txt {
+    padding-left: 16rpx;
+}
+
+.shop-name {
+    font-size: 24rpx;
+    color: #333;
+    font-weight: bold;
+}
+
+.out-detail {
+    font-size: 22rpx;
+    color: #999;
+}
+.out-price{
+    font-size: 30rpx;
+    color: #e50619;
+    font-weight: bold;
+}

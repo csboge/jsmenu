@@ -116,13 +116,9 @@
                 <view class="payment-info">
                     <view class="payment-title">支付方式</view>
                     <view class="pay-way-box">
-                        <view class="pay-way-btn {{pay_type===1?'bd-green':''}}" data-v="1" bindtap="checkPayWay">
-                            <image src="http://img.my-shop.cc/image/pay_arr.png?1" class="arr-img" wx:if="{{pay_type===1?true:false}}"></image>
-                            <view class="pay-txt {{pay_type===1?'pay-txt-red':''}}">在线支付</view>
-                        </view>
-                        <view class="pay-way-btn {{pay_type===0?'bd-green':''}}" data-v="0" bindtap="checkPayWay">
-                            <image src="http://img.my-shop.cc/image/pay_arr.png?1" class="arr-img" wx:if="{{pay_type===0?true:false}}"></image>
-                            <view class="pay-txt {{pay_type===0?'pay-txt-red':''}}">现金支付</view>
+                        <view class="pay-way-btn {{item.is_checked?'bd-green':''}}" data-i="{{index}}" bindtap="checkPayWay" wx:for="{{pay_type}}">
+                            <image src="http://img.my-shop.cc/image/pay_arr.png?1" class="arr-img" wx:if="{{item.is_checked?true:false}}"></image>
+                            <view class="pay-txt {{item.is_checked?'pay-txt-red':''}}">{{item.title}}</view>
                         </view>
                     </view>
                 </view>

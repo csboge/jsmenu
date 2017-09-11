@@ -9,21 +9,21 @@ import util from "../utils/util.js";
 
 /*
  * @des         生成一条订单
- *
+ * @param       object              order_data
  */
-function createOrder(total_price, coupon_list_id, coupon_price, must_price, pay_price, order_money, offset_money, goods_price, goods_list, pay_way) {
+function createOrder(order_data) {
 
     let order = {
-        total_price: total_price,                   //总价
-        coupon_list_id: coupon_list_id,             //优惠券id
-        coupon_price: coupon_price,                 //优惠金额
-        must_price: must_price,                     //应该支付金额
-        pay_price: pay_price,                       //实际支付金额
-        order_money: order_money,                   //手续费
-        offset_money: offset_money,                 //使用红包抵扣金额
-        goods_price: goods_price,                   //商品总价
-        goods_list: goods_list,                     //商品列表
-        pay_way: pay_way                            //支付方式
+        total_price: order_data.total_price,                   //总价
+        coupon_list_id: order_data.coupon_list_id,             //优惠券id
+        coupon_price: order_data.coupon_price,                 //优惠金额
+        must_price: order_data.must_price,                     //应该支付金额
+        pay_price: order_data.pay_price,                       //实际支付金额
+        order_money: order_data.order_money,                   //手续费
+        offset_money: order_data.offset_money,                 //使用红包抵扣金额
+        goods_price: order_data.goods_price,                   //商品总价
+        goods_list: order_data.goods_list,                     //商品列表
+        pay_way: order_data.pay_way                            //支付方式
     }
 
     util.setStorageSync("order", order);

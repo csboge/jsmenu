@@ -69,10 +69,11 @@ Page({
         let bagid = app.globalData.mode_data.bagid;
         let count = app.globalData.mode_data.count;
         let speed = app.globalData.mode_data.speed;
+        let mode_money = app.globalData.mode_data.mode_money;
 
         return {
             title: '口令红包',
-            path: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed,
+            path: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money,
             success: function (res) {
 
                 app.setGlobalData("is_transimit", true);
@@ -87,7 +88,7 @@ Page({
                     duration: 750,
                     success() {
                         wx.redirectTo({
-                            url: '/pages/voiceExample/voiceExample?bagid=' + bagid + "&count=" + count + "&speed=" + speed,
+                            url: '/pages/voiceExample/voiceExample?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money,
                         });
                     }
                 });

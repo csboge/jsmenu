@@ -1,0 +1,165 @@
+/* cookbook.wxss */
+page {
+	background-color: #509863;
+}
+.wrapper {
+	width: 700rpx;
+	margin: 0 auto;
+	background-color: #fff;
+}
+.cook {
+	padding: 40rpx 30rpx;
+	position: relative;
+}
+.title {
+	padding-top: 40rpx;
+	text-align: center;
+	font-size: 30rpx;
+}
+.cook input {
+	border-bottom: 1rpx solid #509863;
+}
+.cook span {
+	color: #d2d2d1;
+	position: absolute;
+	right:36rpx;
+	top:32rpx;
+}
+.add-pic {
+	height: 200rpx;
+}
+.add-pic image,.add-pic .add {
+	margin-left: 30rpx;
+	width: 150rpx;
+	height: 150rpx;
+	
+}
+.add {
+	color: #d8d8d9;
+	border: 1rpx solid #d8d8d9;
+	font-size:164rpx;
+	text-align: center;
+	line-height: 150rpx;
+	
+}
+.sum {
+	width: 650rpx;
+	height: 250rpx;
+	border-bottom:1rpx solid #eee; 
+	border-top:1rpx solid #eee; 
+	margin: 0 auto;
+	padding-top:50rpx; 
+}
+.left {
+	width: 50%;
+	float: left;
+	position: relative;
+}
+.right {
+	width: 50%;
+	float: right;
+	position: relative;
+}
+.left input,.right input {
+	width: 100rpx;
+	position: absolute;
+	bottom: 0rpx;
+	left: 95rpx;
+	border-bottom:1rpx solid #ccc; 
+}
+.text {
+	margin-left:50rpx;
+	color: #999;
+	
+}
+.text span {
+	display: inline-block;
+	margin-top: 30rpx;
+	color: #000;
+}
+.taste {
+	padding: 50rpx 50rpx;
+}
+.taste span {
+	border-bottom: 1rpx solid #000;
+}
+.checkbox {
+	font-size: 30rpx;
+	color: #8a8a8a;
+	margin-top: 30rpx;
+	display: inline-block;
+	width: 300rpx;
+}
+.format {
+	width: 650rpx;
+	margin: 0 auto;
+	padding: 60rpx 0 30rpx 50rpx;
+	border-bottom:1rpx solid #eee; 
+	border-top:1rpx solid #eee; 
+	box-sizing: border-box;
+
+}
+.wrap-left {
+	padding-left: 20rpx;
+	width: 150rpx;
+	height: 80rpx;
+	border:1rpx solid #808080;
+	color: #ccc;
+	position: relative;
+	line-height: 80rpx;
+	font-size: 35rpx;
+	float: left;
+	margin-top: 30rpx;
+	margin-bottom:30rpx;
+}
+.wrap-left input {
+	position: absolute;
+	left:64rpx;
+	top:13rpx;
+	color: #000;
+} 
+.wrap-right {
+	width: 290rpx;
+	height: 80rpx;
+	border:1rpx solid #808080;
+	color: #ccc;
+	position: relative;
+	line-height: 80rpx;
+	font-size: 35rpx;
+	float: left;
+	margin-top: 30rpx;
+}
+.wrap-right input {
+	position: absolute;
+	left:64rpx;
+	top:13rpx;
+	color: #000;
+} 
+.add-format {
+	clear: both;
+	width: 170rpx;
+	height: 80rpx;
+	border:1rpx solid #808080;
+	color: #ccc;
+	font-size: 90rpx;
+	text-align: center;
+	line-height: 80rpx;
+}
+.assess {
+	padding:60rpx 0 30rpx 50rpx;
+	border-bottom:1rpx solid #eee; 
+}
+.assess textarea {
+	margin-top: 30rpx;
+	height: 200rpx;
+	border:1rpx solid #000;
+}
+.btn {
+	margin-top:50rpx; 
+	width: 250rpx;
+	background-color: #fff;
+}
+.btn-group {
+	padding-bottom: 30rpx;
+	margin-bottom: 30rpx;
+}

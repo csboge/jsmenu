@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/apply/apply",
+    "pages/menu/menu",
+    "pages/cookbook/cookbook",
+    "pages/store/store",
+    "pages/material/material",
+    "pages/sub/sub",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#509863",
+    "navigationBarTitleText": "请填写店铺信息",
+    "navigationBarTextStyle": "white"
+  }
+}

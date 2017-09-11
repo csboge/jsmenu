@@ -1,0 +1,50 @@
+/* store.wxss */
+page {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.wrapper {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-color: #f4f4f4;
+}
+.head {
+	text-align: center;
+	font-size: 25rpx;
+	color: #939393;
+	height: 90rpx;
+	line-height: 90rpx;
+}
+.section {
+	background-color: #fff;
+	color: #333;
+	font-size: 35rpx;
+}
+.section .bg {
+	padding: 0 30rpx;
+	height: 120rpx;
+	line-height: 120rpx;
+	border-bottom: 1rpx solid #dedede;
+}
+.bg  span {
+
+	float: right;
+	color: #c7c7cc;
+	font-size: 30rpx;
+	font-weight: bold;
+}
+.add {
+	line-height: 100rpx;
+	height: 100rpx;
+	padding-left: 30rpx;
+	border-bottom: 1rpx solid #dedede;
+}
+.add span {
+	color: #b2b2b2;
+	font-size:50rpx;
+	font-weight: bold;
+	margin-right: 20rpx;
+
+}

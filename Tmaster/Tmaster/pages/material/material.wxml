@@ -1,0 +1,46 @@
+<!--pages/material/material.wxml-->
+<view class="container">
+    <view class="dot">
+      <view class="one"></view>   
+      <view class="two"></view>
+      <view class="three"></view>
+    </view>
+    <view class="section">
+      <view class="title">
+        准备材料
+      </view>
+      <view class="text">申请前必填以下资料</view>
+      	
+      <form bindsubmit="formSubmit" >
+
+      <view class="warp-name">
+      	<view class="form-title">
+      	1.商户名称
+      	</view>
+      	<view class="form-name">
+      	<input type="text" placeholder="必填" placeholder-style="font-size:24rpx; color:#ccc; " name="definition" />
+      	</view>
+      	<view class="words">商户全程需与营业执照登记公司名称一致，不一致将被驳回</view>
+      	
+      </view>
+      <view class="from-address">
+      	<view class="form-title">
+      	2.商户地址
+      	</view>
+      	<view class="form-name">
+      	<input type="text" placeholder="必填" placeholder-style="font-size:24rpx; color:#ccc; " name="address"/>
+      	</view>
+      </view>
+      <view class="from-tel">
+      	<view class="form-title">
+      	3.联系人手机号
+      	</view>
+      	<view class="form-name">
+      	<input type="text" placeholder="必填" placeholder-style="font-size:24rpx; color:#ccc;" name="tel"/>
+      	</view>
+      </view>
+
+      <button class="btn" hover-class="bg-color" form-type="submit">下一步 →</button>
+      </form>
+    </view>
+</view>

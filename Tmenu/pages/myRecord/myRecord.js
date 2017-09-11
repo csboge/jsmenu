@@ -27,6 +27,12 @@ Page({
         phoneNumber: '0737-1324567'
     })
   },
+  //跳转到红包余额
+  gotoHbDetail(){
+    wx.navigateTo({
+        url: '../hbRecord/hbRecord'
+    });
+  },
   //我的优惠券
   toMydiscount:function(){
     wx.navigateTo({

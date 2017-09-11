@@ -2,6 +2,8 @@
 import util from "../../utils/util";
 import user from "../../modules/user.js";
 import data from "../../utils/data";
+import food_pack from "../../modules/foodpack";
+
 
 var app = getApp();
 
@@ -51,20 +53,6 @@ Page({
      */
     onLoad: function (options) {
 
-        // util.request(app.globalData.ev_url + "/menu/goods_list", "POST", { shop_id: 1 })
-        //     .then((res) => {
-
-        //         let shop_info = res.data.data;
-
-        //         //商户数据存到全局
-        //         app.setGlobalData("shop_info", shop_info);
-        //         that.setData({
-        //             logo: shop_info.logo,
-        //             shop_name: shop_info.title
-        //         });
-
-        //     });
-
         let that = this;
         let shop_info = app.globalData.shop_info;
 
@@ -81,27 +69,35 @@ Page({
             tel: shop_info.mobile
         });
 
-        // let cate_data = {
-        //     shop_id: _shop_id
-        // };
+        let cate_data = {
+            shop_id: _shop_id
+        };
 
-        // let cate_config = app.getParams(data);
+        let cate_config = app.getParams(data);
 
-        util.request(app.globalData.ev_url + '/menu/category', "GET")
+        util.request(app.globalData.ev_url + '/menu/category_list', "POST", cate_config)
             .then((res) => {
-                if (res.data.code === 1) {
+                if (res.data.code === 200) {
                     console.log(cate_list)
 
-                    //默认选中第一种一级分类
+                    //添加新推套餐
+                    let mob_list = res.data.data.mob_list;
+                    let new_rec = {
+                        "id": 0,
+                        "name": "新推套餐",
+                        "list": []
+                    };
+                    new_rec.list = mob_list;
                     cate_list = res.data.data.cate_list;
+                    cate_list.unshift(new_rec);
+                    //默认选中第一种一级分类
                     cate_list.forEach(function (obj) {
                         obj.isChecked = false;
                     });
                     cate_list[0].isChecked = true;
 
-                    let page_second_cate = cate_list[0].list || [];
-
                     //默认选中第一级分类下的第一种二级分类
+                    let page_second_cate = cate_list[0].list || [];
                     if (page_second_cate.length > 0) {
 
                         page_second_cate.forEach(function (obj) {
@@ -127,65 +123,65 @@ Page({
                 util.disconnectModal();
             });
 
-        // let goods_data = {
-        //     shop_id: this._shop_id
-        // };
 
-
-
-        // let goods_config = app.getParams(goods_data);
+        let goods_data = {
+            shop_id: _shop_id,
+            page: 1,
+            limit: 10
+        };
+        let goods_config = app.getParams(goods_data);
+        let shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
         //加载所有商品
-        // wx.request({
-        //     url: app.globalData.ev_url + '/menu/goods_list',
-        //     method: "POST",
-        //     data: goods_config,
-        //     success: function (res) {
+        util.request(app.globalData.ev_url + '/menu/goods_list', "POST", goods_config)
+            .then((res) => {
+                let good_list = res.data.data;
+                let init_page_menu = [];
+                // let good_list = data.goods_list;//使用模拟数据
+                let page_second_cate = that.data.page_second_cate;
+                let cateList = that.data.cateList;
+                // console.log(page_second_cate);
 
-        //         var good_list = res.data.data;
-        let good_list = data.goods_list;//使用模拟数据
-        console.log(good_list)
-        var shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
-        var init_page_menu = [];
+                good_list.forEach(function (obj) {
+                    obj.num = 0;
+                });
+                //首页商品数据
+                good_list.forEach(function (obj) {
 
-        good_list.forEach(function (obj) {
-            obj.num = 0;
-        });
+                    if (page_second_cate.length > 0) {
+                        if (obj.package === page_second_cate[0].id) {
+                            init_page_menu.push(obj);
+                        }
+                    } else {
+                        if (obj.cat_id === cateList.id) {
+                            init_page_menu.push(obj);
+                        }
+                    }
 
-        good_list.forEach(function (obj) {
-            if (obj.cate_id === 101) {
-                init_page_menu.push(obj);
-            }
-        });
-        console.log(init_page_menu);
-        // console.log(shop_cart)
-        // console.log(init_page_menu)
-        if (shop_cart.length > 0) {
-            init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
-            //计算购物车商品总数量和总价格
-            that.countAll(shop_cart);
-        }
+                });
+                console.log(init_page_menu);
+                // console.log(shop_cart)
+                console.log(init_page_menu)
+                if (shop_cart.length > 0) {
+                    init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
+                    //计算购物车商品总数量和总价格
+                    that.countAll(shop_cart);
+                }
 
-        that.setData({
-            menu_list: good_list,
-            // page_menu: res.data.data,
-            page_menu: init_page_menu,
-            cartList: shop_cart
-        })
-        //     }
-        // });
+                that.setData({
+                    menu_list: good_list,
+                    // page_menu: res.data.data,
+                    page_menu: init_page_menu,
+                    cartList: shop_cart
+                })
+            }, (res) => {
+                util.disconnectModal();
+            });
 
-        // let data = {
-        //     "shop_id": _shop_id,
-        //     // "cat_id": 1,
-        //     // "package": 1
-        // };
-
-        // let config = app.getParams(data);
-
-        // util.request(app.globalData.ev_url + '/menu/goods_list', "POST", config)
-        //     .then((res) => {
-        //         console.log(res.data.data);
-        //     });
+        let data = {
+            "shop_id": _shop_id,
+            // "cat_id": 1,
+            // "package": 1
+        };
 
         //初始化所有商品购买数量 为 0
         var init_page_menu = [];
@@ -193,7 +189,7 @@ Page({
         var new_menu_list = util.clearAll(fa, "num", 0);
 
         for (var i = 0; i < fa.length; i++) {
-            if (fa[i].cate_id === 101) {
+            if (fa[i].cat_id === 101) {
                 init_page_menu.push(fa[i]);
             }
         }
@@ -208,13 +204,16 @@ Page({
 
     },
     onReady() {
-        //播放问候语
-        wx.playBackgroundAudio({
-            dataUrl: 'https://www.csboge.com/voice/test1.mp3',
-            fail: function (res) {
-                console.log("问候语播放失败");
-            }
-        });
+
+        setTimeout(function () {
+            //播放问候语
+            wx.playBackgroundAudio({
+                dataUrl: 'https://www.csboge.com/voice/test1.mp3',
+                fail: function (res) {
+                    console.log("问候语播放失败");
+                }
+            });
+        }, 300);
 
     },
     //显示时调用
@@ -265,12 +264,12 @@ Page({
             //选出选中的二级分类下的商品
             new_page_second_cate.forEach((obj) => {
                 if (obj.isChecked === true) {
-                    that.listData(obj.id);
+                    that.listData(obj.id, true);
                 }
             });
 
         } else {//没有则直接选择一级分类下面的商品
-            that.listData(cate.id);
+            that.listData(cate.id, false);
         }
 
         // console.log(page_second_cate)
@@ -302,10 +301,10 @@ Page({
 
         that.signForSecondMenu(e.currentTarget.dataset.fid);
 
-        that.listData(e.currentTarget.dataset.fid);
+        that.listData(e.currentTarget.dataset.fid, true);
     },
     //列出商品
-    listData: function (parent_id) {
+    listData: function (parent_id, is_second_menu) {
 
         let that = this;
         let shop_cart = util.getStorageSync("shopCart");
@@ -314,8 +313,14 @@ Page({
         // console.log(parent_id)
 
         menu_list.forEach((obj) => {
-            if (obj.cate_id === parent_id) {
-                page_menu.push(obj);
+            if (is_second_menu) {
+                if (obj.package === parent_id) {
+                    page_menu.push(obj);
+                }
+            } else {
+                if (obj.cat_id === parent_id) {
+                    page_menu.push(obj);
+                }
             }
         });
 
@@ -360,7 +365,7 @@ Page({
     },
     //减少数量
     minus: function (e) {
-
+        console.log(111)
         var isfull = false;
         var show_cart = this.data.showCart;
         var id = e.currentTarget.dataset.id;//当前商品id
@@ -589,7 +594,7 @@ Page({
 
         // console.log(shopCart)
         shopCart.forEach(function (obj) {
-            if (obj.cate_id === id) {
+            if (obj.cat_id === id) {
                 arr.push(obj);
             }
         });

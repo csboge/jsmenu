@@ -28,7 +28,7 @@
                 <image src="http://img.my-shop.cc/image/tel-white-icon.png" class="tel-white-icon"></image>
             </view>
         </view>
-        <view class="hb-remain-box">
+        <view class="hb-remain-box" bindtap="gotoHbDetail">
             <view class="hb-remain-txt ml">红包余额</view>
             <view class="hb-remain-count mr">
                 <view class="hb-remain-num">20元</view>

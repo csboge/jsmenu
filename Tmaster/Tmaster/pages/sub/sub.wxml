@@ -1,0 +1,34 @@
+<!--pages/sub/sub.wxml-->
+<view class="container">
+    <view class="dot">
+      <view class="one"></view>   
+      <view class="two"></view>
+      <view class="three"></view>
+    </view>
+    <view class="section">
+      <view class="title">
+        欢迎使用电子菜谱
+      </view>
+      <view class="flow">
+      	<icon type="success" size="23" class="icon1" color="#509863"/>
+      	<view class="icon-solid"></view>
+      	<icon type="success" size="23" class="icon2" color="#509863"/>
+      	<view class="icon-dashed"></view>
+      	<view class="icon3"></view>
+      	<view class="words">
+      		<view class="text1">提交审核</view>	
+      		<view class="text2">审核确认中</view>	
+      		<view class="text3">审核通过</view>	
+
+      	</view>
+      	
+      </view>
+      <view class="footer">
+      	<view class="tel">客服热线：0731-85056318</view>
+      	<view class="logo">
+      		<image  src="../../img/logo.png"></image>
+      	</view>
+      </view>
+      
+    </view>
+</view>

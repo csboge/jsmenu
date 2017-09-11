@@ -70,7 +70,7 @@
                 <view class="food-detail" wx:for="{{page_menu}}" wx:key="id">
                     <view class="food-detail-main">
                         <view class="food-detail-img">
-                            <image src="{{item.img_url}}" class="detail-img" mode="aspectFit"></image>
+                            <image src="{{item.image}}" class="detail-img" mode="aspectFit"></image>
                         </view>
                         <view class="food-detail-des">
                             <view class="food-detail-title txt-title">{{item.name}}</view>
@@ -121,12 +121,12 @@
                     <view class="detail-price">￥ {{item.price}}</view>
                     <view class="detail-num-box">
                         <view class="detail-num">
-                            <view class="minus-num">
-                                <view class="x-y-center-minus" data-id="{{item.id}}" bindtap="minus"></view>
+                            <view class="minus-num" data-id="{{item.id}}" bindtap="minus">
+                                <view class="x-y-center-minus"></view>
                             </view>
                             <view class="detail-number">{{item.num}}</view>
-                            <view class="plus-num">
-                                <view class="x-y-center-plus" data-obj="{{item}}" bindtap="plus"></view>
+                            <view class="plus-num" data-obj="{{item}}" bindtap="plus">
+                                <view class="x-y-center-plus"></view>
                             </view>
                         </view>
                     </view>

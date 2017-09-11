@@ -38,7 +38,7 @@ Page({
     },
     //分享二维码
     share: function () {
-    console.log(111)
+        console.log(111)
         util.request(app.globalData.ev_url + "/Discount/robimg", { bagid: app.globalData.mode_data.bagid })
             .then((res) => {
                 if (res.data.code === 1) {
@@ -59,7 +59,7 @@ Page({
                     });
                 }
             });
-            
+
     },
     //转发
     onShareAppMessage: function (res) {
@@ -70,10 +70,11 @@ Page({
         let count = app.globalData.mode_data.count;
         let speed = app.globalData.mode_data.speed;
         let mode_money = app.globalData.mode_data.mode_money;
+        let shop_id = util.getStorageSync("user").shop_id;
 
         return {
             title: '口令红包',
-            path: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money,
+            path: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id,
             success: function (res) {
 
                 app.setGlobalData("is_transimit", true);
@@ -88,7 +89,7 @@ Page({
                     duration: 750,
                     success() {
                         wx.redirectTo({
-                            url: '/pages/voiceExample/voiceExample?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money,
+                            url: '/pages/voiceExample/voiceExample?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id,
                         });
                     }
                 });

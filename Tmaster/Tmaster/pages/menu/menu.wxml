@@ -1,0 +1,51 @@
+<!--menu.wxml-->
+<view class="wrap">
+	<view class="head">
+		全部分类
+			<image src="../../img/bottom.png" ></image>			
+	</view>
+	<view class="section">
+		<view class="item">
+			<image src="../../img/timg.png" class="timg" ></image>
+			<view class="wrods-top">
+				辣椒炒肉
+				<image src="../../img/star.png" ></image>
+			</view>
+			<view class="wrods-bottom">
+				<span style="margin-right:30rpx ">¥30.00 </span>  本月销量：<span style="border-bottom: 1rpx solid #ff4246">28</span>份
+			</view>
+			<view class="right">
+				<image src="../../img/right.png"></image>
+			</view>
+			<view class="fixclear"></view>
+		</view>
+		<view class="item">
+			<image src="../../img/timg.png" class="timg" ></image>
+			<view class="wrods-top">
+				辣椒炒肉
+				<image src="../../img/star.png" ></image>
+			</view>
+			<view class="wrods-bottom">
+				<span style="margin-right:30rpx ">¥30.00 </span>  本月销量：<span style="border-bottom: 1rpx solid #ff4246">28</span>份
+			</view>
+			<view class="right">
+				<image src="../../img/right.png"></image>
+			</view>
+			<view class="fixclear"></view>
+		</view>
+		<view class="item">
+			<image src="../../img/timg.png" class="timg" ></image>
+			<view class="wrods-top">
+				辣椒炒肉
+				<image src="../../img/star.png" ></image>
+			</view>
+			<view class="wrods-bottom">
+				<span style="margin-right:30rpx ">¥30.00 </span>  本月销量：<span style="border-bottom: 1rpx solid #ff4246">28</span>份
+			</view>
+			<view class="right">
+				<image src="../../img/right.png"></image>
+			</view>
+			<view class="fixclear"></view>
+		</view>
+	</view>
+</view>

@@ -1,0 +1,48 @@
+<!--pages/home/home.wxml-->
+	<view class="header">
+		<view class="title">
+			今日收款0笔，合计
+		</view>
+		<view class="sum">
+			￥0.00
+		</view>
+		<view class="head-icon">
+			<view class="head-item" style="border-right:1rpx solid #84b791 " hover-class="bg-green">
+				<image src="../../img/record.png" ></image>
+				收款记录
+			</view>
+			<view class="head-item" hover-class="bg-green">
+				<image src="../../img/report.png" ></image>
+				经营报表
+			</view>
+		</view>
+		<view class="section">
+			<view class="section-item" style="border-right: 1rpx solid #ccc;" hover-class="bg-white" bindtap="btnClick">
+				<image  src="../../img/md.png" ></image>
+				我的门店
+			</view>
+			<view class="section-item" hover-class="bg-white">
+				<image  src="../../img/yy.png" ></image>
+				预约订座
+			</view>
+			<view class="section-item" style="border-right: 1rpx solid #ccc" hover-class="bg-white">
+				<image  src="../../img/yh.png" ></image>
+				营销优惠
+			</view>
+			<view class="section-item" hover-class="bg-white">
+				<image  src="../../img/hd.png" ></image>
+				运营活动
+			</view>
+			<view class="section-item" style="border-right: 1rpx solid #ccc" hover-class="bg-white">
+				<image  src="../../img/fx.png" ></image>
+				顾客分析
+			</view>
+			<view class="section-item" hover-class="bg-white">
+				<image  src="../../img/gl.png" ></image>
+				管理与设置
+			</view>
+
+		</view>
+
+	</view>
+

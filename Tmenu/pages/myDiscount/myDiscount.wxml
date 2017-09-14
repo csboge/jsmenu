@@ -2,18 +2,18 @@
     <view class="page-head" bindtap="toIndex">
         <view class="page-head-box">
             <view class="page-head-img">
-                <image src="http://img.my-shop.cc/image/shop-logo.jpg" class="logo"></image>
+                <image src="{{shop_info.logo}}" class="logo"></image>
             </view>
             <view class="page-head-detail">
                 <view class="page-head-title-box">
-                    <view class="page-head-title white txt-mid">寻味-园丁街店</view>
+                    <view class="page-head-title white txt-mid">{{shop_info.title}}</view>
                     <view class="arrow white arrow-title"></view>
                 </view>
                 <view class="page-head-notice white txt-small">
-                    公告: 联系电话(微信)15957496790，超出范围五份起送！
+                    公告：{{shop_info.notice}}
                 </view>
                 <view class="page-head-notice white txt-small">
-                    可送公司餐，团餐定制，团购餐
+                    电话：{{shop_info.mobile}}
                 </view>
             </view>
         </view>
@@ -22,7 +22,7 @@
         <view class="shop-info-box">
             <view class="shop-address ml" bindtap="showAddress">
                 <image src="http://img.my-shop.cc/image/add-white-icon.png" class="add-white-icon"></image>
-                <view class="shop-address-txt txt-mid ml">浙江省宁波市江东区园丁街128号</view>
+                <view class="shop-address-txt txt-mid ml">{{shop_info.adress}}</view>
             </view>
             <view class="shop-tel mr" bindtap="call">
                 <image src="http://img.my-shop.cc/image/tel-white-icon.png" class="tel-white-icon"></image>
@@ -31,26 +31,37 @@
         <view class="discount-title">我的优惠券</view>
         <view class="discount-box">
             <view class="discount-list">
-                <view class="dicount-ticket-box" wx:for="{{[1,2,3]}}">
+                <view class="dicount-ticket-box" wx:for="{{available_list}}">
                     <view class="discount-ticket-left">
                         <view class="discount-detail-box">
-                            <view class="discount-detail-txt">满30减3</view>
-                            <view class="discount-detial-time">2017年7月21日 22:30:00 至 2017年9月3日 22:30:00</view>
+                            <view class="discount-detail-txt">{{item.title}}</view>
+                            <view class="discount-detial-time">{{item.effective}}</view>
                         </view>
                     </view>
                     <view class="discount-ticket-right">使用</view>
                 </view>
             </view>
         </view>
-        <view class="get-ticket">一张优惠券可以领取</view>
+        <!-- <view class="get-ticket">一张优惠券可以领取</view> -->
         <view class="discount-title">已失效的券</view>
         <view class="discount-box">
             <view class="discount-list">
-                <view class="dicount-ticket-box bc-dark-gray" wx:for="{{[1,2,3]}}">
+                <view class="dicount-ticket-box bc-dark-gray" wx:for="{{short_list}}">
+                    <image src="http://img.my-shop.cc/image/short_icon.png" class="short-icon"></image>
                     <view class="discount-ticket-left bc-gray">
                         <view class="discount-detail-box bd-gray">
-                            <view class="discount-detail-txt txt-dark-gray">满30减3</view>
-                            <view class="discount-detial-time txt-gray">2017年7月21日 22:30:00 至 2017年9月3日 22:30:00</view>
+                            <view class="discount-detail-txt txt-dark-gray">{{item.title}}</view>
+                            <view class="discount-detial-time txt-gray">{{item.effective}}</view>
+                        </view>
+                    </view>
+                    <view class="discount-ticket-right txt-light-gray">使用</view>
+                </view>
+                <view class="dicount-ticket-box bc-dark-gray" wx:for="{{overdue}}">
+                    <image src="http://img.my-shop.cc/image/overdue.png" class="overdue-img"></image>
+                    <view class="discount-ticket-left bc-gray">
+                        <view class="discount-detail-box bd-gray">
+                            <view class="discount-detail-txt txt-dark-gray">{{item.title}}</view>
+                            <view class="discount-detial-time txt-gray">{{item.effective}}</view>
                         </view>
                     </view>
                     <view class="discount-ticket-right txt-light-gray">使用</view>
@@ -58,7 +69,5 @@
             </view>
         </view>
     </view>
-    <view class="page-foot">
-        <image src="http://img.my-shop.cc/image/boge-logo.png" class="boge-logo-img"></image>
-    </view>
+    <view class="page-foot">©伯格网络提供支持</view>
 </view>

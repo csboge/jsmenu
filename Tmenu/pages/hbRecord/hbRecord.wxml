@@ -21,36 +21,20 @@
 
 
         <view class="in-list-box" wx:if="{{hb_click_type===0}}">
-            <view class="in-item">
+            <view class="in-item" wx:for="{{hb_in_list}}">
                 <view class="in-title-box">
                     <view class="in-title">
-                        <image src="http://img.my-shop.cc/image/logo_hb.png" class="logo-img"></image>
-                        <view class="title-txt">店的名称</view>
+                        <image src="{{item.logo}}" class="logo-img"></image>
+                        <view class="title-txt">{{item.title}}</view>
                     </view>
-                    <view class="in-time">2017-08-09 12:00</view>
+                    <view class="in-time">{{item.created}}</view>
                 </view>
-                <view class="in-content-box">
+                <view class="in-content-box" data-url="{{item.audio}}" bindtap="play">
                     <view class="content-des">
                         <image src="http://img.my-shop.cc/image/vic_icon.png" class="vic-img"></image>
-                        <view class="content-txt">你是猴子派来的救兵么</view>
+                        <view class="content-txt">{{item.words}}</view>
                     </view>
-                    <view class="content-price">￥22</view>
-                </view>
-            </view>
-            <view class="in-item">
-                <view class="in-title-box">
-                    <view class="in-title">
-                        <image src="http://img.my-shop.cc/image/logo_hb.png" class="logo-img"></image>
-                        <view class="title-txt">店的名称</view>
-                    </view>
-                    <view class="in-time">2017-08-09 12:00</view>
-                </view>
-                <view class="in-content-box">
-                    <view class="content-des">
-                        <image src="http://img.my-shop.cc/image/vic_icon.png" class="vic-img"></image>
-                        <view class="content-txt">你是猴子派来的救兵么</view>
-                    </view>
-                    <view class="content-price">￥22</view>
+                    <view class="content-price">￥{{item.menoy}}</view>
                 </view>
             </view>
             <view class="show-more">查看更多</view>
@@ -58,25 +42,15 @@
 
 
         <view class="out-list-box" wx:if="{{hb_click_type===1}}">
-            <view class="out-item">
+            <view class="out-item" wx:for="{{hb_out_list}}">
                 <view class="out-title-des">
-                    <image src="http://img.my-shop.cc/image/logo_hb.png" class="logo-img out-logo"></image>
+                    <image src="{{item.logo}}" class="logo-img out-logo"></image>
                     <view class="out-txt">
-                        <view class="shop-name">店的名字</view>
-                        <view class="out-detail">2017-08-08 订单号：2134812316546</view>
+                        <view class="shop-name">{{item.title}}</view>
+                        <view class="out-detail">{{item.pay_time}} 订单号：{{item.order_sn}}</view>
                     </view>
                 </view>
-                <view class="out-price">-22</view>
-            </view>
-            <view class="out-item">
-                <view class="out-title-des">
-                    <image src="http://img.my-shop.cc/image/logo_hb.png" class="logo-img out-logo"></image>
-                    <view class="out-txt">
-                        <view class="shop-name">店的名字</view>
-                        <view class="out-detail">2017-08-08 订单号：2134812316546</view>
-                    </view>
-                </view>
-                <view class="out-price">-22</view>
+                <view class="out-price">-{{item.offset_money}}</view>
             </view>
             <view class="show-more">查看更多</view>
         </view>

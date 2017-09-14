@@ -8,7 +8,7 @@
                 <view class="page-head-detail">
                     <view class="page-head-title-box">
                         <view class="page-head-title white txt-mid">{{shop_name}}</view>
-                        <view class="arrow white arrow-title"></view>
+                        <!-- <view class="arrow white arrow-title"></view> -->
                     </view>
                     <view class="page-head-notice white txt-small">
                         {{notice}}
@@ -34,7 +34,7 @@
                         </view>
                     </view>
                 </view>
-                <view class="product-list" wx:for="{{foodList}}">
+                <view class="product-list" wx:for="{{foodList}}" wx:key="id">
                     <image src="{{item.image}}" class="product-img"></image>
                     <view class="product-detail">
                         <view class="product-head">
@@ -44,7 +44,7 @@
                         <view class="product-num">x{{item.num}}</view>
                     </view>
                 </view>
-                <view class="product-list" wx:for="{{use_base}}" wx:if="{{show_use_base}}">
+                <view class="product-list" wx:for="{{use_base}}" wx:if="{{show_use_base}}" wx:key="id">
                     <image src="http://img.my-shop.cc/image/wan.jpg" class="product-img"></image>
                     <view class="product-detail">
                         <view class="product-head">
@@ -67,7 +67,7 @@
                     <view class="discount-detail ml txt-head">金额</view>
                     <view class="discount-right mr txt-red">￥{{totalPrice}}</view>
                 </view>
-                <view class="discount-info">
+                <view class="discount-info" wx:if="{{newCustDiscount>0?true:false}}">
                     <view class="discount-new-customer discount-box">
                         <image src="http://img.my-shop.cc/image/new.png" class="new-img"></image>
                         <view class="discount-left ml">
@@ -75,19 +75,19 @@
                         </view>
                         <view class="discount-right mr txt-red">- ￥{{newCustDiscount}}</view>
                     </view>
-                
-                    <view class="use-honbao" bindtap="chooseHonbao">
+
+                    <!-- <view class="use-honbao" bindtap="chooseHonbao">
                         <view class="msg-title">使用红包</view>
                         <view class="honbao-box">
                             <view class="honbao-txt">{{honbaoTxt?honbaoTxt:"当前无红包可以使用"}}</view>
                         </view>
-                    </view>
+                    </view> -->
                 </view>
                 <view class="reduction-info" bindtap="showYhq">
                     <view class="reduction-title">优惠</view>
                     <view class="reduction-box">
-                        <view class="reduction-item">{{yhq_txt?'优惠券':'无'}}</view>
-                        <view class="reduction-detail">{{yhq_txt?yhq_txt:'该商家暂无优惠活动'}}</view>
+                        <view class="reduction-item">{{yhq_type=== -1?'无':(yhq_type=== 1?'抵扣券':'折扣券')}}</view>
+                        <view class="reduction-detail">{{yhq_list.length>0?(yhq_txt?yhq_txt:'请选择'):'暂无可用'}}</view>
                         <view class="reduction-arrow"></view>
                     </view>
                     <view class="dot-line">
@@ -109,6 +109,12 @@
                         </view>
                     </view>
                 </view>
+                <view class="use-honbao" bindtap="chooseHonbao">
+                    <view class="msg-title">使用红包</view>
+                    <view class="honbao-box">
+                        <view class="honbao-txt">{{honbaoTxt?honbaoTxt:"暂无可用"}}</view>
+                    </view>
+                </view>
                 <view class="discount-dyq discount-box bc-white">
                     <view class="discount-detail ml txt-head order-fee">服务费</view>
                     <view class="discount-right mr txt-tax txt-red">￥{{taxPrice}}</view>
@@ -116,8 +122,8 @@
                 <view class="payment-info">
                     <view class="payment-title">支付方式</view>
                     <view class="pay-way-box">
-                        <view class="pay-way-btn {{item.is_checked?'bd-green':''}}" data-i="{{index}}" bindtap="checkPayWay" wx:for="{{pay_type}}">
-                            <image src="http://img.my-shop.cc/image/pay_arr.png?1" class="arr-img" wx:if="{{item.is_checked?true:false}}"></image>
+                        <view class="pay-way-btn {{item.is_checked?'bd-green':''}}" data-i="{{index}}" bindtap="checkPayWay" wx:for="{{pay_type}}" wx:key="id">
+                            <image src="http://img.my-shop.cc/image/pay_arr.png?2" class="arr-img" wx:if="{{item.is_checked?true:false}}"></image>
                             <view class="pay-txt {{item.is_checked?'pay-txt-red':''}}">{{item.title}}</view>
                         </view>
                     </view>
@@ -145,7 +151,7 @@
 
 <!-- 选择红包 -->
 <view class="modal {{showModal?'show-modal':''}}" bindtap="hideHonbao"></view>
-<view class="honbao-item-box" animation="{{animationData}}">
+<!-- <view class="honbao-item-box" animation="{{animationData}}">
     <view class="hb-box">
         <view class="honbao-title">选择红包</view>
         <view class="honbao-list">
@@ -158,18 +164,19 @@
             <view class="hb-no-btn" bindtap="cancelUse">不使用红包</view>
         </view>
     </view>
-</view>
+</view>  -->
 
 <!-- 选择优惠券 -->
 <view class="honbao-item-box" animation="{{yhq_animationData}}">
     <view class="honbao-title">选择优惠券</view>
-    <view class="honbao-list">
-        <view class="honbao-box-x" data-yhq="{{item.yhq_price}}" data-discount="{{item.discount}}" data-index="{{index}}" data-index="{{index}}" bindtap="useYhq" wx:for="{{yhq_list}}">
+    <view class="{{yhq_list.length>2?'honbao-list':'honbao-list-b'}}">
+        <view class="{{yhq_list.length>2?'honbao-box-x':'honbao-box-y'}}" data-yhq="{{item.conditon}}" data-discount="{{item.dis_price}}" data-index="{{index}}" data-id="{{item.coupon_id}}" bindtap="useYhq" wx:for="{{yhq_list}}" wx:key="id">
             <image src="{{item.isChecked?'http://img.my-shop.cc/image/hb_arrow_red.png':''}}" class="hb-arrow"></image>
-            <view class="honbao-txt-x">满{{item.yhq_price}}元减{{item.discount}}元</view>
+            <view class="honbao-txt-x">{{item.title}}</view>
         </view>
     </view>
-    <view class="btn-box">
+    <view class="no-yhq-use" wx:if="{{yhq_list.length>0?false:true}}">暂无优惠券可用</view>
+    <view class="btn-box"  wx:if="{{yhq_list.length>0?true:false}}">
         <view class="hb-no-btn" bindtap="cancelUseYhq">不使用优惠券</view>
     </view>
 </view>
@@ -184,12 +191,13 @@
         <image src="http://img.my-shop.cc/image/hand.png?1" class="hand-img" mode="aspectFit"></image>
     </view>
     <view class="num-box">
-        <view class="num-box-line" wx:for="{{num_box}}" wx:for-index="out_index">
-            <view class="num-box-item {{(out_index%2===1&&inner_index%2===0)||(out_index%2===0&&inner_index%2===1)?'block-white':'block-gray'}} {{item.is_checked?'num-checked':''}}" wx:for="{{item.line}}" wx:for-index="inner_index" data-num="{{item.num}}" data-inner_index="{{inner_index}}" data-line_index="{{out_index}}" bindtap="chooseNum">{{item.num}}</view>
+        <view class="num-box-line" wx:for="{{num_box}}" wx:key="id" wx:for-index="out_index">
+            <view class="num-box-item {{(out_index%2===1&&inner_index%2===0)||(out_index%2===0&&inner_index%2===1)?'block-white':'block-gray'}} {{item.is_checked?'num-checked':''}}" wx:for="{{item.line}}" wx:key="id" wx:for-index="inner_index" data-num="{{item.num}}" data-inner_index="{{inner_index}}"
+                data-line_index="{{out_index}}" bindtap="chooseNum">{{item.num}}</view>
         </view>
         <view class="num-box-line">
             <view class="num-box-item block-light {{is_zero?'num-checked':''}}" data-num="{{0}}" bindtap="chooseNum">0</view>
-            <view class="num-box-item reset block-yellow {{is_reset?'reset-block':''}}" bindtap="clearNum">重输</view>
+            <view class="num-box-item reset block-yellow {{is_reset?'reset-block':''}}" bindtap="clearNum">重 输</view>
         </view>
     </view>
     <view class="close-icon-box">

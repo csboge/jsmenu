@@ -1,6 +1,10 @@
 
 /**app.wxss**/
 
+page{
+    background: #f2f2f2;
+}
+
 .page-container{
     width: 100%;
 }

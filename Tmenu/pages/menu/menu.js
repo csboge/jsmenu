@@ -19,13 +19,15 @@ Page({
         noitce: "",             //商户公告
         tel: "",                //商户电话
 
-        menuOwnUrl: [//本桌用户头像图片
+        menuOwnUrl: [           //本桌用户头像图片
             "http://img.my-shop.cc/image/menu-own1.jpg",
             "http://img.my-shop.cc/image/menu-own2.jpg",
             "http://img.my-shop.cc/image/menu-own3.jpg"
         ],
 
-        cateList: [],//一级分类
+        yhq_list: [],           //优惠券列表
+
+        cateList: [],           //一级分类
         fixCateBar: false,      //是否固定分类导航到顶部
 
         second_cate_list: [],   //所有二级分类
@@ -41,25 +43,22 @@ Page({
 
         showCart: false,        //是否弹出购物车
         isFull: false,          //购物车是否显示超过7条数据
-        cartAnimation: {}       //购物车动画
+        cartAnimation: {},      //购物车动画
 
     },
     rowIndex: 0,                //显示食物的行数,每行四
     mark: 0,                    //tap的坐标 x或y
     newMark: 0,                 //移动后的坐标 x或y
-    _shop_id: 0,                 //商户id 
     /** 
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
 
+
         let that = this;
         let shop_info = app.globalData.shop_info;
 
-        let _shop_id = shop_info.id;            //商户id
         let cate_list = [];                     //一级分类
-
-        this._shop_id = _shop_id;
 
         //渲染商户信息
         that.setData({
@@ -69,16 +68,13 @@ Page({
             tel: shop_info.mobile
         });
 
-        let cate_data = {
-            shop_id: _shop_id
-        };
+        //加载优惠券
+        this.fetchYhq();
 
-        let cate_config = app.getParams(data);
-
-        util.request(app.globalData.ev_url + '/menu/category_list', "POST", cate_config)
+        util.request(app.globalData.ev_url + '/menu/category_list', "POST", app.getParams({}))
             .then((res) => {
                 if (res.data.code === 200) {
-                    console.log(cate_list)
+                    // console.log(cate_list)
 
                     //添加新推套餐
                     let mob_list = res.data.data.mob_list;
@@ -125,7 +121,6 @@ Page({
 
 
         let goods_data = {
-            shop_id: _shop_id,
             page: 1,
             limit: 10
         };
@@ -158,9 +153,9 @@ Page({
                     }
 
                 });
-                console.log(init_page_menu);
+                // console.log(init_page_menu);
                 // console.log(shop_cart)
-                console.log(init_page_menu)
+                // console.log(init_page_menu)
                 if (shop_cart.length > 0) {
                     init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
                     //计算购物车商品总数量和总价格
@@ -177,16 +172,10 @@ Page({
                 util.disconnectModal();
             });
 
-        let data = {
-            "shop_id": _shop_id,
-            // "cat_id": 1,
-            // "package": 1
-        };
-
         //初始化所有商品购买数量 为 0
-        var init_page_menu = [];
-        var fa = this.data.menu_list;
-        var new_menu_list = util.clearAll(fa, "num", 0);
+        let init_page_menu = [];
+        let fa = this.data.menu_list;
+        let new_menu_list = util.clearAll(fa, "num", 0);
 
         for (var i = 0; i < fa.length; i++) {
             if (fa[i].cat_id === 101) {
@@ -202,11 +191,8 @@ Page({
         });
         wx.hideLoading();
 
-    },
-    onReady() {
-
+        //播放问候语
         setTimeout(function () {
-            //播放问候语
             wx.playBackgroundAudio({
                 dataUrl: 'https://www.csboge.com/voice/test1.mp3',
                 fail: function (res) {
@@ -214,14 +200,66 @@ Page({
                 }
             });
         }, 300);
+    },
+    onReady() {
 
     },
     //显示时调用
     onShow: function () {
 
-        let shopCart = wx.getStorageSync("shopCart");
-        let origin_shopCart = shopCart.products || shopCart;
-        wx.setStorageSync("shopCart", origin_shopCart);
+        let that = this;
+
+        //判断是否需要刷新
+        let _is_refresh_menu = app.globalData.is_refresh_menu;
+
+        if (_is_refresh_menu != undefined && _is_refresh_menu === true){
+            wx.redirectTo({
+                url: '../menu/menu',
+                success(){
+                    app.setGlobalData("is_refresh_menu",false);
+                }
+            });
+        }
+
+        // let _is_refresh_menu = app.globalData.is_refresh_menu;
+        // console.log(_is_refresh_menu);
+        //提交完订单时返回刷新商品
+        // if (_is_refresh_menu) {
+
+        //     console.log(_is_refresh_menu)
+        //     let _menu_list = this.data.menu_list;
+        //     let _cateList = this.data.cateList;
+        //     let _page_second_cate = this.data.page_second_cate;
+
+        //     _menu_list.forEach((obj) => {
+        //         obj.num = 0;
+        //     });
+
+        //     _cateList.forEach((obj) => {
+        //         obj.isChecked = false;
+        //     });
+        //     _cateList[0].isChecked = true;
+
+        //     _page_second_cate.forEach((obj) => {
+        //         obj.isChecked = false;
+        //     });
+        //     _page_second_cate[0].isChecked = true;
+
+        //     this.setData({
+        //         menu_list: _menu_list,
+        //         cateList: _cateList,
+        //         page_second_cate: _page_second_cate,
+        //         cartList: []
+        //     });
+
+        //     //修改刷新标识，防止无限刷新
+        //     app.setGlobalData("is_refresh_menu", false);
+
+        //     console.log(this.data.menu_list);
+        //     console.log(this.data.cateList);
+        //     console.log(this.data.page_second_cate);
+
+        // }
 
     },
     //全部显示
@@ -230,6 +268,76 @@ Page({
             second_cate_list: this.data.page_second_cate,
             showMore: false
         })
+    },
+    //加载优惠券
+    fetchYhq() {
+
+        let that = this;
+
+        util.request(app.globalData.ev_url + '/shop/coupon', "POST", app.getParams({}))
+            .then((res) => {
+                if (res.data.code === 1) {
+                    //在页面中默认为所有优惠券未领取,根据后台领取记录一同判断
+                    let _yhq_list = res.data.data;
+                    _yhq_list.forEach((obj) => {
+                        obj.is_get_coupon = false;
+                    });
+
+                    that.setData({
+                        yhq_list: _yhq_list
+                    });
+
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
+            }, (res) => {
+                util.disconnectModal();
+            });
+
+    },
+    //领取优惠券
+    getYhq(e) {
+
+        let that = this;
+        let _user = util.getStorageSync("user");
+        let _yhq_list = this.data.yhq_list;                     //优惠券列表
+
+        let yhq_id = e.currentTarget.dataset.id;                //优惠券id
+        let index = e.currentTarget.dataset.index;              //当前优惠券索引
+        let _is_get_coupon = _yhq_list[index].is_get_coupon;    //当前点击的优惠券是否在页面上领取过
+        let _is_linqu = e.currentTarget.dataset.is_linqu;       //后台记录是否领取过
+
+        let get_coupon_data = { coupon_id: yhq_id };
+        let get_coupon_config = app.getParams(get_coupon_data);
+
+        //后台记录未领取过且在页面上也未成功领取过该优惠券,就执行领取
+        if (_is_linqu === 1 && !_is_get_coupon) {
+            util.request(app.globalData.ev_url + "/user/get_coupon", "POST", get_coupon_config)
+                .then((res) => {
+                    if (res.data.code === 1) {
+                        //更改页面中该优惠券领取状态  为已领取状态
+                        _yhq_list[index].is_get_coupon = true;
+                        that.setData({
+                            yhq_list: _yhq_list
+                        });
+                    } else {
+                        wx.showModal({
+                            title: '提示',
+                            content: res.data.message,
+                            showCancel: false
+                        });
+                    }
+                }, (res) => {
+                    util.disconnectModal();
+                });
+        } else {
+            return;
+        }
+
     },
     //选择分类
     chooseCate: function (e) {
@@ -274,7 +382,7 @@ Page({
 
         // console.log(page_second_cate)
 
-        console.log(update_page_menu)
+        // console.log(update_page_menu)
 
         //更新数据
         this.setData({
@@ -357,15 +465,9 @@ Page({
             cateList: cate_list
         })
     },
-    //点击领取优惠券
-    getHb: function () {
-        wx.navigateTo({
-            url: '../coupon/coupon'
-        })
-    },
     //减少数量
     minus: function (e) {
-        console.log(111)
+        // console.log(111)
         var isfull = false;
         var show_cart = this.data.showCart;
         var id = e.currentTarget.dataset.id;//当前商品id
@@ -405,7 +507,7 @@ Page({
         var currentproduct = e.currentTarget.dataset.obj;//当前商品
 
         var originpage_menu = this.data.page_menu;
-        console.log(originpage_menu)
+        // console.log(originpage_menu)
         //当前页面该商品数量增加
         var newpage_menu = util.plus(originpage_menu, currentproduct.id);
 
@@ -578,6 +680,7 @@ Page({
         let shop_cart = util.getShopCart();
 
         if (shop_cart.length > 0) {
+
             wx.navigateTo({
                 url: '../confirmOrder/confirmOrder'
             });

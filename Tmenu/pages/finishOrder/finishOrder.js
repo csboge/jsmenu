@@ -10,7 +10,7 @@ Page({
      */
     data: {
         mode_money: 0,          //发红包的金额
-        ordersn: 0,             //订单号
+        ordersn: "",            //订单号
         is_dilivery: false,     //是否已经发过红包
     },
 
@@ -19,12 +19,11 @@ Page({
      */
     onLoad: function (options) {
 
-        let that = this;
-        let _order = util.getStorageSync("finish_order");
-
-        that.setData({
-            mode_money: _order.mode_money,
-            ordersn: _order.order_sn
+        this.setData({
+            // mode_money: app.globalData.mode_money,
+            // ordersn: options.order_sn
+            mode_money: 10,
+            ordersn: 2017091353554957
         })
 
     },
@@ -33,12 +32,11 @@ Page({
 
         let that = this;
         let utxt = e.detail.value.utxt || "我在这家店吃饭";
-        let _order = util.getStorageSync("finish_order");
 
         let options = {
-            ordersn: _order.order_sn,
+            ordersn: that.data.ordersn,
             words: utxt
-        }
+        };
         let data = app.getParams(options);
 
         util.request(app.globalData.ev_url + "/Discount/create", "POST", data)
@@ -55,7 +53,7 @@ Page({
                         bagid: res.data.data.bagid,
                         count: res.data.data.count,
                         speed: res.data.data.speed,
-                        mode_money: _order.mode_money
+                        mode_money: that.data.mode_money
                     }
                     app.setGlobalData("mode_data", data);
 
@@ -85,7 +83,7 @@ Page({
     //跳转到录音示例
     gotoExample: function () {
         wx.navigateTo({
-            url: '../speakVoice/speakVoice'
+            url: '../voiceExample/voiceExample'
         })
     }
 

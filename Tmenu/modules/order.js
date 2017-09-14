@@ -15,6 +15,8 @@ function createOrder(order_data) {
 
     let order = {
         total_price: order_data.total_price,                   //总价
+        is_first: order_data.is_first,                         //是否是新客
+        first_money: order_data.first_money,                   //新客立减金额
         coupon_list_id: order_data.coupon_list_id,             //优惠券id
         coupon_price: order_data.coupon_price,                 //优惠金额
         must_price: order_data.must_price,                     //应该支付金额
@@ -25,8 +27,11 @@ function createOrder(order_data) {
         goods_list: order_data.goods_list,                     //商品列表
         pay_way: order_data.pay_way                            //支付方式
     }
-
+    // console.log(order)
     util.setStorageSync("order", order);
+
+    return order;
+
 }
 
 
@@ -116,8 +121,15 @@ function updateOrderSync(key, value) {
  * 
  */
 function removeOrderSync() {
-
-    util.setStorageSync("order", {});
+    try {
+        wx.removeStorageSync('order')
+    } catch (e) {
+        wx.showModal({
+            title: '提示',
+            content: '移除订单错误',
+            showCancel: false
+        });
+    }
 }
 
 

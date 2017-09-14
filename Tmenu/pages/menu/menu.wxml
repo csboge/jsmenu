@@ -1,4 +1,4 @@
-<scroll-view scroll-y="{{showCart?false:true}}" style="height:1290rpx;" bindscroll="scroll">
+<scroll-view scroll-y="{{showCart?false:true}}" style="height:1290rpx;overflow:scroll;" bindscroll="scroll">
     <view class="page-container">
         <view class="page-head" bindtap="goShopInfo">
             <view class="page-head-box">
@@ -24,7 +24,7 @@
                 <view class="menu-other txt-middle">
                     <image src="http://img.my-shop.cc/image/laba.png" class="laba-img"></image>
                     <swiper indicator-dots="{{false}}" autoplay="{{true}}" interval="{{5000}}" duration="{{650}}" circular="{{true}}" vertical="{{true}}">
-                        <block wx:for="{{[0,1,2]}}">
+                        <block wx:for="{{[0,1,2]}}" wx:key="id">
                             <swiper-item>
                                 <view class="item-notice">2号桌 辣椒炒肉 1份</view>
                             </swiper-item>
@@ -56,13 +56,13 @@
             </view>
             <view class="yhq">
                 <scroll-view scroll-x class="yhq-scroll">
-                    <view class="yhq-item" wx:for="[3]" bindtap="getHb">
+                    <view class="yhq-item {{item.linqu===0||item.is_get_coupon?'bc-gray':''}}" wx:for="{{yhq_list}}" wx:key="id" wx:if="{{(item.biaoshi===0||item.over===0)?false:true}}">
                         <image src="http://img.my-shop.cc/image/dot.png" class="dot-img"></image>
                         <view class="yhq-price white txt-big">
-                            <text class="yhq-sign txt-small">￥</text>3
+                            <text class="yhq-sign txt-small">{{item.type===0?'折':'￥'}}</text>{{item.dis_price}}
                         </view>
-                        <view class="yhq-des white txt-small">满30元使用</view>
-                        <view class="yhq-get white txt-middle">领取</view>
+                        <view class="yhq-des white txt-small">{{item.title}}</view>
+                        <view class="yhq-get white txt-middle {{item.linqu===0||item.is_get_coupon?'get-coupon':''}}" data-id="{{item.id}}" bindtap="getYhq" data-is_linqu="{{item.linqu}}" data-index="{{index}}">{{item.linqu===0||item.is_get_coupon?'已领取':'领取'}}</view>
                     </view>
                 </scroll-view>
             </view>

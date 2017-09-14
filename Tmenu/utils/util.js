@@ -316,6 +316,24 @@ function getShopCart() {
 
 
 /*
+ *@des 清空购物车
+ * 
+ */
+function clearShopCart() {
+    try {
+        wx.removeStorageSync('shopCart')
+    } catch (e) {
+        wx.showModal({
+            title: '提示',
+            content: '清除购物车失败',
+            showCancel: false
+        });
+    }
+}
+
+
+
+/*
  *@des 获取本地缓存(同步)
  * @params key(需要获取的key)
  * 
@@ -325,11 +343,12 @@ function getStorageSync(key) {
         var value = wx.getStorageSync(key)
         if (value) {
             return value;
-        }else{
+        } else {
             return -1;
         }
     } catch (e) {
-        throw new Error("获取本地缓存" + key + "失败")
+        return -1;
+        // throw new Error("获取本地缓存" + key + "失败")
     }
 }
 
@@ -383,8 +402,8 @@ function request(url) {
  * @des         网络链接失败模态框
  * 
  * 
- */ 
-function disconnectModal(){
+ */
+function disconnectModal() {
     wx.showModal({
         title: '提示',
         content: '网络链接失败，请重新尝试!',
@@ -393,10 +412,55 @@ function disconnectModal(){
         cancelColor: '',
         confirmText: '',
         confirmColor: '',
-        success: function(res) {},
-        fail: function(res) {},
-        complete: function(res) {},
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
     })
+}
+
+
+
+/*
+ * @des         下载并播放语音
+ * @params      string              url
+ * 
+ */
+function downAndPlayVoice(url) {
+
+    wx.downloadFile({
+        url: url,
+        success: function (res) {
+            wx.playVoice({
+                filePath: res.tempFilePath,
+                success() {
+                    console.log("播放成功")
+                },
+                fail() {
+                    wx.showModal({
+                        title: '提示',
+                        content: '播放失败',
+                        showCancel: false
+                    });
+                },
+                complete() {
+                    wx.showToast({
+                        title: '播放完毕',
+                        icon: 'success',
+                        duration: 600,
+                        mask: true
+                    });
+                }
+            });
+        },
+        fail: function (res) {
+            wx.showModal({
+                title: '提示',
+                content: '下载失败',
+                showCancel: false
+            });
+        }
+    });
+
 }
 
 
@@ -419,6 +483,7 @@ module.exports = {
     getStorageSync: getStorageSync,
     setStorageSync: setStorageSync,
     request: request,
-    disconnectModal: disconnectModal
-    
+    disconnectModal: disconnectModal,
+    clearShopCart: clearShopCart,
+    downAndPlayVoice: downAndPlayVoice
 }

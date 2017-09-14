@@ -13,7 +13,7 @@ App({
     },
     //小程序启动或后台进入前台的时候调用
     onShow() {
-        
+
         let that = this;
         //检查登录态
         wx.checkSession({
@@ -53,6 +53,7 @@ App({
     },
     //全局数据
     globalData: {
+        // ev_url: "http://dev.csboge.com/api",
         ev_url: "https://demo.ai-life.me/api",  //测试环境
         // ev_url:"https://api.ai-life.me/api", //生产环境
         voice_path: [],
@@ -63,16 +64,25 @@ App({
     setGlobalData(key, value) {
         this.globalData[key] = value;
     },
-
     //拨打电话
-    makeCall: function (phoneNum) {
+    makeCall: function () {
+
+        let that = this;
+
         wx.makePhoneCall({
-            phoneNumber: phoneNum,
-            success: function (res) { },
+            phoneNumber: that.globalData.shop_info.tel,
+            success: function (res) {
+                console.log("拨打成功")
+            },
             fail: function (res) {
-                console.log("拨打失败");
+                wx.showModal({
+                    title: '提示',
+                    content: '拨打失败',
+                    showCancel: false
+                });
             }
         })
+        
     },
     //跳转地址
     naviTo: function (url) {
@@ -87,11 +97,13 @@ App({
     },
     //在地图上显示位置
     showLoca: function (latitude, longitude) {
-        wx.openLocation({
-            latitude: latitude,
-            longitude: longitude,
-            scale: 28
-        })
+
+        let la = this.globalData.shop_info.Lat - 0;             //商户纬度
+        let lo = this.globalData.shop_info.lng - 0;             //商户经度
+        let title = this.globalData.shop_info.title;            //商户名
+        let add = this.globalData.shop_info.adress;             //商户地址
+
+        util.getAddress(la, lo, title, add);
     },
     //获取用户信息并保存
     getUserInfo: function () {
@@ -170,7 +182,7 @@ App({
 
         wx.login({//登录获取用户code
             success: function (res) {
-                console.log(res.code)
+                console.log("code: " + res.code)
 
                 if (res.code) {
                     //发起请求获得openid
@@ -183,8 +195,7 @@ App({
                             // grd: app.globalData.system_version
                         },
                         success: function (res) {
-                            // console.log(res.data.data.access_token);
-                            console.log(res.data);
+                            console.log("token " + res.data.data.access_token);
                             user.updateUserStorage("openid", res.data.data.session.openid);
                             user.updateUserStorage("unionid", res.data.data.session.unionid);
                             user.updateUserStorage("userid", res.data.data.session.userid);

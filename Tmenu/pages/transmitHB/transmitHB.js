@@ -29,7 +29,6 @@ Page({
         this.setData({
             userInfo: user.getUserStorage(),
             utxt: _utxt,
-
             is_transimit: _is_transimit
         });
     },
@@ -89,7 +88,7 @@ Page({
                     duration: 750,
                     success() {
                         wx.redirectTo({
-                            url: '/pages/voiceExample/voiceExample?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id,
+                            url: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id,
                         });
                     }
                 });

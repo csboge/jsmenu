@@ -30,7 +30,7 @@ Page({
 
         let bagid = options.bagid;              //红包id
         let count = options.count;              //红包个数
-        let speed = options.speed;              //抢红包速度
+        let speed = options.speed;              //
         let mode_money = options.mode_money;    //红包金额
 
         let mode_data = {

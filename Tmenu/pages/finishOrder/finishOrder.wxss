@@ -100,6 +100,8 @@
     display: flex;
     padding-top: 60rpx;
     margin-left: 40rpx;
+}
+.play-set-title{
     font-size: 32rpx;
     font-weight: bold;
     color: #444;
@@ -108,8 +110,12 @@
     margin-left: 50rpx;
     border-bottom: 2rpx solid #e2e2e2;
     position: relative;
-    top: -6rpx;
+    top: -10rpx;
     width: 420rpx;
+}
+.txt-input-clazz{
+    font-size: 28rpx;
+    color: #999;
 }
 .play-btn{
     width: 630rpx;

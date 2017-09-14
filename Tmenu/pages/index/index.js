@@ -32,21 +32,19 @@ Page({
         ],
         curr: 0,                 //当前图片索引
 
-        logo: "",               //商户Logo
-        shop_name: "",          //商户名
+        shop_info: {},           //商户信息
 
         curr_index: 0            //推荐菜品当前图片索引
     },
     onLoad: function (options) {
-
         let that = this;
 
         // let is_scan = options.is_scan;//是否通过扫描 1 为是
         // let shop_id = options.shop_id;
         // let desk_sn = options.desk_id;
 
-        let is_scan = 1         //是否通过扫描 1 为是
-        let shop_id = 1
+        let is_scan = 1;         //是否通过扫描 1 为是
+        let shop_id = 1;
         let desk_sn = "1"
 
         if (is_scan == 1) {
@@ -58,31 +56,33 @@ Page({
 
             app.getUserInfo();
 
-            util.request(app.globalData.ev_url + "/shop/config", "POST", { title: shop_id })
+            util.request(app.globalData.ev_url + "/shop/config", "POST", app.getParams({}))
                 .then((res) => {
 
                     let shop_info = res.data.data;
 
+                    shop_info.shop_hours = JSON.parse(shop_info.shop_hours);
+
                     //商户数据存到全局
                     app.setGlobalData("shop_info", shop_info);
+
                     that.setData({
-                        logo: shop_info.logo,
-                        shop_name: shop_info.title
+                        shop_info: shop_info
                     });
 
                 });
             //获取餐厅环境和优惠活动轮播图片
-            util.request(app.globalData.ev_url + "/banner/banner_hongbao", "POST", { shop: shop_id, cat: 2 })
+            util.request(app.globalData.ev_url + "/banner/banner_hongbao", "POST", app.getParams({ cat: 2 }))
                 .then((res) => {
-                    console.log(res.data.data.shop)
+                    // console.log(res.data.data.shop)
                     that.setData({
                         ev_slide_urls: res.data.data.shop,
                         ac_slide_urls: res.data.data.discount
                     });
                 });
-            util.request(app.globalData.ev_url + "/shop/rec", "POST", { shop: shop_id })
+            util.request(app.globalData.ev_url + "/shop/rec", "POST", app.getParams({}))
                 .then((res) => {
-                    console.log(res.data.data.shop)
+                    // console.log(res.data.data.shop)
                     that.setData({
                         re_slide_urls: res.data.data
                     });
@@ -97,6 +97,25 @@ Page({
             })
 
         }
+
+    },
+    onShow: function () {
+        var animation = wx.createAnimation({
+            duration: 1200,
+            timingFunction: 'ease-out',
+        })
+
+        animation.opacity(1).top(0).step()
+
+        this.setData({
+            animationData: animation.export()
+        })
+    },
+    //播放语音
+    playVoice(e) {
+
+        let url = e.currentTarget.dataset.url;
+        util.downAndPlayVoice(url);
 
     },
     //切换事件
@@ -138,44 +157,23 @@ Page({
         });
 
     },
-    onShow: function () {
-        var animation = wx.createAnimation({
-            duration: 1200,
-            timingFunction: 'ease-out',
-        })
-
-        animation.opacity(1).top(0).step()
-
-        this.setData({
-            animationData: animation.export()
-        })
-    },
     //跳转页面
     navi: function (e) {
         app.naviTo(e.currentTarget.dataset.url);
     },
     //拨打电话
     call: function () {
-        wx.makePhoneCall({
-            phoneNumber: '0731-85056818',
-            success: function (res) { },
-            fail: function (res) {
-                console.log("失败")
-            },
-            complete: function (res) { },
-        })
+        app.makeCall();
     },
     //在地图上显示位置
     showLoca: function () {
-        var la = 28.20198;
-        var lo = 112.97106;
-        util.getAddress(la, lo, "长沙伯格网络", "长沙市湘江中路万达总部C2座35楼3508室");
+        app.showLoca();
     },
     //转发
     onShareAppMessage: function (res) {
         if (res.from === 'button') {
             // 来自页面内转发按钮
-            console.log(res.target)
+            // console.log(res.target)
         }
         return {
             title: '电子菜谱',
@@ -185,6 +183,11 @@ Page({
             },
             fail: function (res) {
                 // 转发失败
+                wx.showModal({
+                    title: '提示',
+                    content: '转发失败',
+                    showCancel: false
+                });
             }
         }
     }

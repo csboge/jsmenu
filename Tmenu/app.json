@@ -1,14 +1,14 @@
 {
     "pages": [
-        "pages/voiceExample/voiceExample",
-        "pages/speakVoice/speakVoice",
         "pages/index/index",
+        "pages/voiceExample/voiceExample",
+        "pages/finishOrder/finishOrder",
+        "pages/confirmOrder/confirmOrder",
+        "pages/speakVoice/speakVoice",
         "pages/hbRecord/hbRecord",
         "pages/menu/menu",
-        "pages/confirmOrder/confirmOrder",
         "pages/orderDetail/orderDetail",
         "pages/filter/filter",
-        "pages/finishOrder/finishOrder",
         "pages/transmitHB/transmitHB",
         "pages/myRecord/myRecord",
         "pages/myDiscount/myDiscount",

@@ -16,7 +16,9 @@ Page({
         isSpeak: false,             //是否已经领取赏金
         voices: [],
         time_list: [],
-        mode_data: {}               //红包数据
+        mode_data: {},               //红包数据
+        recodePath: "",              //录音地址
+        isRecode: false              //是否在录音
     },
 
     /**
@@ -28,7 +30,7 @@ Page({
 
         let bagid = options.bagid;              //红包id
         let count = options.count;              //红包个数
-        let speed = options.speed;              //抢红包速度
+        let speed = options.speed;              //
         let mode_money = options.mode_money;    //红包金额
         let shop_id = options.shop_id;          //商户id
 
@@ -102,7 +104,7 @@ Page({
     },
     //点击开始录音
     recordVoice: function () {
-
+        
     },
     //松开按钮结束录音
     stopRecord: function () {

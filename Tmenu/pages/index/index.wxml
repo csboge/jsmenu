@@ -3,18 +3,18 @@
     <view class="page-section" animation="{{animationData}}">
         <view class="shop-info">
             <view class="shop-logo">
-                <image src="{{logo}}" class="shop-logo-img"></image>
+                <image src="{{shop_info.logo}}" class="shop-logo-img"></image>
             </view>
             <view class="shop-detail">
-                <view class="shop-name">{{shop_name}}</view>
+                <view class="shop-name">{{shop_info.title}}</view>
                 <view class="shop-add" bindtap="showLoca">
-                    <view class="shop-add-txt gray">湖南省长沙市湘江中路123号</view>
+                    <view class="shop-add-txt gray">{{shop_info.adress}}</view>
                     <view class="arrow"></view>
                 </view>
-                <view class="shop-runtime gray">营业时间：周一至周五 08:00-17:30</view>
+                <view class="shop-runtime gray">营业时间：周一至周五 {{shop_info.shop_hours.start}}-{{shop_info.shop_hours.end}}</view>
                 <view class="shop-voice-box">
                     <view class="shop-voice-title gray">服务宣言</view>
-                    <image src="http://img.my-shop.cc/image/service_voice.png" class="service-voice-img"></image>
+                    <image src="http://img.my-shop.cc/image/service_voice.png" data-url="{{shop_info.video}}" class="service-voice-img" bindtap="playVoice"></image>
                 </view>
             </view>
             <view class="line"></view>
@@ -70,7 +70,7 @@
                 </view>
                 <view class="slide-content">
                     <swiper class="mid-slide" indicator-dots="{{true}}" indicator-active-color="#ff4246" autoplay="{{true}}" interval="{{5000}}" duration="{{600}}">
-                        <block wx:for="{{ev_slide_urls}}">
+                        <block wx:for="{{ev_slide_urls}}" wx:key="id">
                             <swiper-item>
                                 <image src="{{item.image}}" class="slide-image" />
                             </swiper-item>
@@ -86,7 +86,7 @@
                 </view>
                 <view class="slide-content">
                     <swiper class="mid-slide" indicator-dots="{{true}}" indicator-active-color="#ff4246" autoplay="{{true}}" interval="{{5000}}" duration="{{600}}">
-                        <block wx:for="{{ac_slide_urls}}">
+                        <block wx:for="{{ac_slide_urls}}" wx:key="id">
                             <swiper-item>
                                 <image src="{{item.image}}" class="slide-image" />
                             </swiper-item>
@@ -102,7 +102,7 @@
                 </view>
                 <view class="slide-content recommend">
                     <swiper class="big-slide" indicator-dots="{{false}}" autoplay="{{true}}" indicator-active-color="#ff4246" interval="{{5000}}" duration="{{600}}" current="{{curr_index}}" bindchange="change">
-                        <block wx:for="{{re_slide_urls}}">
+                        <block wx:for="{{re_slide_urls}}" wx:key="id">
                             <swiper-item>
                                 <image src="{{item.image}}" class="slide-image-big" />
                                 <view class="recommend-box">

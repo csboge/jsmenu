@@ -14,29 +14,29 @@ App({
     //小程序启动或后台进入前台的时候调用
     onShow() {
 
-        let that = this;
-        //检查登录态
-        wx.checkSession({
-            success: function () {
-                //登录态有效，不做任何处理
-                console.log("登录态有效");
+        // let that = this;
+        // //检查登录态
+        // wx.checkSession({
+        //     success: function () {
+        //         //登录态有效，不做任何处理
+        //         console.log("登录态有效");
 
-            },
-            fail: function () {
-                //登录态过期
-                console.log("登录态失效,重新登录");
+        //     },
+        //     fail: function () {
+        //         //登录态过期
+        //         console.log("登录态失效,重新登录");
 
-                //重新登录
-                that.getUserInfo();
-            }
-        });
+        //         //重新登录
+        //         that.getUserInfo();
+        //     }
+        // });
 
     },
     //组合请求数据，添加通用字段(access_token、grd版本信息、shop_id商户id)
     getParams: function (config) {
 
         let access_token = util.getStorageSync("access_token");
-        let shop_id = user.getUserStorageAttr("shop_id");
+        let shop_id = this.globalData.is_shop_path;
 
         let json = {
             'access_token': access_token,

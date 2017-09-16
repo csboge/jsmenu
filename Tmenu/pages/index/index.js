@@ -56,7 +56,7 @@ Page({
             user.updateUserStorage("shop_id", shop_id);
             user.updateUserStorage("desk_sn", desk_sn);
 
-            app.getUserInfo();
+            // app.getUserInfo();
 
             util.request(app.globalData.ev_url + "/shop/config", "POST", app.getParams({}))
                 .then((res) => {

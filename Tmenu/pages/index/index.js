@@ -16,21 +16,23 @@ Page({
             { id: 4, imgUrl: "http://img.my-shop.cc/image/menu-icon5.png", menuName: "优惠券", menuUrl: "../myDiscount/myDiscount", type: 1 },
             { id: 5, imgUrl: "http://img.my-shop.cc/image/menu-icon6.png", menuName: "订单记录", menuUrl: "../myRecord/myRecord", type: 1 }
         ],
-        ev_slide_urls: [
+        ev_slide_urls: [//餐厅环境图片
             // "http://img.my-shop.cc/image/ev_slide1.jpg",
             // "http://img.my-shop.cc/image/ev_slide2.jpg",
             // "http://img.my-shop.cc/image/ev_slide3.jpg"
         ],
-        ac_slide_urls: [
+        ac_slide_urls: [//优惠活动
             // "http://img.my-shop.cc/image/ac_slide1.png",
             // "http://img.my-shop.cc/image/ac_slide2.png"
         ],
-        re_slide_urls: [
+        re_slide_urls: [//推荐菜品
             // "http://img.my-shop.cc/image/re_slide1.jpg",
             // "http://img.my-shop.cc/image/re_slide2.jpg",
             // "http://img.my-shop.cc/image/re_slide3.jpg"
         ],
         curr: 0,                 //当前图片索引
+
+        recruit: [],             //招聘信息
 
         shop_info: {},           //商户信息
 
@@ -70,23 +72,43 @@ Page({
                         shop_info: shop_info
                     });
 
+                }, (res) => {
+                    util.disconnectModal();
                 });
             //获取餐厅环境和优惠活动轮播图片
             util.request(app.globalData.ev_url + "/banner/banner_hongbao", "POST", app.getParams({ cat: 2 }))
                 .then((res) => {
                     // console.log(res.data.data.shop)
+
+                    //没有优惠活动的默认地址
+                    let imgs = [
+                        { image: "http://img.my-shop.cc/imgs/activity1.jpg?2" },
+                        { image: "http://img.my-shop.cc/imgs/activity2.jpg?2" },
+                        { image: "http://img.my-shop.cc/imgs/activity3.jpg?2" }
+                    ];
+                    let discount_list = res.data.data.discount || [];
+                    discount_list = discount_list.length > 0 ? discount_list : imgs;
                     that.setData({
                         ev_slide_urls: res.data.data.shop,
-                        ac_slide_urls: res.data.data.discount
+                        ac_slide_urls: discount_list
                     });
+
+                }, (res) => {
+                    util.disconnectModal();
                 });
+            //获取商户推荐菜品
             util.request(app.globalData.ev_url + "/shop/rec", "POST", app.getParams({}))
                 .then((res) => {
                     // console.log(res.data.data.shop)
                     that.setData({
                         re_slide_urls: res.data.data
                     });
+                }, (res) => {
+                    util.disconnectModal();
                 });
+
+            //获取招聘信息
+            this.getZhaopinList();
 
         } else {
 
@@ -111,10 +133,36 @@ Page({
             animationData: animation.export()
         })
     },
+    //获取招聘信息
+    getZhaopinList() {
+
+        let that = this;
+
+        util.request(app.globalData.ev_url + "/shop/recruit", "POST", app.getParams({}))
+            .then((res) => {
+                if (res.data.code === 1) {
+
+                    that.setData({
+                        recruit: res.data.data
+                    });
+
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
+            }, (res) => {
+                util.disconnectModal();
+            });
+
+    },
     //播放语音
     playVoice(e) {
 
         let url = e.currentTarget.dataset.url;
+        console.log(url)
         util.downAndPlayVoice(url);
 
     },

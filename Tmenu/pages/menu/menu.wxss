@@ -68,7 +68,7 @@ page{
 }
 
 .page-head-notice {
-    line-height: 30rpx;
+    line-height: 1.2;
 }
 
 .page-head-detail {

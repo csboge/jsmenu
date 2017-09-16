@@ -63,9 +63,11 @@
 }
 
 .shop-add-txt {
+    margin: 0 auto;
     display: inline-block;
     text-align: center;
     font-size: 26rpx;
+    width: 460rpx;
 }
 
 .arrow {

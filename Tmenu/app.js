@@ -75,11 +75,6 @@ App({
                 console.log("拨打成功")
             },
             fail: function (res) {
-                wx.showModal({
-                    title: '提示',
-                    content: '拨打失败',
-                    showCancel: false
-                });
             }
         })
         

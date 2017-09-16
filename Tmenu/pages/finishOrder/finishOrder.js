@@ -20,10 +20,8 @@ Page({
     onLoad: function (options) {
 
         this.setData({
-            // mode_money: app.globalData.mode_money,
-            // ordersn: options.order_sn
-            mode_money: 10,
-            ordersn: 2017091353554957
+            mode_money: app.globalData.mode_money,
+            ordersn: options.order_sn
         })
 
     },
@@ -31,7 +29,7 @@ Page({
     formSubmit: function (e) {
 
         let that = this;
-        let utxt = e.detail.value.utxt || "我在这家店吃饭";
+        let utxt = e.detail.value.utxt || "谢谢老板";
 
         let options = {
             ordersn: that.data.ordersn,
@@ -76,15 +74,15 @@ Page({
     },
     //点击去菜单
     gotoMenu: function () {
-        wx.navigateTo({
+        wx.redirectTo({
             url: '../menu/menu'
-        })
+        });
     },
     //跳转到录音示例
     gotoExample: function () {
         wx.navigateTo({
             url: '../voiceExample/voiceExample'
-        })
+        });
     }
 
 })

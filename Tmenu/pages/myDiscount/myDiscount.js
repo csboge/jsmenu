@@ -60,6 +60,12 @@ Page({
             });
 
     },
+    //使用优惠券
+    useYhq(){
+        wx.redirectTo({
+            url: '../menu/menu'
+        });
+    },
     //查看地图位置
     showAddress: function () {
         app.showLoca();

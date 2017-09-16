@@ -283,3 +283,10 @@
     width: 216rpx;
     height: 156rpx;
 }
+
+.blank-txt{
+    padding: 60rpx 0;
+    font-size: 28rpx;
+    color: #999;
+    text-align: center;
+}

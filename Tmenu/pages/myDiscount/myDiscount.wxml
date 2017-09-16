@@ -31,15 +31,16 @@
         <view class="discount-title">我的优惠券</view>
         <view class="discount-box">
             <view class="discount-list">
-                <view class="dicount-ticket-box" wx:for="{{available_list}}">
+                <view class="dicount-ticket-box" wx:for="{{available_list}}" wx:if="{{available_list.length>0?true:false}}">
                     <view class="discount-ticket-left">
                         <view class="discount-detail-box">
                             <view class="discount-detail-txt">{{item.title}}</view>
                             <view class="discount-detial-time">{{item.effective}}</view>
                         </view>
                     </view>
-                    <view class="discount-ticket-right">使用</view>
+                    <view class="discount-ticket-right" bindtap="useYhq">使用</view>
                 </view>
+                <view class="blank-txt" wx:if="{{available_list.length>0?false:true}}">暂无可用</view>
             </view>
         </view>
         <!-- <view class="get-ticket">一张优惠券可以领取</view> -->
@@ -66,6 +67,7 @@
                     </view>
                     <view class="discount-ticket-right txt-light-gray">使用</view>
                 </view>
+                <view class="blank-txt" wx:if="{{(short_list.length===0 && overdue.length===0)?true:false}}">暂无数据</view>
             </view>
         </view>
     </view>

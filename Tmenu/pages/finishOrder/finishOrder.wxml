@@ -26,7 +26,7 @@
                     <form bindsubmit="formSubmit">
                         <view class="play-set-txt">
                             <view class="play-set-title">设置口令</view>
-                            <input name="utxt" placeholder="谢谢老板" maxlength="12" class="txt-input" placeholder-class="txt-input-clazz"/>
+                            <input name="utxt" placeholder="谢谢老板" class="txt-input" placeholder-class="txt-input-clazz"/>
                         </view>
                         <view class="play-notice">
                             <view class="notice-title">小伙伴们说对口令就能获得随机的打赏</view>

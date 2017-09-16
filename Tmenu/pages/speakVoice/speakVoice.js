@@ -1,9 +1,7 @@
-
-// pages/speakVoice/speakVoice.js
 import util from "../../utils/util";
-var app = getApp();
-var timer = null;
-var s = 0;
+
+let app = getApp();
+
 Page({
 
     /**
@@ -11,15 +9,21 @@ Page({
      */
     data: {
         imgUrls: [
-            "http://img.my-shop.cc/image/shop-slider1.jpg",
-            "http://img.my-shop.cc/image/shop-slider2.jpg",
-            "http://img.my-shop.cc/image/shop-slider3.jpg"
+            // "http://img.my-shop.cc/image/shop-slider1.jpg",
+            // "http://img.my-shop.cc/image/shop-slider2.jpg",
+            // "http://img.my-shop.cc/image/shop-slider3.jpg"
         ],
-        isSpeak: false,             //是否已经领取赏金
-        voices: [],
-        time_list: [],
-        mode_data: {}               //红包数据
+        is_get: false,               //是否已经领取赏金
+        voices: [],                  //抢红包语音列表
+        mode_data: {},               //红包数据
+        recodePath: "",              //录音地址
+        isRecode: false,             //是否在录音
+
+        hb_info: {},                 //抢红包信息
     },
+
+    seconds: 0,                      //录音时长
+    timer: null,                     //定时器
 
     /**
      * 生命周期函数--监听页面加载
@@ -30,42 +34,48 @@ Page({
 
         let bagid = options.bagid;              //红包id
         let count = options.count;              //红包个数
-        let speed = options.speed;              //
         let mode_money = options.mode_money;    //红包金额
+        let shop_id = options.shop_id;          //商户id
 
         let mode_data = {
             bagid: bagid,
             count: count,
-            speed: speed,
-            mode_money: mode_money
+            mode_money: mode_money,
+            shop_id: shop_id
         };
 
         //获取录音授权
-        wx.startRecord({
-            success: function (res) {
-                console.log("允许录音");
-            },
-            fail: function (res) {
-                wx.showModal({
-                    title: '提示',
-                    content: '请授权允许应用访问您的麦克风',
-                    showCancel: false,
-                    success(res) {
-                        if (res.confirm) {
-                            //调起用户授权设置界面
-                            that.openVoiceSetting();
-                        }
-                    }
-                });
-            }
-        });
+        // wx.startRecord({
+        //     success: function (res) {
+        //         wx.stopRecord();
+        //     },
+        //     fail: function (res) {
+        //         wx.showModal({
+        //             title: '提示',
+        //             content: '请授权允许应用访问您的麦克风',
+        //             showCancel: false,
+        //             success(res) {
+        //                 if (res.confirm) {
+        //                     //调起用户授权设置界面
+        //                     that.openVoiceSetting();
+        //                 }
+        //             }
+        //         });
+        //     }
+        // });
 
         this.setData({
             mode_data: mode_data
-        })
+        });
+
+        //加载轮播图
+        this.getSliders();
+
+        //初始化红包列表
+        this.initHbList();
 
     },
-    //吊起用户麦克风授权设置面板
+    //调起用户麦克风授权设置面板
     openVoiceSetting() {
 
         let that = this;
@@ -100,119 +110,265 @@ Page({
         });
 
     },
-    //点击开始录音
-    recordVoice: function () {
+    //获取轮播图
+    getSliders() {
 
-        let data = {
-            bagid: this.data.bagid,
-            audio: "dfsag4ebhda"
-        }
-        let json = app.getParams(data);
+        let that = this;
 
-        wx.request({
-            url: app.globalData.ev_url + '/Discount/robbed',
-            data: json,
-            method: 'POST',
-            success: function (res) {
-                console.log(res.data.message);
-            },
-            fail: function (res) { },
-            complete: function (res) { },
-        });
+        util.request(app.globalData.ev_url + "/banner/banner_hongbao", "POST", app.getParams({ cat: 1 }))
+            .then((res) => {
+                // if (res.data.code === 1) {
 
-        var that = this;
-        wx.startRecord({
-            success: function (res) {
-                // timer = setInterval(function () {
-                //     s++;
-                // }, 1000);
-                var tempFilePath = res.tempFilePath//录音文件地址
+                //默认图片
+                let imgs = [
+                    { image: "http://img.my-shop.cc/imgs/hb_1.png?2" },
+                    { image: "http://img.my-shop.cc/imgs/hb_2.png?2" },
+                    { image: "http://img.my-shop.cc/imgs/hb_3.png?2" }
+                ];
+                let _slide_img = res.data.data || imgs;
+
                 that.setData({
-                    isSpeak: true
-                })
-                wx.saveFile({
-                    tempFilePath: tempFilePath,
-                    success: function (res) {
-                        //本地文件存储的大小限制为 100M 
-                        var savedFilePath = res.savedFilePath
-                        console.log("savedFilePath: " + savedFilePath)
-                        //获取录音音频列表 
-                        wx.getSavedFileList({
-                            success: function (res) {
-                                var voices = [];
-                                for (var i = 0; i < res.fileList.length; i++) {
-                                    //格式化时间 
-                                    var createTime = res.fileList[i].createTime * 1000;
-                                    var fomatCreateTime = util.formatTimeS(new Date(createTime));
-                                    var user_info = util.getStorageSync("user");
-
-                                    //将音频大小B转为KB 
-                                    var size = (res.fileList[i].size / 1024).toFixed(2);
-                                    var voice = {
-                                        filePath: res.fileList[i].filePath,
-                                        createTime: createTime,
-                                        fomatCreateTime: fomatCreateTime,
-                                        size: size,
-                                        nickName: user_info.nickName,
-                                        avatarUrl: user_info.avatarUrl,
-                                        time: 6
-                                    };
-                                    console.log("文件路径: " + res.fileList[i].filePath)
-                                    console.log("文件时间: " + createTime)
-                                    console.log("文件大小: " + size)
-                                    voices = voices.concat(voice);
-                                }
-                                that.setData({
-                                    voices: voices.sort(function (prev, next) { return next.createTime - prev.createTime })
-                                })
-                            }
-                        })
-                    }
+                    imgUrls: _slide_img
                 });
 
+                // } else {
+                //     wx.showModal({
+                //         title: '提示',
+                //         content: res.data.message,
+                //         showCancel: false
+                //     });
+                // }
+            }, (res) => {
+                util.disconnectModal();
+            });
+
+    },
+    //初始化已抢红包数据
+    initHbList() {
+
+        let that = this;
+
+        util.request(app.globalData.ev_url + "/discount/robInfo", "POST", app.getParams({ bagid: that.data.mode_data.bagid }))
+            .then((res) => {
+                if (res.data.code === 1) {
+
+                    let voice_list = res.data.data.user_list;
+                    //用于标识每条语音播放
+                    if (voice_list.length > 0) {
+                        voice_list.forEach((obj) => {
+                            obj.isPlaying = false;
+                        });
+                    }
+
+                    that.setData({
+                        hb_info: res.data.data,
+                        voices: voice_list
+                    });
+
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
+            }, (res) => {
+                util.disconnectModal();
+            });
+
+    },
+    //点击开始录音
+    startRecode: function () {
+        let s = this;
+        console.log("start");
+
+        wx.showToast({
+            title: '正在录音...',
+            image: '../../assets/image/mic.png',
+            duration: 6000,
+            mask: false
+        });
+
+        //记录录音时长,毫秒
+        s.timer = setInterval(() => {
+            s.seconds += 100;
+        }, 100);
+
+        //开始录音
+        wx.startRecord({
+            success: function (res) {
+                // console.log(res);
+                var tempFilePath = res.tempFilePath;
+                s.setData({ recodePath: tempFilePath, isRecode: true });
             },
             fail: function (res) {
-                //录音失败
                 wx.showToast({
                     title: '录音失败',
-                    icon: 'warning',
-                    duration: 1000
-                })
+                    image: '../../assets/image/fail.png',
+                    duration: 1000,
+                    mask: true
+                });
             }
-        })
+        });
+
     },
     //松开按钮结束录音
-    stopRecord: function () {
-        var that = this;
-        var time_list = that.data.time_list;
-        clearInterval(timer);
-        timer = null;
-        time_list.unshift(s);
-        s = 0;
+    endRecode: function () {
+
+        let s = this;
+        console.log("end");
+
+        //录音时长小于1.5秒钟给出提示，不做其他处理
+        if (s.seconds / 1000 < 1.5) {
+            wx.showModal({
+                title: '提示',
+                content: '录音时间太短了 T-T',
+                showCancel: false
+            });
+            return;
+        } else {
+            //录音时间满足要求，清楚计时器，重置录音时间
+            clearInterval(s.timer);
+            s.timer = null;
+            s.seconds = 0;
+        }
 
         wx.stopRecord();
+        s.setData({ isRecode: false });
 
+        wx.hideToast();
+
+        wx.showLoading({
+            title: '',
+            mask: true
+        });
+        //等待语音文件生成，再上传
+        setTimeout(function () {
+            let urls = app.globalData.ev_url + "/Discount/robbed";
+            let voice_data = {
+                bagid: s.data.mode_data.bagid
+            };
+            let data = app.getParams(voice_data);
+            //上传语音
+            wx.uploadFile({
+                url: urls,
+                filePath: s.data.recodePath,
+                name: 'audio',
+                formData: data,
+                header: {
+                    'content-type': 'multipart/form-data'
+                },
+                success: function (res) {
+                    console.log(res.data)
+                    // util.downAndPlayVoice()
+                    wx.hideLoading();
+
+                    //上传完毕后，拉取抢红包数据列表
+                    s.getVoiceList();
+
+                },
+                fail: function (res) {
+                    wx.hideLoading();
+                    util.disconnectModal();
+                }
+            });
+
+        }, 1000);
     },
     //点击播放
     playVoice: function (e) {
-        var voice = e.currentTarget.dataset.obj;
-        var voices = this.data.voices;
-        voices.forEach(function (obj) {
+
+        let that = this;
+
+        let url = e.currentTarget.dataset.url;              //语音地址
+        let _is_play = e.currentTarget.dataset.is_play;     //该条语音播放状态
+        let index = e.currentTarget.dataset.index;          //索引
+        let voice_list = this.data.voices;
+
+        //停止所有语音播放
+        voice_list.forEach((obj) => {
             obj.isPlaying = false;
         });
-        var index = e.currentTarget.dataset.i;
-        voices[index].isPlaying = true;
+        wx.stopVoice();
 
-        this.setData({
-            voices: voices
-        })
+        //没有播放，则播放该条语音
+        if (!_is_play) {
 
-        wx.playVoice({
-            filePath: voice.filePath,
-            fail: function () {
-                console.log("播放失败");
-            }
-        })
+            wx.downloadFile({
+                url: url,
+                success: function (res) {
+
+                    voice_list[index].isPlaying = true;
+                    that.setData({
+                        voices: voice_list
+                    });
+
+                    //开始播放
+                    wx.playVoice({
+                        filePath: res.tempFilePath,
+                        success() {
+                            console.log("播放成功")
+                        },
+                        fail() {
+
+                        },
+                        complete() {
+
+                            voice_list[index].isPlaying = false;
+                            //播放完毕
+                            that.setData({
+                                voices: voice_list
+                            });
+
+                        }
+                    });
+
+                },
+                fail: function (res) {
+                    wx.showModal({
+                        title: '提示',
+                        content: '下载失败',
+                        showCancel: false
+                    });
+                }
+            });
+
+        }
+
+    },
+    //拉取抢红包信息
+    getVoiceList() {
+
+        let that = this;
+
+        util.request(app.globalData.ev_url + "/discount/redList", "POST", app.getParams({ bagid: that.data.mode_data.bagid }))
+            .then((res) => {
+                if (res.data.code === 1) {
+                    console.log(res.data.data);
+
+                    let voice_list = res.data.data;
+                    //用于标识每条语音播放
+                    if (voice_list.length > 0) {
+                        voice_list.forEach((obj) => {
+                            obj.isPlaying = false;
+                        });
+                    }
+
+                    that.setData({
+                        voices: voice_list,
+                        is_get: true                //已经成功抢到红包
+                    });
+
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
+            }, (res) => {
+                util.disconnectModal();
+            });
 
     },
     //点击去菜单
@@ -232,10 +388,10 @@ Page({
     onShareAppMessage: function (res) {
         if (res.from === 'button') {
             // 来自页面内转发按钮
-            console.log(res.target)
+            // console.log(res.target)
         }
         return {
-            title: '好吃又好玩',
+            title: '群口令',
             path: '/pages/speakVoice/speakVoice',
             success: function (res) {
                 // 转发成功

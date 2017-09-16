@@ -25,7 +25,9 @@ function createOrder(order_data) {
         offset_money: order_data.offset_money,                 //使用红包抵扣金额
         goods_price: order_data.goods_price,                   //商品总价
         goods_list: order_data.goods_list,                     //商品列表
-        pay_way: order_data.pay_way                            //支付方式
+        pay_way: order_data.pay_way,                           //支付方式
+        order_rate: order_data.order_rate,                     //手续费比例
+        mode_rate: order_data.mode_rate                        //发红包比率
     }
     // console.log(order)
     util.setStorageSync("order", order);

@@ -1,10 +1,10 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/speakVoice/speakVoice",
         "pages/voiceExample/voiceExample",
         "pages/finishOrder/finishOrder",
         "pages/confirmOrder/confirmOrder",
-        "pages/speakVoice/speakVoice",
         "pages/hbRecord/hbRecord",
         "pages/menu/menu",
         "pages/orderDetail/orderDetail",

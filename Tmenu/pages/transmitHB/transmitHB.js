@@ -13,7 +13,7 @@ Page({
     data: {
         userInfo: {},               //用户信息
         utxt: "",                   //口令文本
-        is_transimit: false         //是否已经转发过  
+        // is_transimit: false         //是否已经转发过  
     },
     //nickName
     //avatarUrl
@@ -24,12 +24,13 @@ Page({
     onLoad: function (options) {
 
         let _utxt = options.utxt;
-        let _is_transimit = app.globalData.is_transimit || false;
+        // let _is_transimit = app.globalData.is_transimit || false;
+        console.log(_utxt)
 
         this.setData({
             userInfo: user.getUserStorage(),
             utxt: _utxt,
-            is_transimit: _is_transimit
+            // is_transimit: _is_transimit
         });
     },
     transmit: function () {
@@ -76,16 +77,17 @@ Page({
             path: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id,
             success: function (res) {
 
-                app.setGlobalData("is_transimit", true);
+                // app.setGlobalData("is_transimit", true);
 
-                that.setData({
-                    is_transimit: true
-                });
+                // that.setData({
+                //     is_transimit: true
+                // });
 
                 wx.showToast({
-                    title: '转发成功',
+                    title: '',
                     icon: 'success',
-                    duration: 750,
+                    duration: 1000,
+                    mask: true,
                     success() {
                         wx.redirectTo({
                             url: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id,
@@ -95,12 +97,13 @@ Page({
 
             },
             fail: function (res) {
+                console.log("转发失败")
 
-                app.setGlobalData("is_transimit", false);
+                // app.setGlobalData("is_transimit", false);
 
-                that.setData({
-                    is_transimit: false
-                });
+                // that.setData({
+                //     is_transimit: false
+                // });
 
             }
         }

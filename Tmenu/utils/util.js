@@ -436,19 +436,16 @@ function downAndPlayVoice(url) {
                     console.log("播放成功")
                 },
                 fail() {
-                    wx.showModal({
-                        title: '提示',
-                        content: '播放失败',
-                        showCancel: false
-                    });
+                   
                 },
                 complete() {
-                    wx.showToast({
-                        title: '播放完毕',
-                        icon: 'success',
-                        duration: 600,
-                        mask: true
-                    });
+                    // wx.showToast({
+                    //     title: '播放完毕',
+                    //     icon: 'success',
+                    //     duration: 600,
+                    //     mask: true
+                    // });
+                    console.log("播放完成")
                 }
             });
         },

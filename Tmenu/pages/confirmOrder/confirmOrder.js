@@ -424,16 +424,24 @@ Page({
         this.setData({
             discountPrice: discount_price
         });
-        //应付金额小于等于20,可以使用红包全部抵扣
-        if (discount_price <= 20) {
-            hb_money = Math.round(discount_price);
-        } else {//应付金额大于20，则最多可使用红包余额的40%进行抵扣
-            hb_money = Math.round((hb_rest_money * 0.4).toFixed(2) - 0);
-            //应付金额小于红包余额的40%，则全部抵扣完,抵扣金额为应付金额
-            if (discount_price < hb_money) {
-                hb_money = Math.round(discount_price);
+        //计算红包抵扣金额
+        if (hb_rest_money > 0) {
+
+            //应付金额小于等于20,可以使用红包全部抵扣
+            if (discount_price <= 20) {
+                hb_money = discount_price;
+            } else {//应付金额大于20，则最多可使用红包余额的40%进行抵扣
+                hb_money = Math.round((hb_rest_money * 0.4).toFixed(2) - 0);
+                //应付金额小于红包余额的40%，则全部抵扣完,抵扣金额为应付金额
+                if (discount_price < hb_money) {
+                    hb_money = discount_price;
+                }
             }
+
+        } else {
+            hb_money = 0;
         }
+
         discount_price = discount_price - hb_money;
         let taxtPrice = (discount_price * _order_rate).toFixed(2) - 0;                  //手续费
         let realPrice = (discount_price * (_order_rate + 1)).toFixed(2) - 0;            //实际支付金额
@@ -465,6 +473,8 @@ Page({
             coupon_price: this.data.yhq_discount,       //优惠金额
             must_price: discount_price,                 //应该支付金额
             pay_price: realPrice,                       //实际支付金额
+            order_rate: this.data.order_rate,           //手续费比率
+            mode_rate: this.data.mode_rate,             //发红包比率
             order_money: taxtPrice,                     //手续费
             offset_money: this.data.hb_money,           //使用红包抵扣金额
             goods_price: total_price,                   //商品总价
@@ -568,6 +578,7 @@ Page({
             });
 
             this.countPrice();
+
         } else {
             wx.showModal({
                 title: '提示',
@@ -768,7 +779,7 @@ Page({
     },
     //立即支付
     formSubmit: function (e) {
-
+        
         let that = this;
         let _customer_num = this.data.customer_num;
 
@@ -786,7 +797,7 @@ Page({
         });
 
         let desk_sn = user.getUserStorageAttr("desk_sn");
-        let mode_money = this.data.discountPrice * this.data.mode_rate;
+        let mode_money = Math.round(this.data.discountPrice * this.data.mode_rate);
 
 
         //生成订单，判断是否是重复提交的订单
@@ -799,8 +810,8 @@ Page({
 
             //否则更新整条订单数据，并带上订单号
             let _order_sn = _order.order_sn;
-            order.updateOrderSync("order_sn", _order_sn);
             _order = order.createOrder(this.data.order_info);
+            order.updateOrderSync("order_sn", _order_sn);
 
         }
 
@@ -810,7 +821,7 @@ Page({
         order.updateOrderSync("message", e.detail.value.umsg);  //用户留言
         order.updateOrderSync("user_count", 3);                 //人数
         order.updateOrderSync("mode_money", mode_money);
-        console.log(util.getStorageSync("order"));
+        // console.log(util.getStorageSync("order"));
         app.setGlobalData("mode_money", mode_money);            //可以发出的红包金额
         // console.log(mode_money)
 
@@ -819,8 +830,45 @@ Page({
         that.removeUseBase();
 
 
+        //合计金额大于0，调用微信统一下单接口
+        if (this.data.realPrice > 0) {
+            this.pay_dill(this.transformOrder());
+        } else {
+
+            //再次提醒用户
+            wx.showModal({
+                title: '提示',
+                content: '此操作会直接进行支付，确定支付吗？',
+                showCancel: true,
+                cancelColor: '#e33230',
+                confirmColor: '#0ba30a',
+                success: function (res) {
+                    if (res.confirm) {
+
+                        //合计金额等于0，调用内部下单接口
+                        that.pay_money(that.transformOrder());
+
+                    } else {
+                        that.setData({
+                            show_modal: false
+                        });
+                        return;
+                    }
+                },
+                fail: function (res) {
+                    wx.showToast({
+                        title: '操作失败',
+                        image: '../../assets/image/fail.png',
+                        duration: 1000
+                    });
+                }
+            });
+        }
+    },
+    //订单数据转换格式，用于请求提交
+    transformOrder() {
         //获取最新的订单数据
-        _order = util.getStorageSync("order");
+        let _order = util.getStorageSync("order");
 
 
         let _goods_list = _order.goods_list;
@@ -838,15 +886,7 @@ Page({
         let data = app.getParams({ order: JSON.stringify(_order) });
         // console.log(data);
 
-
-        //合计金额大于0，调用微信统一下单接口
-        if (this.data.realPrice > 0) {
-            this.pay_dill(data);
-        } else {
-
-            //合计金额等于0，调用内部下单接口
-            this.pay_money(data);
-        }
+        return data;
     },
     //内部下单
     pay_money(data) {

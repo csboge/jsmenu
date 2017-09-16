@@ -91,7 +91,7 @@
                 <view class="total-price-count">￥{{out_item.pay_price}}</view>
             </view>
             <view class="another-order mr">
-                <button class="another-boder-btn" type="default" bindtap="anotherOrder">再来一单</button>
+                <button class="another-boder-btn" type="default" data-index="{{out_index}}" bindtap="anotherOrder">再来一单</button>
             </view>
         </view>
 

@@ -127,7 +127,19 @@ Page({
 
     },
     //再来一单
-    anotherOrder: function () {
+    anotherOrder: function (e) {
+
+        let index = e.currentTarget.dataset.index;
+        let lst = this.data.order_record_list;
+
+        let _goods_list = lst[index].goods_list;
+
+        //该单商品存入购物车
+        util.setStorageSync("shopCart", _goods_list);
+
+        wx.navigateTo({
+            url: '../confirmOrder/confirmOrder'
+        });
 
     },
     //查看地图位置

@@ -54,11 +54,11 @@ App({
     //全局数据
     globalData: {
         // ev_url: "http://dev.csboge.com/api",
-        ev_url: "https://demo.ai-life.me/api",  //测试环境
-        // ev_url:"https://api.ai-life.me/api", //生产环境
-        voice_path: [],
-        system_version: 'BGmenu-1.0-@)!&*@#',  //系统版本号
-        is_first_login: true                   //是否是第一次登录 
+        ev_url: "https://demo.ai-life.me/api",      //测试环境
+        // ev_url:"https://api.ai-life.me/api",     //生产环境
+        system_version: 'BGmenu-1.0-@)!&*@#',       //系统版本号
+        is_first_login: true,                       //是否是第一次登录 
+        is_shop_path: 3                             //商户Id
     },
     //设置全局数据
     setGlobalData(key, value) {
@@ -77,7 +77,7 @@ App({
             fail: function (res) {
             }
         })
-        
+
     },
     //跳转地址
     naviTo: function (url) {
@@ -186,6 +186,7 @@ App({
                         method: "POST",
                         data: {
                             jscode: res.code,
+                            shop_id: that.globalData.is_shop_path,
                             userinfo: JSON.stringify(user.getUserStorage())
                             // grd: app.globalData.system_version
                         },

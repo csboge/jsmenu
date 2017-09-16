@@ -80,7 +80,7 @@ Page({
                     let mob_list = res.data.data.mob_list;
                     let new_rec = {
                         "id": 0,
-                        "name": "新推套餐",
+                        "name": app.globalData.shop_info.package,   //商户信息中携带一级套餐名
                         "list": []
                     };
                     new_rec.list = mob_list;
@@ -548,7 +548,7 @@ Page({
             totalNum: totalnum
         })
     },
-    //监听滚动
+    //监听滚动,固定一级分类导航
     scroll: function (e) {
         //页面向下移动
         if (e.detail.deltaY < 0) {

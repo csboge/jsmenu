@@ -46,7 +46,7 @@ Page({
         // let desk_sn = options.desk_id;
 
         let is_scan = 1;         //是否通过扫描 1 为是
-        let shop_id = 1;
+        let shop_id = app.globalData.is_shop_path || options.shop_id;
         let desk_sn = "1"
 
         if (is_scan == 1) {

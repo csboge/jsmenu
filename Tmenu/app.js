@@ -19,6 +19,8 @@ App({
         let shop_id = this.globalData.is_shop_path || app_in_shop_id;
         let desk_sn = "1"
 
+        console.log(options.referrerInfo.extraData)
+
         //判断商户id是否存在
         if (shop_id) {
             //初始化用户本地数据

@@ -20,7 +20,7 @@
             <view class="line"></view>
         </view>
         <view class="menu-box">
-            <view class="menu-item" bindtap="navi" data-url="../menu/menu">
+            <view class="menu-item" bindtap="navi" data-url="pages/menu/menu">
                 <view class="menu-item-logo">
                     <image src="http://img.my-shop.cc/image/menu-icon1.png?1" class="menu-item-img"></image>
                 </view>
@@ -48,13 +48,13 @@
                     </view>
                 </button>
             </view>
-            <view class="menu-item" bindtap="navi" data-url="../myDiscount/myDiscount">
+            <view class="menu-item" bindtap="navi" data-url="pages/myDiscount/myDiscount">
                 <view class="menu-item-logo">
                     <image src="http://img.my-shop.cc/image/menu-icon5.png?1" class="menu-item-img"></image>
                 </view>
                 <view class="menu-item-txt b gray">优惠券</view>
             </view>
-            <view class="menu-item" bindtap="navi" data-url="../myRecord/myRecord">
+            <view class="menu-item" bindtap="navi" data-url="pages/myRecord/myRecord">
                 <view class="menu-item-logo">
                     <image src="http://img.my-shop.cc/image/menu-icon6.png?1" class="menu-item-img"></image>
                 </view>

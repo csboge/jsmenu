@@ -207,7 +207,25 @@ Page({
     },
     //跳转页面
     navi: function (e) {
-        app.naviTo(e.currentTarget.dataset.url);
+
+        let path = e.currentTarget.dataset.url;
+
+        wx.navigateToMiniProgram({
+            appId: app.globalData.appid,
+            path: path,
+            extraData: {
+                shop_id: util.getStorageSync("user").shop_id
+            },
+            envVersion: 'develop',
+            success(res) {
+
+            },
+            fail(res) {
+                console.log("跳转失败")
+            }
+        });
+
+        // app.naviTo(e.currentTarget.dataset.url);
     },
     //拨打电话
     call: function () {

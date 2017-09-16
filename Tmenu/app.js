@@ -3,7 +3,7 @@ import util from "utils/util.js";
 import user from "modules/user.js";
 
 App({
-    onLaunch: function () {
+    onLaunch: function (options) {
 
         //调用API从本地缓存中获取数据
         var logs = wx.getStorageSync('logs') || []
@@ -12,7 +12,32 @@ App({
 
     },
     //小程序启动或后台进入前台的时候调用
-    onShow() {
+    onShow(options) {
+
+        let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
+        // let scan_in_shop_id = options.query.shop_id;                            //扫描二维码进入带的shop_id
+        let shop_id = this.globalData.is_shop_path || app_in_shop_id;
+        let desk_sn = "1"
+
+        //判断商户id是否存在
+        if (shop_id) {
+            //初始化用户本地数据
+            util.setStorageSync("user", {});
+            user.updateUserStorage("shop_id", shop_id);
+            user.updateUserStorage("desk_sn", desk_sn);
+        } else {
+
+            //shop_id不存在就返回
+            wx.navigateBackMiniProgram({
+                extraData: {
+                    foo: 'bar'
+                },
+                success(res) {
+                    // 返回成功
+                }
+            });
+
+        }
 
         let that = this;
         //检查登录态
@@ -58,7 +83,7 @@ App({
         // ev_url:"https://api.ai-life.me/api",     //生产环境
         system_version: 'BGmenu-1.0-@)!&*@#',       //系统版本号
         is_first_login: true,                       //是否是第一次登录 
-        is_shop_path: 1                             //商户Id
+        is_shop_path: 0                             //商户Id
     },
     //设置全局数据
     setGlobalData(key, value) {

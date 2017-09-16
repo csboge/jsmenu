@@ -41,84 +41,57 @@ Page({
     onLoad: function (options) {
         let that = this;
 
-        // let is_scan = options.is_scan;//是否通过扫描 1 为是
-        // let shop_id = options.shop_id;
-        // let desk_sn = options.desk_id;
+        util.request(app.globalData.ev_url + "/shop/config", "POST", app.getParams({}))
+            .then((res) => {
 
-        let is_scan = 1;         //是否通过扫描 1 为是
-        let shop_id = app.globalData.is_shop_path || options.shop_id;
-        let desk_sn = "1"
+                let shop_info = res.data.data;
 
-        if (is_scan == 1) {
+                shop_info.shop_hours = JSON.parse(shop_info.shop_hours);
 
-            //初始化用户本地数据
-            util.setStorageSync("user", {});
-            user.updateUserStorage("shop_id", shop_id);
-            user.updateUserStorage("desk_sn", desk_sn);
+                //商户数据存到全局
+                app.setGlobalData("shop_info", shop_info);
 
-            app.getUserInfo();
-
-            util.request(app.globalData.ev_url + "/shop/config", "POST", app.getParams({}))
-                .then((res) => {
-
-                    let shop_info = res.data.data;
-
-                    shop_info.shop_hours = JSON.parse(shop_info.shop_hours);
-
-                    //商户数据存到全局
-                    app.setGlobalData("shop_info", shop_info);
-
-                    that.setData({
-                        shop_info: shop_info
-                    });
-
-                }, (res) => {
-                    util.disconnectModal();
-                });
-            //获取餐厅环境和优惠活动轮播图片
-            util.request(app.globalData.ev_url + "/banner/banner_hongbao", "POST", app.getParams({ cat: 2 }))
-                .then((res) => {
-                    // console.log(res.data.data.shop)
-
-                    //没有优惠活动的默认地址
-                    let imgs = [
-                        { image: "http://img.my-shop.cc/imgs/activity1.jpg?2" },
-                        { image: "http://img.my-shop.cc/imgs/activity2.jpg?2" },
-                        { image: "http://img.my-shop.cc/imgs/activity3.jpg?2" }
-                    ];
-                    let discount_list = res.data.data.discount || [];
-                    discount_list = discount_list.length > 0 ? discount_list : imgs;
-                    that.setData({
-                        ev_slide_urls: res.data.data.shop,
-                        ac_slide_urls: discount_list
-                    });
-
-                }, (res) => {
-                    util.disconnectModal();
-                });
-            //获取商户推荐菜品
-            util.request(app.globalData.ev_url + "/shop/rec", "POST", app.getParams({}))
-                .then((res) => {
-                    // console.log(res.data.data.shop)
-                    that.setData({
-                        re_slide_urls: res.data.data
-                    });
-                }, (res) => {
-                    util.disconnectModal();
+                that.setData({
+                    shop_info: shop_info
                 });
 
-            //获取招聘信息
-            this.getZhaopinList();
+            }, (res) => {
+                util.disconnectModal();
+            });
+        //获取餐厅环境和优惠活动轮播图片
+        util.request(app.globalData.ev_url + "/banner/banner_hongbao", "POST", app.getParams({ cat: 2 }))
+            .then((res) => {
+                // console.log(res.data.data.shop)
 
-        } else {
+                //没有优惠活动的默认地址
+                let imgs = [
+                    { image: "http://img.my-shop.cc/imgs/activity1.jpg?2" },
+                    { image: "http://img.my-shop.cc/imgs/activity2.jpg?2" },
+                    { image: "http://img.my-shop.cc/imgs/activity3.jpg?2" }
+                ];
+                let discount_list = res.data.data.discount || [];
+                discount_list = discount_list.length > 0 ? discount_list : imgs;
+                that.setData({
+                    ev_slide_urls: res.data.data.shop,
+                    ac_slide_urls: discount_list
+                });
 
-            wx.showModal({
-                title: '提示',
-                content: '请扫描商家桌位上的二维码进入系统',
-                showCancel: false
-            })
+            }, (res) => {
+                util.disconnectModal();
+            });
+        //获取商户推荐菜品
+        util.request(app.globalData.ev_url + "/shop/rec", "POST", app.getParams({}))
+            .then((res) => {
+                // console.log(res.data.data.shop)
+                that.setData({
+                    re_slide_urls: res.data.data
+                });
+            }, (res) => {
+                util.disconnectModal();
+            });
 
-        }
+        //获取招聘信息
+        this.getZhaopinList();
 
     },
     onShow: function () {

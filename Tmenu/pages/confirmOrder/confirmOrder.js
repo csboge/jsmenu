@@ -87,12 +87,13 @@ Page({
 
         let that = this;
         let shop_info = app.globalData.shop_info;
+        let _notice = shop_info.notice;
 
         //渲染商户信息
         that.setData({
             shop_logo: shop_info.logo,
             shop_name: shop_info.title,
-            notice: shop_info.notice,
+            notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
             tel: shop_info.mobile
         });
         //获取订单所有信息

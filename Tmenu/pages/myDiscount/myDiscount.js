@@ -21,10 +21,18 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        
+
+        let _shop_info = app.globalData.shop_info;
+        let _notice = _shop_info.notice;
+        let _adress = _shop_info.adress;
+        _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
+        _shop_info.notice = _notice;
+        _adress = _adress.length > 20 ? (_adress.substring(0, 17) + '...') : _adress;
+        _shop_info.adress = _adress;
+
         //初始化商户信息
         this.setData({
-            shop_info: app.globalData.shop_info
+            shop_info: _shop_info
         });
 
         this.getAllList();
@@ -36,7 +44,7 @@ Page({
 
         util.request(app.globalData.ev_url + "/user/coupon_list", "POST", app.getParams({}))
             .then((res) => {
-                if(res.data.code === 1){
+                if (res.data.code === 1) {
 
                     let _available_list = res.data.data.available || [];
                     let _short_list = res.data.data.short || [];
@@ -48,7 +56,7 @@ Page({
                         overdue: _overdue
                     });
 
-                }else{
+                } else {
                     wx.showModal({
                         title: '提示',
                         content: res.data.message,
@@ -61,7 +69,7 @@ Page({
 
     },
     //使用优惠券
-    useYhq(){
+    useYhq() {
         wx.redirectTo({
             url: '../menu/menu'
         });

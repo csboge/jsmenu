@@ -9,11 +9,13 @@
                     <view class="page-head-title white txt-mid">{{shop_info.title}}</view>
                     <view class="arrow white arrow-title"></view>
                 </view>
-                <view class="page-head-notice white txt-small">
-                    公告：{{shop_info.notice}}
-                </view>
-                <view class="page-head-notice white txt-small">
-                    电话：{{shop_info.mobile}}
+                <view class="notice-box">
+                    <view class="page-head-notice white txt-small">
+                        {{shop_info.notice}}
+                    </view>
+                    <view class="page-head-notice white txt-small tel-txt">
+                        联系电话:{{shop_info.mobile}}
+                    </view>
                 </view>
             </view>
         </view>

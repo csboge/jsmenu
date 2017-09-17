@@ -54,9 +54,9 @@ Page({
      */
     onLoad: function (options) {
 
-
         let that = this;
         let shop_info = app.globalData.shop_info;
+        let _notice = shop_info.notice;
 
         let cate_list = [];                     //一级分类
 
@@ -64,7 +64,7 @@ Page({
         that.setData({
             shop_logo: shop_info.logo,
             shop_name: shop_info.title,
-            notice: shop_info.notice,
+            notice: _notice.length > 20 ? (_notice.substring(0,20) + '...') : _notice,
             tel: shop_info.mobile
         });
 
@@ -212,11 +212,11 @@ Page({
         //判断是否需要刷新
         let _is_refresh_menu = app.globalData.is_refresh_menu;
 
-        if (_is_refresh_menu != undefined && _is_refresh_menu === true){
+        if (_is_refresh_menu != undefined && _is_refresh_menu === true) {
             wx.redirectTo({
                 url: '../menu/menu',
-                success(){
-                    app.setGlobalData("is_refresh_menu",false);
+                success() {
+                    app.setGlobalData("is_refresh_menu", false);
                 }
             });
         }

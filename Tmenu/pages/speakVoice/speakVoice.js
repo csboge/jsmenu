@@ -152,17 +152,24 @@ Page({
             .then((res) => {
                 if (res.data.code === 1) {
 
+                    let _user_id = util.getStorageSync("user").userid;
+                    let _is_get = that.data.is_get;
                     let voice_list = res.data.data.user_list;
                     //用于标识每条语音播放
                     if (voice_list.length > 0) {
                         voice_list.forEach((obj) => {
                             obj.isPlaying = false;
+                            //判断是否已经抢过红包
+                            if (obj.userid === _user_id){
+                                _is_get = true;
+                            }
                         });
                     }
 
                     that.setData({
                         hb_info: res.data.data,
-                        voices: voice_list
+                        voices: voice_list,
+                        is_get: _is_get
                     });
 
                 } else {
@@ -179,8 +186,13 @@ Page({
     },
     //点击开始录音
     startRecode: function () {
+
         let s = this;
         console.log("start");
+
+        if (s.data.is_get) {        //已经领取过红包
+            return;
+        }
 
         wx.showToast({
             title: '正在录音...',
@@ -217,6 +229,10 @@ Page({
 
         let s = this;
         console.log("end");
+
+        if (s.data.is_get) {        //已经领取过红包
+            return;
+        }
 
         //录音时长小于1.5秒钟给出提示，不做其他处理
         if (s.seconds / 1000 < 1.5) {

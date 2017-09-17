@@ -132,8 +132,8 @@
                 <view class="title-txt-en">RECRUIT</view>
             </view>
 
-            <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{600}}" wx:key="id">
-                <block wx:for="{{recruit}}">
+            <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{600}}">
+                <block wx:for="{{recruit}}"  wx:key="id">
                     <swiper-item>
                         <view class="zhaopin-detail-box">
                             <view class="zhaopin-detail-title">

@@ -9,11 +9,13 @@
                     <view class="page-head-title white txt-mid">{{shop_info.title}}</view>
                     <view class="arrow white arrow-title"></view>
                 </view>
-                <view class="page-head-notice white txt-small">
-                    公告：{{shop_info.notice}}
-                </view>
-                <view class="page-head-notice white txt-small">
-                    电话：{{shop_info.mobile}}
+                <view class="notice-box">
+                    <view class="page-head-notice white txt-small">
+                        {{shop_info.notice}}
+                    </view>
+                    <view class="page-head-notice white txt-small tel-txt">
+                        联系电话:{{shop_info.mobile}}
+                    </view>
                 </view>
             </view>
         </view>
@@ -31,7 +33,7 @@
         <view class="discount-title">我的优惠券</view>
         <view class="discount-box">
             <view class="discount-list">
-                <view class="dicount-ticket-box" wx:for="{{available_list}}" wx:if="{{available_list.length>0?true:false}}">
+                <view class="dicount-ticket-box" wx:for="{{available_list}}" wx:key="id" wx:if="{{available_list.length>0?true:false}}">
                     <view class="discount-ticket-left">
                         <view class="discount-detail-box">
                             <view class="discount-detail-txt">{{item.title}}</view>
@@ -47,7 +49,7 @@
         <view class="discount-title">已失效的券</view>
         <view class="discount-box">
             <view class="discount-list">
-                <view class="dicount-ticket-box bc-dark-gray" wx:for="{{short_list}}">
+                <view class="dicount-ticket-box bc-dark-gray" wx:for="{{short_list}}" wx:key="id">
                     <image src="http://img.my-shop.cc/image/short_icon.png" class="short-icon"></image>
                     <view class="discount-ticket-left bc-gray">
                         <view class="discount-detail-box bd-gray">
@@ -57,7 +59,7 @@
                     </view>
                     <view class="discount-ticket-right txt-light-gray">使用</view>
                 </view>
-                <view class="dicount-ticket-box bc-dark-gray" wx:for="{{overdue}}">
+                <view class="dicount-ticket-box bc-dark-gray" wx:for="{{overdue}}" wx:key="id">
                     <image src="http://img.my-shop.cc/image/overdue.png" class="overdue-img"></image>
                     <view class="discount-ticket-left bc-gray">
                         <view class="discount-detail-box bd-gray">

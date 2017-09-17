@@ -10,11 +10,13 @@
                         <view class="page-head-title white txt-mid">{{shop_name}}</view>
                         <view class="arrow white arrow-title"></view>
                     </view>
-                    <view class="page-head-notice white txt-small">
-                        {{notice}}
-                    </view>
-                    <view class="page-head-notice white txt-small">
-                        联系电话:{{tel}}
+                    <view class="notice-box">
+                        <view class="page-head-notice white txt-small">
+                            {{notice}}
+                        </view>
+                        <view class="page-head-notice white txt-small tel-txt">
+                            联系电话:{{tel}}
+                        </view>
                     </view>
                 </view>
             </view>

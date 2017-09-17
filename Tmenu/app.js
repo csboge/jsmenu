@@ -14,12 +14,13 @@ App({
     //小程序启动或后台进入前台的时候调用
     onShow(options) {
 
-        let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
+        // console.log(this.globalData)
+        // let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
         // let scan_in_shop_id = options.query.shop_id;                            //扫描二维码进入带的shop_id
         let shop_id = this.globalData.is_shop_path || app_in_shop_id;
         let desk_sn = "1"
 
-        console.log(options.referrerInfo.extraData)
+        // console.log(options.referrerInfo.extraData)
 
         //判断商户id是否存在
         if (shop_id) {
@@ -85,7 +86,7 @@ App({
         // ev_url:"https://api.ai-life.me/api",     //生产环境
         system_version: 'BGmenu-1.0-@)!&*@#',       //系统版本号
         is_first_login: true,                       //是否是第一次登录 
-        is_shop_path: 0                             //商户Id
+        is_shop_path: 3                             //商户Id
     },
     //设置全局数据
     setGlobalData(key, value) {
@@ -97,7 +98,7 @@ App({
         let that = this;
 
         wx.makePhoneCall({
-            phoneNumber: that.globalData.shop_info.tel,
+            phoneNumber: that.globalData.shop_info.mobile,
             success: function (res) {
                 console.log("拨打成功")
             },

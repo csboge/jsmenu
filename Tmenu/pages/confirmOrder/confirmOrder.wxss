@@ -45,46 +45,12 @@
     color: #fff;
 }
 
-.page-head-title-box {
-    display: flex;
-    flex-grow: 1;
-    position: relative;
-    left: 2rpx;
-}
-
 .txt-mid {
     font-size: 28rpx;
 }
 
 .txt-small {
     font-size: 20rpx;
-}
-
-.page-head-title {
-    flex-grow: 1;
-    position: relative;
-    left: 2rpx;
-}
-
-.page-head-box {
-    width: 92%;
-    height: 190rpx;
-    display: flex;
-    align-items: center;
-}
-
-.page-head-notice {
-    line-height: 30rpx;
-}
-
-.page-head-detail {
-    position: relative;
-    width: 100%;
-    height: 116rpx;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-left: 20rpx;
 }
 
 .add-img {
@@ -317,6 +283,7 @@
     border-top: 2rpx solid #efefef;
     border-bottom: 2rps solid #efefef;
 }
+
 .honbao-list-b {
     padding: 0 38rpx;
     padding-bottom: 40rpx;
@@ -863,8 +830,8 @@
     height: 52rpx;
 }
 
-.honbao-box-x:active{
-    background: rgba(0, 0, 0, .2)
+.honbao-box-x:active {
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .hb-arrow {
@@ -901,8 +868,8 @@
     color: #333;
 }
 
-.hb-no-btn:active{
-    background: rgba(0, 0, 0, .2)
+.hb-no-btn:active {
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .num-box {
@@ -928,10 +895,11 @@
     font-size: 34rpx;
 }
 
-.reset-block{
-    background: rgba(0, 0, 0, .5);
+.reset-block {
+    background: rgba(0, 0, 0, 0.5);
 }
-.no-yhq-use{
+
+.no-yhq-use {
     padding-bottom: 42rpx;
     font-size: 28rpx;
     color: #808080;

@@ -9,7 +9,7 @@
                 <view class="shop-name">{{shop_info.title}}</view>
                 <view class="shop-add" bindtap="showLoca">
                     <view class="shop-add-txt gray">{{shop_info.adress}} ></view>
-                     <!-- <view class="arrow"></view>  -->
+                    <!-- <view class="arrow"></view>  -->
                 </view>
                 <view class="shop-runtime gray">营业时间：周一至周五 {{shop_info.shop_hours.start}}-{{shop_info.shop_hours.end}}</view>
                 <view class="shop-voice-box">
@@ -133,7 +133,7 @@
             </view>
 
             <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{600}}">
-                <block wx:for="{{recruit}}"  wx:key="id">
+                <block wx:for="{{recruit}}" wx:key="id">
                     <swiper-item>
                         <view class="zhaopin-detail-box">
                             <view class="zhaopin-detail-title">
@@ -158,6 +158,32 @@
         </view>
         <view class="foot">
             © 伯格网络提供支持
+        </view>
+    </view>
+
+    <view class="modal">
+        <view class="copy-box">
+            <view class="copy-title-box">
+                <image src="http://img.my-shop.cc/image/dun.png" class="dun-img"></image>
+                <view class="copy-title-txt">开通权限</view>
+                <view class="copy-des">您将获得更好的产品体验</view>
+            </view>
+            <view class="copy-detial-box">
+                <view class="copy-item">
+                    <view class="item-left">
+                        <view class="item-title">录音功能</view>
+                        <view class="item-txt">通过语音识别，玩转语音红包</view>
+                    </view>
+                    <view class="item-right" bindtap="getAuthor">授权</view>
+                </view>
+                <view class="copy-item user-info">
+                    <view class="item-left">
+                        <view class="item-title">用户信息</view>
+                        <view class="item-txt">获取个人真实认证信息</view>
+                    </view>
+                    <view class="item-right" bindtap="getAuthor">授权</view>
+                </view>
+            </view>
         </view>
     </view>
 </view>

@@ -1,0 +1,133 @@
+/* pages/collectionRecord/collectionRecord.wxss */
+
+.page-head {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    background: #f6f6f6;
+    width: 100%;
+}
+
+.shop-box {
+    /* display: flex;
+    align-items: center; */
+    margin: 0 auto;
+    width: 100%;
+}
+
+.shop-inner-box{
+    width: 140rpx;
+    margin: 0 auto;
+}
+.shop-txt {
+    display: inline-block;
+    padding: 28rpx 0;
+    text-align: center;
+    font-size: 26rpx;
+    color: #a5a5a5;
+}
+
+.arr-down {
+    display: inline-block;
+    position: relative;
+    top: -4rpx;
+    margin-left: 10rpx;
+    border-right: 2rpx solid #a5a5a5;
+    border-bottom: 2rpx solid #a5a5a5;
+    width: 16rpx;
+    height: 16rpx;
+    transform: rotate(45deg);
+}
+
+.page-body{
+    margin-top: 86rpx;
+}
+
+.list-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 30rpx 26rpx;
+    background: #fbfbfb;
+    border-bottom: 2rpx solid #f7f7f7;
+}
+
+.time-txt {
+    font-size: 24rpx;
+    color: #a9a9a9;
+}
+
+.money-txt-box {
+    display: flex;
+}
+
+.money-title {
+    font-size: 24rpx;
+    color: #a9a9a9;
+}
+
+.money-txt {
+    font-size: 24rpx;
+    font-weight: bold;
+    color: #989898;
+}
+
+.record-content {
+    display: flex;
+    padding: 30rpx 26rpx;
+    background: #fff;
+}
+
+.user-img {
+    width: 88rpx;
+    height: 88rpx;
+}
+
+.record-detail {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-left: 26rpx;
+}
+
+.record-user-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12rpx;
+}
+
+.user-name {
+    font-size: 28rpx;
+}
+
+.user-price {
+    font-size: 26rpx;
+    font-weight: bold;
+}
+
+.record-company {
+    margin: 22rpx 0;
+    font-size: 24rpx;
+    color: #989898;
+}
+
+.record-cust {
+    font-size: 24rpx;
+    color: #989898;
+}
+
+.load-more {
+    display: flex;
+    justify-content: center;
+    background: #f6f6f6;
+}
+
+.lm-arr {
+    top: 30rpx;
+}

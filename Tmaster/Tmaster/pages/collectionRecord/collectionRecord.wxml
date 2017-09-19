@@ -1,0 +1,44 @@
+<import src="../tpl/template.wxml" />
+
+<view class="page-container">
+    <view class="page-head" bindtap="selectShop">
+        <picker class="shop-box" bindchange="selectShop" value="{{index}}" range="{{array}}">
+            <view class="shop-inner-box">
+                <view class="shop-txt">全部门店</view>
+                <view class="arr-down"></view>
+            </view>
+        </picker>
+    </view>
+
+    <view class="page-body">
+        <view class="record-list">
+            <view class="list-item" wx:for="[3]">
+                <view class="time-box">
+                    <view class="time-txt">2017年09月05日</view>
+                    <view class="money-txt-box">
+                        <view class="money-title">收入￥</view>
+                        <view class="money-txt">0.80</view>
+                    </view>
+                </view>
+                <view class="record-content">
+                    <view class="record-img">
+                        <image src="" class="user-img"></image>
+                    </view>
+                    <view class="record-detail">
+                        <view class="record-user-box">
+                            <view class="user-name">阿***</view>
+                            <view class="user-price">￥0.80</view>
+                        </view>
+                        <view class="record-company">伯格网络科技有限公司</view>
+                        <view class="record-cust">09-05 16:59 | 第1次消费</view>
+                    </view>
+                </view>
+            </view>
+            <view class="load-more">
+                <view class="shop-txt">查看更多</view>
+                <view class="arr-down lm-arr"></view>
+            </view>
+        </view>
+    </view>
+    <template is="page-foot" />
+</view>

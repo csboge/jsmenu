@@ -276,6 +276,7 @@ Page({
                 if (res.data.code === 1) {
                     //在页面中默认为所有优惠券未领取,根据后台领取记录一同判断
                     let _yhq_list = res.data.data;
+                    console.log(_yhq_list)
                     _yhq_list.forEach((obj) => {
                         obj.is_get_coupon = false;
                     });

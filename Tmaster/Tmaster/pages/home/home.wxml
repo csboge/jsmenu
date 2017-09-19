@@ -7,7 +7,7 @@
 			￥0.00
 		</view>
 		<view class="head-icon">
-			<view class="head-item" style="border-right:1rpx solid #84b791 " hover-class="bg-green">
+			<view class="head-item" style="border-right:1rpx solid #84b791 " hover-class="bg-green" bindtap="toRecord">
 				<image src="../../img/record.png" ></image>
 				收款记录
 			</view>

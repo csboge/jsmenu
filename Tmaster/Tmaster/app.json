@@ -1,6 +1,8 @@
 {
   "pages": [
+    "pages/register/register",
     "pages/home/home",
+    "pages/collectionRecord/collectionRecord",
     "pages/apply/apply",
     "pages/menu/menu",
     "pages/cookbook/cookbook",

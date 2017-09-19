@@ -76,6 +76,7 @@ Page({
         show_modal: false,          //是否显示立即购买时全屏模态框
 
         pay_type: {},               //支付方式,1 现金支付, 0 在线支付(默认)
+        checked_pay_type: 0,        //选中的支付方式
 
         order_info: {},             //整条订单数据
     },
@@ -430,7 +431,11 @@ Page({
 
             //应付金额小于等于20,可以使用红包全部抵扣
             if (discount_price <= 20) {
-                hb_money = discount_price;
+                if (hb_rest_money >= discount_price) {
+                    hb_money = discount_price;
+                } else {
+                    hb_money = hb_rest_money;
+                }
             } else {//应付金额大于20，则最多可使用红包余额的40%进行抵扣
                 hb_money = Math.round((hb_rest_money * 0.4).toFixed(2) - 0);
                 //应付金额小于红包余额的40%，则全部抵扣完,抵扣金额为应付金额
@@ -446,13 +451,7 @@ Page({
         discount_price = discount_price - hb_money;
         let taxtPrice = (discount_price * _order_rate).toFixed(2) - 0;                  //手续费
         let realPrice = (discount_price * (_order_rate + 1)).toFixed(2) - 0;            //实际支付金额
-        let pay_type = this.data.pay_type;                                              //支付类型
 
-        pay_type.forEach((obj) => {
-            if (obj.is_checked) {
-                pay_type = obj.typeid
-            }
-        });
 
         let hb_money_str = hb_money > 0 ? ("余(" + this.data.hb_rest_money + "元),本单 -￥" + hb_money) : '';
 
@@ -480,7 +479,7 @@ Page({
             offset_money: this.data.hb_money,           //使用红包抵扣金额
             goods_price: total_price,                   //商品总价
             goods_list: shop_cart,                      //商品列表
-            pay_way: pay_type,                          //支付方式
+            // pay_way: this.data.checked_pay_type,        //支付方式
             remark: this.data.remarkText                //口味备注
         };
         this.setData({
@@ -748,7 +747,8 @@ Page({
         _pay_type[index].is_checked = true;
 
         this.setData({
-            pay_type: _pay_type
+            pay_type: _pay_type,
+            checked_pay_type: _pay_type[index].typeid
         });
 
     },
@@ -780,7 +780,7 @@ Page({
     },
     //立即支付
     formSubmit: function (e) {
-        
+
         let that = this;
         let _customer_num = this.data.customer_num;
 
@@ -803,6 +803,7 @@ Page({
 
         //生成订单，判断是否是重复提交的订单
         let _order = util.getStorageSync("order");
+
         //未提交过订单则生成新的订单
         if (!_order.order_sn) {
             console.log("=========生成新订单=========");
@@ -816,14 +817,15 @@ Page({
 
         }
 
-
+        //支付方式
+        order.updateOrderSync("pay_way", this.data.checked_pay_type);
         //加入表单数据到订单
         order.updateOrderSync("desk_sn", desk_sn);
-        order.updateOrderSync("message", e.detail.value.umsg);  //用户留言
-        order.updateOrderSync("user_count", 3);                 //人数
-        order.updateOrderSync("mode_money", mode_money);
+        order.updateOrderSync("message", e.detail.value.umsg);             //用户留言
+        order.updateOrderSync("user_count", 3);                            //人数
+        order.updateOrderSync("mode_money", Math.ceil(mode_money));        //发红包的金额
         // console.log(util.getStorageSync("order"));
-        app.setGlobalData("mode_money", mode_money);            //可以发出的红包金额
+        app.setGlobalData("mode_money", Math.ceil(mode_money));            //可以发出的红包金额
         // console.log(mode_money)
 
 
@@ -870,7 +872,7 @@ Page({
     transformOrder() {
         //获取最新的订单数据
         let _order = util.getStorageSync("order");
-
+        // console.log(_order);
 
         let _goods_list = _order.goods_list;
         let _use_base = app.globalData.use_base;
@@ -933,7 +935,6 @@ Page({
                     // console.log(_order);
                     //覆盖当前订单，防止重复提交
                     util.setStorageSync("order", _order);
-
 
                     //调起微信支付
                     wx.requestPayment({

@@ -120,10 +120,7 @@ Page({
             });
 
 
-        let goods_data = {
-            page: 1,
-            limit: 10
-        };
+        let goods_data = {};
         let goods_config = app.getParams(goods_data);
         let shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
         //加载所有商品

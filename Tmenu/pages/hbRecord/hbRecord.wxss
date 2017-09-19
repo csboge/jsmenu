@@ -230,3 +230,6 @@ page {
     color: #e50619;
     font-weight: bold;
 }
+.txt-gray{
+    color: #999;
+}

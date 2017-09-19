@@ -415,6 +415,7 @@
 }
 
 .modal {
+     /* display: none;  */
     position: fixed;
     top: 0;
     left: 0;
@@ -503,4 +504,7 @@
 
 .user-info {
     margin-top: 45rpx;
+}
+.hide-modal{
+    display: none;
 }

@@ -50,6 +50,12 @@ Page({
                     let _short_list = res.data.data.short || [];
                     let _overdue = res.data.data.overdue || [];
 
+                    //只留十条数据
+                    if (_short_list.length > 10){
+                        _short_list = _short_list.slice(0,11);
+                        _overdue = [];
+                    }
+
                     that.setData({
                         available_list: _available_list,
                         short_list: _short_list,
@@ -81,5 +87,9 @@ Page({
     //点击打电话
     call: function () {
         app.makeCall();
+    },
+    //跳转到首页
+    toIndex(){
+        app.naviToIndex();
     }
 })

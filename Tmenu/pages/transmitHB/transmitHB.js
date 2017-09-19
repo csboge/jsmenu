@@ -71,10 +71,11 @@ Page({
         let speed = app.globalData.mode_data.speed;
         let mode_money = app.globalData.mode_data.mode_money;
         let shop_id = util.getStorageSync("user").shop_id;
+        let shop_title = app.globalData.shop_info.title;
 
         return {
             title: '口令红包',
-            path: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id,
+            path: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id + "&shop_title=" + shop_title,
             success: function (res) {
 
                 // app.setGlobalData("is_transimit", true);
@@ -90,7 +91,7 @@ Page({
                     mask: true,
                     success() {
                         wx.redirectTo({
-                            url: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id,
+                            url: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id + "&shop_title=" + shop_title,
                         });
                     }
                 });

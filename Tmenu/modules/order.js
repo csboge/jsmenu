@@ -113,7 +113,7 @@ function updateOrderSync(key, value) {
     let order = getOrderSync();
     order[key] = value;
     util.setStorageSync("order", order);
-
+    
 }
 
 

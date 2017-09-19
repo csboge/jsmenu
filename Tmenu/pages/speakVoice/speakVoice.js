@@ -36,6 +36,12 @@ Page({
         let count = options.count;              //红包个数
         let mode_money = options.mode_money;    //红包金额
         let shop_id = options.shop_id;          //商户id
+        let shop_title = options.shop_title;    //商铺名
+
+        //设置标题栏为商铺名
+        wx.setNavigationBarTitle({
+            title: shop_title
+        });
 
         let mode_data = {
             bagid: bagid,
@@ -43,26 +49,6 @@ Page({
             mode_money: mode_money,
             shop_id: shop_id
         };
-
-        //获取录音授权
-        // wx.startRecord({
-        //     success: function (res) {
-        //         wx.stopRecord();
-        //     },
-        //     fail: function (res) {
-        //         wx.showModal({
-        //             title: '提示',
-        //             content: '请授权允许应用访问您的麦克风',
-        //             showCancel: false,
-        //             success(res) {
-        //                 if (res.confirm) {
-        //                     //调起用户授权设置界面
-        //                     that.openVoiceSetting();
-        //                 }
-        //             }
-        //         });
-        //     }
-        // });
 
         this.setData({
             mode_data: mode_data
@@ -117,27 +103,27 @@ Page({
 
         util.request(app.globalData.ev_url + "/banner/banner_hongbao", "POST", app.getParams({ cat: 1 }))
             .then((res) => {
-                // if (res.data.code === 1) {
+                if (res.data.code === 1) {
 
-                //默认图片
-                let imgs = [
-                    { image: "http://img.my-shop.cc/imgs/hb_1.png?2" },
-                    { image: "http://img.my-shop.cc/imgs/hb_2.png?2" },
-                    { image: "http://img.my-shop.cc/imgs/hb_3.png?2" }
-                ];
-                let _slide_img = res.data.data || imgs;
+                    //默认图片
+                    let imgs = [
+                        { image: "http://img.my-shop.cc/imgs/hb_1.png?2" },
+                        { image: "http://img.my-shop.cc/imgs/hb_2.png?2" },
+                        { image: "http://img.my-shop.cc/imgs/hb_3.png?2" }
+                    ];
+                    let _slide_img = res.data.data || imgs;
 
-                that.setData({
-                    imgUrls: _slide_img
-                });
+                    that.setData({
+                        imgUrls: _slide_img
+                    });
 
-                // } else {
-                //     wx.showModal({
-                //         title: '提示',
-                //         content: res.data.message,
-                //         showCancel: false
-                //     });
-                // }
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
             }, (res) => {
                 util.disconnectModal();
             });
@@ -159,11 +145,16 @@ Page({
                     if (voice_list.length > 0) {
                         voice_list.forEach((obj) => {
                             obj.isPlaying = false;
-                            //判断是否已经抢过红包
-                            if (obj.userid === _user_id){
+                            //已经抢过红包
+                            if (obj.user_id === _user_id) {
                                 _is_get = true;
                             }
                         });
+                    }
+
+                    //红包被抢完了
+                    if (voice_list.length === res.data.data.num){
+                        _is_get = true;
                     }
 
                     that.setData({
@@ -190,7 +181,7 @@ Page({
         let s = this;
         console.log("start");
 
-        if (s.data.is_get) {        //已经领取过红包
+        if (s.data.is_get) {        //已经领取过红包或者红包被抢完了
             return;
         }
 
@@ -230,12 +221,16 @@ Page({
         let s = this;
         console.log("end");
 
-        if (s.data.is_get) {        //已经领取过红包
+        if (s.data.is_get) {        //已经领取过红包或者红包被抢完了
             return;
         }
 
-        //录音时长小于1.5秒钟给出提示，不做其他处理
+        //录音时长小于1.5秒给出提示，不做其他处理
         if (s.seconds / 1000 < 1.5) {
+            //停止录音
+            wx.stopRecord();
+            wx.hideToast();
+
             wx.showModal({
                 title: '提示',
                 content: '录音时间太短了 T-T',
@@ -275,7 +270,7 @@ Page({
                     'content-type': 'multipart/form-data'
                 },
                 success: function (res) {
-                    console.log(res.data)
+                    // console.log(res.data)
                     // util.downAndPlayVoice()
                     wx.hideLoading();
 
@@ -301,14 +296,17 @@ Page({
         let index = e.currentTarget.dataset.index;          //索引
         let voice_list = this.data.voices;
 
-        //停止所有语音播放
-        voice_list.forEach((obj) => {
-            obj.isPlaying = false;
-        });
-        wx.stopVoice();
-
         //没有播放，则播放该条语音
         if (!_is_play) {
+
+            //停止其他播放
+            wx.stopVoice();
+            voice_list.forEach((obj) => {
+                obj.isPlaying = false;
+            });
+            that.setData({
+                voices: voice_list
+            });
 
             wx.downloadFile({
                 url: url,
@@ -319,6 +317,8 @@ Page({
                         voices: voice_list
                     });
 
+                    // console.log(that.data.voices)
+
                     //开始播放
                     wx.playVoice({
                         filePath: res.tempFilePath,
@@ -326,7 +326,12 @@ Page({
                             console.log("播放成功")
                         },
                         fail() {
-
+                            wx.showToast({
+                                title: '播放失败',
+                                image: '../../assets/image/fail.png',
+                                duration: 1000,
+                                mask: true
+                            });
                         },
                         complete() {
 
@@ -349,6 +354,14 @@ Page({
                 }
             });
 
+        } else {
+            //否则停止播放
+            wx.stopVoice();
+
+            voice_list[index].isPlaying = false;
+            that.setData({
+                voices: voice_list
+            });
         }
 
     },
@@ -360,7 +373,7 @@ Page({
         util.request(app.globalData.ev_url + "/discount/redList", "POST", app.getParams({ bagid: that.data.mode_data.bagid }))
             .then((res) => {
                 if (res.data.code === 1) {
-                    console.log(res.data.data);
+                    // console.log(res.data.data);
 
                     let voice_list = res.data.data;
                     //用于标识每条语音播放

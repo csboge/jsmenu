@@ -28,6 +28,36 @@ function formatTime(date) {
 
 
 /*
+ * @des         封装request为promise格式       
+ * @param       string          url             
+ * 
+ * @return      object          promise          
+ */
+function request(url) {
+
+    let method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'POST';
+    let data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    let header = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
+
+    return new Promise(function (resolve, reject) {
+        wx.request({
+            url: url,
+            data: data,
+            method: method,
+            header: header,
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (res) {
+                reject(res)
+            }
+        })
+    })
+}
+
+
+
+/*
  * @des         格式化日期       MM/dd hh:mm       
  * @param       Date            date
  * 
@@ -369,36 +399,6 @@ function setStorageSync(key, value) {
 
 
 /*
- * @des             封装request请求为promise格式
- * @params          string                  url
- * @return          object                  promise
- */
-function request(url) {
-
-    let method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'POST';
-    let data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    let header = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
-
-    return new Promise(function (resolve, reject) {
-        wx.request({
-            url: url,
-            data: data,
-            method: method,
-            header: header,
-            success: function (res) {
-                resolve(res)
-            },
-            fail: function (res) {
-                reject(res)
-            }
-        })
-    })
-
-}
-
-
-
-/*
  * @des         网络链接失败模态框
  * 
  * 
@@ -436,7 +436,7 @@ function downAndPlayVoice(url) {
                     console.log("播放成功")
                 },
                 fail() {
-                   
+
                 },
                 complete() {
                     // wx.showToast({
@@ -461,6 +461,47 @@ function downAndPlayVoice(url) {
 }
 
 
+
+/*
+ * @des         加载更多/分页
+ * @params      string              url
+ * @params      object              data
+ * @params      array               old_list        旧的数据数组
+ * @params      function            fn              处理加载的数据格式为所需格式
+ * @params      function            resultFn        拿到结果数据
+ *  
+ */
+function loadMore(url, data, old_list, fn, resultFn) {
+
+    let new_list = [];
+
+    request(url, "POST", data)
+        .then((res) => {
+
+            if (res.data.code === 1) {
+
+                let load_list = fn(res.data.data);
+                if (load_list.length > 0) {
+                    new_list = old_list.concat(load_list);
+                }
+
+            } else {
+                wx.showModal({
+                    title: '提示',
+                    content: res.data.message,
+                    showCancel: false
+                });
+            }
+            resultFn(new_list);
+        }, (res) => {
+            disconnectModal();
+        });
+
+}
+
+
+
+
 //导出工具方法
 module.exports = {
     formatTime: formatTime,
@@ -482,5 +523,6 @@ module.exports = {
     request: request,
     disconnectModal: disconnectModal,
     clearShopCart: clearShopCart,
-    downAndPlayVoice: downAndPlayVoice
+    downAndPlayVoice: downAndPlayVoice,
+    loadMore: loadMore
 }

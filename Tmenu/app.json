@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/transmitHB/transmitHB",
         "pages/speakVoice/speakVoice",
         "pages/voiceExample/voiceExample",
         "pages/finishOrder/finishOrder",
@@ -9,7 +10,6 @@
         "pages/menu/menu",
         "pages/orderDetail/orderDetail",
         "pages/filter/filter",
-        "pages/transmitHB/transmitHB",
         "pages/myRecord/myRecord",
         "pages/myDiscount/myDiscount",
         "pages/foodRemark/foodRemark",

@@ -14,6 +14,8 @@ App({
     //小程序启动或后台进入前台的时候调用
     onShow(options) {
 
+        let that = this;
+
         // console.log(this.globalData)
         // let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
         // let scan_in_shop_id = options.query.shop_id;                            //扫描二维码进入带的shop_id
@@ -25,9 +27,17 @@ App({
         //判断商户id是否存在
         if (shop_id) {
             //初始化用户本地数据
-            util.setStorageSync("user", {});
-            user.updateUserStorage("shop_id", shop_id);
-            user.updateUserStorage("desk_sn", desk_sn);
+            let _user = util.getStorageSync("user");
+            //防止覆盖
+            if (_user === -1) {
+                util.setStorageSync("user", {});
+                user.updateUserStorage("shop_id", shop_id);
+                user.updateUserStorage("desk_sn", desk_sn);
+            }
+
+            //提前授权
+            that.showAuth();
+
         } else {
 
             //shop_id不存在就返回
@@ -42,23 +52,151 @@ App({
 
         }
 
+
+
+    },
+    //提前授权
+    showAuth() {
+
+        let that = this;
+
+        wx.authorize({
+            scope: 'scope.userInfo',
+            success() {
+            }
+        });
+        wx.authorize({
+            scope: 'scope.record',
+            success() {
+                //检查授权信息
+                that.checkAuthor();
+            },
+            fail() {
+                //检查授权信息
+                that.checkAuthor();
+            }
+        });
+    },
+    //检查授权信息
+    checkAuthor() {
+        let that = this;
+
+        wx.getSetting({
+            success: (res) => {
+                let author = res.authSetting;
+                //有一种没有授权
+                if (!author["scope.userInfo"] || !author["scope.record"]) {
+                    // that.setGlobalData("is_pass_auth",false);//作用，控制自定义授权模态框显示与隐藏
+                    wx.showModal({
+                        title: '提示',
+                        content: '为了您更好的体验，请允许授权',
+                        showCancel: false,
+                        success(res) {
+                            if (res.confirm) {
+                                //调起授权配置面板
+                                wx.openSetting({
+                                    success: (res) => { }
+                                });
+                            }
+                        }
+                    });
+
+                } else {//全都授权通过，
+                    // that.setGlobalData("is_pass_auth", true);
+                    //获取用户信息
+                    wx.getUserInfo({
+                        success: function (res) {
+                            // console.log(res);
+
+                            for (var key in res.userInfo) {
+                                user.updateUserStorage(key, res.userInfo[key]);
+                            }
+
+                            //检查登录态
+                            that.checkLogin();
+
+                        }
+                    });
+                }
+            }
+        });
+    },
+    //检查登录态
+    checkLogin() {
         let that = this;
         //检查登录态
         wx.checkSession({
             success: function () {
-                //登录态有效，不做任何处理
-                console.log("登录态有效");
+
+                //检查服务器登录态
+                that.login();
 
             },
-            fail: function () {
+            fail: function () {//微信端登录态过期
                 //登录态过期
                 console.log("登录态失效,重新登录");
 
                 //重新登录
-                that.getUserInfo();
+                that.login();
             }
         });
+    },
+    //检查服务端登录态是否过期
+    login: function () {
 
+        let that = this;
+
+        wx.login({//登录获取用户code
+            success: function (res) {
+                console.log("code: " + res.code)
+
+                if (res.code) {
+                    //发起请求获得openid
+                    wx.request({
+                        url: that.globalData.ev_url + '/Member/login/',
+                        method: "POST",
+                        data: {
+                            jscode: res.code,
+                            shop_id: that.globalData.is_shop_path,
+                            userinfo: JSON.stringify(user.getUserStorage()),
+                            grd: that.globalData.system_version
+                        },
+                        success: function (res) {
+                            //登录成功，未过期
+                            if (res.data.code === 1) {
+
+                                console.log("token " + res.data.data.access_token);
+                                // util.request("https://demo.ai-life.me/api/Buy/notify/", "POST", { access_token: res.data.data.access_token})
+                                user.updateUserStorage("openid", res.data.data.session.openid);
+                                user.updateUserStorage("unionid", res.data.data.session.unionid);
+                                user.updateUserStorage("userid", res.data.data.session.userid);
+                                util.setStorageSync('access_token', res.data.data.access_token);
+
+                            } else if (res.data.code === -2012) {//服务端登录态失效
+                                //重新登录
+                                that.login();
+                            } else {
+                                wx.showModal({
+                                    title: '提示',
+                                    content: res.data.message,
+                                    showCancel: false
+                                });
+                            }
+
+                        },
+                        fail() {
+                            util.disconnectModal();
+                        }
+                    });
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    })
+                }
+            }
+        });
     },
     //组合请求数据，添加通用字段(access_token、grd版本信息、shop_id商户id)
     getParams: function (config) {
@@ -118,6 +256,12 @@ App({
             complete: function (res) { },
         })
     },
+    //跳转到首页
+    naviToIndex(){
+        wx.navigateTo({
+            url: '../index/index'
+        })
+    },
     //在地图上显示位置
     showLoca: function (latitude, longitude) {
 
@@ -127,119 +271,6 @@ App({
         let add = this.globalData.shop_info.adress;             //商户地址
 
         util.getAddress(la, lo, title, add);
-    },
-    //获取用户信息并保存
-    getUserInfo: function () {
-
-        let that = this;
-
-        //获取用户信息
-        wx.getUserInfo({
-            success: function (res) {//接受授权
-                // console.log(res);
-                for (var key in res.userInfo) {
-                    user.updateUserStorage(key, res.userInfo[key]);
-                }
-
-                that.login();
-
-            },
-            fail: function () {//用户拒绝授权
-                // console.log("拒绝");
-                wx.hideLoading();
-                wx.showModal({
-                    title: '温馨提示',
-                    content: '请您在接下来的页面开启【用户信息】授权，并点击返回将进入菜单',
-                    showCancel: false,
-                    success: function (res) {
-                        if (res.confirm) {
-                            that.callUserAuth();
-                        }
-                    }
-                })
-            }
-        });
-
-    },
-    //重新调起用户授权配置
-    callUserAuth: function () {
-
-        let that = this;
-
-        wx.openSetting({
-            success: (res) => {
-                if (res.authSetting["scope.userInfo"]) {//允许授权
-                    wx.getUserInfo({
-                        success: function (res) {
-                            // console.log(res);
-
-                            for (var key in res.userInfo) {
-                                user.updateUserStorage(key, res.userInfo[key]);
-                            }
-
-                            that.login();
-
-                        }
-                    });
-                } else {//再次拒绝授权
-                    wx.showModal({
-                        title: '提示',
-                        content: '您拒绝了用户信息授权，将无法使用菜单',
-                        showCancel: false,
-                        success(res) {
-                            if (res.confirm) {
-
-                                that.callUserAuth();
-                            }
-                        }
-                    })
-                }
-            }
-        });
-
-    },
-    //登录
-    login: function () {
-
-        let that = this;
-
-        wx.login({//登录获取用户code
-            success: function (res) {
-                console.log("code: " + res.code)
-
-                if (res.code) {
-                    //发起请求获得openid
-                    wx.request({
-                        url: that.globalData.ev_url + '/Member/login/',
-                        method: "POST",
-                        data: {
-                            jscode: res.code,
-                            shop_id: that.globalData.is_shop_path,
-                            userinfo: JSON.stringify(user.getUserStorage())
-                            // grd: app.globalData.system_version
-                        },
-                        success: function (res) {
-                            console.log("token " + res.data.data.access_token);
-                            user.updateUserStorage("openid", res.data.data.session.openid);
-                            user.updateUserStorage("unionid", res.data.data.session.unionid);
-                            user.updateUserStorage("userid", res.data.data.session.userid);
-                            util.setStorageSync('access_token', res.data.data.access_token);
-
-                            // console.log(util.getStorageSync("user"));
-                        },
-                        fail() {
-                            util.disconnectModal();
-                        }
-                    });
-                } else {
-                    wx.showModal({
-                        title: '提示',
-                        content: res.data.message,
-                        showCancel: false
-                    })
-                }
-            }
-        });
     }
 
 })

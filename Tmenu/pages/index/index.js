@@ -36,11 +36,14 @@ Page({
 
         shop_info: {},           //商户信息
 
-        curr_index: 0            //推荐菜品当前图片索引
+        curr_index: 0,           //推荐菜品当前图片索引
+
+        // show_copy_modal: false,         //是否显示获取权限弹窗
     },
     onLoad: function (options) {
-        let that = this;
 
+        let that = this;
+        
         util.request(app.globalData.ev_url + "/shop/config", "POST", app.getParams({}))
             .then((res) => {
 
@@ -52,7 +55,8 @@ Page({
                 app.setGlobalData("shop_info", shop_info);
 
                 that.setData({
-                    shop_info: shop_info
+                    shop_info: shop_info,
+                    recruit: JSON.parse(res.data.data.stations)         //招聘信息
                 });
 
             }, (res) => {
@@ -90,11 +94,9 @@ Page({
                 util.disconnectModal();
             });
 
-        //获取招聘信息
-        this.getZhaopinList();
-
     },
     onShow: function () {
+
         var animation = wx.createAnimation({
             duration: 1200,
             timingFunction: 'ease-out',
@@ -105,31 +107,6 @@ Page({
         this.setData({
             animationData: animation.export()
         })
-    },
-    //获取招聘信息
-    getZhaopinList() {
-
-        let that = this;
-
-        util.request(app.globalData.ev_url + "/shop/recruit", "POST", app.getParams({}))
-            .then((res) => {
-                if (res.data.code === 1) {
-
-                    that.setData({
-                        recruit: res.data.data
-                    });
-
-                } else {
-                    wx.showModal({
-                        title: '提示',
-                        content: res.data.message,
-                        showCancel: false
-                    });
-                }
-            }, (res) => {
-                util.disconnectModal();
-            });
-
     },
     //播放语音
     playVoice(e) {

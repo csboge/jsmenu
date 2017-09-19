@@ -14,6 +14,9 @@ Page({
         hb_rest_money: 0,               //红包余额
 
         order_record_list: [],          //订单记录列表
+        curr_page: 1,                   //当前页数
+        limit: 10,                      //每页的数据条数
+        has_more: true,                //是否还有更多
 
     },
 
@@ -71,7 +74,7 @@ Page({
         let that = this;
 
         let order_data = {
-            page: 1,
+            page: that.data.curr_page,
             limit: 10
         };
         let order_config = app.getParams(order_data);
@@ -157,13 +160,60 @@ Page({
         });
 
     },
+    //查看更多订单
+    loadMore() {
+
+        let that = this;
+
+        if (this.data.has_more) {
+
+            let _page = this.data.curr_page;
+
+            _page++;
+
+            this.setData({
+                curr_page: _page
+            });
+
+            let url = app.globalData.ev_url + "/user/user_order";
+            let data = {
+                page: this.data.curr_page,
+                limit: this.data.limit
+            };
+            let _data = app.getParams(data);
+
+            let list = util.loadMore(url, _data, this.data.order_record_list, function (load_data) {
+                if (load_data.length > 0) {
+                    load_data.forEach((obj) => {
+                        obj.show_more = false;
+                        obj.goods_list = JSON.parse(obj.goods_list);
+                    });
+                }
+                return load_data;
+            }, function (new_list) {
+                if (new_list.length > 0) {
+                    that.setData({
+                        order_record_list: new_list
+                    });
+                }
+                //没有更多了
+                if (new_list.length % 10 != 0) {
+                    that.setData({
+                        has_more: false
+                    });
+                }
+            });
+
+        }
+
+    },
     //查看地图位置
     showAddress: function () {
         app.showLoca();
     },
     //跳转到主页
     toIndex: function () {
-
+        app.naviToIndex();
     },
     //点击打电话
     call: function () {

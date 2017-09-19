@@ -37,7 +37,7 @@
                     <view class="content-price">￥{{item.menoy}}</view>
                 </view>
             </view>
-            <view class="show-more">查看更多</view>
+            <view class="show-more {{income_has_more?'':'txt-gray'}}" bindtap="loadIncomeMore">{{income_has_more?'查看更多':'没有更多了'}}</view>
         </view>
 
 
@@ -52,7 +52,7 @@
                 </view>
                 <view class="out-price">-{{item.offset_money}}</view>
             </view>
-            <view class="show-more">查看更多</view>
+            <view class="show-more {{outcome_has_more?'':'txt-gray'}}" bindtap="loadOutcomeMore">{{outcome_has_more?'查看更多':'没有更多了'}}</view>
         </view>
     </view>
     <view class="page-foot">©伯格网络提供支持</view>

@@ -24,7 +24,7 @@
         <view class="shop-info-box">
             <view class="shop-address ml" bindtap="showAddress">
                 <image src="http://img.my-shop.cc/image/add-white-icon.png" class="add-white-icon"></image>
-                <view class="shop-address-txt txt-mid ml">{{shop_info.adress}}</view>
+                <view class="shop-address-txt txt-mid ml text-mid">{{shop_info.adress}}</view>
             </view>
             <view class="shop-tel mr" bindtap="call">
                 <image src="http://img.my-shop.cc/image/tel-white-icon.png" class="tel-white-icon"></image>
@@ -57,7 +57,7 @@
             <!-- 商品列表 -->
             <view class="order-list" wx:for="{{out_item.goods_list}}" wx:for-item="inner_item" wx:if="{{out_item.show_more?true:false}}">
                 <view class="shop-logo ml">
-                    <image src="{{inner_item.image}}" class="shop-logo-img"></image>
+                    <image src="{{inner_item.bowl?inner_item.img_url:inner_item.image}}" class="shop-logo-img"></image>
                 </view>
                 <view class="food-detail ml">
                     <view class="food-name">{{inner_item.name}}</view>
@@ -93,10 +93,12 @@
                 <view class="total-price-count">￥{{out_item.pay_price}}</view>
             </view>
             <view class="another-order mr">
+                <button class="another-boder-btn" type="default" data-index="{{out_index}}" bindtap="toHbRecord">红包记录</button>
                 <button class="another-boder-btn" type="default" data-index="{{out_index}}" bindtap="anotherOrder">再来一单</button>
             </view>
         </view>
 
+        <view class="show-more {{has_more?'':'txt-gray'}}" bindtap="loadMore">{{has_more?'查看更多':'没有更多了'}}</view>
 
     </view>
     <view class="page-foot">©伯格网络提供支持</view>

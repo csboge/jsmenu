@@ -84,7 +84,7 @@ Page({
 
                 if (res.data.code === 1) {
 
-                    let _order_record_list = res.data.data;
+                    let _order_record_list = res.data.data || [];
 
                     _order_record_list.forEach((obj) => {
                         obj.show_more = false;
@@ -94,6 +94,14 @@ Page({
                     that.setData({
                         order_record_list: _order_record_list
                     });
+
+                    //没有更多了
+                    if (_order_record_list.length % 10 != 0) {
+                        that.setData({
+                            has_more: false
+                        });
+                    }
+
                 } else {
                     wx.showModal({
                         title: '提示',
@@ -206,6 +214,15 @@ Page({
 
         }
 
+    },
+    //查看本单红包记录
+    toHbRecord(e){
+
+        let bagid = e.currentTarget.dataset.bagid;
+        wx.navigateTo({
+            url: '../speakVoice/speakVoice?bagid=' + bagid
+        });
+        
     },
     //查看地图位置
     showAddress: function () {

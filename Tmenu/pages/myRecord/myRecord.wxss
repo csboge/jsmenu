@@ -342,6 +342,21 @@
     background-color: #fff;
     margin-top: 14rpx;
 }
+.hb-recorde-btn {
+    position: absolute;
+    right: 270rpx;
+    font-size: 24rpx;
+    color: #2d2d2d;
+    font-weight: bold;
+    width: 230rpx;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 2.5;
+    background-color: #fff;
+    margin-top: 14rpx;
+}
 
 .page-foot {
     padding-top: 242rpx;

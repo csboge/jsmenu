@@ -93,12 +93,13 @@
                 <view class="total-price-count">￥{{out_item.pay_price}}</view>
             </view>
             <view class="another-order mr">
-                <button class="another-boder-btn" type="default" data-index="{{out_index}}" bindtap="toHbRecord">红包记录</button>
+                <button wx:if="{{out_item.bagid?true:false}}" class="hb-recorde-btn" type="default" data-bagid="{{out_item.bagid}}" bindtap="toHbRecord">红包记录</button>
                 <button class="another-boder-btn" type="default" data-index="{{out_index}}" bindtap="anotherOrder">再来一单</button>
             </view>
         </view>
 
-        <view class="show-more {{has_more?'':'txt-gray'}}" bindtap="loadMore">{{has_more?'查看更多':'没有更多了'}}</view>
+        <view class="show-more {{has_more?'':'txt-gray'}}" bindtap="loadMore" wx:if="{{order_record_list.length>0?true:false}}">{{has_more?'查看更多':'没有更多了'}}</view>
+        <view class="show-more {{order_record_list.length===0?'txt-gray':''}}"  wx:if="{{order_record_list.length>0?false:true}}">暂无数据</view>
 
     </view>
     <view class="page-foot">©伯格网络提供支持</view>

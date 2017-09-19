@@ -20,6 +20,8 @@ Page({
         isRecode: false,             //是否在录音
 
         hb_info: {},                 //抢红包信息
+
+        stop_upload: false,          //是否停止上传语音
     },
 
     seconds: 0,                      //录音时长
@@ -32,11 +34,11 @@ Page({
 
         let that = this;
 
-        let bagid = options.bagid;              //红包id
-        let count = options.count;              //红包个数
-        let mode_money = options.mode_money;    //红包金额
-        let shop_id = options.shop_id;          //商户id
-        let shop_title = options.shop_title;    //商铺名
+        let bagid = options.bagid;                      //红包id
+        let count = options.count || -1;                //红包个数
+        let mode_money = options.mode_money || -1;      //红包金额
+        let shop_id = options.shop_id || -1;            //商户id
+        let shop_title = options.shop_title || "";      //商铺名
 
         //设置标题栏为商铺名
         wx.setNavigationBarTitle({
@@ -59,41 +61,6 @@ Page({
 
         //初始化红包列表
         this.initHbList();
-
-    },
-    //调起用户麦克风授权设置面板
-    openVoiceSetting() {
-
-        let that = this;
-
-        wx.openSetting({
-            success: function (res) {
-
-                if (res.authSetting["scope.record"]) {//允许授权
-                    console.log("允许录音");
-                } else {//再次拒绝授权
-                    wx.showModal({
-                        title: '提示',
-                        content: '请授权允许应用访问您的麦克风',
-                        showCancel: false,
-                        success(res) {
-                            if (res.confirm) {
-                                //反复调用
-                                that.openVoiceSetting();
-                            }
-                        }
-                    })
-                }
-
-            },
-            fail: function (res) {
-                wx.showModal({
-                    title: '提示',
-                    content: '录音授权出错',
-                    showCancel: false
-                });
-            }
-        });
 
     },
     //获取轮播图
@@ -153,7 +120,7 @@ Page({
                     }
 
                     //红包被抢完了
-                    if (voice_list.length === res.data.data.num){
+                    if (voice_list.length === res.data.data.num) {
                         _is_get = true;
                     }
 
@@ -202,7 +169,11 @@ Page({
             success: function (res) {
                 // console.log(res);
                 var tempFilePath = res.tempFilePath;
-                s.setData({ recodePath: tempFilePath, isRecode: true });
+                s.setData({
+                    recodePath: tempFilePath, 
+                    isRecode: true,
+                    stop_upload: false
+                });
             },
             fail: function (res) {
                 wx.showToast({
@@ -210,6 +181,10 @@ Page({
                     image: '../../assets/image/fail.png',
                     duration: 1000,
                     mask: true
+                });
+                //阻止上传
+                s.setData({
+                    stop_upload: true
                 });
             }
         });
@@ -220,6 +195,11 @@ Page({
 
         let s = this;
         console.log("end");
+
+        //录音失败，阻止上传
+        if (this.data.stop_upload) {
+            return;
+        }
 
         if (s.data.is_get) {        //已经领取过红包或者红包被抢完了
             return;

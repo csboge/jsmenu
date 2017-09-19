@@ -798,7 +798,7 @@ Page({
         });
 
         let desk_sn = user.getUserStorageAttr("desk_sn");
-        let mode_money = Math.round(this.data.discountPrice * this.data.mode_rate);
+        let mode_money = Math.ceil(this.data.discountPrice * this.data.mode_rate);
 
 
         //生成订单，判断是否是重复提交的订单
@@ -823,9 +823,9 @@ Page({
         order.updateOrderSync("desk_sn", desk_sn);
         order.updateOrderSync("message", e.detail.value.umsg);             //用户留言
         order.updateOrderSync("user_count", 3);                            //人数
-        order.updateOrderSync("mode_money", Math.ceil(mode_money));        //发红包的金额
+        order.updateOrderSync("mode_money", mode_money);        //发红包的金额
         // console.log(util.getStorageSync("order"));
-        app.setGlobalData("mode_money", Math.ceil(mode_money));            //可以发出的红包金额
+        app.setGlobalData("mode_money", mode_money);            //可以发出的红包金额
         // console.log(mode_money)
 
 
@@ -990,7 +990,7 @@ Page({
         util.clearShopCart();
         //返回时刷新商品列表
         app.setGlobalData("is_refresh_menu", true);
-
+        
         wx.redirectTo({
             url: '../finishOrder/finishOrder?order_sn=' + _order.order_sn
         });

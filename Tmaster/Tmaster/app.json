@@ -1,7 +1,9 @@
 {
   "pages": [
-    "pages/register/register",
+    "pages/reportDetail/reportDetail",
     "pages/home/home",
+    "pages/saleReport/saleReport",
+    "pages/register/register",
     "pages/collectionRecord/collectionRecord",
     "pages/apply/apply",
     "pages/menu/menu",

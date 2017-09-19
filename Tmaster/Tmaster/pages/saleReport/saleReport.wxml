@@ -1,0 +1,33 @@
+<!--pages/saleReport/saleReport.wxml-->
+<view class="page-container">
+    <view class="page-head">
+        <view class="tab-box">
+            <view class="tab-item {{report_type===0?'show-border':''}}" data-type="0" bindtap="changeTab">日报</view>
+            <view class="tab-item {{report_type===1?'show-border':''}}" data-type="1" bindtap="changeTab">周报</view>
+            <view class="tab-item {{report_type===2?'show-border':''}}" data-type="2" bindtap="changeTab">月报</view>
+        </view>
+    </view>
+    <view class="page-body">
+        <view class="report-list">
+            <view class="report-item" wx:for="[3]">
+                <view class="report-price-box">
+                    <view class="report-time txt-mid gray">2017年9月5日共收到</view>
+                    <view class="report-price">
+                        <view class="price-q">￥</view>
+                        <view class="price-txt">0.8</view>
+                    </view>
+                </view>
+                <view class="report-detail">
+                    <view class="detail-item in-box">
+                        <view class="detail-title txt-mid gray">收款笔数</view>
+                        <view class="detail-txt">1</view>
+                    </view>
+                    <view class="detail-item sigle-box">
+                        <view class="detail-title txt-mid gray">单笔均价</view>
+                        <view class="detail-txt">0.80</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

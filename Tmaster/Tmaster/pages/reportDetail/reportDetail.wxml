@@ -1,0 +1,49 @@
+<!--pages/reportDetail/reportDetail.wxml-->
+<view class="page-container">
+    <view class="page-body">
+        <view class="content">
+            <view class="shop-title">伯格网络科技有限公司</view>
+            <view class="mid-box">
+                <view class="time-txt light-gray txt-s">2017年8月共收到</view>
+                <view class="price-box">
+                    <view class="price-q txt-m">￥</view>
+                    <view class="price-txt txt-xl b">10800.2</view>
+                </view>
+                <view class="report-detail">
+                    <view class="detail-box">
+                        <view class="detail-title light-gray txt-s">付款人数</view>
+                        <view class="detail-price mid-gray">5</view>
+                    </view>
+                    <view class="detail-box">
+                        <view class="detail-title light-gray txt-s">收款笔数</view>
+                        <view class="detail-price mid-gray txt-m">7</view>
+                    </view>
+                    <view class="detail-box">
+                        <view class="detail-title light-gray txt-s">单笔均价</view>
+                        <view class="detail-price mid-gray txt-m">1542.88</view>
+                    </view>
+                </view>
+            </view>
+            <view class="bottom-box">
+                <view class="cust-anly">
+                    <view class="anly-title light-gray txt-s">顾客属性分析</view>
+                    <view class="anly-progress"></view>
+                    <view class="anly-cust-detail">
+                        <view class="cust">
+                            <view class="cust-title mid-gray txt-s">新顾客</view>
+                            <view class="cust-num x-gray txt-l">4</view>
+                        </view>
+                        <view class="cust">
+                            <view class="cust-title mid-gray txt-s">老顾客</view>
+                            <view class="cust-num x-gray txt-l">1</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="cust-des">
+                    <view class="des-item light-gray txt-s">新顾客是指在本店仅消费过一次的顾客</view>
+                    <view class="des-item light-gray txt-s">老顾客是指在本店消费多于一次的顾客</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

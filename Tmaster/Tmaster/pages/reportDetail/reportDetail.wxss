@@ -1,0 +1,45 @@
+/* pages/reportDetail/reportDetail.wxss */
+
+.page-body{
+    padding: 56rpx 28rpx 28rpx 28rpx; 
+    background: #509863;
+}
+.content{
+    border-radius: 10rpx;
+    background: #fff;
+}
+.shop-title{
+    margin: 0 auto;
+    padding: 48rpx 0;
+    font-size: 34rpx;
+    border-bottom: 2rpx solid #fdfdfd;
+    text-align: center;
+    width: calc(100% - 48 * 2rpx);
+}
+.light-gray{
+    color: #8d8d8d;
+}
+.mid-gray{
+    color: #373737;
+}
+.x-gray{
+    color: #2a2a2a;
+}
+.price-txt{
+    color: #383838;
+}
+.txt-s{
+    font-size: 28rpx;
+}
+.txt-m{
+    font-size: 40rpx;
+}
+.txt-l{
+    font-size: 60rpx;
+}
+.txt-xl{
+    font-size: 64rpx;
+}
+.b{
+    font-weight: bold;
+}

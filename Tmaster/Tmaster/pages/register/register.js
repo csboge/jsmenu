@@ -1,66 +1,63 @@
-// pages/register/register.js
+
+import util from "../../utils/util";
+
+let app = getApp();
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-  
-  },
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        show_error: false,          //是否显示格式错误提示
+    },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
+    },
+    //点击登录
+    login(e) {
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
+        let tel = e.detail.value.tel;
+        let pwd = e.detail.value.pwd;
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
+        let tel_reg = /^1[3|4|5|7|8][0-9]{9}$/;
+        let pwd_reg = /\w{6,12}/;
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
+        //验证格式:账号为手机号格式，密码6-12位数字字母
+        if (tel_reg.test(tel) && pwd_reg.test(pwd)) {
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
+            this.setData({
+                show_error: false
+            });
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
+            let data = {
+                mobile: tel,
+                password: pwd
+            };
+            
+            util.request(app.globalData.ev_url + "/user/isadmin", "POST", data)
+                .then((res) => {
+                    if(res.data.code === 1){
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
+                    }else{
+                        wx.showModal({
+                            title: '提示',
+                            content: res.data.message,
+                            showCancel: false
+                        });
+                    }
+                }, (res) => {
+                    util.disconnectModal();
+                });
+
+        } else {
+            this.setData({
+                show_error: true
+            });
+        }
+    }
 })

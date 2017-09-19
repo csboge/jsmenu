@@ -20,6 +20,12 @@ Page({
             url: '../collectionRecord/collectionRecord'
         });
     },
+    //跳转到经营报表
+    toReport(){
+        wx.navigateTo({
+            url: '../saleReport/saleReport'
+        });
+    },
     //跳转到我的门店
     btnClick: function () {
         wx.navigateTo({

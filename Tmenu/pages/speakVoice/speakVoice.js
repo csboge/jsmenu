@@ -103,6 +103,7 @@ Page({
 
         util.request(app.globalData.ev_url + "/discount/robInfo", "POST", app.getParams({ bagid: that.data.mode_data.bagid }))
             .then((res) => {
+                console.log(res.data)
                 if (res.data.code === 1) {
 
                     let _user_id = util.getStorageSync("user").userid;
@@ -250,7 +251,7 @@ Page({
                     'content-type': 'multipart/form-data'
                 },
                 success: function (res) {
-                    // console.log(res.data)
+                    console.log(res.data)
                     // util.downAndPlayVoice()
                     wx.hideLoading();
 

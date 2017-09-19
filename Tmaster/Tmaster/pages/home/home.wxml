@@ -11,7 +11,7 @@
 				<image src="../../img/record.png" ></image>
 				收款记录
 			</view>
-			<view class="head-item" hover-class="bg-green">
+			<view class="head-item" hover-class="bg-green" bindtap="toReport">
 				<image src="../../img/report.png" ></image>
 				经营报表
 			</view>

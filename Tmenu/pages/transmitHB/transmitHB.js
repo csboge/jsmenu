@@ -46,8 +46,7 @@ Page({
                     let img_url = res.data.data;
 
                     wx.previewImage({
-                        current: img_url, // 当前显示图片的http链接
-                        urls: [] // 需要预览的图片http链接列表
+                        urls: [img_url] // 需要预览的图片http链接列表
                     });
 
                 } else {

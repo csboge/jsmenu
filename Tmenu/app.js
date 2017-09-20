@@ -19,48 +19,52 @@ App({
     },
     //小程序启动或后台进入前台的时候调用
     onShow(options) {
+
         let that = this;
-        setTimeout(() => {
-            let shop_id = options.query.shop_id;
-            // let shop_id = 3;
-            console.log(shop_id)
+        let scene = decodeURIComponent(options.scene);
+        let shop_id = null;
+        if (scene === 1037) {
+            shop_id = options.query.shop_id;
+        }
+        // let shop_id = 3;
+        console.log("开始执行")
+        console.log(options)
 
-            let desk_sn = "1";
+        let desk_sn = "1";
 
-            // console.log(options.referrerInfo.extraData)
+        // console.log(options.referrerInfo.extraData)
 
-            //判断商户id是否存在
-            if (shop_id) {
-                //初始化用户本地数据
-                let _user = util.getStorageSync("user");
-                //防止覆盖
-                if (_user === -1) {
-                    util.setStorageSync("user", {});
-                    user.updateUserStorage("shop_id", shop_id);
-                    user.updateUserStorage("desk_sn", desk_sn);
-                }
-
-                //提前授权
-                that.showAuth();
-                wx.navigateTo({
-                    url: '../index/index'
-                });
-            } else {
-
-                //shop_id不存在就返回
-                wx.navigateBackMiniProgram({
-                    extraData: {
-                        foo: 'bar'
-                    },
-                    success(res) {
-                        console.log("返回成功")
-                    }
-                });
-
-                return;
-
+        //判断商户id是否存在
+        if (shop_id) {
+            //初始化用户本地数据
+            let _user = util.getStorageSync("user");
+            //防止覆盖
+            if (_user === -1) {
+                util.setStorageSync("user", {});
+                user.updateUserStorage("shop_id", shop_id);
+                user.updateUserStorage("desk_sn", desk_sn);
             }
-        }, 1000);
+
+            //提前授权
+            that.showAuth();
+            // wx.navigateTo({
+            //     url: '../index/index'
+            // });
+        } else {
+
+            //shop_id不存在就返回
+            wx.navigateBackMiniProgram({
+                extraData: {
+                    foo: 'bar'
+                },
+                success(res) {
+                    console.log("返回成功")
+                }
+            });
+
+            return;
+
+        }
 
     },
     //提前授权

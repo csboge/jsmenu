@@ -182,10 +182,10 @@ Page({
     navi: function (e) {
 
         let path = e.currentTarget.dataset.url;
-        
+
         wx.navigateToMiniProgram({
             appId: app.globalData.appid,
-            path: path + "?shop_id=" + app.globalData.shop_id,
+            path: path + "?shop_id=" + app.globalData.shop_id + "&a=123",
             envVersion: 'develop',
             success(res) {
 

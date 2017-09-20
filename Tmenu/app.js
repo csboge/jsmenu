@@ -23,6 +23,8 @@ App({
         let that = this;
 
         let shop_id = options.query.shop_id;
+        let path = options.query.path || "";              //要跳转的地址
+        that.setGlobalData("jump_url", path);
         // let shop_id = 3;
         console.log("开始执行")
         console.log(options)
@@ -180,6 +182,12 @@ App({
                                 user.updateUserStorage("unionid", res.data.data.session.unionid);
                                 user.updateUserStorage("userid", res.data.data.session.userid);
                                 util.setStorageSync('access_token', res.data.data.access_token);
+
+                                if (that.globalData.jump_url){
+                                    wx.redirectTo({
+                                        url: that.globalData.jump_url.replace("pages","..")
+                                    });
+                                }
 
                             } else if (res.data.code === -2012) {//服务端登录态失效
                                 //重新登录

@@ -19,13 +19,11 @@ App({
         let that = this;
 
         let shop_id = options.query.shop_id;
+        let scene = options.scene;
+        console.log(options);
         // let shop_id = 4;
-        console.log("开始执行")
-        console.log(options)
 
         let desk_sn = "1";
-
-        // console.log(options.referrerInfo.extraData)
 
         //判断商户id是否存在
         if (shop_id) {

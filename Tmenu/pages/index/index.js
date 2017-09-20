@@ -208,11 +208,7 @@ Page({
             },
             fail: function (res) {
                 // 转发失败
-                wx.showModal({
-                    title: '提示',
-                    content: '转发失败',
-                    showCancel: false
-                });
+               
             }
         }
     }

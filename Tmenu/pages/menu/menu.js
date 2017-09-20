@@ -56,14 +56,14 @@ Page({
     onLoad: function (options) {
 
         let that = this;
-        
+        let cate_list = [];                     //一级分类
+
         app.getShopInfo(() => {
             let shop_info = app.globalData.shop_info;
             console.log("次页onload")
             let _notice = shop_info.notice || "";
             console.log(_notice)
 
-            let cate_list = [];                     //一级分类
 
             //渲染商户信息
             that.setData({
@@ -83,7 +83,7 @@ Page({
         util.request(app.globalData.ev_url + '/menu/category_list', "POST", app.getParams({}))
             .then((res) => {
                 if (res.data.code === 1) {
-                    // console.log(cate_list)
+                    // console.log(app.globalData.shop_info)
 
                     //添加新推套餐
                     let mob_list = res.data.data.mob_list;

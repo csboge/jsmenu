@@ -80,6 +80,7 @@ Page({
 
         order_info: {},             //整条订单数据
 
+        is_must_customers: false,    //人数是否必填
     },
 
     /**
@@ -294,19 +295,22 @@ Page({
 
                     // console.log(res.data);
                     let is_first = res.data.data.first;
-                    let _use_base = res.data.data.use_base;     //标配餐具、纸巾
-                    let _pay_type = res.data.data.pay_type;     //支付类型      
-                    let money = res.data.data.money;            //红包余额
+                    let _use_base = res.data.data.use_base;                 //标配餐具、纸巾
+                    let _pay_type = res.data.data.pay_type;                 //支付类型      
+                    let money = res.data.data.money;                        //红包余额
+                    let is_must_customers = that.data.is_must_customers;   //人数是否必须
 
                     //区分固定数量的餐具和按用餐人数变化数量的餐具，并从菜品中区分
                     _use_base.forEach((obj) => {
                         obj.is_canju = true;
                         if (obj.num === 0) {
                             obj.is_change_item = true;
+                            is_must_customers = true;
                         } else {
                             obj.is_change_item = false;
                         }
                     });
+
 
                     app.setGlobalData("use_base", _use_base);
 
@@ -333,7 +337,8 @@ Page({
                         mode_rate: res.data.data.mode_rate,
                         pay_type: _pay_type,
                         hb_rest_money: money,
-                        yhq_list: _yhq_list
+                        yhq_list: _yhq_list,
+                        is_must_customers: is_must_customers
                     });
 
                     //初始化订单
@@ -786,8 +791,8 @@ Page({
         let _customer_num = this.data.customer_num;
 
         // console.log(_customer_num)
-        //如果人数为0，就弹出选择人数框
-        if (_customer_num === 0) {
+        //如果人数为0且为必填，就弹出选择人数框
+        if (_customer_num === 0 && that.data.is_must_customers) {
             that.setData({
                 show_user_box: true
             });

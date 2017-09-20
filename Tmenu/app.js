@@ -21,11 +21,8 @@ App({
     onShow(options) {
 
         let that = this;
-        let scene = decodeURIComponent(options.scene);
-        let shop_id = null;
-        if (scene === 1037) {
-            shop_id = options.query.shop_id;
-        }
+
+        let shop_id = options.query.shop_id;
         // let shop_id = 3;
         console.log("开始执行")
         console.log(options)

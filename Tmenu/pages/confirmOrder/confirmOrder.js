@@ -79,6 +79,7 @@ Page({
         checked_pay_type: 0,        //选中的支付方式
 
         order_info: {},             //整条订单数据
+
     },
 
     /**
@@ -300,7 +301,7 @@ Page({
                     //区分固定数量的餐具和按用餐人数变化数量的餐具，并从菜品中区分
                     _use_base.forEach((obj) => {
                         obj.is_canju = true;
-                        if (obj.num <= 0) {
+                        if (obj.num === 0) {
                             obj.is_change_item = true;
                         } else {
                             obj.is_change_item = false;
@@ -990,7 +991,7 @@ Page({
         util.clearShopCart();
         //返回时刷新商品列表
         app.setGlobalData("is_refresh_menu", true);
-        
+
         wx.redirectTo({
             url: '../finishOrder/finishOrder?order_sn=' + _order.order_sn
         });

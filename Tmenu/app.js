@@ -15,11 +15,12 @@ App({
     onShow(options) {
 
         let that = this;
-
-        // console.log(this.globalData)
-        let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
-        let shop_id = this.globalData.is_shop_path || options.query.shop_id;       //扫描二维码进入带的shop_id
+        let shop_id = options.query.shop_id;
+        // let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
+        // let shop_id = options.query.shop_id;       //扫描二维码进入带的shop_id
+        // let shop_id = 3;
         // let shop_id = app_in_shop_id || scan_in_shop_id;
+        // console.log(options.referrerInfo.extraData);
         console.log("电子菜谱" + shop_id)
 
         let desk_sn = "1";
@@ -51,6 +52,8 @@ App({
                     console.log("返回成功")
                 }
             });
+
+            return;
 
         }
 
@@ -168,7 +171,7 @@ App({
                             if (res.data.code === 1) {
 
                                 console.log("token " + res.data.data.access_token);
-                                // util.request("https://demo.ai-life.me/api/Buy/notify/", "POST", { access_token: res.data.data.access_token})
+                          
                                 user.updateUserStorage("openid", res.data.data.session.openid);
                                 user.updateUserStorage("unionid", res.data.data.session.unionid);
                                 user.updateUserStorage("userid", res.data.data.session.userid);

@@ -113,6 +113,7 @@ swiper-item {
 .menu-own-img {
     width: 38rpx;
     height: 38rpx;
+    border-radius: 50%;
 }
 
 .menu-own {

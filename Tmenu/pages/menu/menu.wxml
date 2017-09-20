@@ -26,9 +26,9 @@
                 <view class="menu-other txt-middle">
                     <image src="http://img.my-shop.cc/image/laba.png" class="laba-img"></image>
                     <swiper indicator-dots="{{false}}" autoplay="{{true}}" interval="{{5000}}" duration="{{650}}" circular="{{true}}" vertical="{{true}}">
-                        <block wx:for="{{[0,1,2]}}" wx:key="id">
+                        <block wx:for="{{notice_list}}" wx:key="id">
                             <swiper-item>
-                                <view class="item-notice">2号桌 辣椒炒肉 1份</view>
+                                <view class="item-notice">{{item}}</view>
                             </swiper-item>
                         </block>
                     </swiper>

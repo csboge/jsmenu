@@ -19,10 +19,11 @@ Page({
         noitce: "",             //商户公告
         tel: "",                //商户电话
 
+        notice_list: [],        //滚动公告
         menuOwnUrl: [           //本桌用户头像图片
-            "http://img.my-shop.cc/image/menu-own1.jpg",
-            "http://img.my-shop.cc/image/menu-own2.jpg",
-            "http://img.my-shop.cc/image/menu-own3.jpg"
+            // "http://img.my-shop.cc/image/menu-own1.jpg",
+            // "http://img.my-shop.cc/image/menu-own2.jpg",
+            // "http://img.my-shop.cc/image/menu-own3.jpg"
         ],
 
         yhq_list: [],           //优惠券列表
@@ -64,16 +65,19 @@ Page({
         that.setData({
             shop_logo: shop_info.logo,
             shop_name: shop_info.title,
-            notice: _notice.length > 20 ? (_notice.substring(0,20) + '...') : _notice,
+            notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
             tel: shop_info.mobile
         });
+
+        //加载本桌信息
+        this.getTableInfo();
 
         //加载优惠券
         this.fetchYhq();
 
         util.request(app.globalData.ev_url + '/menu/category_list', "POST", app.getParams({}))
             .then((res) => {
-                if (res.data.code === 200) {
+                if (res.data.code === 1) {
                     // console.log(cate_list)
 
                     //添加新推套餐
@@ -126,45 +130,54 @@ Page({
         //加载所有商品
         util.request(app.globalData.ev_url + '/menu/goods_list', "POST", goods_config)
             .then((res) => {
-                let good_list = res.data.data;
-                let init_page_menu = [];
-                // let good_list = data.goods_list;//使用模拟数据
-                let page_second_cate = that.data.page_second_cate;
-                let cateList = that.data.cateList;
-                // console.log(page_second_cate);
+                if(res.data.code === 1){
+                    let good_list = res.data.data;
+                    let init_page_menu = [];
+                    // let good_list = data.goods_list;//使用模拟数据
+                    let page_second_cate = that.data.page_second_cate;
+                    let cateList = that.data.cateList;
+                    // console.log(page_second_cate);
 
-                good_list.forEach(function (obj) {
-                    obj.num = 0;
-                });
-                //首页商品数据
-                good_list.forEach(function (obj) {
+                    good_list.forEach(function (obj) {
+                        obj.num = 0;
+                    });
+                    //首页商品数据
+                    good_list.forEach(function (obj) {
 
-                    if (page_second_cate.length > 0) {
-                        if (obj.package === page_second_cate[0].id) {
-                            init_page_menu.push(obj);
+                        if (page_second_cate.length > 0) {
+                            if (obj.package === page_second_cate[0].id) {
+                                init_page_menu.push(obj);
+                            }
+                        } else {
+                            if (obj.cat_id === cateList.id) {
+                                init_page_menu.push(obj);
+                            }
                         }
-                    } else {
-                        if (obj.cat_id === cateList.id) {
-                            init_page_menu.push(obj);
-                        }
+
+                    });
+                    // console.log(init_page_menu);
+                    // console.log(shop_cart)
+                    // console.log(init_page_menu)
+                    if (shop_cart.length > 0) {
+                        init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
+                        //计算购物车商品总数量和总价格
+                        that.countAll(shop_cart);
                     }
 
-                });
-                // console.log(init_page_menu);
-                // console.log(shop_cart)
-                // console.log(init_page_menu)
-                if (shop_cart.length > 0) {
-                    init_page_menu = that.updatePageMenuNum(shop_cart, init_page_menu);
-                    //计算购物车商品总数量和总价格
-                    that.countAll(shop_cart);
+                    that.setData({
+                        menu_list: good_list,
+                        // page_menu: res.data.data,
+                        page_menu: init_page_menu,
+                        cartList: shop_cart
+                    })
+                }else{
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
                 }
-
-                that.setData({
-                    menu_list: good_list,
-                    // page_menu: res.data.data,
-                    page_menu: init_page_menu,
-                    cartList: shop_cart
-                })
+                
             }, (res) => {
                 util.disconnectModal();
             });
@@ -257,6 +270,32 @@ Page({
         //     console.log(this.data.page_second_cate);
 
         // }
+
+    },
+    //加载本桌信息
+    getTableInfo() {
+
+        let that = this;
+
+        util.request(app.globalData.ev_url + "/menu/tishi", "POST", app.getParams({}))
+            .then((res) => {
+                if (res.data.code === 1) {
+
+                    that.setData({
+                        notice_list: res.data.data.gonggao,
+                        menuOwnUrl: res.data.data.avatar
+                    });
+                
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
+            }, (res) => {
+                util.disconnectModal();
+            });
 
     },
     //全部显示

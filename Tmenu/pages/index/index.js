@@ -42,22 +42,34 @@ Page({
     },
     onLoad: function (options) {
 
+        // let shop_id = decodeURIComponent(options.scene);
+        // console.log(shop_id);
+
         let that = this;
-        
+
         util.request(app.globalData.ev_url + "/shop/config", "POST", app.getParams({}))
             .then((res) => {
 
-                let shop_info = res.data.data;
+                if (res.data.code === 1) {
+                    let shop_info = res.data.data;
 
-                shop_info.shop_hours = JSON.parse(shop_info.shop_hours);
+                    shop_info.shop_hours = JSON.parse(shop_info.shop_hours);
 
-                //商户数据存到全局
-                app.setGlobalData("shop_info", shop_info);
+                    //商户数据存到全局
+                    app.setGlobalData("shop_info", shop_info);
 
-                that.setData({
-                    shop_info: shop_info,
-                    recruit: JSON.parse(res.data.data.stations)         //招聘信息
-                });
+                    that.setData({
+                        shop_info: shop_info,
+                        recruit: JSON.parse(res.data.data.stations)         //招聘信息
+                    });
+
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    })
+                }
 
             }, (res) => {
                 util.disconnectModal();
@@ -66,19 +78,26 @@ Page({
         util.request(app.globalData.ev_url + "/banner/banner_hongbao", "POST", app.getParams({ cat: 2 }))
             .then((res) => {
                 // console.log(res.data.data.shop)
-
-                //没有优惠活动的默认地址
-                let imgs = [
-                    { image: "http://img.my-shop.cc/imgs/activity1.jpg?2" },
-                    { image: "http://img.my-shop.cc/imgs/activity2.jpg?2" },
-                    { image: "http://img.my-shop.cc/imgs/activity3.jpg?2" }
-                ];
-                let discount_list = res.data.data.discount || [];
-                discount_list = discount_list.length > 0 ? discount_list : imgs;
-                that.setData({
-                    ev_slide_urls: res.data.data.shop,
-                    ac_slide_urls: discount_list
-                });
+                if (res.data.code === 1) {
+                    //没有优惠活动的默认地址
+                    let imgs = [
+                        { image: "http://img.my-shop.cc/imgs/activity1.jpg?2" },
+                        { image: "http://img.my-shop.cc/imgs/activity2.jpg?2" },
+                        { image: "http://img.my-shop.cc/imgs/activity3.jpg?2" }
+                    ];
+                    let discount_list = res.data.data.discount || [];
+                    discount_list = discount_list.length > 0 ? discount_list : imgs;
+                    that.setData({
+                        ev_slide_urls: res.data.data.shop,
+                        ac_slide_urls: discount_list
+                    });
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    })
+                }
 
             }, (res) => {
                 util.disconnectModal();
@@ -87,9 +106,18 @@ Page({
         util.request(app.globalData.ev_url + "/shop/rec", "POST", app.getParams({}))
             .then((res) => {
                 // console.log(res.data.data.shop)
-                that.setData({
-                    re_slide_urls: res.data.data
-                });
+                if (res.data.code === 1) {
+                    that.setData({
+                        re_slide_urls: res.data.data
+                    });
+
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    })
+                }
             }, (res) => {
                 util.disconnectModal();
             });

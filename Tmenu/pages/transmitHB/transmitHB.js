@@ -38,18 +38,17 @@ Page({
     },
     //分享二维码
     share: function () {
-        console.log(111)
-        util.request(app.globalData.ev_url + "/Discount/robimg", { bagid: app.globalData.mode_data.bagid })
+        let bagid = app.globalData.mode_data.bagid;
+        util.request(app.globalData.ev_url + "/shop/cou", app.getParams({ bag_id: bagid }))
             .then((res) => {
                 if (res.data.code === 1) {
 
-                    // let img_url = res.data.data.imgurl;
-                    let img_url = 'http://img.my-shop.cc/image/qr-code.png';
+                    let img_url = res.data.data;
 
                     wx.previewImage({
                         current: img_url, // 当前显示图片的http链接
                         urls: [] // 需要预览的图片http链接列表
-                    })
+                    });
 
                 } else {
                     wx.showModal({

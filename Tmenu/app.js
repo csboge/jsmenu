@@ -10,18 +10,24 @@ App({
         logs.unshift(Date.now())
         wx.setStorageSync('logs', logs);
 
+        // wx.scanCode({
+        //     success: (res) => {
+        //         console.log(res)
+        //     }
+        // })
+
     },
     //小程序启动或后台进入前台的时候调用
     onShow(options) {
 
         let that = this;
-        let shop_id = options.query.shop_id;
+        // let shop_id = options.query.shop_id;
         // let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
         // let shop_id = options.query.shop_id;       //扫描二维码进入带的shop_id
-        // let shop_id = 3;
+        let shop_id = 3;
         // let shop_id = app_in_shop_id || scan_in_shop_id;
         // console.log(options.referrerInfo.extraData);
-        console.log("电子菜谱" + shop_id)
+        console.log(shop_id)
 
         let desk_sn = "1";
 

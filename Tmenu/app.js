@@ -21,7 +21,7 @@ App({
         let shop_id = options.query.shop_id;
         // let shop_id = 4;
         console.log("开始执行")
-        console.log(shop_id)
+        console.log(options)
 
         let desk_sn = "1";
 

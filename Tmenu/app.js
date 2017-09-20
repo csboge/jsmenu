@@ -13,7 +13,7 @@ App({
     },
     //小程序启动或后台进入前台的时候调用
     onShow(options) {
-
+        
         let shop_id = this.globalData.is_shop_path || options.query.shop_id;
         this.globalData.shop_id = shop_id;
 

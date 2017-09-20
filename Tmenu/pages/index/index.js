@@ -187,7 +187,7 @@ Page({
             appId: app.globalData.appid,
             path: path + "?shop_id=" + app.globalData.shop_id,
             extraData: {
-                // shop_id: util.getStorageSync("user").shop_id
+                shop_id: util.getStorageSync("user").shop_id
             },
             envVersion: 'develop',
             success(res) {

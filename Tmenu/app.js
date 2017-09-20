@@ -6,13 +6,16 @@ App({
     onLaunch: function () {
 
         //调用API从本地缓存中获取数据
-        var logs = wx.getStorageSync('logs') || []
-        logs.unshift(Date.now())
-        wx.setStorageSync('logs', logs);
+        // var logs = wx.getStorageSync('logs');
+        // logs.unshift(Date.now())
+        // wx.setStorageSync('logs', logs);
 
     },
     //小程序启动或后台进入前台的时候调用
-    onShow() {
+    onShow(options) {
+
+        let shop_id = this.globalData.is_shop_path || options.query.shop_id;
+        this.globalData.shop_id = shop_id;
 
         // let that = this;
         // //检查登录态
@@ -36,7 +39,7 @@ App({
     getParams: function (config) {
 
         let access_token = util.getStorageSync("access_token");
-        let shop_id = this.globalData.is_shop_path;
+        let shop_id = this.globalData.shop_id;
 
         let json = {
             'access_token': access_token,

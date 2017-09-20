@@ -138,12 +138,12 @@
                         <view class="zhaopin-detail-box">
                             <view class="zhaopin-detail-title">
                                 <view class="detail-title">招聘岗位：</view>
-                                <view class="detail-position">{{item.stations}}</view>
+                                <view class="detail-position">{{item.name}}</view>
                             </view>
                             <view class="position-detail">
                                 <view class="position-detail-title">岗位职务：</view>
                                 <view class="position-detail-des">
-                                    <view class="des-item">{{item.sequest}}</view>
+                                    <view class="des-item">{{item.duty}}</view>
                                     <!-- <view class="des-item">1.负责前台电话接听、客户接待、快递收发;</view>
                                     <view class="des-item">2.负责维护办公环境;</view>
                                     <view class="des-item">3.负责公司邮件收发、会议纪要、快递收发;</view>

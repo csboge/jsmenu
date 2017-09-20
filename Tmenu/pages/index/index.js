@@ -46,7 +46,7 @@ Page({
         // let desk_sn = options.desk_id;
 
         let is_scan = 1;         //是否通过扫描 1 为是
-        let shop_id = app.globalData.is_shop_path || options.shop_id;
+        let shop_id = app.globalData.shop_id;
         let desk_sn = "1"
 
         if (is_scan == 1) {
@@ -69,7 +69,8 @@ Page({
                     app.setGlobalData("shop_info", shop_info);
 
                     that.setData({
-                        shop_info: shop_info
+                        shop_info: shop_info,
+                        recruit: JSON.parse(res.data.data.stations)
                     });
 
                 }, (res) => {
@@ -107,9 +108,6 @@ Page({
                     util.disconnectModal();
                 });
 
-            //获取招聘信息
-            this.getZhaopinList();
-
         } else {
 
             wx.showModal({
@@ -132,31 +130,6 @@ Page({
         this.setData({
             animationData: animation.export()
         })
-    },
-    //获取招聘信息
-    getZhaopinList() {
-
-        let that = this;
-
-        util.request(app.globalData.ev_url + "/shop/recruit", "POST", app.getParams({}))
-            .then((res) => {
-                if (res.data.code === 1) {
-
-                    that.setData({
-                        recruit: res.data.data
-                    });
-
-                } else {
-                    wx.showModal({
-                        title: '提示',
-                        content: res.data.message,
-                        showCancel: false
-                    });
-                }
-            }, (res) => {
-                util.disconnectModal();
-            });
-
     },
     //播放语音
     playVoice(e) {
@@ -212,7 +185,7 @@ Page({
 
         wx.navigateToMiniProgram({
             appId: app.globalData.appid,
-            path: path + "?shop_id=" + util.getStorageSync("user").shop_id,
+            path: path + "?shop_id=" + app.globalData.shop_id,
             extraData: {
                 // shop_id: util.getStorageSync("user").shop_id
             },

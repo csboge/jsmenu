@@ -56,17 +56,22 @@ Page({
     onLoad: function (options) {
 
         let that = this;
-        let shop_info = app.globalData.shop_info;
-        let _notice = shop_info.notice;
+        
+        app.getShopInfo(() => {
+            let shop_info = app.globalData.shop_info;
+            console.log("次页onload")
+            let _notice = shop_info.notice || "";
+            console.log(_notice)
 
-        let cate_list = [];                     //一级分类
+            let cate_list = [];                     //一级分类
 
-        //渲染商户信息
-        that.setData({
-            shop_logo: shop_info.logo,
-            shop_name: shop_info.title,
-            notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
-            tel: shop_info.mobile
+            //渲染商户信息
+            that.setData({
+                shop_logo: shop_info.logo,
+                shop_name: shop_info.title,
+                notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
+                tel: shop_info.mobile
+            });
         });
 
         //加载本桌信息
@@ -130,7 +135,7 @@ Page({
         //加载所有商品
         util.request(app.globalData.ev_url + '/menu/goods_list', "POST", goods_config)
             .then((res) => {
-                if(res.data.code === 1){
+                if (res.data.code === 1) {
                     let good_list = res.data.data;
                     let init_page_menu = [];
                     // let good_list = data.goods_list;//使用模拟数据
@@ -170,14 +175,14 @@ Page({
                         page_menu: init_page_menu,
                         cartList: shop_cart
                     })
-                }else{
+                } else {
                     wx.showModal({
                         title: '提示',
                         content: res.data.message,
                         showCancel: false
                     });
                 }
-                
+
             }, (res) => {
                 util.disconnectModal();
             });
@@ -285,7 +290,7 @@ Page({
                         notice_list: res.data.data.gonggao,
                         menuOwnUrl: res.data.data.avatar
                     });
-                
+
                 } else {
                     wx.showModal({
                         title: '提示',

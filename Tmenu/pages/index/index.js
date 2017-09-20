@@ -49,15 +49,17 @@ Page({
 
                 if (res.data.code === 1) {
                     let shop_info = res.data.data;
+                    let _shop_hours = shop_info.shop_hours || "{}";
 
-                    shop_info.shop_hours = JSON.parse(shop_info.shop_hours);
+                    // shop_info.shop_hours = JSON.parse(_shop_hours);
 
                     //商户数据存到全局
                     app.setGlobalData("shop_info", shop_info);
 
+                    let _stations = res.data.data.stations || "[]";
                     that.setData({
                         shop_info: shop_info,
-                        recruit: JSON.parse(res.data.data.stations)         //招聘信息
+                        recruit: JSON.parse(_stations)         //招聘信息
                     });
 
                 } else {

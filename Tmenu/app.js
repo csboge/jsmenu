@@ -16,14 +16,10 @@ App({
         //     }
         // })
 
-    },
-    //小程序启动或后台进入前台的时候调用
-    onShow(options) {
-
         let that = this;
 
         let shop_id = options.query.shop_id;
-        // let shop_id = 3;
+        // let shop_id = 4;
         console.log("开始执行")
         console.log(shop_id)
 
@@ -33,9 +29,10 @@ App({
 
         //判断商户id是否存在
         if (shop_id) {
+            console.log("主页onshow")
+            that.setGlobalData("shop_id", shop_id);
             //初始化用户本地数据
             let _user = util.getStorageSync("user");
-            that.setGlobalData("shop_id", shop_id);
             //防止覆盖
             if (_user === -1) {
                 util.setStorageSync("user", {});
@@ -60,6 +57,12 @@ App({
             return;
 
         }
+
+    },
+    //小程序启动或后台进入前台的时候调用
+    onShow(options) {
+
+
 
     },
     //提前授权
@@ -179,12 +182,6 @@ App({
                                 user.updateUserStorage("userid", res.data.data.session.userid);
                                 util.setStorageSync('access_token', res.data.data.access_token);
 
-                                if (that.globalData.jump_url) {
-                                    wx.redirectTo({
-                                        url: that.globalData.jump_url.replace("pages", "..")
-                                    });
-                                }
-
                             } else if (res.data.code === -2012) {//服务端登录态失效
                                 //重新登录
                                 that.login();
@@ -210,6 +207,32 @@ App({
                 }
             }
         });
+    },
+    //获取商家数据
+    getShopInfo(fn) {
+
+        let that = this;
+
+        util.request(that.globalData.ev_url + "/shop/config", "POST", that.getParams({}))
+            .then((res) => {
+
+                if (res.data.code === 1) {
+                    let shop_info = res.data.data;
+
+                    //商户数据存到全局
+                    that.setGlobalData("shop_info", shop_info);
+                    fn();
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    })
+                }
+
+            }, (res) => {
+                util.disconnectModal();
+            });
     },
     //组合请求数据，添加通用字段(access_token、grd版本信息、shop_id商户id)
     getParams: function (config) {

@@ -42,9 +42,6 @@ Page({
     },
     onLoad: function (options) {
 
-        // let shop_id = decodeURIComponent(options.scene);
-        // console.log(shop_id);
-
         let that = this;
 
         util.request(app.globalData.ev_url + "/shop/config", "POST", app.getParams({}))

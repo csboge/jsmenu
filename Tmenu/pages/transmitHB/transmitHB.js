@@ -39,7 +39,7 @@ Page({
     //分享二维码
     share: function () {
         let bagid = app.globalData.mode_data.bagid;
-        util.request(app.globalData.ev_url + "/shop/cou", app.getParams({ bag_id: bagid }))
+        util.request(app.globalData.ev_url + "/shop/cou", "POST", app.getParams({ bag_id: bagid }))
             .then((res) => {
                 if (res.data.code === 1) {
 

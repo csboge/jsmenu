@@ -21,12 +21,8 @@ App({
     onShow(options) {
 
         let that = this;
-        // let shop_id = options.query.shop_id;
-        // let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
-        // let shop_id = options.query.shop_id;       //扫描二维码进入带的shop_id
-        let shop_id = 3;
-        // let shop_id = app_in_shop_id || scan_in_shop_id;
-        // console.log(options.referrerInfo.extraData);
+        let shop_id = options.query.shop_id;                       
+        // let shop_id = 3;
         console.log(shop_id)
 
         let desk_sn = "1";

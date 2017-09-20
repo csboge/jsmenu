@@ -36,13 +36,13 @@ App({
         //判断商户id是否存在
         if (shop_id) {
             //初始化用户本地数据
-            let _user = util.getStorageSync("user");
+            // let _user = util.getStorageSync("user");
             //防止覆盖
-            if (_user === -1) {
+            // if (_user === -1) {
                 util.setStorageSync("user", {});
                 user.updateUserStorage("shop_id", shop_id);
                 user.updateUserStorage("desk_sn", desk_sn);
-            }
+            // }
 
             //提前授权
             that.showAuth();

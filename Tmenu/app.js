@@ -23,11 +23,9 @@ App({
         let that = this;
 
         let shop_id = options.query.shop_id;
-        let path = options.query.path || "";              //要跳转的地址
-        that.setGlobalData("jump_url", path);
         // let shop_id = 3;
         console.log("开始执行")
-        console.log(options)
+        console.log(shop_id)
 
         let desk_sn = "1";
 
@@ -36,19 +34,17 @@ App({
         //判断商户id是否存在
         if (shop_id) {
             //初始化用户本地数据
-            // let _user = util.getStorageSync("user");
+            let _user = util.getStorageSync("user");
+            that.setGlobalData("shop_id", shop_id);
             //防止覆盖
-            // if (_user === -1) {
+            if (_user === -1) {
                 util.setStorageSync("user", {});
-                user.updateUserStorage("shop_id", shop_id);
                 user.updateUserStorage("desk_sn", desk_sn);
-            // }
+            }
 
             //提前授权
             that.showAuth();
-            // wx.navigateTo({
-            //     url: '../index/index'
-            // });
+
         } else {
 
             //shop_id不存在就返回
@@ -168,7 +164,7 @@ App({
                         method: "POST",
                         data: {
                             jscode: res.code,
-                            shop_id: that.globalData.is_shop_path,
+                            shop_id: that.globalData.shop_id,
                             userinfo: JSON.stringify(user.getUserStorage()),
                             grd: that.globalData.system_version
                         },
@@ -183,9 +179,9 @@ App({
                                 user.updateUserStorage("userid", res.data.data.session.userid);
                                 util.setStorageSync('access_token', res.data.data.access_token);
 
-                                if (that.globalData.jump_url){
+                                if (that.globalData.jump_url) {
                                     wx.redirectTo({
-                                        url: that.globalData.jump_url.replace("pages","..")
+                                        url: that.globalData.jump_url.replace("pages", "..")
                                     });
                                 }
 
@@ -219,7 +215,7 @@ App({
     getParams: function (config) {
 
         let access_token = util.getStorageSync("access_token");
-        let shop_id = user.getUserStorageAttr("shop_id");
+        let shop_id = this.globalData.shop_id;
 
         let json = {
             'access_token': access_token,

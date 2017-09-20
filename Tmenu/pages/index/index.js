@@ -182,13 +182,10 @@ Page({
     navi: function (e) {
 
         let path = e.currentTarget.dataset.url;
-
+        
         wx.navigateToMiniProgram({
             appId: app.globalData.appid,
             path: path + "?shop_id=" + app.globalData.shop_id,
-            extraData: {
-                shop_id: util.getStorageSync("user").shop_id
-            },
             envVersion: 'develop',
             success(res) {
 

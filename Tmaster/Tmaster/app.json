@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/reportDetail/reportDetail",
-    "pages/home/home",
-    "pages/saleReport/saleReport",
-    "pages/register/register",
     "pages/collectionRecord/collectionRecord",
+    "pages/register/register",
+    "pages/home/home",
+    "pages/reportDetail/reportDetail",
+    "pages/saleReport/saleReport",
     "pages/apply/apply",
     "pages/menu/menu",
     "pages/cookbook/cookbook",

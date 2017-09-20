@@ -464,10 +464,10 @@ swiper-item {
     width: 70%;
 }
 
-.shop-cart:active{
+/* .shop-cart:active{
     background: rgba(0, 0, 0, .2);
     border-color: rgba(0, 0, 0, .2);
-}
+} */
 
 .cart-text {
     margin-left: 28rpx;

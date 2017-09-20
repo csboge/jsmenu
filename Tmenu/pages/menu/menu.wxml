@@ -101,7 +101,7 @@
         <view class="txt-ft cart-text {{totalNum >0?'cart-text-hidden':''}}">购物车</view>
         <view class="sumprice {{totalNum >0?'':'sumprice-hidden'}}">
             <view class="price-num">￥ {{totalPrice}}</view>
-            <view class="price-des">离10元可再减5元</view>
+            <!-- <view class="price-des">离10元可再减5元</view> -->
         </view>
     </view>
     <view class="count-btn {{totalNum >0?'bc-red':''}}" bindtap="gotoConfirmOrder">去结算</view>

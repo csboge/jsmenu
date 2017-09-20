@@ -584,11 +584,11 @@ Page({
         })
     },
     //本桌信息、其他桌点菜信息
-    gotoOwndesk: function () {
-        wx.navigateTo({
-            url: '../owndesk/owndesk'
-        })
-    },
+    // gotoOwndesk: function () {
+    //     wx.navigateTo({
+    //         url: '../owndesk/owndesk'
+    //     })
+    // },
     //购物车信息
     showCart: function () {
 

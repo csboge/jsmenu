@@ -18,7 +18,7 @@
                 <view class="section__title">
                     <image src="http://img.my-shop.cc/image/pwd_icon.png" class="input-img"></image>
                 </view>
-                <input type="password" name="pwd" class="input-txt" placeholder="密码"  placeholder-style="color:#dfdfdf"/>
+                <input type="password" name="pwd" class="input-txt" placeholder="密码(6-12位字母数字)"  placeholder-style="color:#dfdfdf"/>
             </view>
             <button formType="submit" class="login-btn">登录</button>
         </form>

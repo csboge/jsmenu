@@ -42,6 +42,23 @@ Page({
             util.request(app.globalData.ev_url + "/user/isadmin", "POST", data)
                 .then((res) => {
                     if(res.data.code === 1){
+                        //商户id、用户id保存到全局
+                        let shop_id = res.data.data.shop_id;
+                        let user_id = res.data.data.user_id;
+                        app.globalData.shop_info.shop_id = shop_id;
+                        app.globalData.user_info.user_id = user_id;
+
+                        wx.showToast({
+                            title: '登录成功',
+                            icon: 'success',
+                            duration: 1000,
+                            mask: true,
+                            success: function(res) {
+                                wx.navigateTo({
+                                    url: '../home/home'
+                                });
+                            }
+                        });
 
                     }else{
                         wx.showModal({

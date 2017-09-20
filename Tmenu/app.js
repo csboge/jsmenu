@@ -18,9 +18,11 @@ App({
 
         // console.log(this.globalData)
         // let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
-        // let scan_in_shop_id = options.query.shop_id;                            //扫描二维码进入带的shop_id
-        let shop_id = this.globalData.is_shop_path || app_in_shop_id;
-        let desk_sn = "1"
+        let scan_in_shop_id = options.query;                            //扫描二维码进入带的shop_id
+        // let shop_id = app_in_shop_id || scan_in_shop_id;
+        console.log(scan_in_shop_id)
+
+        let desk_sn = "1";
 
         // console.log(options.referrerInfo.extraData)
 

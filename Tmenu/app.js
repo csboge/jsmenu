@@ -19,47 +19,48 @@ App({
     },
     //小程序启动或后台进入前台的时候调用
     onShow(options) {
-
         let that = this;
-        let shop_id = options.query.shop_id;                       
-        // let shop_id = 3;
-        console.log(shop_id)
+        setTimeout(() => {
+            let shop_id = options.query.shop_id;
+            // let shop_id = 3;
+            console.log(shop_id)
 
-        let desk_sn = "1";
+            let desk_sn = "1";
 
-        // console.log(options.referrerInfo.extraData)
+            // console.log(options.referrerInfo.extraData)
 
-        //判断商户id是否存在
-        if (shop_id) {
-            //初始化用户本地数据
-            let _user = util.getStorageSync("user");
-            //防止覆盖
-            if (_user === -1) {
-                util.setStorageSync("user", {});
-                user.updateUserStorage("shop_id", shop_id);
-                user.updateUserStorage("desk_sn", desk_sn);
-            }
-
-            //提前授权
-            that.showAuth();
-
-        } else {
-
-            //shop_id不存在就返回
-            wx.navigateBackMiniProgram({
-                extraData: {
-                    foo: 'bar'
-                },
-                success(res) {
-                    console.log("返回成功")
+            //判断商户id是否存在
+            if (shop_id) {
+                //初始化用户本地数据
+                let _user = util.getStorageSync("user");
+                //防止覆盖
+                if (_user === -1) {
+                    util.setStorageSync("user", {});
+                    user.updateUserStorage("shop_id", shop_id);
+                    user.updateUserStorage("desk_sn", desk_sn);
                 }
-            });
 
-            return;
+                //提前授权
+                that.showAuth();
+                wx.navigateTo({
+                    url: '../index/index'
+                });
+            } else {
 
-        }
+                //shop_id不存在就返回
+                wx.navigateBackMiniProgram({
+                    extraData: {
+                        foo: 'bar'
+                    },
+                    success(res) {
+                        console.log("返回成功")
+                    }
+                });
 
+                return;
 
+            }
+        }, 1000);
 
     },
     //提前授权
@@ -173,7 +174,7 @@ App({
                             if (res.data.code === 1) {
 
                                 console.log("token " + res.data.data.access_token);
-                          
+
                                 user.updateUserStorage("openid", res.data.data.session.openid);
                                 user.updateUserStorage("unionid", res.data.data.session.unionid);
                                 user.updateUserStorage("userid", res.data.data.session.userid);
@@ -264,7 +265,7 @@ App({
         })
     },
     //跳转到首页
-    naviToIndex(){
+    naviToIndex() {
         wx.navigateTo({
             url: '../index/index'
         })

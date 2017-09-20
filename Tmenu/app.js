@@ -17,10 +17,10 @@ App({
         let that = this;
 
         // console.log(this.globalData)
-        // let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
-        let scan_in_shop_id = options.query;                            //扫描二维码进入带的shop_id
+        let app_in_shop_id = options.referrerInfo.extraData.shop_id;            //从小程序进入带的shop_id
+        let shop_id = this.globalData.is_shop_path || options.query.shop_id;       //扫描二维码进入带的shop_id
         // let shop_id = app_in_shop_id || scan_in_shop_id;
-        console.log(scan_in_shop_id)
+        console.log("电子菜谱" + shop_id)
 
         let desk_sn = "1";
 
@@ -48,7 +48,7 @@ App({
                     foo: 'bar'
                 },
                 success(res) {
-                    // 返回成功
+                    console.log("返回成功")
                 }
             });
 
@@ -226,7 +226,7 @@ App({
         // ev_url:"https://api.ai-life.me/api",     //生产环境
         system_version: 'BGmenu-1.0-@)!&*@#',       //系统版本号
         is_first_login: true,                       //是否是第一次登录 
-        is_shop_path: 3                             //商户Id
+        is_shop_path: 0                             //商户Id
     },
     //设置全局数据
     setGlobalData(key, value) {

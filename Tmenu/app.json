@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/home/home",
         "pages/filter/filter",
         "pages/transmitHB/transmitHB",
         "pages/speakVoice/speakVoice",

@@ -179,13 +179,15 @@ Page({
 
         //移除餐具，避免重复添加
         _goods_list.forEach((obj, i) => {
-            if (obj.bowl === 1) {
+            if (obj.bowl >0 ) {
                 _goods_list.splice(i, 1);
             }
         });
 
         //该单商品存入购物车
-        util.setStorageSync("shopCart", _goods_list);
+        let shop_info = util.getShopInfoSync(app.globalData.shop_id);
+        shop_info.shopCart = _goods_list;
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id, shop_info);
 
         wx.navigateTo({
             url: '../confirmOrder/confirmOrder'

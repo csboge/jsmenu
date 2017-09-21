@@ -11,7 +11,7 @@ import util from "../utils/util.js";
  * @des         生成一条订单
  * @param       object              order_data
  */
-function createOrder(order_data) {
+function createOrder(shop_id,order_data) {
 
     let order = {
         total_price: order_data.total_price,                   //总价
@@ -30,7 +30,9 @@ function createOrder(order_data) {
         mode_rate: order_data.mode_rate                        //发红包比率
     }
     // console.log(order)
-    util.setStorageSync("order", order);
+    let shop_info = util.getShopInfoSync(shop_id);
+    shop_info.order = order;
+    wx.setStorageSync('bg_elec_caipu_shop_info_' + shop_id, shop_info);
 
     return order;
 

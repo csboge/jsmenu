@@ -1,7 +1,6 @@
 
 import util from "../../utils/util";
 import user from "../../modules/user.js";
-import data from "../../utils/data";
 import food_pack from "../../modules/foodpack";
 
 
@@ -57,20 +56,42 @@ Page({
 
         let that = this;
 
+        this.timer = setInterval(function () {
+            let access_token = wx.getStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id).token;
+            if (access_token) {
+                clearInterval(that.timer);
+                that.fetchData();
+            }
+        }, 1);
+    },
+    onReady() {
+
+    },
+    //加载数据
+    fetchData() {
+        let that = this;
+
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
+
         //先拿到shop_info
         let shop_info = null;
         let _notice = "";
-        if (app.globalData.shop_info) {
-            shop_info = app.globalData.shop_info;
-            _notice = shop_info.notice || "";
-            //渲染商户信息
-            that.setData({
-                shop_logo: shop_info.logo,
-                shop_name: shop_info.title,
-                notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
-                tel: shop_info.mobile
-            });
-        } else {
+        // if (app.globalData.shop_info) {
+        //     shop_info = app.globalData.shop_info;
+        //     _notice = shop_info.notice || "";
+        //     //渲染商户信息
+        //     that.setData({
+        //         shop_logo: shop_info.logo,
+        //         shop_name: shop_info.title,
+        //         notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
+        //         tel: shop_info.mobile
+        //     });
+        //     that.getCategory();
+        //     that.getAllGoods();
+        // } else {
             app.getShopInfo(() => {
                 shop_info = app.globalData.shop_info;
                 _notice = shop_info.notice || "";
@@ -81,14 +102,84 @@ Page({
                     notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
                     tel: shop_info.mobile
                 });
+                that.getCategory();
+                that.getAllGoods();
             });
-        }
+        // }
 
         //加载本桌信息
         this.getTableInfo();
 
         //加载优惠券
         this.fetchYhq();
+
+
+
+
+    },
+    //显示时调用
+    onShow: function () {
+
+        let that = this;
+
+        //判断是否需要刷新
+        let _is_refresh_menu = app.globalData.is_refresh_menu;
+
+        if (_is_refresh_menu != undefined && _is_refresh_menu === true) {
+            wx.redirectTo({
+                url: '../menu/menu',
+                success() {
+                    app.setGlobalData("is_refresh_menu", false);
+                }
+            });
+        }
+
+        // let _is_refresh_menu = app.globalData.is_refresh_menu;
+        // console.log(_is_refresh_menu);
+        //提交完订单时返回刷新商品
+        // if (_is_refresh_menu) {
+
+        //     console.log(_is_refresh_menu)
+        //     let _menu_list = this.data.menu_list;
+        //     let _cateList = this.data.cateList;
+        //     let _page_second_cate = this.data.page_second_cate;
+
+        //     _menu_list.forEach((obj) => {
+        //         obj.num = 0;
+        //     });
+
+        //     _cateList.forEach((obj) => {
+        //         obj.isChecked = false;
+        //     });
+        //     _cateList[0].isChecked = true;
+
+        //     _page_second_cate.forEach((obj) => {
+        //         obj.isChecked = false;
+        //     });
+        //     _page_second_cate[0].isChecked = true;
+
+        //     this.setData({
+        //         menu_list: _menu_list,
+        //         cateList: _cateList,
+        //         page_second_cate: _page_second_cate,
+        //         cartList: []
+        //     });
+
+        //     //修改刷新标识，防止无限刷新
+        //     app.setGlobalData("is_refresh_menu", false);
+
+        //     console.log(this.data.menu_list);
+        //     console.log(this.data.cateList);
+        //     console.log(this.data.page_second_cate);
+
+        // }
+
+    },
+    //加载菜谱分类
+    getCategory() {
+
+        let that = this;
+
         //加载菜品分类
         util.request(app.globalData.ev_url + '/menu/category_list', "POST", app.getParams({}))
             .then((res) => {
@@ -97,8 +188,8 @@ Page({
 
                     //添加新推套餐
                     let mob_list = res.data.data.mob_list || [];
-                    let cate_list = [];                     //一级分类
-                    
+                    let cate_list = res.data.data.cate_list || [];  //一级分类
+
                     if (mob_list.length > 0) {
                         let new_rec = {
                             "id": 0,
@@ -106,10 +197,8 @@ Page({
                             "list": []
                         };
                         new_rec.list = mob_list;
-                        cate_list = res.data.data.cate_list || [];
                         cate_list.unshift(new_rec);
                     }
-                    console.log(cate_list)
                     //默认选中第一种一级分类
                     cate_list.forEach(function (obj) {
                         obj.isChecked = false;
@@ -118,6 +207,9 @@ Page({
 
                     //默认选中第一级分类下的第一种二级分类
                     let page_second_cate = cate_list[0].list || [];
+                    let _second_cate_list = page_second_cate;
+                    let _showMore = this.data.showMore;
+
                     if (page_second_cate.length > 0) {
 
                         page_second_cate.forEach(function (obj) {
@@ -126,11 +218,18 @@ Page({
 
                         page_second_cate[0].isChecked = true;
 
-                    }
+                        if (page_second_cate.length > 3) {
+                            page_second_cate = page_second_cate.slice(0, 3);
+                            _showMore = true
+                        }
 
+                    }
+                    // console.log(cate_list)
                     that.setData({
                         cateList: cate_list,
-                        page_second_cate: page_second_cate
+                        page_second_cate: page_second_cate,
+                        second_cate_list: _second_cate_list,
+                        showMore: _showMore
                     });
                 } else {
                     wx.showModal({
@@ -142,11 +241,15 @@ Page({
             }, (res) => {
                 util.disconnectModal();
             });
+    },
+    //加载所有商品
+    getAllGoods() {
 
+        let that = this;
 
         let goods_data = {};
         let goods_config = app.getParams(goods_data);
-        let shop_cart = util.getShopCart();//获取购物车，没有则初始化购物车 []
+        let shop_cart = util.getShopCart(app.globalData.shop_id);//获取购物车，没有则初始化购物车 []
         //加载所有商品
         util.request(app.globalData.ev_url + '/menu/goods_list', "POST", goods_config)
             .then((res) => {
@@ -156,6 +259,7 @@ Page({
                     // let good_list = data.goods_list;//使用模拟数据
                     let page_second_cate = that.data.page_second_cate;
                     let cateList = that.data.cateList;
+                    // console.log(cateList)
                     // console.log(page_second_cate);
 
                     good_list.forEach(function (obj) {
@@ -163,13 +267,13 @@ Page({
                     });
                     //首页商品数据
                     good_list.forEach(function (obj) {
-
                         if (page_second_cate.length > 0) {
                             if (obj.package === page_second_cate[0].id) {
                                 init_page_menu.push(obj);
                             }
                         } else {
-                            if (obj.cat_id === cateList.id) {
+                            // console.log(cateList)
+                            if (obj.cat_id === cateList[0].id) {
                                 init_page_menu.push(obj);
                             }
                         }
@@ -231,67 +335,6 @@ Page({
             });
         }, 300);
     },
-    onReady() {
-
-    },
-    //显示时调用
-    onShow: function () {
-
-        let that = this;
-
-        //判断是否需要刷新
-        let _is_refresh_menu = app.globalData.is_refresh_menu;
-
-        if (_is_refresh_menu != undefined && _is_refresh_menu === true) {
-            wx.redirectTo({
-                url: '../menu/menu',
-                success() {
-                    app.setGlobalData("is_refresh_menu", false);
-                }
-            });
-        }
-
-        // let _is_refresh_menu = app.globalData.is_refresh_menu;
-        // console.log(_is_refresh_menu);
-        //提交完订单时返回刷新商品
-        // if (_is_refresh_menu) {
-
-        //     console.log(_is_refresh_menu)
-        //     let _menu_list = this.data.menu_list;
-        //     let _cateList = this.data.cateList;
-        //     let _page_second_cate = this.data.page_second_cate;
-
-        //     _menu_list.forEach((obj) => {
-        //         obj.num = 0;
-        //     });
-
-        //     _cateList.forEach((obj) => {
-        //         obj.isChecked = false;
-        //     });
-        //     _cateList[0].isChecked = true;
-
-        //     _page_second_cate.forEach((obj) => {
-        //         obj.isChecked = false;
-        //     });
-        //     _page_second_cate[0].isChecked = true;
-
-        //     this.setData({
-        //         menu_list: _menu_list,
-        //         cateList: _cateList,
-        //         page_second_cate: _page_second_cate,
-        //         cartList: []
-        //     });
-
-        //     //修改刷新标识，防止无限刷新
-        //     app.setGlobalData("is_refresh_menu", false);
-
-        //     console.log(this.data.menu_list);
-        //     console.log(this.data.cateList);
-        //     console.log(this.data.page_second_cate);
-
-        // }
-
-    },
     //加载本桌信息
     getTableInfo() {
 
@@ -321,7 +364,7 @@ Page({
     //全部显示
     showMore: function () {
         this.setData({
-            second_cate_list: this.data.page_second_cate,
+            page_second_cate: this.data.second_cate_list,
             showMore: false
         })
     },
@@ -335,7 +378,7 @@ Page({
                 if (res.data.code === 1) {
                     //在页面中默认为所有优惠券未领取,根据后台领取记录一同判断
                     let _yhq_list = res.data.data || [];
-                    console.log(_yhq_list)
+                    // console.log(_yhq_list)
                     _yhq_list.forEach((obj) => {
                         obj.is_get_coupon = false;
                     });
@@ -360,7 +403,8 @@ Page({
     getYhq(e) {
 
         let that = this;
-        let _user = util.getStorageSync("user");
+        let shop_info = util.getShopInfoSync(shop_id);
+        let _user = shop_info.user;
         let _yhq_list = this.data.yhq_list;                     //优惠券列表
 
         let yhq_id = e.currentTarget.dataset.id;                //优惠券id
@@ -472,7 +516,8 @@ Page({
     listData: function (parent_id, is_second_menu) {
 
         let that = this;
-        let shop_cart = util.getStorageSync("shopCart");
+        let shop_cart = util.getStorageSync(app.globalData.shop_id, "shopCart");
+        // console.log(shop_cart);
         let menu_list = that.data.menu_list;
         let page_menu = [];
         // console.log(parent_id)
@@ -535,10 +580,10 @@ Page({
         var new_page_menu = util.minus(originpage_menu, id);
 
         //购物车中该商品数量减少
-        util.cutShopCart(id);
+        util.cutShopCart(app.globalData.shop_id, "shopCart", id);
 
         //获取购物车
-        var shopCart = util.getShopCart();
+        var shopCart = util.getShopCart(app.globalData.shop_id);
 
         //购物车商品数是否满7个，控制高度
         shopCart.length > 7 ? isfull = true : isfull = false;
@@ -568,12 +613,12 @@ Page({
         //当前页面该商品数量增加
         var newpage_menu = util.plus(originpage_menu, currentproduct.id);
 
-        var origincartlist = wx.getStorageSync("shopCart");
+        var origincartlist = util.getStorageSync(app.globalData.shop_id, "shopCart");
         //购物车中该商品数量增加 或 新增该商品
-        util.addShopCart(currentproduct);
+        util.addShopCart(app.globalData.shop_id, currentproduct);
 
         //获取最新购物车
-        var shopCart = util.getShopCart();
+        var shopCart = util.getShopCart(app.globalData.shop_id);
 
         //购物车是否满7个
         shopCart.length > 7 ? isfull = true : isfull = false;
@@ -653,7 +698,7 @@ Page({
 
         let that = this;
         let isfull = false;
-        let shop_cart = util.getStorageSync("shopCart");
+        let shop_cart = util.getStorageSync(app.globalData.shop_id, "shopCart");
 
         shop_cart.length > 7 ? isfull = true : isfull = false;
 
@@ -709,7 +754,9 @@ Page({
                     for (var i = 0; i < page_menu.length; i++) {
                         page_menu[i].num = 0;
                     }
-                    wx.setStorageSync("shopCart", []);
+                    let shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id);
+                    shop_info.shopCart = [];
+                    wx.setStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id, shop_info);
                     that.setData({
                         page_menu: page_menu,
                         cartList: [],
@@ -734,7 +781,7 @@ Page({
     //去结算
     gotoConfirmOrder: function () {
 
-        let shop_cart = util.getShopCart();
+        let shop_cart = util.getShopCart(app.globalData.shop_id);
 
         if (shop_cart.length > 0) {
 
@@ -750,7 +797,7 @@ Page({
     getCartChild: function (id) {
 
         var arr = [];
-        var shopCart = util.getShopCart();
+        var shopCart = util.getShopCart(app.globalData.shop_id);
 
         // console.log(shopCart)
         shopCart.forEach(function (obj) {
@@ -763,7 +810,7 @@ Page({
     },
     //匹配当前页面列表商品数量和购物车对应商品数量一致
     updatePageMenuNum: function (cart_products, page_menu) {
-
+        // console.log(cart_products)
         if (cart_products.length > 0 && page_menu.length > 0) {
 
             page_menu.forEach((obj) => {
@@ -784,7 +831,7 @@ Page({
                 obj.num = 0;
             });
         }
-
+        // console.log(page_menu)
         return page_menu;
     }
 })

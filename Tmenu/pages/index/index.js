@@ -1,6 +1,5 @@
 
 import util from "../../utils/util.js";
-import user from "../../modules/user.js";
 
 //获取应用实例
 let app = getApp()
@@ -141,7 +140,7 @@ Page({
     playVoice(e) {
 
         let url = e.currentTarget.dataset.url;
-        console.log(url)
+        // console.log(url)
         util.downAndPlayVoice(url);
 
     },

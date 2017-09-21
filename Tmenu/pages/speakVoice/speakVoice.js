@@ -106,7 +106,7 @@ Page({
                 console.log(res.data)
                 if (res.data.code === 1) {
 
-                    let _user_id = util.getStorageSync("user").userid;
+                    let _user_id = util.getShopInfoSync(app.globalData.shop_id).user.userid;
                     let _is_get = that.data.is_get;
                     let voice_list = res.data.data.user_list || [];
                     //用于标识每条语音播放

@@ -10,27 +10,37 @@ App({
         logs.unshift(Date.now())
         wx.setStorageSync('logs', logs);
 
-
+    },
+    //小程序启动或后台进入前台的时候调用
+    onShow(options) {
         let that = this;
 
         let shop_id = options.query.shop_id;
         let scene = options.scene;
         console.log(scene, options);
-      
+
 
         let desk_sn = "1";
 
         //判断商户id是否存在
         if (shop_id) {
-            console.log("主页onshow")
+            // console.log("主页onshow")
             that.setGlobalData("shop_id", shop_id);
-            //初始化用户本地数据
-            let _user = util.getStorageSync("user");
-            //防止覆盖
-            if (_user === -1) {
-                util.setStorageSync("user", {});
-                user.updateUserStorage("desk_sn", desk_sn);
+
+            let _shop_info = util.getShopInfoSync(shop_id);
+            if (_shop_info === -1) {
+                wx.setStorageSync("bg_elec_caipu_shop_info_" + shop_id, { shop_id: shop_id });
             }
+            //初始化用户本地数据
+            let shop_info = util.getShopInfoSync(shop_id);
+
+            let _user = shop_info.user;
+            //防止覆盖
+            if (!_user) {
+                shop_info.user = { "desk_sn": desk_sn };
+                wx.setStorageSync("bg_elec_caipu_shop_info_" + shop_id, shop_info);
+            }
+            // console.log(util.getShopInfoSync(shop_id))
 
             //提前授权
             that.showAuth();
@@ -44,11 +54,6 @@ App({
             return;
 
         }
-
-    },
-    //小程序启动或后台进入前台的时候调用
-    onShow(options) {
-
     },
     //提前授权
     showAuth() {
@@ -102,10 +107,14 @@ App({
                     wx.getUserInfo({
                         success: function (res) {
                             // console.log(res);
-
+                            let shop_info = util.getShopInfoSync(that.globalData.shop_id);
+                            let user = shop_info.user;
                             for (var key in res.userInfo) {
-                                user.updateUserStorage(key, res.userInfo[key]);
+                                user[key] = res.userInfo[key];
                             }
+
+                            shop_info.user = user;
+                            wx.setStorageSync('bg_elec_caipu_shop_info_' + that.globalData.shop_id, shop_info);            
 
                             //检查登录态
                             that.checkLogin();
@@ -139,6 +148,11 @@ App({
     //检查服务端登录态是否过期
     login: function () {
 
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
+
         let that = this;
 
         wx.login({//登录获取用户code
@@ -153,20 +167,30 @@ App({
                         data: {
                             jscode: res.code,
                             shop_id: that.globalData.shop_id,
-                            userinfo: JSON.stringify(user.getUserStorage()),
+                            userinfo: JSON.stringify(wx.getStorageSync('bg_elec_caipu_shop_info_' + that.globalData.shop_id).user),
                             grd: that.globalData.system_version
                         },
                         success: function (res) {
                             //登录成功，未过期
                             if (res.data.code === 1) {
 
-                                console.log("token " + res.data.data.access_token);
+                                let shop_info = util.getShopInfoSync(that.globalData.shop_id);
+                                let user = shop_info.user;
+                                user.openid = res.data.data.session.openid;
+                                user.unionid = res.data.data.session.unionid;
+                                user.userid = res.data.data.session.userid;
 
-                                user.updateUserStorage("openid", res.data.data.session.openid);
-                                user.updateUserStorage("unionid", res.data.data.session.unionid);
-                                user.updateUserStorage("userid", res.data.data.session.userid);
-                                util.setStorageSync('access_token', res.data.data.access_token);
+                                let token = {
+                                    access_token: res.data.data.access_token,
+                                    expires_in: res.data.data.expires_in
+                                }
+                                shop_info.token = token;
 
+                                shop_info.user = user;
+                                // console.log(shop_info)
+                                wx.setStorageSync('bg_elec_caipu_shop_info_' + that.globalData.shop_id, shop_info);
+
+                                wx.hideLoading();
                             } else if (res.data.code === -2012) {//服务端登录态失效
                                 //重新登录
                                 that.login();
@@ -176,11 +200,13 @@ App({
                                     content: res.data.message,
                                     showCancel: false
                                 });
+                                wx.hideLoading();
                             }
 
                         },
                         fail() {
                             util.disconnectModal();
+                            wx.hideLoading();
                         }
                     });
                 } else {
@@ -189,6 +215,7 @@ App({
                         content: res.data.message,
                         showCancel: false
                     })
+                    wx.hideLoading();
                 }
             }
         });
@@ -222,7 +249,7 @@ App({
     //组合请求数据，添加通用字段(access_token、grd版本信息、shop_id商户id)
     getParams: function (config) {
 
-        let access_token = util.getStorageSync("access_token");
+        let access_token = wx.getStorageSync('bg_elec_caipu_shop_info_' + this.globalData.shop_id).token.access_token;
         let shop_id = this.globalData.shop_id;
 
         let json = {

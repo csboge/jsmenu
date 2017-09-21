@@ -269,8 +269,9 @@ function minus(arr, id) {
  *@des 本地购物车增加单个商品数量
  * @arr obj(添加的商品信息)
  */
-function addShopCart(obj) {
-    var origin_list = wx.getStorageSync("shopCart");
+function addShopCart(shop_id, obj) {
+    let shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
+    var origin_list = shop_info.shopCart;
     // console.log(origin_list)
     if (origin_list.length > 0) {
         for (var i = 0; i < origin_list.length; i++) {
@@ -289,7 +290,8 @@ function addShopCart(obj) {
     }
     // console.log(origin_list)
     try {
-        wx.setStorageSync("shopCart", origin_list);
+        shop_info.shopCart = origin_list;
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + shop_id, shop_info);
     } catch (e) {
         throw new Error("本地购物车存储失败");
     }
@@ -301,19 +303,21 @@ function addShopCart(obj) {
  *@des 本地购物车减少单个商品
  * @arr id(移除的商品id)
  */
-function cutShopCart(id) {
-    var origin_list = wx.getStorageSync("shopCart");
-    origin_list.forEach(function (product, i) {
+function cutShopCart(shop_id, key, id) {
+
+    var origin_list = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
+
+    origin_list[key].forEach(function (product, i) {
         if (product.id === id && product.num > 0) {
             product.num--;
             if (product.num === 0) {
-                origin_list.splice(i, 1);
+                origin_list[key].splice(i, 1);
             }
         }
     });
     // console.log(origin_list)
     try {
-        wx.setStorageSync("shopCart", origin_list);
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + shop_id, origin_list);
     } catch (e) {
         throw new Error("本地购物车存储失败");
     }
@@ -324,15 +328,16 @@ function cutShopCart(id) {
  *@des 获取购物车
  * 
  */
-function getShopCart() {
+function getShopCart(shop_id) {
     try {
-        var shopCart = wx.getStorageSync('shopCart');
+        var shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
         // console.log(333)
-        if (shopCart) {
-            return shopCart;
+        if (shop_info.shopCart) {
+            return shop_info.shopCart;
         } else {
             try {
-                wx.setStorageSync('shopCart', []);
+                shop_info.shopCart = []
+                wx.setStorageSync('bg_elec_caipu_shop_info_' + shop_id, shop_info);
                 return [];
             } catch (e) {
                 throw new Error("初始化购物车失败")
@@ -349,9 +354,11 @@ function getShopCart() {
  *@des 清空购物车
  * 
  */
-function clearShopCart() {
+function clearShopCart(ship_id) {
     try {
-        wx.removeStorageSync('shopCart')
+        let shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
+        shop_info.shopCart = null;
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + shop_id, shop_info);
     } catch (e) {
         wx.showModal({
             title: '提示',
@@ -368,11 +375,11 @@ function clearShopCart() {
  * @params key(需要获取的key)
  * 
  */
-function getStorageSync(key) {
+function getStorageSync(shop_id, key) {
     try {
-        var value = wx.getStorageSync(key)
-        if (value) {
-            return value;
+        var value = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
+        if (value[key]) {
+            return value[key];
         } else {
             return -1;
         }
@@ -388,8 +395,9 @@ function getStorageSync(key) {
  * @params key(需要获取的key)
  * 
  */
-function setStorageSync(key, value) {
+function setStorageSync(shop_id, key, value) {
     try {
+        let val = getStorageSync(shop_id, key);
         wx.setStorageSync(key, value);
     } catch (e) {
         throw new Error("本地缓存" + key + "添加失败");
@@ -499,6 +507,18 @@ function loadMore(url, data, old_list, fn, resultFn) {
 
 }
 
+function getShopInfoSync(shop_id){
+    try {
+        var value = wx.getStorageSync("bg_elec_caipu_shop_info_" + shop_id);
+        if (value) {
+            return value;
+        }else{
+            return -1;
+        }
+    } catch (e) {
+        return -1;
+    }
+}
 
 
 
@@ -524,5 +544,6 @@ module.exports = {
     disconnectModal: disconnectModal,
     clearShopCart: clearShopCart,
     downAndPlayVoice: downAndPlayVoice,
-    loadMore: loadMore
+    loadMore: loadMore,
+    getShopInfoSync: getShopInfoSync
 }

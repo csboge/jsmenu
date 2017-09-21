@@ -284,7 +284,7 @@ Page({
         let that = this;
 
         let first_data = {
-            user_id: util.getStorageSync("user").userid
+            user_id: util.getShopInfoSync(app.globalData.shop_id).user.userid
         };
         let first_config = app.getParams(first_data);
 
@@ -371,12 +371,10 @@ Page({
     //显示口味备注
     showRemark: function () {
 
-        let _order = order.getOrderSync();
-        // console.log(_order);
+        let _order = util.getShopInfoSync(app.globalData.shop_id).order;
+        console.log(_order);
         // console.log(_order.remark)
-
-        if (_order.remark) {
-
+        if (_order && _order.remark) {
             if (_order.remark.length > 8) {
                 this.setData({
                     remarkText: _order.remark.substring(0, 8) + "..."
@@ -386,14 +384,14 @@ Page({
                     remarkText: _order.remark
                 })
             }
-
         }
+
 
     },
     //计算价格
     countPrice: function () {
         // console.log(util.getStorageSync("shopCart"));
-        let shop_cart = util.getStorageSync("shopCart");
+        let shop_cart = util.getStorageSync(app.globalData.shop_id, "shopCart");
         let _use_base = this.data.use_base;
         let total_price = 0;                                    //总价
         let total_num = 0;                                      //总数量
@@ -505,14 +503,16 @@ Page({
     //获取商品
     showProducts: function () {
 
-        let shop_cart = util.getStorageSync("shopCart");
+        let shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id);
+        let shop_cart = shop_info.shopCart;
 
         //计算单个商品的总价格
         shop_cart.forEach((product) => {
             product.count_price = (product.num * product.price).toFixed(2) - 0;
         });
 
-        util.setStorageSync("shopCart", shop_cart);
+        shop_info.shopCart = shop_cart;
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id, shop_info)
 
         if (shop_cart.length > 2) {
             this.setData({
@@ -533,7 +533,7 @@ Page({
     showMore: function () {
 
         let that = this;
-        let shop_cart = util.getStorageSync("shopCart");
+        let shop_cart = util.getStorageSync(app.globalData.shop_id, "shopCart");
 
         if (this.data.is_show_more) {
             this.setData({
@@ -766,10 +766,9 @@ Page({
     },
     //移除订单中购物车中的餐具（防止订单重复提交导致重复添加）
     removeUseBase() {
-
-        let _order = util.getStorageSync("order");
+        let shop_info = util.getShopInfoSync(app.globalData.shop_id);
         // console.log(_order);
-        let _goods_list = _order.goods_list;
+        let _goods_list = shop_info.order.goods_list;
         let len = 0;
 
         _goods_list.forEach((obj) => {
@@ -779,9 +778,9 @@ Page({
         });
         //减去餐具占数组的长度len，即移除
         _goods_list.length -= len;
-        _order.goods_list = _goods_list;
+        shop_info.order.goods_list = _goods_list;
 
-        util.setStorageSync("order", _order);
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id, shop_info);
 
     },
     //立即支付
@@ -803,35 +802,39 @@ Page({
             show_modal: true
         });
 
-        let desk_sn = user.getUserStorageAttr("desk_sn");
+        let desk_sn = util.getShopInfoSync(app.globalData.shop_id).user.userid;
         let mode_money = Math.ceil(this.data.discountPrice * this.data.mode_rate);
 
 
         //生成订单，判断是否是重复提交的订单
-        let _order = util.getStorageSync("order");
+        let shop_info = util.getShopInfoSync(app.globalData.shop_id);
+        let _order = shop_info.order || {};
 
         //未提交过订单则生成新的订单
         if (!_order.order_sn) {
             console.log("=========生成新订单=========");
-            _order = order.createOrder(this.data.order_info);
+            _order = order.createOrder(app.globalData.shop_id, this.data.order_info);
         } else {
 
             //否则更新整条订单数据，并带上订单号
             let _order_sn = _order.order_sn;
-            _order = order.createOrder(this.data.order_info);
-            order.updateOrderSync("order_sn", _order_sn);
-
+            _order = order.createOrder(app.globalData.shop_id, this.data.order_info);
+            _order.order_sn = _order_sn;
+            shop_info.order = _order;
+            wx.setStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id, shop_info);
         }
 
-        //支付方式
-        order.updateOrderSync("pay_way", this.data.checked_pay_type);
-        //加入表单数据到订单
-        order.updateOrderSync("desk_sn", desk_sn);
-        order.updateOrderSync("message", e.detail.value.umsg);             //用户留言
-        order.updateOrderSync("user_count", 3);                            //人数
-        order.updateOrderSync("mode_money", mode_money);        //发红包的金额
-        // console.log(util.getStorageSync("order"));
-        app.setGlobalData("mode_money", mode_money);            //可以发出的红包金额
+
+        let _shop_info = util.getShopInfoSync(app.globalData.shop_id);
+        _shop_info.order.pay_way = this.data.checked_pay_type;      //支付方式
+        _shop_info.order.desk_sn = desk_sn;
+        _shop_info.order.message = e.detail.value.umsg;             //留言
+        _shop_info.order.user_count = 3;
+        _shop_info.order.mode_money = mode_money;
+
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id, _shop_info);
+
+        app.setGlobalData("mode_money", mode_money);                //可以发出的红包金额
         // console.log(mode_money)
 
 
@@ -877,7 +880,7 @@ Page({
     //订单数据转换格式，用于请求提交
     transformOrder() {
         //获取最新的订单数据
-        let _order = util.getStorageSync("order");
+        let _order = util.getShopInfoSync(app.globalData.shop_id).order;
         // console.log(_order);
 
         let _goods_list = _order.goods_list;
@@ -941,7 +944,9 @@ Page({
                     _order.goods_list = _goods_list;
                     // console.log(_order);
                     //覆盖当前订单，防止重复提交
-                    util.setStorageSync("order", _order);
+                    let shop_info = util.getShopInfoSync(app.globalData.shop_id);
+                    shop_info.order = _order;
+                    wx.setStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id, shop_info);
 
                     //调起微信支付
                     wx.requestPayment({
@@ -992,9 +997,11 @@ Page({
         })
         console.log("支付成功" + _order.order_sn);
         //删除本次提交的订单
-        order.removeOrderSync();
+        let shop_info = util.getShopInfoSync(app.globalData.shop_id);
+        delete shop_info.order;
         //清空购物车
-        util.clearShopCart();
+        delete shop_info.shopCart;
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id, shop_info);
         //返回时刷新商品列表
         app.setGlobalData("is_refresh_menu", true);
 

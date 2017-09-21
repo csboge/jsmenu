@@ -28,7 +28,7 @@ Page({
         console.log(_utxt)
 
         this.setData({
-            userInfo: user.getUserStorage(),
+            userInfo: util.getShopInfoSync(app.globalData.shop_id).user,
             utxt: _utxt,
             // is_transimit: _is_transimit
         });
@@ -68,7 +68,7 @@ Page({
         let count = app.globalData.mode_data.count;
         let speed = app.globalData.mode_data.speed;
         let mode_money = app.globalData.mode_data.mode_money;
-        let shop_id = util.getStorageSync("user").shop_id;
+        let shop_id = app.globalData.shop_id;
         let shop_title = app.globalData.shop_info.title;
 
         return {

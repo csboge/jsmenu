@@ -25,18 +25,42 @@ Page({
      */
     onLoad: function (options) {
 
-        let _shop_info = app.globalData.shop_info;
-        let _notice = _shop_info.notice;
-        let _adress = _shop_info.adress;
-        _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
-        _shop_info.notice = _notice;
-        _adress = _adress.length > 20 ? (_adress.substring(0, 17) + '...') : _adress;
-        _shop_info.adress = _adress;
+        let _shop_info = null;
+        let _notice = "";
+        let _adress = "";
+        if (app.globalData.shop_info) {
+            _shop_info = app.globalData.shop_info;
+            _notice = _shop_info.notice || "";
+            _adress = _shop_info.adress || "";
 
-        //初始化商户信息
-        this.setData({
-            shop_info: app.globalData.shop_info
-        });
+            _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
+            _shop_info.notice = _notice;
+            _adress = _adress.length > 20 ? (_adress.substring(0, 17) + '...') : _adress;
+            _shop_info.adress = _adress;
+
+            //初始化商户信息
+            this.setData({
+                shop_info: _shop_info
+            });
+
+        } else {
+            app.getShopInfo(() => {
+                _shop_info = app.globalData.shop_info;
+                _notice = _shop_info.notice || "";
+                _adress = _shop_info.adress || "";
+
+                _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
+                _shop_info.notice = _notice;
+                _adress = _adress.length > 20 ? (_adress.substring(0, 17) + '...') : _adress;
+                _shop_info.adress = _adress;
+
+                //初始化商户信息
+                this.setData({
+                    shop_info: _shop_info
+                });
+
+            });
+        }
 
         //获取红包余额
         this.getHbRest();

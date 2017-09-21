@@ -56,7 +56,6 @@ Page({
     onLoad: function (options) {
 
         let that = this;
-        let cate_list = [];                     //一级分类
 
         //先拿到shop_info
         let shop_info = null;
@@ -90,22 +89,27 @@ Page({
 
         //加载优惠券
         this.fetchYhq();
-
+        //加载菜品分类
         util.request(app.globalData.ev_url + '/menu/category_list', "POST", app.getParams({}))
             .then((res) => {
                 if (res.data.code === 1) {
                     // console.log(app.globalData.shop_info)
 
                     //添加新推套餐
-                    let mob_list = res.data.data.mob_list;
-                    let new_rec = {
-                        "id": 0,
-                        "name": app.globalData.shop_info.package,   //商户信息中携带一级套餐名
-                        "list": []
-                    };
-                    new_rec.list = mob_list;
-                    cate_list = res.data.data.cate_list || [];
-                    cate_list.unshift(new_rec);
+                    let mob_list = res.data.data.mob_list || [];
+                    let cate_list = [];                     //一级分类
+                    
+                    if (mob_list.length > 0) {
+                        let new_rec = {
+                            "id": 0,
+                            "name": app.globalData.shop_info.package,   //商户信息中携带一级套餐名
+                            "list": []
+                        };
+                        new_rec.list = mob_list;
+                        cate_list = res.data.data.cate_list || [];
+                        cate_list.unshift(new_rec);
+                    }
+                    console.log(cate_list)
                     //默认选中第一种一级分类
                     cate_list.forEach(function (obj) {
                         obj.isChecked = false;

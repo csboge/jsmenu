@@ -30,7 +30,7 @@ Page({
         if (app.globalData.shop_info) {
             _shop_info = app.globalData.shop_info;
             _notice = _shop_info.notice || "";
-            _adress = _shop_info._adress || "";
+            _adress = _shop_info.adress || "";
 
             _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
             _shop_info.notice = _notice;
@@ -46,7 +46,7 @@ Page({
             app.getShopInfo(() => {
                 _shop_info = app.globalData.shop_info;
                 _notice = _shop_info.notice || "";
-                _adress = _shop_info._adress || "";
+                _adress = _shop_info.adress || "";
 
                 _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
                 _shop_info.notice = _notice;

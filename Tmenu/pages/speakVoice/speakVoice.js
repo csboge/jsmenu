@@ -108,7 +108,7 @@ Page({
 
                     let _user_id = util.getStorageSync("user").userid;
                     let _is_get = that.data.is_get;
-                    let voice_list = res.data.data.user_list;
+                    let voice_list = res.data.data.user_list || [];
                     //用于标识每条语音播放
                     if (voice_list.length > 0) {
                         voice_list.forEach((obj) => {
@@ -356,7 +356,7 @@ Page({
                 if (res.data.code === 1) {
                     // console.log(res.data.data);
 
-                    let voice_list = res.data.data;
+                    let voice_list = res.data.data || [];
                     //用于标识每条语音播放
                     if (voice_list.length > 0) {
                         voice_list.forEach((obj) => {

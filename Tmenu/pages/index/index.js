@@ -106,8 +106,10 @@ Page({
             .then((res) => {
                 // console.log(res.data.data.shop)
                 if (res.data.code === 1) {
+
+                    let _re_slide_urls = res.data.data || [];
                     that.setData({
-                        re_slide_urls: res.data.data
+                        re_slide_urls: _re_slide_urls
                     });
 
                 } else {

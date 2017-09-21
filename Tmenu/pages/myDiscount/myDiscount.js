@@ -21,19 +21,46 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let that = this;
 
-        let _shop_info = app.globalData.shop_info;
-        let _notice = _shop_info.notice;
-        let _adress = _shop_info.adress;
-        _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
-        _shop_info.notice = _notice;
-        _adress = _adress.length > 20 ? (_adress.substring(0, 17) + '...') : _adress;
-        _shop_info.adress = _adress;
+        //先拿到shop_info
+        let _shop_info = null;
+        let _notice = "";
+        let _adress = "";
+        if (app.globalData.shop_info) {
+            _shop_info = app.globalData.shop_info;
+            _notice = _shop_info.notice || "";
+            _adress = _shop_info._adress || "";
 
-        //初始化商户信息
-        this.setData({
-            shop_info: _shop_info
-        });
+            _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
+            _shop_info.notice = _notice;
+            _adress = _adress.length > 20 ? (_adress.substring(0, 17) + '...') : _adress;
+            _shop_info.adress = _adress;
+
+            //初始化商户信息
+            this.setData({
+                shop_info: _shop_info
+            });
+
+        } else {
+            app.getShopInfo(() => {
+                _shop_info = app.globalData.shop_info;
+                _notice = _shop_info.notice || "";
+                _adress = _shop_info._adress || "";
+
+                _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
+                _shop_info.notice = _notice;
+                _adress = _adress.length > 20 ? (_adress.substring(0, 17) + '...') : _adress;
+                _shop_info.adress = _adress;
+
+                //初始化商户信息
+                this.setData({
+                    shop_info: _shop_info
+                });
+
+            });
+        }
+
 
         this.getAllList();
     },
@@ -44,15 +71,15 @@ Page({
 
         util.request(app.globalData.ev_url + "/user/coupon_list", "POST", app.getParams({}))
             .then((res) => {
-                if (res.data.code === 1) {
+                if (res.data.code === 1 && res.data.data) {
 
                     let _available_list = res.data.data.available || [];
                     let _short_list = res.data.data.short || [];
                     let _overdue = res.data.data.overdue || [];
 
                     //只留十条数据
-                    if (_short_list.length > 10){
-                        _short_list = _short_list.slice(0,11);
+                    if (_short_list.length > 10) {
+                        _short_list = _short_list.slice(0, 11);
                         _overdue = [];
                     }
 
@@ -89,7 +116,7 @@ Page({
         app.makeCall();
     },
     //跳转到首页
-    toIndex(){
+    toIndex() {
         app.naviToIndex();
     }
 })

@@ -20,7 +20,7 @@ App({
 
         let shop_id = options.query.shop_id;
         let scene = options.scene;
-        console.log(options);
+        console.log(scene,options);
         // let shop_id = 4;
 
         let desk_sn = "1";

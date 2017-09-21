@@ -58,13 +58,12 @@ Page({
         let that = this;
         let cate_list = [];                     //一级分类
 
-        app.getShopInfo(() => {
-            let shop_info = app.globalData.shop_info;
-            console.log("次页onload")
-            let _notice = shop_info.notice || "";
-            console.log(_notice)
-
-
+        //先拿到shop_info
+        let shop_info = null;
+        let _notice = "";
+        if (app.globalData.shop_info) {
+            shop_info = app.globalData.shop_info;
+            _notice = shop_info.notice || "";
             //渲染商户信息
             that.setData({
                 shop_logo: shop_info.logo,
@@ -72,7 +71,19 @@ Page({
                 notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
                 tel: shop_info.mobile
             });
-        });
+        } else {
+            app.getShopInfo(() => {
+                shop_info = app.globalData.shop_info;
+                _notice = shop_info.notice || "";
+                //渲染商户信息
+                that.setData({
+                    shop_logo: shop_info.logo,
+                    shop_name: shop_info.title,
+                    notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
+                    tel: shop_info.mobile
+                });
+            });
+        }
 
         //加载本桌信息
         this.getTableInfo();
@@ -93,7 +104,7 @@ Page({
                         "list": []
                     };
                     new_rec.list = mob_list;
-                    cate_list = res.data.data.cate_list;
+                    cate_list = res.data.data.cate_list || [];
                     cate_list.unshift(new_rec);
                     //默认选中第一种一级分类
                     cate_list.forEach(function (obj) {
@@ -136,7 +147,7 @@ Page({
         util.request(app.globalData.ev_url + '/menu/goods_list', "POST", goods_config)
             .then((res) => {
                 if (res.data.code === 1) {
-                    let good_list = res.data.data;
+                    let good_list = res.data.data || [];
                     let init_page_menu = [];
                     // let good_list = data.goods_list;//使用模拟数据
                     let page_second_cate = that.data.page_second_cate;
@@ -319,7 +330,7 @@ Page({
             .then((res) => {
                 if (res.data.code === 1) {
                     //在页面中默认为所有优惠券未领取,根据后台领取记录一同判断
-                    let _yhq_list = res.data.data;
+                    let _yhq_list = res.data.data || [];
                     console.log(_yhq_list)
                     _yhq_list.forEach((obj) => {
                         obj.is_get_coupon = false;

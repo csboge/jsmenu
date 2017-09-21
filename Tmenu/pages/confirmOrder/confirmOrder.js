@@ -295,10 +295,10 @@ Page({
 
                     // console.log(res.data);
                     let is_first = res.data.data.first;
-                    let _use_base = res.data.data.use_base;                 //标配餐具、纸巾
-                    let _pay_type = res.data.data.pay_type;                 //支付类型      
+                    let _use_base = res.data.data.use_base || [];           //标配餐具、纸巾
+                    let _pay_type = res.data.data.pay_type || [];           //支付类型      
                     let money = res.data.data.money;                        //红包余额
-                    let is_must_customers = that.data.is_must_customers;   //人数是否必须
+                    let is_must_customers = that.data.is_must_customers;    //人数是否必须
 
                     //区分固定数量的餐具和按用餐人数变化数量的餐具，并从菜品中区分
                     _use_base.forEach((obj) => {
@@ -323,7 +323,7 @@ Page({
                     });
 
                     //初始化优惠券选取状态
-                    let _yhq_list = res.data.data.coupon;
+                    let _yhq_list = res.data.data.coupon || [];
                     if (_yhq_list.length > 0) {
                         _yhq_list.forEach((obj) => {
                             obj.isChecked = false;
@@ -920,11 +920,12 @@ Page({
             });
 
     },
-    //微信统一下单
+    //支付订单
     pay_dill(data) {
 
         let that = this;
 
+        //微信统一下单
         wx.request({
             url: app.globalData.ev_url + '/Buy/submitOrder',
             data: data,

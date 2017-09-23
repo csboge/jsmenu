@@ -843,10 +843,7 @@ Page({
 
 
         //合计金额大于0，调用微信统一下单接口
-        if (this.data.realPrice > 0) {
-            this.pay_dill(this.transformOrder());
-        } else {
-
+        if (this.data.realPrice === 0 || this.data.checked_pay_type === 1) {
             //再次提醒用户
             wx.showModal({
                 title: '提示',
@@ -871,10 +868,17 @@ Page({
                     wx.showToast({
                         title: '操作失败',
                         image: '../../assets/image/fail.png',
-                        duration: 1000
+                        duration: 1000,
+                        success(){
+                            that.setData({
+                                show_modal: false
+                            });
+                        }
                     });
                 }
             });
+        } else {
+            this.pay_dill(this.transformOrder());
         }
     },
     //订单数据转换格式，用于请求提交
@@ -914,7 +918,12 @@ Page({
                     wx.showModal({
                         title: '提示',
                         content: res.data.message,
-                        showCancel: false
+                        showCancel: false,
+                        success(){
+                            that.setData({
+                                show_modal: false
+                            });
+                        }
                     });
                 }
 

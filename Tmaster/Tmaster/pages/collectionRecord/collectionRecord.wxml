@@ -12,25 +12,25 @@
 
     <view class="page-body">
         <view class="record-list">
-            <view class="list-item" wx:for="[3]">
+            <view class="list-item" wx:for="{{data_list}}" wx:for-item="out_item" wx:for-index="out_index" wx:key="id">
                 <view class="time-box">
-                    <view class="time-txt">2017年09月05日</view>
+                    <view class="time-txt">{{out_item.statistics}}</view>
                     <view class="money-txt-box">
                         <view class="money-title">收入￥</view>
-                        <view class="money-txt">0.80</view>
+                        <view class="money-txt">{{out_item.money}}</view>
                     </view>
                 </view>
-                <view class="record-content">
+                <view class="record-content" wx:for="{{out_item.list}}" wx:for-item="inner_item" wx:for-index="inner_index" wx:key="order_sn">
                     <view class="record-img">
-                        <image src="" class="user-img"></image>
+                        <image src="{{inner_item.avatar}}" class="user-img"></image>
                     </view>
                     <view class="record-detail">
                         <view class="record-user-box">
-                            <view class="user-name">阿***</view>
-                            <view class="user-price">￥0.80</view>
+                            <view class="user-name">{{inner_item.nickname}}</view>
+                            <view class="user-price">￥{{inner_item.shop_price}}</view>
                         </view>
-                        <view class="record-company">伯格网络科技有限公司</view>
-                        <view class="record-cust">09-05 16:59 | 第1次消费</view>
+                        <!-- <view class="record-company">伯格网络科技有限公司</view> -->
+                        <view class="record-cust">{{inner_item.pay_time}}</view>
                     </view>
                 </view>
             </view>
@@ -38,6 +38,7 @@
                 <view class="shop-txt">查看更多</view>
                 <view class="arr-down lm-arr"></view>
             </view>
+            <!-- <view class='load-more shop-txt no-more'>没有更多了</view> -->
         </view>
     </view>
     <template is="page-foot" />

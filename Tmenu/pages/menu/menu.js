@@ -55,7 +55,7 @@ Page({
     onLoad: function (options) {
 
         let that = this;
-
+        app.filter(options.shop_id, function () { });
         this.timer = setInterval(function () {
             let access_token = wx.getStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id).token;
             if (access_token) {
@@ -92,19 +92,19 @@ Page({
         //     that.getCategory();
         //     that.getAllGoods();
         // } else {
-            app.getShopInfo(() => {
-                shop_info = app.globalData.shop_info;
-                _notice = shop_info.notice || "";
-                //渲染商户信息
-                that.setData({
-                    shop_logo: shop_info.logo,
-                    shop_name: shop_info.title,
-                    notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
-                    tel: shop_info.mobile
-                });
-                that.getCategory();
-                that.getAllGoods();
+        app.getShopInfo(() => {
+            shop_info = app.globalData.shop_info;
+            _notice = shop_info.notice || "";
+            //渲染商户信息
+            that.setData({
+                shop_logo: shop_info.logo,
+                shop_name: shop_info.title,
+                notice: _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice,
+                tel: shop_info.mobile
             });
+            that.getCategory();
+            that.getAllGoods();
+        });
         // }
 
         //加载本桌信息

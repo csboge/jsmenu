@@ -48,14 +48,6 @@ Page({
 
     },
     onShow: function () {
-        console.log(app.globalData.shop_id);
-        let shop_id = app.globalData.shop_id;
-        if (shop_id) {
-            wx.redirectTo({
-                url: '../index/index'
-            });
-            return;
-        }
 
         var animation = wx.createAnimation({
             duration: 1200,

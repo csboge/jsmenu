@@ -7,7 +7,7 @@
 }
 
 .page-body {
-    padding-top: 162rpx;
+    padding-top: 132rpx;
 }
 
 .logo-box {
@@ -79,4 +79,13 @@
 .login-btn:active{
     color: #ddd;
     background: #447f53;
+}
+.msg{
+    padding-left: 20rpx;
+    font-size: 28rpx;
+    color: #f00;
+    line-height: 2.5;
+}
+.hide-err{
+    visibility: hidden;
 }

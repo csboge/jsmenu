@@ -34,33 +34,40 @@ Page({
 
         let that = this;
 
-        let bagid = options.bagid;                      //红包id
-        let count = options.count || -1;                //红包个数
-        let mode_money = options.mode_money || -1;      //红包金额
-        let shop_id = options.shop_id || -1;            //商户id
-        let shop_title = options.shop_title || "";      //商铺名
+        app.filter(options.shop_id, function () {
 
-        //设置标题栏为商铺名
-        wx.setNavigationBarTitle({
-            title: shop_title
+
+            let bagid = options.bagid;                      //红包id
+            let count = options.count || -1;                //红包个数
+            let mode_money = options.mode_money || -1;      //红包金额
+            let shop_id = options.shop_id || -1;            //商户id
+            let shop_title = options.shop_title || "";      //商铺名
+
+            //设置标题栏为商铺名
+            wx.setNavigationBarTitle({
+                title: shop_title
+            });
+
+            let mode_data = {
+                bagid: bagid,
+                count: count,
+                mode_money: mode_money,
+                shop_id: shop_id
+            };
+
+            that.setData({
+                mode_data: mode_data
+            });
+
+            console.log(that.data.mode_data)
+
+            //加载轮播图
+            that.getSliders();
+
+            //初始化红包列表
+            that.initHbList();
+
         });
-
-        let mode_data = {
-            bagid: bagid,
-            count: count,
-            mode_money: mode_money,
-            shop_id: shop_id
-        };
-
-        this.setData({
-            mode_data: mode_data
-        });
-
-        //加载轮播图
-        this.getSliders();
-
-        //初始化红包列表
-        this.initHbList();
 
     },
     //获取轮播图
@@ -171,7 +178,7 @@ Page({
                 // console.log(res);
                 var tempFilePath = res.tempFilePath;
                 s.setData({
-                    recodePath: tempFilePath, 
+                    recodePath: tempFilePath,
                     isRecode: true,
                     stop_upload: false
                 });
@@ -396,13 +403,16 @@ Page({
     },
     //转发
     onShareAppMessage: function (res) {
+
+        let that = this;
+
         if (res.from === 'button') {
             // 来自页面内转发按钮
             // console.log(res.target)
         }
         return {
             title: '群口令',
-            path: '/pages/speakVoice/speakVoice',
+            path: '/pages/speakVoice/speakVoice?shop_id=' + app.globalData.shop_id + "&bagid=" + that.globalData.bagid,
             success: function (res) {
                 // 转发成功
             },

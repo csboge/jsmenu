@@ -7,7 +7,9 @@
         <image src="http://img.my-shop.cc/image/lang.jpg" class="lang-img"></image>
     </view>
     <view class="page-body">
+
         <form bindsubmit="login" class="form-box">
+            <view class='msg {{show_error?"":"hide-err"}}'>用户名或密码格式错误</view>
             <view class="section">
                 <view class="section__title">
                     <image src="http://img.my-shop.cc/image/tel_icon.png" class="input-img"></image>

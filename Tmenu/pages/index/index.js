@@ -40,6 +40,33 @@ Page({
         // show_copy_modal: false,         //是否显示获取权限弹窗
     },
     onLoad: function (options) {
+        console.log(options.shop_id)
+        
+        let shop_id = null;
+
+        if (app.globalData.out_in === false){
+            shop_id = options.shop_id || app.globalData.shop_id;
+        }
+        console.log("我是indexshop_id" + app.globalData.out_in);
+        app.filter(shop_id, this.fetchData);
+
+    },
+    onShow: function () {
+        
+    },
+    //加载数据
+    fetchData() {
+
+        var animation = wx.createAnimation({
+            duration: 1200,
+            timingFunction: 'ease-out',
+        })
+
+        animation.opacity(1).top(0).step()
+
+        this.setData({
+            animationData: animation.export()
+        })
 
         let that = this;
 
@@ -123,19 +150,6 @@ Page({
             });
 
     },
-    onShow: function () {
-
-        var animation = wx.createAnimation({
-            duration: 1200,
-            timingFunction: 'ease-out',
-        })
-
-        animation.opacity(1).top(0).step()
-
-        this.setData({
-            animationData: animation.export()
-        })
-    },
     //播放语音
     playVoice(e) {
 
@@ -209,7 +223,7 @@ Page({
             },
             fail: function (res) {
                 // 转发失败
-               
+
             }
         }
     }

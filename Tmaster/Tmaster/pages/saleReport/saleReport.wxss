@@ -1,6 +1,10 @@
 /* pages/saleReport/saleReport.wxss */
 
-.page-head{
+page {
+    background: #509863;
+}
+
+.page-head {
     position: fixed;
     top: 0;
     left: 0;
@@ -91,10 +95,6 @@
     font-size: 28rpx;
 }
 
-.gray {
-    color: #6a6a6a;
-}
-
 .price-q {
     display: flex;
     align-items: center;
@@ -110,6 +110,36 @@
     font-size: 42rpx;
     font-weight: bold;
 }
-.report-item{
+
+.report-item {
     margin-bottom: 24rpx;
+}
+
+.bg-white {
+    padding: 480rpx 0;
+    text-align: center;
+    background: #fff;
+}
+
+.load-more-btn {
+    padding: 20rpx 0;
+    margin-top: 40rpx;
+    font-size: 28rpx;
+    text-align: center;
+    background: #fff;
+    color: #509863;
+}
+
+.load-more-btn:active {
+    background: #eee;
+    color: #4b7e58;
+}
+
+.gray {
+    color: #6a6a6a;
+}
+
+.gray:active{
+    background: #Fff;
+    color: #6a6a6a;
 }

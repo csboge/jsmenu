@@ -1,10 +1,10 @@
 <!--pages/home/home.wxml-->
 	<view class="header">
 		<view class="title">
-			今日收款0笔，合计
+			今日收款{{today_data.people}}笔，合计
 		</view>
 		<view class="sum">
-			￥0.00
+			￥{{today_data.money}}
 		</view>
 		<view class="head-icon">
 			<view class="head-item" style="border-right:1rpx solid #84b791 " hover-class="bg-green" bindtap="toRecord">

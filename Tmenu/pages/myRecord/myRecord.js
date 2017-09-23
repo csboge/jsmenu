@@ -246,7 +246,7 @@ Page({
 
         let bagid = e.currentTarget.dataset.bagid;
         wx.navigateTo({
-            url: '../speakVoice/speakVoice?bagid=' + bagid
+            url: '../speakVoice/speakVoice?bagid=' + bagid + "&shop_id=" + app.globalData.shop_id
         });
         
     },

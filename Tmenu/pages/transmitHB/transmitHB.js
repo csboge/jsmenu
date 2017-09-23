@@ -43,7 +43,7 @@ Page({
             .then((res) => {
                 if (res.data.code === 1) {
 
-                    let img_url = res.data.data;
+                    let img_url = res.data.data.code;
 
                     wx.previewImage({
                         urls: [img_url] // 需要预览的图片http链接列表
@@ -70,7 +70,7 @@ Page({
         let mode_money = app.globalData.mode_data.mode_money;
         let shop_id = app.globalData.shop_id;
         let shop_title = app.globalData.shop_info.title;
-
+        console.log(app.globalData.mode_data, app.globalData.shop_id)
         return {
             title: '口令红包',
             path: '/pages/speakVoice/speakVoice?bagid=' + bagid + "&count=" + count + "&speed=" + speed + "&mode_money=" + mode_money + "&shop_id=" + shop_id + "&shop_title=" + shop_title,

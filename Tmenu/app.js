@@ -10,18 +10,30 @@ App({
         logs.unshift(Date.now())
         wx.setStorageSync('logs', logs);
 
+        let shop_id = options.query.shop_id;
+        let scene = options.scene;
+        console.log(scene, shop_id);
+
+        let scene_list = [1001,1005,1006,1026,1027,1053];
+        if(scene_list.indexOf(scene) != -1){
+            this.setGlobalData("out_in", true);
+        }else{
+            this.setGlobalData("out_in", false);
+        }
+
+        // this.filter(shop_id);
+
     },
     //小程序启动或后台进入前台的时候调用
     onShow(options) {
+
+    },
+    //通过商户号进行过滤
+    filter(shop_id, cb) {
         let that = this;
 
-        let shop_id = options.query.shop_id;
-        let scene = options.scene;
-        console.log(scene, options);
-
-
         let desk_sn = "1";
-
+        console.log("接受到的shop_id"+shop_id)
         //判断商户id是否存在
         if (shop_id) {
             // console.log("主页onshow")
@@ -45,15 +57,22 @@ App({
             //提前授权
             that.showAuth();
 
+            cb();
+
         } else {
 
+            let url = "../home/home";
             wx.redirectTo({
-                url: 'pages/home/home'
+                url: url,
+                success() {
+                    console.log("跳转成功");
+                }
             });
 
             return;
 
-        }
+        }  
+
     },
     //提前授权
     showAuth() {
@@ -114,7 +133,7 @@ App({
                             }
 
                             shop_info.user = user;
-                            wx.setStorageSync('bg_elec_caipu_shop_info_' + that.globalData.shop_id, shop_info);            
+                            wx.setStorageSync('bg_elec_caipu_shop_info_' + that.globalData.shop_id, shop_info);
 
                             //检查登录态
                             that.checkLogin();

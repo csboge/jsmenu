@@ -82,11 +82,13 @@
     display: flex;
     padding: 30rpx 26rpx;
     background: #fff;
+    border-bottom: 2rpx solid #f4f4f4;
 }
 
 .user-img {
     width: 88rpx;
     height: 88rpx;
+    border-radius: 50%;
 }
 
 .record-detail {
@@ -130,4 +132,7 @@
 
 .lm-arr {
     top: 30rpx;
+}
+.no-more{
+    color: #ddd;
 }

@@ -76,5 +76,9 @@ Page({
                 show_error: true
             });
         }
+    },
+    //全局数据
+    globalData:{
+        
     }
 })

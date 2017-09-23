@@ -12,7 +12,7 @@
     margin: 0 auto;
     padding: 48rpx 0;
     font-size: 34rpx;
-    border-bottom: 2rpx solid #fdfdfd;
+    border-bottom: 2rpx solid #f4f4f4;
     text-align: center;
     width: calc(100% - 48 * 2rpx);
 }
@@ -42,4 +42,76 @@
 }
 .b{
     font-weight: bold;
+}
+.mid-box{
+    padding: 65rpx 0 55rpx 0;
+    border-bottom: 4rpx solid #f5f3f3;
+}
+.time-txt{
+    text-align: center;
+}
+.price-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24rpx 0;
+}
+.report-detail{
+    display: flex;
+    justify-content: space-between;
+}
+.detail-box{
+    display: inline-block;
+    width: 33.3%;
+    text-align: center;
+}
+.detail-price{
+    padding: 13rpx;
+    font-size: 34rpx;
+}
+.bottom-box{
+    padding: 75rpx 45rpx;
+}
+.cust-anly{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2rpx solid #f8f7f7;
+}
+
+
+.anly-cust-detail{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 6rpx;
+}
+.cust-title{
+    position: relative;
+    top: -8rpx;
+    align-self: flex-end;
+}
+.cust{
+    display: flex;
+}
+.anly-progress{
+    position: relative;
+    margin: 50rpx 0;
+    height: 50rpx;
+    background: #97d6a8;
+    border-radius: 4rpx;
+}
+.anly-progress-val{
+    position: absolute;
+    width: 75%;
+    height: 100%;
+    background: #53bb6e;
+    border-radius: 4rpx;
+}
+.cust-anly{
+    padding-bottom: 40rpx;
+}
+.cust-des{
+    padding-top: 20rpx;
+}
+.des-item{
+    line-height: 2;
 }

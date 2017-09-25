@@ -71,7 +71,7 @@ Page({
 
         util.request(app.globalData.ev_url + "/user/coupon_list", "POST", app.getParams({}))
             .then((res) => {
-                if (res.data.code === 1 && res.data.data) {
+                if (res.data.code === 1) {
 
                     let _available_list = res.data.data.available || [];
                     let _short_list = res.data.data.short || [];

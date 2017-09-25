@@ -1,3 +1,4 @@
+<import src="../tpl/footer.wxml"/>
 <view class="page-container">
     <view class="page-head" bindtap="toIndex">
         <view class="page-head-box">
@@ -73,5 +74,5 @@
             </view>
         </view>
     </view>
-    <view class="page-foot">©伯格网络提供支持</view>
+    <template is="foot"/>
 </view>

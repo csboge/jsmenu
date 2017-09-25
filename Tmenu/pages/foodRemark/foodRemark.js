@@ -22,11 +22,11 @@ Page({
     },
     //点击完成
     formSubmit: function () {
-        
+
         let shop_info = util.getShopInfoSync(app.globalData.shop_id);
-        shop_info.order.remark = this.data.text;
-        wx.setStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id, shop_info);
-        
+
+        app.setGlobalData("remark", this.data.text);
+
         wx.navigateBack({
             delta: 1
         })

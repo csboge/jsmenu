@@ -60,7 +60,7 @@ function setStorageSync(key, value) {
 function disconnectModal() {
     wx.showModal({
         title: '提示',
-        content: '网络链接失败，请重新尝试!',
+        content: '网络链接失败，请检查您的网络!',
         showCancel: false,
         cancelText: '',
         cancelColor: '',

@@ -41,10 +41,10 @@ Page({
     },
     onLoad: function (options) {
         console.log(options.shop_id)
-        
+
         let shop_id = null;
 
-        if (app.globalData.out_in === false){
+        if (app.globalData.out_in === false) {
             shop_id = options.shop_id || app.globalData.shop_id;
         }
         console.log("我是indexshop_id" + app.globalData.out_in);
@@ -52,7 +52,7 @@ Page({
 
     },
     onShow: function () {
-        
+
     },
     //加载数据
     fetchData() {
@@ -199,7 +199,7 @@ Page({
     },
     //跳转页面
     navi: function (e) {
-        app.naviTo(e.currentTarget.dataset.url);
+        app.naviTo(e.currentTarget.dataset.url + "?shop_id=" + app.globalData.shop_id);
     },
     //拨打电话
     call: function () {

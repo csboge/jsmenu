@@ -371,21 +371,13 @@ Page({
     //显示口味备注
     showRemark: function () {
 
-        let _order = util.getShopInfoSync(app.globalData.shop_id).order;
-        console.log(_order);
-        // console.log(_order.remark)
-        if (_order && _order.remark) {
-            if (_order.remark.length > 8) {
-                this.setData({
-                    remarkText: _order.remark.substring(0, 8) + "..."
-                })
-            } else {
-                this.setData({
-                    remarkText: _order.remark
-                })
-            }
-        }
+        let _remark = app.globalData.remark;
 
+        if (_remark) {
+            this.setData({
+                remarkText: _remark
+            });
+        }
 
     },
     //计算价格
@@ -452,9 +444,13 @@ Page({
             hb_money = 0;
         }
 
-        discount_price = discount_price - hb_money;
-        let taxtPrice = (discount_price * _order_rate).toFixed(2) - 0;                  //手续费
-        let realPrice = (discount_price * (_order_rate + 1)).toFixed(2) - 0;            //实际支付金额
+        let p = discount_price - hb_money;
+        let taxtPrice = 0;
+        let realPrice = 0;
+        if (p != 0) {
+            taxtPrice = (discount_price * _order_rate).toFixed(2) - 0;                        //手续费
+            realPrice = ((discount_price * (_order_rate + 1)) - hb_money).toFixed(2) - 0;     //实际支付金额
+        }
 
 
         let hb_money_str = hb_money > 0 ? ("余(" + this.data.hb_rest_money + "元),本单 -￥" + hb_money) : '';
@@ -484,7 +480,6 @@ Page({
             goods_price: total_price,                   //商品总价
             goods_list: shop_cart,                      //商品列表
             // pay_way: this.data.checked_pay_type,        //支付方式
-            remark: this.data.remarkText                //口味备注
         };
         this.setData({
             order_info: order_data
@@ -829,6 +824,7 @@ Page({
         _shop_info.order.pay_way = this.data.checked_pay_type;      //支付方式
         _shop_info.order.desk_sn = desk_sn;
         _shop_info.order.message = e.detail.value.umsg;             //留言
+        _shop_info.order.remark = app.globalData.remark;            //用户留言
         _shop_info.order.user_count = 3;
         _shop_info.order.mode_money = mode_money;
 
@@ -869,7 +865,7 @@ Page({
                         title: '操作失败',
                         image: '../../assets/image/fail.png',
                         duration: 1000,
-                        success(){
+                        success() {
                             that.setData({
                                 show_modal: false
                             });
@@ -919,7 +915,7 @@ Page({
                         title: '提示',
                         content: res.data.message,
                         showCancel: false,
-                        success(){
+                        success() {
                             that.setData({
                                 show_modal: false
                             });

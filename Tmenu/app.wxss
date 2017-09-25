@@ -91,3 +91,19 @@ view{
     flex-direction: column;
     margin-left: 20rpx;
 }
+.foot{
+    display: flex;
+    flex-direction: column;
+    background: #f2f2f2;
+    padding-top: 180rpx;
+    padding-bottom: 80rpx;
+    color: #8a8a8a;
+    font-size: 20rpx;
+}
+.copy{
+    text-align: center;
+}
+.service-tel{
+    margin-top: 4rpx;
+    text-align: center;
+}

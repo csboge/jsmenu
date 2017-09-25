@@ -314,6 +314,9 @@ App({
     },
     //跳转地址
     naviTo: function (url) {
+
+        let that = this;
+
         wx.navigateTo({
             url: url,
             success: function (res) { },

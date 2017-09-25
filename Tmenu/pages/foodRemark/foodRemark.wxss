@@ -18,11 +18,11 @@
 }
 .item-box{
     display: flex;
+    justify-content: space-between;
     margin-top: 28rpx;
 }
 .item-choose{
-    width: 690rpx;
-    margin: 0 auto;
+    padding: 0 30rpx;
 }
 .remark-box{
     background-color: #fff;
@@ -32,7 +32,6 @@
     font-size: 24rpx;
     color: #5c5c5c;
     border-radius: 4rpx;       
-    margin-right: 24rpx;
     margin-left: 0;
 }
 .blank-box{

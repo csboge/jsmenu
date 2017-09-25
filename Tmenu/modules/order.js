@@ -27,7 +27,8 @@ function createOrder(shop_id,order_data) {
         goods_list: order_data.goods_list,                     //商品列表
         pay_way: order_data.pay_way,                           //支付方式
         order_rate: order_data.order_rate,                     //手续费比例
-        mode_rate: order_data.mode_rate                        //发红包比率
+        mode_rate: order_data.mode_rate,                       //发红包比率
+        remark: order_data.remark                              //口味备注
     }
     // console.log(order)
     let shop_info = util.getShopInfoSync(shop_id);

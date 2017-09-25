@@ -1,3 +1,4 @@
+<import src="../tpl/footer.wxml" />
 <view class="page-container">
     <view class="page-head" bindtap="toIndex">
         <view class="page-head-box">
@@ -99,8 +100,8 @@
         </view>
 
         <view class="show-more {{has_more?'':'txt-gray'}}" bindtap="loadMore" wx:if="{{order_record_list.length>0?true:false}}">{{has_more?'查看更多':'没有更多了'}}</view>
-        <view class="show-more {{order_record_list.length===0?'txt-gray':''}}"  wx:if="{{order_record_list.length>0?false:true}}">暂无数据</view>
+        <view class="show-more {{order_record_list.length===0?'txt-gray':''}}" wx:if="{{order_record_list.length>0?false:true}}">暂无数据</view>
 
     </view>
-    <view class="page-foot">©伯格网络提供支持</view>
+    <template is="foot"/>
 </view>

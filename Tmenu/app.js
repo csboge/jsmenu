@@ -12,7 +12,9 @@ App({
 
         let shop_id = options.query.shop_id;
         let scene = options.scene;
-        console.log(scene, shop_id);
+        // console.log(scene, shop_id);
+        console.log("最先接受到的扫码数据:")
+        console.log(options);
 
         let scene_list = [1001, 1005, 1006, 1026, 1027, 1053];
         if (scene_list.indexOf(scene) != -1) {

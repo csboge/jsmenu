@@ -13,11 +13,11 @@ App({
     globalData: {
         userInfo: null,
         // ev_url: "http://dev.csboge.com/api",
-        ev_url: "https://demo.ai-life.me/system",   //测试环境
-        // ev_url:"https://api.ai-life.me/api",     //生产环境
+        // ev_url: "https://demo.ai-life.me/system",   //测试环境
+        ev_url:"https://api.ai-life.me/system",     //生产环境
         system_version: 'BGmenu-1.0-@)!&*@#',       //系统版本号
 
-        shop_info: {shop_id:3},                              //商户信息
+        shop_info: {},                              //商户信息
         user_info: {},                              //用户信息
     },
     //组合请求数据

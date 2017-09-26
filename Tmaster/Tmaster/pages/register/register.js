@@ -41,6 +41,7 @@ Page({
             
             util.request(app.globalData.ev_url + "/user/isadmin", "POST", data)
                 .then((res) => {
+                    console.log(res);
                     if(res.data.code === 1){
                         //商户id、用户id保存到全局
                         let shop_id = res.data.data.shop_id;

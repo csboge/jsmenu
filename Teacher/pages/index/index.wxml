@@ -1,0 +1,101 @@
+<!--index.wxml-->
+<view class='page-container'>
+    <view class='bc'>
+        <image class='bc-img' src='http://img.my-shop.cc/teacher/tc_bg1.jpg'></image>
+        <image class='bc-img' src='http://img.my-shop.cc/teacher/tc_bg2.jpg'></image>
+        <image class='bc-img' src='http://img.my-shop.cc/teacher/tc_bg3.jpg'></image>
+        <image class='bc-img' src='http://img.my-shop.cc/teacher/tc_bg4.jpg'></image>
+        <image class='bc-img' src='http://img.my-shop.cc/teacher/tc_bg5.jpg'></image>
+        <image class='bc-img bc-img-l' src='http://img.my-shop.cc/teacher/tc_bg6.jpg'></image>
+        <image class='bc-img bc-img-s' src='http://img.my-shop.cc/teacher/tc_bg7.jpg?1'></image>
+    </view>
+    <view class='page-head'>
+        <view class='head-bc'></view>
+        <view class='head-rec'></view>
+        <view class='reduction-box'>
+            <view class='reduction-content'>
+                <view class='reduction-main'>
+                    <view class='personal-img'>
+                        <image class='p-img' src='http://img.my-shop.cc/teacher/tc_tx.jpg'></image>
+                    </view>
+                    <view class='person-des'>
+                        <view class='l b'>钟林飞</view>
+                        <view class='m gray'>好望角全国首席讲师</view>
+                    </view>
+                </view>
+                <view class='reduction-touch'>
+                    <button class='share-btn' open-type='share'>
+                        <image class='share-img' src='http://img.my-shop.cc/teacher/tc_share.jpg'></image>
+                    </button>
+                    <view class='tel-btn'>
+                        <image class='tel-img' src='http://img.my-shop.cc/teacher/tc_tel.jpg'></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class='body'>
+            <view class='item'>
+                <view class='item-content'>
+                    <view class='item-title'>
+                        <view class='title-ch xl b red'>万流景仰的辉煌</view>
+                        <view class='title-en e gray'>INTRODUCE</view>
+                    </view>
+                    <view class='item-detail'>
+                        <video clss="video" src="http://img.my-shop.cc/video/117.mp4" controls autoplay></video>
+                    </view>
+                </view>
+            </view>
+            <view class='item photo'>
+                <view class='item-content'>
+                    <view class='item-title'>
+                        <view class='title-ch xl b red'>怀瑾握瑜的形象</view>
+                        <view class='title-en e gray'>PHOTO</view>
+                    </view>
+                    <view class='item-detail'>
+                        <image class='person-pic' src='http://img.my-shop.cc/teacher/tc_pic.jpg'></image>
+                    </view>
+                </view>
+            </view>
+            <view class='history'>
+                <view class='item-title exp'>
+                    <view class='title-ch xl b red'>百举百捷的事迹</view>
+                    <view class='title-en e gray'>EXPERIENCE</view>
+                </view>
+                <view class='history-content'>
+                    <view class='history-item'>
+                        <view class='circle orange'>
+                            <view class='history-txt'>
+                                <view class='history-title xl b'>亚洲90后超级演说家</view>
+                                <view class='history-des m gray'>22岁打破集团9年来的销售记录</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class='history-item'>
+                        <view class='circle blue'>
+                            <view class='history-txt'>
+                                <view class='history-title xl b'>好望角集团浙江分公司总经理</view>
+                                <view class='history-des m gray'>23岁成为浙江分公司总经理</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class='history-item'>
+                        <view class='circle green'>
+                            <view class='history-txt'>
+                                <view class='history-title xl b'>好望角商学院首席创业导师</view>
+                                <view class='history-des m gray'>24岁仅用九个月成功挑战开始宝马</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class='history-item'>
+                        <view class='circle c-gray'>
+                            <view class='history-txt'>
+                                <view class='history-title xl b'>好望角集团董事</view>
+                                <view class='history-des m gray'>27岁成为集团董事帮助团队伙伴开上奔驰宝马</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

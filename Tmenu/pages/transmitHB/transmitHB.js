@@ -41,6 +41,7 @@ Page({
         let bagid = app.globalData.mode_data.bagid;
         util.request(app.globalData.ev_url + "/shop/cou", "POST", app.getParams({ bag_id: bagid }))
             .then((res) => {
+                console.log(res);
                 if (res.data.code === 1) {
 
                     let img_url = res.data.data.code;

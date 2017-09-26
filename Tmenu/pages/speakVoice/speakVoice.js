@@ -39,6 +39,8 @@ Page({
         let mode_money = options.mode_money || -1;      //红包金额
         let shop_id = options.shop_id || -1;            //商户id
         let shop_title = options.shop_title || "";      //商铺名
+        let scene = decodeURIComponent(options.scene);
+        console.log(scene)
 
         //设置标题栏为商铺名
         wx.setNavigationBarTitle({

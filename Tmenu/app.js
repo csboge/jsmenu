@@ -14,10 +14,10 @@ App({
         let scene = options.scene;
         console.log(scene, shop_id);
 
-        let scene_list = [1001,1005,1006,1026,1027,1053];
-        if(scene_list.indexOf(scene) != -1){
+        let scene_list = [1001, 1005, 1006, 1026, 1027, 1053];
+        if (scene_list.indexOf(scene) != -1) {
             this.setGlobalData("out_in", true);
-        }else{
+        } else {
             this.setGlobalData("out_in", false);
         }
 
@@ -33,7 +33,7 @@ App({
         let that = this;
 
         let desk_sn = "1";
-        console.log("接受到的shop_id"+shop_id)
+        console.log("接受到的shop_id" + shop_id)
         //判断商户id是否存在
         if (shop_id) {
             // console.log("主页onshow")
@@ -55,9 +55,8 @@ App({
             // console.log(util.getShopInfoSync(shop_id))
 
             //提前授权
-            that.showAuth();
+            that.showAuth(cb);
 
-            cb();
 
         } else {
 
@@ -71,11 +70,11 @@ App({
 
             return;
 
-        }  
+        }
 
     },
     //提前授权
-    showAuth() {
+    showAuth(cb) {
 
         let that = this;
 
@@ -88,16 +87,17 @@ App({
             scope: 'scope.record',
             success() {
                 //检查授权信息
-                that.checkAuthor();
+                that.checkAuthor(cb);
             },
             fail() {
                 //检查授权信息
-                that.checkAuthor();
+                that.checkAuthor(cb);
             }
         });
+
     },
     //检查授权信息
-    checkAuthor() {
+    checkAuthor(cb) {
         let that = this;
 
         wx.getSetting({
@@ -114,7 +114,10 @@ App({
                             if (res.confirm) {
                                 //调起授权配置面板
                                 wx.openSetting({
-                                    success: (res) => { }
+                                    complete(res){
+                                        console.log(res)
+                                        that.checkAuthor(cb);
+                                    }
                                 });
                             }
                         }
@@ -136,7 +139,7 @@ App({
                             wx.setStorageSync('bg_elec_caipu_shop_info_' + that.globalData.shop_id, shop_info);
 
                             //检查登录态
-                            that.checkLogin();
+                            that.checkLogin(cb);
 
                         }
                     });
@@ -145,14 +148,14 @@ App({
         });
     },
     //检查登录态
-    checkLogin() {
+    checkLogin(cb) {
         let that = this;
         //检查登录态
         wx.checkSession({
             success: function () {
 
                 //检查服务器登录态
-                that.login();
+                that.login(cb);
 
             },
             fail: function () {//微信端登录态过期
@@ -160,12 +163,12 @@ App({
                 console.log("登录态失效,重新登录");
 
                 //重新登录
-                that.login();
+                that.login(cb);
             }
         });
     },
     //检查服务端登录态是否过期
-    login: function () {
+    login: function (cb) {
 
         wx.showLoading({
             title: '加载中',
@@ -192,7 +195,7 @@ App({
                         success: function (res) {
                             //登录成功，未过期
                             if (res.data.code === 1) {
-
+                                console.log(res.data.data.access_token)
                                 let shop_info = util.getShopInfoSync(that.globalData.shop_id);
                                 let user = shop_info.user;
                                 user.openid = res.data.data.session.openid;
@@ -210,6 +213,7 @@ App({
                                 wx.setStorageSync('bg_elec_caipu_shop_info_' + that.globalData.shop_id, shop_info);
 
                                 wx.hideLoading();
+                                cb();
                             } else if (res.data.code === -2012) {//服务端登录态失效
                                 //重新登录
                                 that.login();

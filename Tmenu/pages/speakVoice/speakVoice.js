@@ -34,32 +34,29 @@ Page({
 
         let that = this;
 
+        let bagid = options.bagid;                      //红包id
+        let count = options.count || -1;                //红包个数
+        let mode_money = options.mode_money || -1;      //红包金额
+        let shop_id = options.shop_id || -1;            //商户id
+        let shop_title = options.shop_title || "";      //商铺名
+
+        //设置标题栏为商铺名
+        wx.setNavigationBarTitle({
+            title: shop_title
+        });
+
+        let mode_data = {
+            bagid: bagid,
+            count: count,
+            mode_money: mode_money,
+            shop_id: shop_id
+        };
+        console.log(that.data.mode_data)
+
+        that.setData({
+            mode_data: mode_data
+        });
         app.filter(options.shop_id, function () {
-
-
-            let bagid = options.bagid;                      //红包id
-            let count = options.count || -1;                //红包个数
-            let mode_money = options.mode_money || -1;      //红包金额
-            let shop_id = options.shop_id || -1;            //商户id
-            let shop_title = options.shop_title || "";      //商铺名
-
-            //设置标题栏为商铺名
-            wx.setNavigationBarTitle({
-                title: shop_title
-            });
-
-            let mode_data = {
-                bagid: bagid,
-                count: count,
-                mode_money: mode_money,
-                shop_id: shop_id
-            };
-
-            that.setData({
-                mode_data: mode_data
-            });
-
-            console.log(that.data.mode_data)
 
             //加载轮播图
             that.getSliders();

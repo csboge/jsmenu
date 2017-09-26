@@ -23,7 +23,6 @@
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#1a191f",
-        "navigationBarTitleText": "电子菜谱",
         "navigationBarTextStyle": "white"
     },
     "networkTimeout": {

@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<import src="../tpl/footer.wxml" />
 <view class="page-container">
     <view class="page-section" animation="{{animationData}}">
         <view class="shop-info">
@@ -49,9 +50,7 @@
             <image src='http://img.my-shop.cc/image/card2.png' class='card-img'></image>
         </view>
 
-        <view class="foot">
-            © 伯格网络提供支持
-        </view>
+        <template is="foot"/>
     </view>
 
 </view>

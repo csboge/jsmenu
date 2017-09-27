@@ -7,7 +7,7 @@
         <image class='bc-img' src='http://img.my-shop.cc/teacher/tc_bg4.jpg'></image>
         <image class='bc-img' src='http://img.my-shop.cc/teacher/tc_bg5.jpg'></image>
         <image class='bc-img bc-img-l' src='http://img.my-shop.cc/teacher/tc_bg6.jpg'></image>
-        <image class='bc-img bc-img-s' src='http://img.my-shop.cc/teacher/tc_bg7.jpg?1'></image>
+        <image class='bc-img bc-img-s' src='http://img.my-shop.cc/teacher/tc_bg7.jpg?2'></image>
     </view>
     <view class='page-head'>
         <view class='head-bc'></view>
@@ -52,7 +52,13 @@
                         <view class='title-en e gray'>PHOTO</view>
                     </view>
                     <view class='item-detail'>
-                        <image class='person-pic' src='http://img.my-shop.cc/teacher/tc_pic.jpg'></image>
+                        <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{700}}">
+                            <block wx:for="{{imgUrls}}">
+                                <swiper-item>
+                                    <image src="{{item}}" class="slide-image" width="355" height="150" />
+                                </swiper-item>
+                            </block>
+                        </swiper>
                     </view>
                 </view>
             </view>
@@ -82,12 +88,12 @@
                         <view class='circle green'>
                             <view class='history-txt'>
                                 <view class='history-title xl b'>好望角商学院首席创业导师</view>
-                                <view class='history-des m gray'>24岁仅用九个月成功挑战开始宝马</view>
+                                <view class='history-des m gray'>24岁仅用九个月成功挑战开上宝马</view>
                             </view>
                         </view>
                     </view>
                     <view class='history-item'>
-                        <view class='circle c-gray'>
+                        <view class='circle c-gray short'>
                             <view class='history-txt'>
                                 <view class='history-title xl b'>好望角集团董事</view>
                                 <view class='history-des m gray'>27岁成为集团董事帮助团队伙伴开上奔驰宝马</view>

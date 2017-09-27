@@ -109,13 +109,13 @@
     flex-direction: column;
     padding-top: 80rpx;
     padding-bottom: 24rpx;
-    padding-left: 60rpx;
+    padding-left: 150rpx;
 }
 
 .reduction-touch::after {
     position: absolute;
     top: 38%;
-    left: 10%;
+    left: 30%;
     content: "";
     display: block;
     width: 2rpx;
@@ -179,7 +179,7 @@
     border-bottom: 2rpx solid #eee;
 }
 
-.person-pic {
+.slide-image {
     width: 620rpx;
     height: 366rpx;
 }
@@ -191,7 +191,7 @@
 
 video {
     width: 620rpx;
-    height: 530rpx;
+    height: 500rpx;
 }
 
 .photo {
@@ -211,12 +211,13 @@ video {
 }
 
 .history-content {
+    padding-left: 26rpx;
     padding-top: 32rpx;
-    padding-bottom: 115rpx;
+    padding-bottom: 10rpx;
 }
 
 .history-item{
-    /* position: relative; */
+    height: 190rpx;
 }
 
 .circle{
@@ -224,18 +225,42 @@ video {
     border: 6rpx solid;
     width: 25rpx;
     height: 25rpx;
-    border-radius: 50%
+    border-radius: 50%;
+    z-index: 1;
 }
 
 .circle::after{
-    position: absolute;
+    position: relative;
+    top:30rpx;
+    left: 50%;
+    margin-left: -3rpx;
     content: "";
     display: block;
-    width: 6rps;
+    width: 6rpx;
     height: 160rpx;
     background: #e5e5e5;
 }
 .history-txt{
     position: absolute;
-    width: 500rpx;
+    left: 26rpx;
+    top: 32rpx;
+    width: 570rpx;
+}
+.orange{
+    border-color: #e0620c;
+}
+.blue{
+    border-color: #00a0e9;
+}
+.green{
+    border-color: #35b16c;
+}
+.c-gray{
+    border-color: #959595;
+}
+.short::after{
+    height: 46rpx;
+}
+swiper{
+    height: 366rpx;
 }

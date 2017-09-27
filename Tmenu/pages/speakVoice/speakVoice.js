@@ -388,7 +388,7 @@ Page({
     //点击去菜单
     toMenu: function () {
         wx.navigateTo({
-            url: '../menu/menu'
+            url: '../menu/menu?shop_id=' + app.globalData.shop_id,
         })
     },
     //查看红包记录

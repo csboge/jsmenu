@@ -29,15 +29,15 @@ App({
 
     },
     //通过商户号进行过滤
-    filter(shop_id, cb) {
+    filter(shop_id, cb, desk_sn) {
         let that = this;
 
-        let desk_sn = "1";
-        console.log("接受到的shop_id" + shop_id)
+        console.log("shop_id" + shop_id + "  " + "desk_sn" + desk_sn)
         //判断商户id是否存在
         if (shop_id) {
             // console.log("主页onshow")
             that.setGlobalData("shop_id", shop_id);
+            that.setGlobalData("desk_sn", desk_sn);
 
             let _shop_info = util.getShopInfoSync(shop_id);
             if (_shop_info === -1) {

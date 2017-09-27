@@ -55,7 +55,8 @@ Page({
     onLoad: function (options) {
 
         let that = this;
-        app.filter(options.shop_id, function () { });
+        let desk_sn = options.desk_sn || -1;
+        app.filter(options.shop_id, function () { }, desk_sn);
         this.timer = setInterval(function () {
             let access_token = wx.getStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id).token;
             if (access_token) {

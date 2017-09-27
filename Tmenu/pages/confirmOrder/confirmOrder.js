@@ -782,7 +782,18 @@ Page({
     formSubmit: function (e) {
 
         let that = this;
+        let desk_sn = app.globalData.desk_sn;
         let _customer_num = this.data.customer_num;
+
+        //判断桌号是否存在
+        if (desk_sn === -1) {
+            wx.showModal({
+                title: '提示',
+                content: '请输入桌号!',
+                showCancel: false
+            });
+            return;
+        }
 
         // console.log(_customer_num)
         //如果人数为0且为必填，就弹出选择人数框
@@ -797,7 +808,6 @@ Page({
             show_modal: true
         });
 
-        let desk_sn = util.getShopInfoSync(app.globalData.shop_id).user.userid;
         let mode_money = Math.ceil(this.data.discountPrice * this.data.mode_rate);
 
 

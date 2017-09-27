@@ -40,6 +40,7 @@ Page({
         let shop_id = options.shop_id || -1;            //商户id
         let shop_title = options.shop_title || "";      //商铺名
 
+
         //设置标题栏为商铺名
         wx.setNavigationBarTitle({
             title: shop_title
@@ -64,7 +65,7 @@ Page({
             //初始化红包列表
             that.initHbList();
 
-        });
+        }, -1);
 
     },
     //获取轮播图

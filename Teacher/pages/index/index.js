@@ -30,5 +30,21 @@ Page({
         wx.makePhoneCall({
             phoneNumber: '18671621319'
         });
+    },
+    onShareAppMessage: function (res) {
+        if (res.from === 'button') {
+            // 来自页面内转发按钮
+            console.log(res.target)
+        }
+        return {
+            title: '好望角超级讲师团',
+            path: '/page/index/index',
+            success: function (res) {
+                // 转发成功
+            },
+            fail: function (res) {
+                // 转发失败
+            }
+        }
     }
 })

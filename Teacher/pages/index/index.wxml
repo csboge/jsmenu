@@ -41,7 +41,7 @@
                         <view class='title-en e gray'>INTRODUCE</view>
                     </view>
                     <view class='item-detail'>
-                        <video id="myVideo" clss="video" src="http://img.my-shop.cc/video/117.mp4" controls autoplay='{{auto_play}}'></video>
+                        <video id="myVideo" clss="video" src="http://img.my-shop.cc/video/117.mp4" controls autoplay='{{auto_play}}' poster='http://img.my-shop.cc/teacher/tc_slide4.jpg'></video>
                     </view>
                 </view>
             </view>

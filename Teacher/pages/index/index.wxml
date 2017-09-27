@@ -27,7 +27,7 @@
                     <button class='share-btn' open-type='share'>
                         <image class='share-img' src='http://img.my-shop.cc/teacher/tc_share.jpg'></image>
                     </button>
-                    <view class='tel-btn'>
+                    <view class='tel-btn' bindtap='call'>
                         <image class='tel-img' src='http://img.my-shop.cc/teacher/tc_tel.jpg'></image>
                     </view>
                 </view>

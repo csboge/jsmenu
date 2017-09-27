@@ -14,6 +14,11 @@ Page({
     },
     onLoad: function () {
 
+    },
+    //拨打电话
+    call(){
+        wx.makePhoneCall({
+            phoneNumber: '18671621319'
+        });
     }
-
 })

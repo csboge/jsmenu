@@ -305,7 +305,7 @@ App({
     makeCall: function () {
 
         let that = this;
-
+        console.log(that.globalData.shop_info.mobile + "111")
         wx.makePhoneCall({
             phoneNumber: that.globalData.shop_info.mobile,
             success: function (res) {

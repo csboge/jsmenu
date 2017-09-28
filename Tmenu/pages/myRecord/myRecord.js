@@ -25,26 +25,14 @@ Page({
      */
     onLoad: function (options) {
 
-        let _shop_info = null;
-        let _notice = "";
-        let _adress = "";
-        if (app.globalData.shop_info) {
-            _shop_info = app.globalData.shop_info;
-            _notice = _shop_info.notice || "";
-            _adress = _shop_info.adress || "";
+        let that = this;
+        let desk_sn = options.desk_sn || -1;
+        app.filter(options.shop_id, function () {
 
-            _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
-            _shop_info.notice = _notice;
-            _adress = _adress.length > 20 ? (_adress.substring(0, 17) + '...') : _adress;
-            _shop_info.adress = _adress;
-
-            //初始化商户信息
-            this.setData({
-                shop_info: _shop_info
-            });
-
-        } else {
-            app.getShopInfo(() => {
+            let _shop_info = null;
+            let _notice = "";
+            let _adress = "";
+            if (app.globalData.shop_info) {
                 _shop_info = app.globalData.shop_info;
                 _notice = _shop_info.notice || "";
                 _adress = _shop_info.adress || "";
@@ -55,18 +43,35 @@ Page({
                 _shop_info.adress = _adress;
 
                 //初始化商户信息
-                this.setData({
+                that.setData({
                     shop_info: _shop_info
                 });
 
-            });
-        }
+            } else {
+                app.getShopInfo(() => {
+                    _shop_info = app.globalData.shop_info;
+                    _notice = _shop_info.notice || "";
+                    _adress = _shop_info.adress || "";
 
-        //获取红包余额
-        this.getHbRest();
+                    _notice = _notice.length > 20 ? (_notice.substring(0, 20) + '...') : _notice;
+                    _shop_info.notice = _notice;
+                    _adress = _adress.length > 20 ? (_adress.substring(0, 17) + '...') : _adress;
+                    _shop_info.adress = _adress;
 
-        //加载订单记录
-        this.getOrderList();
+                    //初始化商户信息
+                    that.setData({
+                        shop_info: _shop_info
+                    });
+
+                });
+            }
+
+            //获取红包余额
+            that.getHbRest();
+
+            //加载订单记录
+            that.getOrderList();
+        }, desk_sn);
 
     },
     //获取红包余额
@@ -179,7 +184,7 @@ Page({
 
         //移除餐具，避免重复添加
         _goods_list.forEach((obj, i) => {
-            if (obj.bowl >0 ) {
+            if (obj.bowl > 0) {
                 _goods_list.splice(i, 1);
             }
         });
@@ -242,13 +247,13 @@ Page({
 
     },
     //查看本单红包记录
-    toHbRecord(e){
+    toHbRecord(e) {
 
         let bagid = e.currentTarget.dataset.bagid;
         wx.navigateTo({
             url: '../speakVoice/speakVoice?bagid=' + bagid + "&shop_id=" + app.globalData.shop_id + "&shop_title=" + app.globalData.shop_info.title
         });
-        
+
     },
     //查看地图位置
     showAddress: function () {

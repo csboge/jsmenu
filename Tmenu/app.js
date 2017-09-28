@@ -33,24 +33,26 @@ App({
         let that = this;
 
         console.log("shop_id" + shop_id + "  " + "desk_sn" + desk_sn)
+
+        let _shop_id = shop_id || that.globalData.shop_id;
         //判断商户id是否存在
-        if (shop_id) {
+        if (_shop_id) {
             // console.log("主页onshow")
-            that.setGlobalData("shop_id", shop_id);
+            that.setGlobalData("shop_id", _shop_id);
             that.setGlobalData("desk_sn", desk_sn);
 
-            let _shop_info = util.getShopInfoSync(shop_id);
+            let _shop_info = util.getShopInfoSync(_shop_id);
             if (_shop_info === -1) {
-                wx.setStorageSync("bg_elec_caipu_shop_info_" + shop_id, { shop_id: shop_id });
+                wx.setStorageSync("bg_elec_caipu_shop_info_" + _shop_id, { shop_id: _shop_id });
             }
             //初始化用户本地数据
-            let shop_info = util.getShopInfoSync(shop_id);
+            let shop_info = util.getShopInfoSync(_shop_id);
 
             let _user = shop_info.user;
             //防止覆盖
             if (!_user) {
                 shop_info.user = { "desk_sn": desk_sn };
-                wx.setStorageSync("bg_elec_caipu_shop_info_" + shop_id, shop_info);
+                wx.setStorageSync("bg_elec_caipu_shop_info_" + _shop_id, shop_info);
             }
             // console.log(util.getShopInfoSync(shop_id))
 

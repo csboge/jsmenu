@@ -783,7 +783,7 @@ Page({
     gotoConfirmOrder: function () {
 
         let shop_cart = util.getShopCart(app.globalData.shop_id);
-
+        
         if (shop_cart.length > 0) {
 
             wx.navigateTo({

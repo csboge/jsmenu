@@ -34,7 +34,7 @@
                     </view>
                 </view>
             </view>
-            <view class="load-more">
+            <view class="load-more" wx:if="{{data_list.length>0?true:false}}">
                 <view class="shop-txt">查看更多</view>
                 <view class="arr-down lm-arr"></view>
             </view>

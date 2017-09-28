@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/saleReport/saleReport",
     "pages/register/register",
     "pages/collectionRecord/collectionRecord",
-    "pages/saleReport/saleReport",
     "pages/home/home",
     "pages/reportDetail/reportDetail",
     "pages/apply/apply",

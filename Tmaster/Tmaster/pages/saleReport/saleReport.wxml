@@ -28,7 +28,7 @@
                     </view>
                 </view>
             </view>
-            <view class='load-more-btn {{date_has_more?"":"gray"}}' bindtap='{{date_has_more?"dateLoadMore":""}}'>{{date_has_more?'查看更多':'没有更多了'}}</view>
+            <view class='load-more-btn {{date_has_more?"":"gray"}}' bindtap='{{date_has_more?"dateLoadMore":""}}' wx:if="{{date_list.length>0?true:false}}">{{date_has_more?'查看更多':'没有更多了'}}</view>
             <view class='bg-white txt-mid gray' wx:if="{{date_list.length>0?false:true}}">暂无数据</view>
         </view>
         <view class="report-list" wx:if="{{report_type===1?true:false}}">

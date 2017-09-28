@@ -291,8 +291,8 @@ App({
     //全局数据
     globalData: {
         // ev_url: "http://dev.csboge.com/api",
-        ev_url: "https://demo.ai-life.me/api",      //测试环境
-        // ev_url:"https://api.ai-life.me/api",        //生产环境
+        // ev_url: "https://demo.ai-life.me/api",      //生产环境
+        ev_url:"https://api.ai-life.me/api",        //测试环境
         system_version: 'BGmenu-1.0-@)!&*@#',       //系统版本号
         is_first_login: true,                       //是否是第一次登录 
         is_shop_path: 0                             //商户Id

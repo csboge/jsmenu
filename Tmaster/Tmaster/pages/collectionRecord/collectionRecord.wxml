@@ -41,5 +41,6 @@
             <!-- <view class='load-more shop-txt no-more'>没有更多了</view> -->
         </view>
     </view>
+    <view class='no-data' wx:if="{{data_list.length>0?false:true}}">暂无数据</view>
     <template is="page-foot" />
 </view>

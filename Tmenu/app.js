@@ -32,7 +32,7 @@ App({
     filter(shop_id, cb, desk_sn) {
         let that = this;
 
-        console.log("shop_id" + shop_id + "  " + "desk_sn" + desk_sn)
+        console.log("shop_id" + shop_id + "  " + "桌号：" + desk_sn)
 
         let _shop_id = shop_id || that.globalData.shop_id;
         //判断商户id是否存在

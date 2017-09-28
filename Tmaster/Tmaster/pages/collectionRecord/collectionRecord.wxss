@@ -17,10 +17,11 @@
     width: 100%;
 }
 
-.shop-inner-box{
+.shop-inner-box {
     width: 140rpx;
     margin: 0 auto;
 }
+
 .shop-txt {
     display: inline-block;
     padding: 28rpx 0;
@@ -41,7 +42,7 @@
     transform: rotate(45deg);
 }
 
-.page-body{
+.page-body {
     margin-top: 86rpx;
 }
 
@@ -133,6 +134,14 @@
 .lm-arr {
     top: 30rpx;
 }
-.no-more{
+
+.no-more {
     color: #ddd;
+}
+
+.no-data {
+    padding: 400rpx 0;
+    font-size: 28rpx;
+    color: #a5a5a5;
+    text-align: center;
 }

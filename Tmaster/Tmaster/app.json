@@ -1,9 +1,11 @@
 {
   "pages": [
-    "pages/saleReport/saleReport",
-    "pages/register/register",
-    "pages/collectionRecord/collectionRecord",
+    "pages/menuItem/menuItem",
+    "pages/addCate/addCate",
     "pages/home/home",
+    "pages/register/register",
+    "pages/saleReport/saleReport",
+    "pages/collectionRecord/collectionRecord",
     "pages/reportDetail/reportDetail",
     "pages/apply/apply",
     "pages/menu/menu",
@@ -16,7 +18,6 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#509863",
-    "navigationBarTitleText": "请填写店铺信息",
     "navigationBarTextStyle": "white"
   }
 }

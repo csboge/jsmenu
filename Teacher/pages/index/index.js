@@ -38,7 +38,7 @@ Page({
         }
         return {
             title: '好望角超级讲师团',
-            path: '/page/index/index',
+            path: '/pages/index/index',
             success: function (res) {
                 // 转发成功
             },

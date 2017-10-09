@@ -1,2 +1,95 @@
-
-
+<view class="page-contianer">
+    <view class='page-head'>
+        <view class='person-box'>
+            <image class='person-img' src='http://img.my-shop.cc/teacher/head_pt.jpg'></image>
+            <view class='person-name-box'>
+                <view class='person-name-txt txt-w l'>童鹏</view>
+                <button class='share' open-type='share'>
+                    <image class='share-icon' src='http://img.my-shop.cc/teacher/share-icon.png'></image>
+                </button>
+            </view>
+            <view class='person-position txt-w m'>好望角集团湖北分公司总经理</view>
+        </view>
+    </view>
+    <view class='page-section'>
+        <view class='section-nav'>
+            <view class='reduce-item {{tab_index===0?"active":""}}' data-i='0' bindtap='changeTab'>
+                <view class='item-txt-ch txt-w ls'>视频介绍</view>
+                <view class='item-txt-en txt-w e'>Video</view>
+            </view>
+            <view class='reduce-item {{tab_index===1?"active":""}}' data-i='1' bindtap='changeTab'>
+                <view class='item-txt-ch txt-w ls'>功成名就</view>
+                <view class='item-txt-en txt-w e'>Deeds</view>
+            </view>
+            <view class='reduce-item {{tab_index===2?"active":""}}' data-i='2' bindtap='changeTab'>
+                <view class='item-txt-ch txt-w ls'>个人形象</view>
+                <view class='item-txt-en txt-w e'>Photo</view>
+            </view>
+        </view>
+        <view class='tab-vedio' wx:if="{{tab_index===0?true:false}}">
+            <video id='myVideo' src="http://img.my-shop.cc/video/tp_v.mp4" controls="{{true}}" poster='http://img.my-shop.cc/teacher/tp_v_poster.jpg' autoplay='{{false}}'></video>
+            <view class='vedio-des'>
+                <view class='vedio-des-txt txt-w ms' wx:for="{{vedio_txt}}">{{item}}</view>
+                <view class='vedio-arrow'></view>
+            </view>
+        </view>
+        <view class='tab-deeds' wx:if="{{tab_index===1?true:false}}">
+            <view class='deeds-box'>
+                <view class='outer-circle'>
+                    <view class='inner-circle'>
+                        <view class='dees-circle'>
+                            <view class='deeds-txt-box'>
+                                <view class='deeds-txt txt-w ms'>他此生梦想点亮</view>
+                                <view class='deeds-txt txt-w ms'>一亿人学会销售改变命运!</view>
+                                <view class='deeds-txt txt-w ms'>并协助恩师黄佰胜老师建立千</view>
+                                <view class='deeds-txt txt-w ms'>年学府，恩泽子孙后代一千年!</view>
+                                <view class='deeds-txt txt-w ms'>他被无数的小伙伴誉为最帅、</view>
+                                <view class='deeds-txt txt-w ms'>最有魅力、最有爱心、最具</view>
+                                <view class='deeds-txt txt-w ms'>亲和力最实战的超级</view>
+                                <view class='deeds-txt txt-w ms'>演说家</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class='s-circle-a s-circle'>
+                        <view class='s-circle-txt-box-a txt-w'>
+                            <view class='age b ms'>21岁</view>
+                            <view class='des ms'>成为好望角集团湖北分公司总经理</view>
+                        </view>
+                    </view>
+                    <view class='s-circle-b s-circle'>
+                        <view class='s-circle-txt-box-b txt-w'>
+                            <view class='age b ms'>24岁</view>
+                            <view class='des ms'>年收入超过50万</view>
+                        </view>
+                    </view>
+                    <view class='s-circle-c s-circle'>
+                        <view class='s-circle-txt-box-c txt-w'>
+                            <view class='age b ms'>22岁</view>
+                            <view class='des ms'>巡回全中国做演讲</view>
+                        </view>
+                    </view>
+                    <view class='s-circle-d s-circle'>
+                        <view class='s-circle-txt-box-d txt-w'>
+                            <view class='age b ms'>26岁</view>
+                            <view class='des ms'>买上百万房子送给老婆当结婚礼物</view>
+                        </view>
+                    </view>
+                    <view class='s-circle-e s-circle'>
+                        <view class='s-circle-txt-box-e txt-w'>
+                            <view class='age ms'>影响学员超过30万</view>
+                        </view>
+                    </view>
+                    <view class='s-circle-f s-circle'>
+                        <view class='s-circle-txt-box-f txt-w'>
+                            <view class='age b ms'>25岁</view>
+                            <view class='des ms'>全款买上奔驰轿车</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class='tab-photo' wx:if="{{tab_index===2?true:false}}">
+            <image class='photo-img' wx:for="{{photo_list}}" src='{{item}}'></image>
+        </view>
+    </view>
+</view>

@@ -8,3 +8,33 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+.page-container{
+    width: 100%;
+}
+
+.l{
+    font-size: 38rpx;
+}
+
+.m{
+    font-size: 28rpx;
+}
+
+.ms{
+    font-size: 26rpx;
+}
+
+.ls{
+    font-size: 30rpx;
+}
+.e{
+    font-size: 24rpx;
+}
+.b{
+    font-weight: bold;
+}
+
+page{
+    background: #f2f2f2;
+}

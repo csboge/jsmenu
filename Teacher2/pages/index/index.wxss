@@ -1,1 +1,239 @@
+.page-contianer {
+    background: linear-gradient(to bottom right, #9d7094, #4d3b60 17%, #262541 35%, #16111b 60%, #725478 100%);
+}
 
+.txt-w {
+    color: #fff;
+}
+
+.page-head {
+    padding-top: 88rpx;
+    padding-bottom: 50rpx;
+}
+
+button {
+    margin-left: 40rpx;
+    width: 40rpx;
+    height: 36rpx;
+    border: 0;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 1;
+}
+
+.button-hover {
+    background: transparent;
+}
+
+button::after {
+    border: 0;
+}
+
+.share-icon {
+    width: 40rpx;
+    height: 36rpx;
+}
+
+.person-img {
+    width: 156rpx;
+    height: 156rpx;
+    border-radius: 50%;
+    border: 4rpx solid #fff;
+}
+
+.person-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.person-name-box {
+    display: flex;
+    align-items: center;
+    margin-top: 26rpx;
+    margin-bottom: 20rpx;
+}
+
+.section-nav {
+    display: flex;
+}
+
+.reduce-item {
+    flex-grow: 1;
+    padding-top: 14rpx;
+    padding-bottom: 8rpx;
+    text-align: center;
+    background: #23213e;
+}
+
+.active {
+    background: #604a6d;
+}
+
+.tab-vedio {
+    padding: 25rpx 36rpx;
+}
+
+.vedio-des {
+    position: relative;
+    margin-top: 30rpx;
+    padding: 30rpx 30rpx;
+    background: #351e31;
+    border-radius: 8rpx;
+    overflow: visible;
+}
+
+.vedio-arrow {
+    position: absolute;
+    left: 42rpx;
+    top: -40rpx;
+    border-left: 20rpx solid transparent;
+    border-right: 20rpx solid transparent;
+    border-top: 20rpx solid transparent;
+    border-bottom: 20rpx solid #351e31;
+}
+
+.vedio-des-txt {
+    text-align: center;
+    line-height: 1.5;
+}
+
+video {
+    width: 678rpx;
+}
+
+.tab-deeds{
+    padding: 50rpx 0;
+}
+
+.deeds-box{
+    display: flex;
+    justify-content: center;
+}
+
+.dees-circle{
+    width: 352rpx;
+    height: 352rpx;
+    background: #3c2137;
+    border-radius: 50%;
+}
+
+.outer-circle{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 606rpx;
+    height: 606rpx;
+    background: transparent;
+    border-radius: 50%;
+    border: 4rpx solid #554364;
+}
+
+.inner-circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 474rpx;
+    height: 474rpx;
+    background: transparent;
+    border-radius: 50%;
+    border: 4rpx solid #554364;
+}
+
+.deeds-txt-box{
+    padding-top: 30rpx;
+}
+
+.deeds-txt{
+    text-align: center;
+    line-height: 1.5;
+}
+
+.s-circle{
+    position: absolute;
+    background: #554364;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.s-circle-a{
+    bottom: -20rpx;
+    left: -25rpx;
+    width: 180rpx;
+    height: 180rpx;
+}
+
+.s-circle-txt-box-a{
+    padding-top: 20rpx;
+}
+
+.s-circle-b{
+    top: 150rpx;
+    left: -50rpx;
+    width: 140rpx;
+    height: 140rpx;
+}
+
+.s-circle-txt-box-b{
+    padding-top: 20rpx;
+}
+
+.s-circle-c{
+    top: -20rpx;
+    left: 25%;
+    width: 140rpx;
+    height: 140rpx;
+}
+
+.s-circle-txt-box-c{
+    padding-top: 20rpx;
+}
+
+.s-circle-d{
+    top: 20rpx;
+    left: 75%;
+    width: 180rpx;
+    height: 180rpx;
+}
+
+.s-circle-txt-box-d{
+    padding-top: 20rpx;
+}
+
+.s-circle-e{
+    top: 260rpx;
+    left: 85%;
+    width: 140rpx;
+    height: 140rpx;
+}
+
+.s-circle-txt-box-e{
+    padding-top: 40rpx;
+}
+
+.s-circle-f{
+    bottom: -10rpx;
+    left: 60%;
+    width: 140rpx;
+    height: 140rpx;
+}
+
+.s-circle-txt-box-f{
+    padding-top: 20rpx;
+}
+
+.tab-photo{
+    padding: 22rpx 12rpx;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.photo-img{
+    margin-bottom: 8rpx;
+    border-radius: 4rpx;
+    width: 360rpx;
+    height: 410rpx;
+}

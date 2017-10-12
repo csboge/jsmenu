@@ -1,0 +1,114 @@
+
+.page-head{
+    position: relative;
+}
+
+.head-bg{
+    position: absolute;
+    width: 100%;
+    height: 395rpx;
+}
+
+.person-info-box{
+    position: absolute;
+    padding-top: 30rpx;
+    padding-bottom: 60rpx;
+    width: 100%;
+}
+
+.person-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.head-img-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 128rpx;
+    height: 128rpx;
+    border-radius: 50%;
+    border: 2rpx solid #fff;
+}
+
+.head-img{
+    width: 122rpx;
+    height: 122rpx;
+    border-radius: 50%;
+}
+
+.person-touch{
+    position: relative;
+    margin: 0 auto;
+    margin-top: 26rpx;
+    display: flex;
+    justify-content: center;
+    width: 480rpx;
+}
+
+.person-touch::before{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    content: "";
+    width: 148rpx;
+    height: 2rpx;
+    background: #999aa6;
+}
+
+.person-touch::after{
+    position: absolute;
+    top: 50%;
+    right: 0;
+    display: block;
+    content: "";
+    width: 148rpx;
+    height: 2rpx;
+    background: #999aa6;
+}
+
+.tel-icon{
+    width: 40rpx;
+    height: 40rpx
+}
+
+.share-icon{
+    width: 40rpx;
+    height: 40rpx;
+}
+
+button{
+    margin-left: 50rpx;
+    border: 0;
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    line-height: 0;
+}
+button::after{
+    border: 0;
+}
+
+.touch-box{
+    display: flex;
+}
+
+.person-name{
+    padding-top: 20rpx;
+    padding-bottom: 12rpx;
+}
+
+.button-hover{
+    background: transparent;
+}
+
+.tri-angle{
+    position: absolute;
+    top: 395rpx;
+    left: 50%;
+    margin-left: -7rpx;
+    border: 16rpx solid transparent;
+    border-top-color: #37374d; 
+}

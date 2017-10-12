@@ -1,0 +1,23 @@
+<view class="page-container">
+    <view class='page-head'>
+        <image class='head-bg' src='http://img.my-shop.cc/teacher/tc3_hd_bg.jpg'></image>
+        <view class='person-info-box'>
+            <view class='person-info'>
+                <view class='head-img-box'>
+                    <image class='head-img' src='http://img.my-shop.cc/teacher/tc3_head.jpg'></image>
+                </view>
+                <view class='person-name w l b'>周莉</view>
+                <view class='person-position w m'>平安资深主任</view>
+                <view class='person-touch'>
+                    <view class='touch-box'>
+                        <image class='tel-icon' src='http://img.my-shop.cc/teacher/tc3_tel_icon.png'></image>
+                        <button class='share-btn' open-type='share'>
+                            <image class='share-icon' src='http://img.my-shop.cc/teacher/tc3_share_icon.png'></image>
+                        </button>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class='tri-angle'></view>
+    </view>
+</view>

@@ -1,0 +1,34 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 
+
+.page-container{
+    width: 100%;
+}
+
+.w{
+    color: #fff;
+}
+
+.l{
+    font-size: 36rpx;
+}
+
+.ls{
+    font-size: 32rpx;
+}
+
+.m{
+    font-size: 28rpx;
+}
+
+.b{
+    font-weight: bold;
+}

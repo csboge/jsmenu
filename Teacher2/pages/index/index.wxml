@@ -27,7 +27,7 @@
             </view>
         </view>
         <view class='tab-vedio' wx:if="{{tab_index===0?true:false}}">
-            <video id='myVideo' src="http://img.my-shop.cc/video/tp_v.mp4" controls="{{true}}" poster='http://img.my-shop.cc/teacher/tp_v_poster.jpg' autoplay='{{false}}'></video>
+            <video id='myVideo' src="http://img.my-shop.cc/video/tp_v.mp4" controls poster='http://img.my-shop.cc/teacher/tp_v_poster.jpg'></video>
             <view class='vedio-des'>
                 <view class='vedio-des-txt txt-w ms' wx:for="{{vedio_txt}}">{{item}}</view>
                 <view class='vedio-arrow'></view>

@@ -216,12 +216,16 @@ button::after{
 
 .box-img{
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     width: 360rpx;
     height: 58rpx;
 }
 
 .choice-title{
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     line-height: 58rpx;
 }
 
@@ -281,7 +285,8 @@ button::after{
     position: absolute;
     content: "";
     left: 50%;
-    top: -25rpx;
+    margin-left: -20rpx;
+    top: -24rpx;
     width: 40rpx;
     height: 40rpx;
     background: #fff;

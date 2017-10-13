@@ -1,6 +1,10 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/firstPage/firstPage",
+    "pages/secondPage/secondPage",
+    "pages/thirdPage/thirdPage",
+    "pages/forthPage/forthPage",
     "pages/logs/logs"
   ],
   "window":{

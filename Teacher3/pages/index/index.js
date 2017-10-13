@@ -23,6 +23,11 @@ Page({
             phoneNumber: ''
         });
     },
+    jump(e){
+        wx.navigateTo({
+            url: e.currentTarget.dataset.url
+        });
+    },
     onShareAppMessage: function (res) {
         if (res.from === 'button') {
             // 来自页面内转发按钮

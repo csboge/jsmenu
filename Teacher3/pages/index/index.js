@@ -4,29 +4,69 @@ const app = getApp()
 
 Page({
     data: {
-        img_url:[
-            "http://img.my-shop.cc/teacher/tc3_main_img1.jpg",
-            "http://img.my-shop.cc/teacher/tc3_main_img2.jpg",
-            "http://img.my-shop.cc/teacher/tc3_main_img3.jpg",
-            "http://img.my-shop.cc/teacher/tc3_main_img4.jpg",
-            "http://img.my-shop.cc/teacher/tc3_main_img5.jpg",
-            "http://img.my-shop.cc/teacher/tc3_main_img6.jpg",
-            "http://img.my-shop.cc/teacher/tc3_main_img7.jpg",
-            "http://img.my-shop.cc/teacher/tc3_main_img8.jpg"
-        ]
+        user_data: {}
     },
     onLoad: function () {
+        let that = this;
+
+        wx.request({
+            url: "https://api.ai-life.me/api/Lecturer/index",
+            data: { id: 3 },
+            method: "POST",
+            success: function (res) {
+                if (res.data.code === 1) {
+                    that.setData({
+                        user_data: res.data.data
+                    });
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
+            },
+            fail: function (res) {
+                wx.showModal({
+                    title: '提示',
+                    content: '获取数据失败',
+                    showCancel: false
+                })
+            }
+        });
 
     },
-    call(){
+    call() {
         wx.makePhoneCall({
             phoneNumber: ''
         });
     },
-    jump(e){
-        wx.navigateTo({
-            url: e.currentTarget.dataset.url
-        });
+    jump(e) {
+        let i = e.currentTarget.dataset.index - 0;
+        console.log(i)
+        switch (i) {
+            case 1:
+                wx.navigateTo({
+                    url: "../firstPage/firstPage"
+                });
+                break;
+            case 2:
+                wx.navigateTo({
+                    url: "../secondPage/secondPage"
+                });
+                break;
+            case 3:
+                wx.navigateTo({
+                    url: "../thirdPage/thirdPage"
+                });
+                break;
+            case 4:
+                wx.navigateTo({
+                    url: "../forthPage/forthPage"
+                });
+                break;
+        }
+
     },
     onShareAppMessage: function (res) {
         if (res.from === 'button') {

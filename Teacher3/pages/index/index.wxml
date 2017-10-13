@@ -4,15 +4,15 @@
         <view class='person-info-box'>
             <view class='person-info'>
                 <view class='head-img-box'>
-                    <image class='head-img' src='http://img.my-shop.cc/teacher/tc3_head.jpg'></image>
+                    <image class='head-img' src='{{user_data.portrait}}'></image>
                 </view>
-                <view class='person-name w l b'>周莉</view>
-                <view class='person-position w m'>平安资深主任</view>
+                <view class='person-name w l b'>{{user_data.name}}</view>
+                <view class='person-position w m'>{{user_data.explain}}</view>
                 <view class='person-touch'>
                     <view class='touch-box'>
-                        <image class='tel-icon' src='http://img.my-shop.cc/teacher/tc3_tel_icon.png' bindtap='call'></image>
+                        <image class='tel-icon' src='../../assets/images/tc3_tel_icon.png' bindtap='call'></image>
                         <button class='share-btn' open-type='share'>
-                            <image class='share-icon' src='http://img.my-shop.cc/teacher/tc3_share_icon.png'></image>
+                            <image class='share-icon' src='../../assets/images/tc3_share_icon.png'></image>
                         </button>
                     </view>
                 </view>
@@ -28,40 +28,40 @@
             <view class='join-item-box join-mid-box'>
                 <view class='join-item'>
                     <view class='join-des m red b'>
-                        <view class='join-txt'>入司平安</view>
+                        <view class='join-txt'>{{user_data.deeds["1"].content}}</view>
                     </view>
-                    <view class='join-time ms'>2015-12</view>
+                    <view class='join-time ms'>{{user_data.deeds["1"].title}}</view>
                     <view class='join-line'></view>
                 </view>
-                <image class='join-img' src='http://img.my-shop.cc/teacher/tc3_join_img.jpg'></image>
+                <image class='join-img' src='{{user_data.bg}}'></image>
                 <view class='join-item'>
                     <view class='join-des m red b'>
-                        <view class='join-txt'>冲刺经理</view>
+                        <view class='join-txt'>{{user_data.deeds["5"].content}}</view>
                     </view>
-                    <view class='join-time ms'>2018-01</view>
+                    <view class='join-time ms'>{{user_data.deeds["5"].title}}</view>
                     <view class='join-line'></view>
                 </view>
             </view>
             <view class='join-item-box'>
                 <view class='join-item'>
                     <view class='join-des m red b'>
-                        <view class='join-txt'>晋升主任</view>
+                        <view class='join-txt'>{{user_data.deeds["2"].content}}</view>
                     </view>
-                    <view class='join-time ms'>2016-07</view>
+                    <view class='join-time ms'>{{user_data.deeds["2"].title}}</view>
                     <view class='join-line'></view>
                 </view>
                 <view class='join-item'>
                     <view class='join-des m red b'>
-                        <view class='join-txt'>高级主任</view>
+                        <view class='join-txt'>{{user_data.deeds["3"].content}}</view>
                     </view>
-                    <view class='join-time ms'>2017-01</view>
+                    <view class='join-time ms'>{{user_data.deeds["3"].title}}</view>
                     <view class='join-line'></view>
                 </view>
                 <view class='join-item'>
                     <view class='join-des m red b'>
-                        <view class='join-txt'>资深主任</view>
+                        <view class='join-txt'>{{user_data.deeds["4"].content}}</view>
                     </view>
-                    <view class='join-time ms'>2017-07</view>
+                    <view class='join-time ms'>{{user_data.deeds["4"].title}}</view>
                     <view class='join-line'></view>
                 </view>
             </view>
@@ -73,32 +73,11 @@
                 <view class='choice-title m'>一种选择，一种别样的人生</view>
             </view>
             <view class='choice-content'>
-                <view class='choice-item' bindtap='jump' data-url='../firstPage/firstPage'>
-                    <image class='choice-img' src='http://img.my-shop.cc/teacher/tc3_yl1_img.jpg'></image>
+                <view class='choice-item' bindtap='jump' data-index='{{index}}' wx:for="{{user_data.product}}">
+                    <image class='choice-img' src='{{item.img}}'></image>
                     <view class='choice-des'>
                         <image class='choice-icon' src='http://img.my-shop.cc/teacher/tc3_yl_icon1.png'></image>
-                        <view class='choice-txt m red'>儿童综合医疗</view>
-                    </view>
-                </view>
-                <view class='choice-item' bindtap='jump' data-url='../secondPage/secondPage'>
-                    <image class='choice-img' src='http://img.my-shop.cc/teacher/tc3_yl2_img.jpg'></image>
-                    <view class='choice-des'>
-                        <image class='choice-icon' src='http://img.my-shop.cc/teacher/tc3_yl_icon2.png'></image>
-                        <view class='choice-txt m red'>平安e生保2017</view>
-                    </view>
-                </view>
-                <view class='choice-item' bindtap='jump' data-url='../thirdPage/thirdPage'>
-                    <image class='choice-img' src='http://img.my-shop.cc/teacher/tc3_yl3_img.jpg'></image>
-                    <view class='choice-des'>
-                        <image class='choice-icon' src='http://img.my-shop.cc/teacher/tc3_yl_icon3.png'></image>
-                        <view class='choice-txt m red'>福寿安康</view>
-                    </view>
-                </view>
-                <view class='choice-item' bindtap='jump' data-url='../forthPage/forthPage'>
-                    <image class='choice-img' src='http://img.my-shop.cc/teacher/tc3_yl4_img.jpg'></image>
-                    <view class='choice-des'>
-                        <image class='choice-icon' src='http://img.my-shop.cc/teacher/tc3_yl_icon4.png'></image>
-                        <view class='choice-txt m red'>鸿运随行</view>
+                        <view class='choice-txt m red'>{{item.title}}</view>
                     </view>
                 </view>
             </view>
@@ -112,13 +91,10 @@
                 <view class='title-txt-b red b ls'>伯乐</view>
             </view>
             <view class='des-box'>
-                <view class='des-txt m'>我们相遇相知......一路上的点点滴滴,</view>
-                <view class='des-txt m'>一直记在心中!携手共同创业.我们一起努力!</view>
-                <view class='des-txt m'>再大的困难,都不是困难,齐心协力,勇往直前!</view>
-                <view class='des-txt m'>期待更多的帅哥美女加入大爱团队！</view>
+                <view class='des-txt m' wx:for="{{user_data.join}}">{{item}}</view>
             </view>
             <view class='img-box'>
-                <image class='content-img' src='{{item}}' wx:for="{{img_url}}"></image>
+                <image class='content-img' src='{{item}}' wx:for="{{user_data.image}}"></image>
             </view>
         </view>
     </view>

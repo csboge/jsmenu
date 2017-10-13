@@ -4,17 +4,38 @@ const app = getApp()
 
 Page({
     data: {
-        imgUrls: [
-            "http://img.my-shop.cc/teacher/tc_slide1.jpg",
-            "http://img.my-shop.cc/teacher/tc_slide2.jpg",
-            "http://img.my-shop.cc/teacher/tc_slide3.jpg",
-            "http://img.my-shop.cc/teacher/tc_slide4.jpg",
-            "http://img.my-shop.cc/teacher/tc_slide5.jpg"
-        ],
+        user_data: {},
         auto_play: false
     },
     onLoad: function () {
 
+        let that = this;
+
+        wx.request({
+            url: "https://api.ai-life.me/api/Lecturer/index",
+            data: { id: 1 },
+            method: "POST",
+            success: function (res) {
+                if(res.data.code === 1){
+                    that.setData({
+                        user_data: res.data.data
+                    });
+                }else{
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
+            },
+            fail: function (res) {
+                wx.showModal({
+                    title: '提示',
+                    content: '获取数据失败',
+                    showCancel: false
+                })
+            }
+        });
 
     },
     onReady() {
@@ -27,8 +48,11 @@ Page({
     },
     //拨打电话
     call() {
+
+        let that = this;
+
         wx.makePhoneCall({
-            phoneNumber: '18671621319'
+            phoneNumber: that.data.user_data.phone
         });
     },
     onShareAppMessage: function (res) {

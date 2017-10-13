@@ -1,1 +1,6 @@
 /* pages/secondPage/secondPage.wxss */
+
+.page-img{
+    width: 100%;
+    float: left;
+}

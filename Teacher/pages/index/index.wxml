@@ -16,19 +16,19 @@
             <view class='reduction-content'>
                 <view class='reduction-main'>
                     <view class='personal-img'>
-                        <image class='p-img' src='http://img.my-shop.cc/teacher/tc_tx.jpg'></image>
+                        <image class='p-img' src='{{user_data.portrait}}'></image>
                     </view>
                     <view class='person-des'>
-                        <view class='l b'>钟林飞</view>
-                        <view class='m gray'>好望角全国首席讲师</view>
+                        <view class='l b'>{{user_data.name}}</view>
+                        <view class='m gray'>{{user_data.explain}}</view>
                     </view>
                 </view>
                 <view class='reduction-touch'>
                     <button class='share-btn' open-type='share'>
-                        <image class='share-img' src='http://img.my-shop.cc/teacher/tc_share.jpg'></image>
+                        <image class='share-img' src='../../assets/images/tc_share.jpg'></image>
                     </button>
                     <view class='tel-btn' bindtap='call'>
-                        <image class='tel-img' src='http://img.my-shop.cc/teacher/tc_tel.jpg'></image>
+                        <image class='tel-img' src='../../assets/images/tc_tel.jpg'></image>
                     </view>
                 </view>
             </view>
@@ -53,7 +53,7 @@
                     </view>
                     <view class='item-detail'>
                         <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{700}}">
-                            <block wx:for="{{imgUrls}}">
+                            <block wx:for="{{user_data.banner}}">
                                 <swiper-item>
                                     <image src="{{item}}" class="slide-image" width="355" height="150" />
                                 </swiper-item>
@@ -68,38 +68,15 @@
                     <view class='title-en e gray'>EXPERIENCE</view>
                 </view>
                 <view class='history-content'>
-                    <view class='history-item'>
-                        <view class='circle orange'>
+                    <view class='history-item' wx:for="{{user_data.deeds}}">
+                        <view class='circle' style='border-color:{{item.colour}}'>
                             <view class='history-txt'>
-                                <view class='history-title xl b'>亚洲90后超级演说家</view>
-                                <view class='history-des m gray'>22岁打破集团9年来的销售记录</view>
+                                <view class='history-title xl b'>{{item.title}}</view>
+                                <view class='history-des m gray'>{{item.content}}</view>
                             </view>
                         </view>
                     </view>
-                    <view class='history-item'>
-                        <view class='circle blue'>
-                            <view class='history-txt'>
-                                <view class='history-title xl b'>好望角集团浙江分公司总经理</view>
-                                <view class='history-des m gray'>23岁成为浙江分公司总经理</view>
-                            </view>
-                        </view>
-                    </view>
-                    <view class='history-item'>
-                        <view class='circle green'>
-                            <view class='history-txt'>
-                                <view class='history-title xl b'>好望角商学院首席创业导师</view>
-                                <view class='history-des m gray'>24岁仅用九个月成功挑战开上宝马</view>
-                            </view>
-                        </view>
-                    </view>
-                    <view class='history-item'>
-                        <view class='circle c-gray short'>
-                            <view class='history-txt'>
-                                <view class='history-title xl b'>好望角集团董事</view>
-                                <view class='history-des m gray'>27岁成为集团董事帮助团队伙伴开上奔驰宝马</view>
-                            </view>
-                        </view>
-                    </view>
+                    
                 </view>
             </view>
         </view>

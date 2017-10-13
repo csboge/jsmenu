@@ -25,10 +25,26 @@
     font-size: 32rpx;
 }
 
+.lss{
+    /* font-size:  */
+}
+
 .m{
     font-size: 28rpx;
 }
 
+.ms{
+    font-size: 24rpx;
+}
+
+.s{
+    font-size: 20rpx;
+}
+
 .b{
     font-weight: bold;
+}
+
+.red{
+    color: #c73030;
 }

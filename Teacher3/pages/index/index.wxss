@@ -112,3 +112,158 @@ button::after{
     border: 16rpx solid transparent;
     border-top-color: #37374d; 
 }
+
+.page-section{
+    padding-top: 395rpx;
+    width: 100%;
+}
+
+.join-us{
+    display: flex;
+    flex-direction: column;
+}
+
+.join-title-img{
+    width: 180rpx;
+    height: 55rpx;
+}
+
+.join-us{
+    padding: 30rpx 55rpx;
+}
+
+.join-title{
+    display: flex;
+    justify-content: center;
+}
+
+.join-img{
+    width: 330rpx;
+    height: 190rpx;
+    border: 8rpx solid #534964;
+    border-radius: 6rpx;
+}
+
+.join-item-box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.join-item{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.join-des{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 102rpx;
+    height: 102rpx;
+    border-radius: 50%;
+    border: 4rpx dashed #534964;
+}
+
+.join-txt{
+    line-height: 1;
+    width: 56rpx;
+}
+
+.join-time{
+    padding-top: 10rpx;
+    padding-bottom: 6rpx;
+}
+
+.join-mid-box{
+    margin: 20rpx 0;
+}
+
+.join-img{
+    box-shadow: 10rpx -10rpx #f4cd1a;
+}
+
+.join-line{
+    position: relative;
+    width: 100%;
+    height: 8rpx;
+    background: #dcdcdc;
+}
+
+.join-line::after{
+    position: absolute;
+    content: "";
+    display: block;
+    width: 55%;
+    height: 8rpx;
+    background: #f4cd1a;
+}
+
+.bg-md-img{
+    width: 100%;
+    height: 410rpx;
+}
+
+.choice-head{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 18rpx;
+    margin-bottom: 50rpx;
+    width: 750rpx;
+    height: 58rpx;
+}
+
+.box-img{
+    position: absolute;
+    width: 360rpx;
+    height: 58rpx;
+}
+
+.choice-title{
+    position: absolute;
+    line-height: 58rpx;
+}
+
+.choice-content{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 46rpx;
+}
+
+.choice-item{
+    margin-bottom: 40rpx;
+}
+
+.choice-img{
+    width: 296rpx;
+    height: 166rpx;
+    border: 4rpx solid #604a6d;
+}
+
+.choice-des{
+    display: flex;
+    justify-content: center;
+}
+
+.choice-icon{
+    width: 40rpx;
+    height: 40rpx;
+}
+
+.se-bg{
+    width: 100%;
+    height: 188rpx;
+}
+
+.img-content-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-content-title{
+    margin-top: 22rpx;
+    margin-bottom: 46rpx;
+}

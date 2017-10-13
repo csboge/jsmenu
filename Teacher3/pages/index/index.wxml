@@ -10,7 +10,7 @@
                 <view class='person-position w m'>平安资深主任</view>
                 <view class='person-touch'>
                     <view class='touch-box'>
-                        <image class='tel-icon' src='http://img.my-shop.cc/teacher/tc3_tel_icon.png'></image>
+                        <image class='tel-icon' src='http://img.my-shop.cc/teacher/tc3_tel_icon.png' bindtap='call'></image>
                         <button class='share-btn' open-type='share'>
                             <image class='share-icon' src='http://img.my-shop.cc/teacher/tc3_share_icon.png'></image>
                         </button>
@@ -19,5 +19,104 @@
             </view>
         </view>
         <view class='tri-angle'></view>
+    </view>
+    <view class='page-section'>
+        <view class='join-us'>
+            <view class='join-title'>
+                <image class='join-title-img' src='http://img.my-shop.cc/teacher/tc3_hd_title.jpg'></image>
+            </view>
+            <view class='join-item-box join-mid-box'>
+                <view class='join-item'>
+                    <view class='join-des m red b'>
+                        <view class='join-txt'>入司平安</view>
+                    </view>
+                    <view class='join-time ms'>2015-12</view>
+                    <view class='join-line'></view>
+                </view>
+                <image class='join-img' src='http://img.my-shop.cc/teacher/tc3_join_img.jpg'></image>
+                <view class='join-item'>
+                    <view class='join-des m red b'>
+                        <view class='join-txt'>冲刺经理</view>
+                    </view>
+                    <view class='join-time ms'>2018-01</view>
+                    <view class='join-line'></view>
+                </view>
+            </view>
+            <view class='join-item-box'>
+                <view class='join-item'>
+                    <view class='join-des m red b'>
+                        <view class='join-txt'>晋升主任</view>
+                    </view>
+                    <view class='join-time ms'>2016-07</view>
+                    <view class='join-line'></view>
+                </view>
+                <view class='join-item'>
+                    <view class='join-des m red b'>
+                        <view class='join-txt'>高级主任</view>
+                    </view>
+                    <view class='join-time ms'>2017-01</view>
+                    <view class='join-line'></view>
+                </view>
+                <view class='join-item'>
+                    <view class='join-des m red b'>
+                        <view class='join-txt'>资深主任</view>
+                    </view>
+                    <view class='join-time ms'>2017-07</view>
+                    <view class='join-line'></view>
+                </view>
+            </view>
+        </view>
+        <image class='bg-md-img' src='http://img.my-shop.cc/teacher/tc3_bg_img.jpg'></image>
+        <view class='choice-box'>
+            <view class='choice-head'>
+                <image class='box-img' src='http://img.my-shop.cc/teacher/tc3_box_img.jpg'></image>
+                <view class='choice-title m'>一种选择，一种别样的人生</view>
+            </view>
+            <view class='choice-content'>
+                <view class='choice-item'>
+                    <image class='choice-img' src='http://img.my-shop.cc/teacher/tc3_yl1_img.jpg'></image>
+                    <view class='choice-des'>
+                        <image class='choice-icon' src='http://img.my-shop.cc/teacher/tc3_yl_icon1.png'></image>
+                        <view class='choice-txt m red'>儿童综合医疗</view>
+                    </view>
+                </view>
+                <view class='choice-item'>
+                    <image class='choice-img' src='http://img.my-shop.cc/teacher/tc3_yl2_img.jpg'></image>
+                    <view class='choice-des'>
+                        <image class='choice-icon' src='http://img.my-shop.cc/teacher/tc3_yl_icon2.png'></image>
+                        <view class='choice-txt m red'>平安e生保2017</view>
+                    </view>
+                </view>
+                <view class='choice-item'>
+                    <image class='choice-img' src='http://img.my-shop.cc/teacher/tc3_yl3_img.jpg'></image>
+                    <view class='choice-des'>
+                        <image class='choice-icon' src='http://img.my-shop.cc/teacher/tc3_yl_icon3.png'></image>
+                        <view class='choice-txt m red'>福寿安康</view>
+                    </view>
+                </view>
+                <view class='choice-item'>
+                    <image class='choice-img' src='http://img.my-shop.cc/teacher/tc3_yl4_img.jpg'></image>
+                    <view class='choice-des'>
+                        <image class='choice-icon' src='http://img.my-shop.cc/teacher/tc3_yl_icon4.png'></image>
+                        <view class='choice-txt m red'>鸿运随行</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <image class='se-bg' src='http://img.my-shop.cc/teacher/tc3_se_bg.jpg'></image>
+        <view class='img-content'>
+            <view class='img-content-title'>
+                <view class='title-txt m'>您是</view>
+                <view class='title-txt-b red b ls'>千里马</view>
+                <view class='title-txt m'>，我就是</view>
+                <view class='title-txt-b red b ls'>伯乐</view>
+            </view>
+            <view class='des-box'>
+                <view class='des-txt m'>我们相遇相知......一路上的点点滴滴,</view>
+                <view class='des-txt m'>一直记在心中!携手共同创业.我们一起努力!</view>
+                <view class='des-txt m'>再大的困难,都不是困难,齐心协力,勇往直前!</view>
+                <view class='des-txt m'>期待更多的帅哥美女加入大爱团队！</view>
+            </view>
+        </view>
     </view>
 </view>

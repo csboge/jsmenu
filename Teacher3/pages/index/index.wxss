@@ -269,6 +269,7 @@ button::after{
 }
 
 .des-box{
+    position: relative;
     margin: 0 auto;
     text-align: center;
     width: 622rpx;
@@ -276,3 +277,28 @@ button::after{
     border: 4rpx solid #604a6d;
 }
 
+.des-box::after{
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: -25rpx;
+    width: 40rpx;
+    height: 40rpx;
+    background: #fff;
+    transform: rotate(45deg);
+    border-left: 4rpx solid #604a6d;
+    border-top: 4rpx solid #604a6d;
+}
+
+.img-box{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 30rpx 40rpx;
+}
+
+.content-img{
+    margin-bottom: 10rpx;
+    width: 330rpx;
+    height: 360rpx;
+}

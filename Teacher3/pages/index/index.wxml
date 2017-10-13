@@ -117,6 +117,9 @@
                 <view class='des-txt m'>再大的困难,都不是困难,齐心协力,勇往直前!</view>
                 <view class='des-txt m'>期待更多的帅哥美女加入大爱团队！</view>
             </view>
+            <view class='img-box'>
+                <image class='content-img' src='{{item}}' wx:for="{{img_url}}"></image>
+            </view>
         </view>
     </view>
 </view>

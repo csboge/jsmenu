@@ -4,7 +4,16 @@ const app = getApp()
 
 Page({
     data: {
-
+        img_url:[
+            "http://img.my-shop.cc/teacher/tc3_main_img1.jpg",
+            "http://img.my-shop.cc/teacher/tc3_main_img2.jpg",
+            "http://img.my-shop.cc/teacher/tc3_main_img3.jpg",
+            "http://img.my-shop.cc/teacher/tc3_main_img4.jpg",
+            "http://img.my-shop.cc/teacher/tc3_main_img5.jpg",
+            "http://img.my-shop.cc/teacher/tc3_main_img6.jpg",
+            "http://img.my-shop.cc/teacher/tc3_main_img7.jpg",
+            "http://img.my-shop.cc/teacher/tc3_main_img8.jpg"
+        ]
     },
     onLoad: function () {
 

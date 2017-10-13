@@ -267,3 +267,12 @@ button::after{
     margin-top: 22rpx;
     margin-bottom: 46rpx;
 }
+
+.des-box{
+    margin: 0 auto;
+    text-align: center;
+    width: 622rpx;
+    padding: 20rpx 0;
+    border: 4rpx solid #604a6d;
+}
+

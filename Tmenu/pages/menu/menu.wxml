@@ -44,6 +44,7 @@
                         <view class="cate-name txt-mid {{item.isChecked?'txt-green':''}}  txt-title {{item.isChecked?'title-bold':''}}" data-obj="{{item}}" wx:for="{{cateList}}" wx:key="id" bindtap="chooseCate">
                             {{item.name}}
                             <view class="cate-arrow" style="display:{{item.isChecked?'block':'none'}}"></view>
+                            <view class='cate-type'>西</view>
                         </view>
                     </scroll-view>
                 </view>
@@ -137,3 +138,28 @@
         </scroll-view>
     </view>
 </view>
+
+<view class='spec-box'>
+    <view class='spec-head-box'>
+        <view class='close-box'>
+            <view class='close-btn'></view>
+        </view>
+        <view class='title'>火腿</view>
+    </view>
+    <view class='spec-title'>规格</view>
+    <view class='spec-type'>
+        <view class='spec-type-item'>麻辣</view>
+        <view class='spec-type-item'>香辣</view>
+        <view class='spec-type-item'>微辣</view>
+        <view class='spec-type-item'>特辣</view>
+    </view>
+    <view class='spec-choose'>
+        <view class='spec-price'>￥12(麻辣)</view>
+        <view class="food-detail-num">
+            <view data-id="{{item.id}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus"></view>
+            <view class="food-detail-number" style="visibility:{{item.num>0?'visible':'hidden'}}">{{item.num}}</view>
+            <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus"></view>
+        </view>
+    </view>
+</view>
+<view class='spec-modal'></view>

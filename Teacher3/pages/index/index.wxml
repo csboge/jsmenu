@@ -23,7 +23,7 @@
     <view class='page-section'>
         <view class='join-us'>
             <view class='join-title'>
-                <image class='join-title-img' src='http://img.my-shop.cc/teacher/tc3_hd_title.jpg'></image>
+                <image class='join-title-img' src='http://img.my-shop.cc/teacher/tc3_hd_title.jpg?1'></image>
             </view>
             <view class='join-item-box join-mid-box'>
                 <view class='join-item'>
@@ -66,10 +66,10 @@
                 </view>
             </view>
         </view>
-        <image class='bg-md-img' src='http://img.my-shop.cc/teacher/tc3_bg_img.jpg'></image>
+        <image class='bg-md-img' src='http://img.my-shop.cc/teacher/tc3_bg_img.jpg?1'></image>
         <view class='choice-box'>
             <view class='choice-head'>
-                <image class='box-img' src='http://img.my-shop.cc/teacher/tc3_box_img.jpg'></image>
+                <image class='box-img' src='http://img.my-shop.cc/teacher/tc3_box_img.png?1'></image>
                 <view class='choice-title m'>一种选择，一种别样的人生</view>
             </view>
             <view class='choice-content'>
@@ -92,6 +92,15 @@
             </view>
             <view class='des-box'>
                 <view class='des-txt m' wx:for="{{user_data.join}}">{{item}}</view>
+            </view>
+            <view class='img-content-title'>
+                <view class='title-txt-b red b ls'>招聘</view>
+            </view>
+            <view class='des-box zhaop'>
+                <view class='des-item' wx:for="{{user_data.recruit}}">
+                    <view class='des-title ls b'>{{item.title}}</view>
+                    <view class='des-txt m'>{{item.content}}</view>
+                </view>
             </view>
             <view class='img-box'>
                 <image class='content-img' src='{{item}}' wx:for="{{user_data.image}}"></image>

@@ -37,8 +37,11 @@ Page({
 
     },
     call() {
+
+        let that = this;
+
         wx.makePhoneCall({
-            phoneNumber: ''
+            phoneNumber: that.data.user_data.phone
         });
     },
     jump(e) {

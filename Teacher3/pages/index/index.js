@@ -11,7 +11,7 @@ Page({
 
         wx.request({
             url: "https://api.ai-life.me/api/Lecturer/index",
-            data: { id: 3 },
+            data: { id: 4 },
             method: "POST",
             success: function (res) {
                 if (res.data.code === 1) {

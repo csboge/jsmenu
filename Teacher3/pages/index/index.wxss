@@ -299,15 +299,27 @@ button::after{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 30rpx 40rpx;
+    padding: 30rpx 36rpx;
 }
 
 .content-img{
-    margin-bottom: 10rpx;
+    margin-bottom: 20rpx;
     width: 330rpx;
     height: 360rpx;
 }
 
 .zhaop{
     text-align: left;
+}
+
+swiper {
+    margin: 0 auto;
+    margin-top: 40rpx;
+    width: 678rpx;
+    height: 360rpx;
+}
+
+.slide-image{
+    width: 678rpx;
+    height: 360rpx;
 }

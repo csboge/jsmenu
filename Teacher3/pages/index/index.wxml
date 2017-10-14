@@ -102,6 +102,13 @@
                     <view class='des-txt m'>{{item.content}}</view>
                 </view>
             </view>
+            <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{700}}" wx:if="{{user_data.banner.length>0?true:false}}">
+                <block wx:for="{{user_data.banner}}">
+                    <swiper-item>
+                        <image src="{{item}}" class="slide-image"/>
+                    </swiper-item>
+                </block>
+            </swiper>
             <view class='img-box'>
                 <image class='content-img' src='{{item}}' wx:for="{{user_data.image}}"></image>
             </view>

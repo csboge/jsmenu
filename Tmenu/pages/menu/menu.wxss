@@ -764,14 +764,17 @@ swiper-item {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 86%;
+    width: 80%;
     background: #fff;
     border-radius: 10rpx;
     z-index: 10006;
 }
 
 .title{
+    padding-top: 20rpx;
     text-align: center;
+    font-weight: bold;
+    font-size: 32rpx;
 }
 
 .spec-head-box{
@@ -780,14 +783,14 @@ swiper-item {
 
 .close-box{
     position: absolute;
-    right: 10rpx;
-    top: 10rpx;
+    right: 20rpx;
+    top: 20rpx;
 }
 
 .close-btn{
     position: relative;
-    width: 30rpx;
-    height: 30rpx;
+    width: 36rpx;
+    height: 36rpx;
     transform: rotate(45deg);
 }
 
@@ -814,6 +817,9 @@ swiper-item {
 
 .spec-type-item{
     float: left;
+    margin-left: 38rpx;
+    font-size: 28rpx;
+    color: #666;
 }
 
 .spec-type::after{
@@ -825,7 +831,9 @@ swiper-item {
 .spec-choose{
     display: flex;
     justify-content: space-between;
-    padding: 0 30rpx;
+    padding: 30rpx 30rpx;
+    background: #eee;
+    border-radius: 10rpx;
 }
 
 .spec-modal {
@@ -836,4 +844,67 @@ swiper-item {
     height: 1290rpx;
     background: rgba(0, 0, 0, 0.5);
     z-index: 10005;
+}
+
+.spec-type-item{
+    padding: 6rpx 20rpx;
+    border: 2rpx solid #ff4549;
+    border-radius: 6rpx;
+}
+
+.spec-type{
+    padding-top: 30rpx;
+    padding-bottom: 55rpx;
+}
+
+.spec-title{
+    padding-left: 24rpx;
+    padding-top: 25rpx;
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #666;
+}
+
+.spec-price{
+    display: flex;
+    align-items: center;
+    font-size: 32rpx;
+    color: #de0307;
+    font-weight: bold;
+}
+
+.spec-choosed{
+    font-size: 24rpx;
+    color: #666;
+    font-weight: normal;
+}
+
+.show{
+    display: block;
+}
+
+.hide{
+    display: none;
+}
+
+.spec-btn{
+    position: absolute;
+    right: 40rpx;
+    bottom: 50rpx;
+    font-size: 22rpx;
+    border-radius: 6rpx;
+    background: #ff4246;
+    color: #fff;
+    padding: 0 10rpx;
+    height: 46rpx;
+    line-height: 46rpx;
+}
+
+.spec-btn:active{
+    background: #e33a3d;
+}
+
+.spec-active{
+    background: rgba(255, 66, 70, .25);
+    color: #ff4246;
 }

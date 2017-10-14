@@ -45,6 +45,10 @@ Page({
         isFull: false,          //购物车是否显示超过7条数据
         cartAnimation: {},      //购物车动画
 
+        show_spec: false,       //是否弹出规格选择框
+        curr_spec_obj: {},      //当前选择规格的商品对象
+        spec_list: [],          //选中的规格商品数据
+
     },
     rowIndex: 0,                //显示食物的行数,每行四
     mark: 0,                    //tap的坐标 x或y
@@ -633,6 +637,50 @@ Page({
         //计算总价格和总数量
         this.countAll(shopCart);
     },
+    //点击选择规格
+    choseSpec(e) {
+
+        let index = e.currentTarget.dataset.i;
+        let product = this.data.curr_spec_obj;
+
+        let cur_is_checked = product.attrs[index].is_checked;
+
+        product.attrs[index].is_checked = !cur_is_checked;
+
+        this.setData({
+            curr_spec_obj: product
+        });
+    },
+    //弹出规格选择框
+    showSpec(e) {
+
+        let product = e.currentTarget.dataset.obj;
+
+        let _spec_list = [];
+
+        //默认选中第一种规格
+        product.attrs.forEach((obj) => {
+            obj.is_checked = false;
+            obj.num = 0;
+        });
+        product.attrs[0].is_checked = true;
+        product.attrs[0].num = 1;
+
+        _spec_list.push(product.attrs[0]);
+
+        this.setData({
+            show_spec: true,
+            curr_spec_obj: product,
+            spec_list: _spec_list
+        });
+        console.log(product.attrs[0])
+    },
+    //关闭规格选择
+    closeSpec() {
+        this.setData({
+            show_spec: false
+        });
+    },
     //商品数量变化时统计总数据并更新
     countAll: function (obj) {
 
@@ -783,7 +831,7 @@ Page({
     gotoConfirmOrder: function () {
 
         let shop_cart = util.getShopCart(app.globalData.shop_id);
-        
+
         if (shop_cart.length > 0) {
 
             wx.navigateTo({

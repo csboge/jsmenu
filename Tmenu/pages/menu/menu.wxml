@@ -80,13 +80,14 @@
                             <view class="food-detail-price">￥{{item.price}}</view>
                         </view>
                     </view>
-                    <view class="food-detail-num-box">
+                    <view class="food-detail-num-box" wx:if="{{item.attrs.length>0?false:true}}">
                         <view class="food-detail-num">
                             <view data-id="{{item.id}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus"></view>
                             <view class="food-detail-number" style="visibility:{{item.num>0?'visible':'hidden'}}">{{item.num}}</view>
                             <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus"></view>
                         </view>
                     </view>
+                    <view class='spec-btn' wx:if="{{item.attrs.length>0?true:false}}" data-obj="{{item}}" bindtap="showSpec">多种规格</view>
                 </view>
             </view>
         </view>
@@ -139,22 +140,21 @@
     </view>
 </view>
 
-<view class='spec-box'>
+<view class='spec-box {{show_spec?"show":"hide"}}'>
     <view class='spec-head-box'>
         <view class='close-box'>
-            <view class='close-btn'></view>
+            <view class='close-btn' bindtap='closeSpec'></view>
         </view>
-        <view class='title'>火腿</view>
+        <view class='title'>{{curr_spec_obj.name}}</view>
     </view>
-    <view class='spec-title'>规格</view>
+    <view class='spec-title'>规格：</view>
     <view class='spec-type'>
-        <view class='spec-type-item'>麻辣</view>
-        <view class='spec-type-item'>香辣</view>
-        <view class='spec-type-item'>微辣</view>
-        <view class='spec-type-item'>特辣</view>
+        <view class='spec-type-item {{item.is_checked?"spec-active":""}}' wx:for="{{curr_spec_obj.attrs}}" data-i='{{index}}' bindtap='choseSpec'>{{item.titles}}</view>
     </view>
-    <view class='spec-choose'>
-        <view class='spec-price'>￥12(麻辣)</view>
+    <view class='spec-choose' wx:for="{{spec_list}}">
+        <view class='spec-price'>￥{{item.prices}}
+            <view class='spec-choosed'> ({{item.titles}})</view>
+        </view>
         <view class="food-detail-num">
             <view data-id="{{item.id}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus"></view>
             <view class="food-detail-number" style="visibility:{{item.num>0?'visible':'hidden'}}">{{item.num}}</view>
@@ -162,4 +162,4 @@
         </view>
     </view>
 </view>
-<view class='spec-modal'></view>
+<view class='spec-modal {{show_spec?"show":"hide"}}' bindtap='closeSpec'></view>

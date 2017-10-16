@@ -10,7 +10,7 @@ Page({
         let that = this;
 
         wx.request({
-            url: "https://api.ai-life.me/api/Lecturer/index",
+            url: "https://demo.ai-life.me/api/Lecturer/index",
             data: { id: 4 },
             method: "POST",
             success: function (res) {
@@ -77,7 +77,7 @@ Page({
             console.log(res.target)
         }
         return {
-            title: '演说家周莉',
+            title: '演说家肖茂峰',
             path: '/pages/index/index',
             success: function (res) {
                 // 转发成功

@@ -44,7 +44,6 @@
                         <view class="cate-name txt-mid {{item.isChecked?'txt-green':''}}  txt-title {{item.isChecked?'title-bold':''}}" data-obj="{{item}}" wx:for="{{cateList}}" wx:key="id" bindtap="chooseCate">
                             {{item.name}}
                             <view class="cate-arrow" style="display:{{item.isChecked?'block':'none'}}"></view>
-                            <view class='cate-type'>西</view>
                         </view>
                     </scroll-view>
                 </view>
@@ -72,7 +71,7 @@
             <view class="food-detail-box">
                 <view class="food-detail" wx:for="{{page_menu}}" wx:key="id">
                     <view class="food-detail-main">
-                        <view class="food-detail-img">
+                        <view class="food-detail-img" data-url='{{item.image}}' bindtap='previewImg'>
                             <image src="{{item.image}}" class="detail-img" mode="aspectFit"></image>
                         </view>
                         <view class="food-detail-des">
@@ -156,9 +155,9 @@
             <view class='spec-choosed'> ({{curr_spec.titles}})</view>
         </view>
         <view class="food-detail-num">
-            <view data-obj='{{curr_spec}}' class="count-img minus-img" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}" bindtap="minus"></view>
+            <view data-curr_spec='{{curr_spec}}' class="count-img minus-img" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}" bindtap="minus"></view>
             <view class="food-detail-number" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}">{{curr_spec.num}}</view>
-            <view data-obj='{{curr_spec}}' class="count-img plus-img" bindtap="plus"></view>
+            <view data-curr_spec='{{curr_spec}}' class="count-img plus-img" bindtap="plus"></view>
         </view>
     </view>
 </view>

@@ -127,7 +127,7 @@
 
             </view>
         </view>
-        <view class="zhaopin-box">
+        <view class="zhaopin-box" wx:if="{{recruit.length>0?true:false}}">
             <view class="zhaopin-title-box">
                 <view class="title-txt-ch">招聘贤士</view>
                 <view class="title-txt-en">RECRUIT</view>

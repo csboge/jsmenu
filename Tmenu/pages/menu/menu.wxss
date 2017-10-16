@@ -745,20 +745,6 @@ swiper-item {
     background: #d2d2d2;
 }
 
-.cate-type {
-    position: absolute;
-    top: 20rpx;
-    right: 0;
-    width: 24rpx;
-    height: 24rpx;
-    background: #f00;
-    color: #fff;
-    font-size: 20rpx;
-    line-height: 1;
-    text-align: center;
-}
-
-
 .spec-box{
     position: fixed;
     top: 50%;

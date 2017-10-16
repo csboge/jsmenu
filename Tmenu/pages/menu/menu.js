@@ -575,54 +575,82 @@ Page({
     },
     //减少数量
     minus: function (e) {
-        // console.log(111)
-        var isfull = false;
-        var show_cart = this.data.showCart;
-        var id = e.currentTarget.dataset.id;//当前商品id
-        // console.log(id)
-        var originpage_menu = this.data.page_menu;//当前页面商品列表
 
-        //当前页面该商品数量减少
-        var new_page_menu = util.minus(originpage_menu, id);
+        let curr_spec = e.currentTarget.dataset.curr_spec;     //选择规格
 
-        //购物车中该商品数量减少
-        util.cutShopCart(app.globalData.shop_id, "shopCart", id);
+        if (curr_spec) {             //规格数量
 
-        //获取购物车
-        var shopCart = util.getShopCart(app.globalData.shop_id);
+            let curr_spec_obj = this.data.curr_spec_obj;
 
-        //购物车商品数是否满7个，控制高度
-        shopCart.length > 7 ? isfull = true : isfull = false;
+            curr_spec.num--;
 
-        if (shopCart.length === 0) {
-            this.closeCart();
-            show_cart = false;
+            this.setData({
+                curr_spec_obj: curr_spec_obj,
+                curr_spec: curr_spec
+            });
+
+            //加入到购物车
+            curr_spec_obj.price = curr_spec.price;
+            curr_spec_obj.attrs = curr_spec;
+            //购物车中该商品数量减少
+            util.cutShopCart(app.globalData.shop_id, "shopCart", curr_spec_obj.id, curr_spec.titles);
+
+            console.log(util.getStorageSync(app.globalData.shop_id, "shopCart"))
+        } else {
+            var isfull = false;
+            var show_cart = this.data.showCart;
+            var id = e.currentTarget.dataset.id;//当前商品id
+            // console.log(id)
+            var originpage_menu = this.data.page_menu;//当前页面商品列表
+
+            //当前页面该商品数量减少
+            var new_page_menu = util.minus(originpage_menu, id);
+
+            //购物车中该商品数量减少
+            util.cutShopCart(app.globalData.shop_id, "shopCart", id, "");
+
+            //获取购物车
+            var shopCart = util.getShopCart(app.globalData.shop_id);
+
+            //购物车商品数是否满7个，控制高度
+            shopCart.length > 7 ? isfull = true : isfull = false;
+
+            if (shopCart.length === 0) {
+                this.closeCart();
+                show_cart = false;
+            }
+
+            this.setData({
+                page_menu: new_page_menu,
+                cartList: shopCart,
+                isFull: isfull,
+                showCart: show_cart
+            })
+            //计算总价格和总数
+            this.countAll(shopCart);
         }
-
-        this.setData({
-            page_menu: new_page_menu,
-            cartList: shopCart,
-            isFull: isfull,
-            showCart: show_cart
-        })
-        //计算总价格和总数
-        this.countAll(shopCart);
     },
     //添加数量
     plus: function (e) {
 
-        let curr_spec = e.currentTarget.dataset.obj;     //选择规格索引
+        let curr_spec = e.currentTarget.dataset.curr_spec;     //选择规格索引
 
         if (curr_spec) {             //规格数量
 
             let curr_spec_obj = this.data.curr_spec_obj;
 
             curr_spec.num++;
-
             this.setData({
                 curr_spec_obj: curr_spec_obj,
                 curr_spec: curr_spec
             });
+            //加入到购物车
+            curr_spec_obj.price = curr_spec.price;
+            curr_spec_obj.attrs = curr_spec;
+            //购物车中该商品数量增加 或 新增该商品
+            util.addShopCart(app.globalData.shop_id, curr_spec_obj);
+
+            console.log(util.getStorageSync(app.globalData.shop_id, "shopCart"))
         } else {                      //直接数量
             var isfull = false;//购物车商品数量不满7个(控制购物车高度)
             var currentproduct = e.currentTarget.dataset.obj;//当前商品
@@ -672,31 +700,65 @@ Page({
         }
 
         this.setData({
-            curr_spec_obj: product
+            curr_spec_obj: product,
+            curr_spec: product.attrs[index]
         });
     },
     //弹出规格选择框
     showSpec(e) {
 
         let product = e.currentTarget.dataset.obj;
+        let shop_cart = util.getShopCart(app.globalData.shop_id);
+        let curr_spec = this.data.curr_spec;
 
-        //默认选中第一种规格
-        product.attrs.forEach((obj) => {
-            obj.is_checked = false;
-            obj.num = 0;
-        });
-        product.attrs[0].is_checked = true;
+        let _curr_spec = {};
+        let has_choose_sepc = false;        //购物车中是否已经存在该规格商品
+
+        if (shop_cart.length > 0) {
+            shop_cart.forEach((obj) => {
+                if (obj.id === product.id && obj.attrs.titles === product.attrs[0].titles) {
+                    _curr_spec = obj.attrs;
+                    product.attrs.forEach((obj)=>{
+                        if (obj.titles === _curr_spec.titles){
+                            obj.is_checked = true;
+                        }
+                    });
+                    has_choose_sepc = true;
+                }
+            });
+
+        }
+        if (!has_choose_sepc){
+            //默认选中第一种规格
+            product.attrs.forEach((obj) => {
+                obj.is_checked = false;
+                obj.num = 0;
+            });
+            product.attrs[0].is_checked = true;
+            _curr_spec = product.attrs[0];
+        }
 
         this.setData({
             show_spec: true,
             curr_spec_obj: product,
-            curr_spec: product.attrs[0]
+            curr_spec: _curr_spec
         });
+        // console.log(_curr_spec);
     },
     //关闭规格选择
     closeSpec() {
         this.setData({
             show_spec: false
+        });
+    },
+    //预览大图
+    previewImg(e) {
+
+        let url = e.currentTarget.dataset.url;
+
+        wx.previewImage({
+            current: '', // 当前显示图片的http链接
+            urls: [url] // 需要预览的图片http链接列表
         });
     },
     //商品数量变化时统计总数据并更新

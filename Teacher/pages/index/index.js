@@ -12,7 +12,7 @@ Page({
         let that = this;
 
         wx.request({
-            url: "https://api.ai-life.me/api/Lecturer/index",
+            url: "https://demo.ai-life.me/api/Lecturer/index",
             data: { id: 1 },
             method: "POST",
             success: function (res) {
@@ -61,7 +61,7 @@ Page({
             console.log(res.target)
         }
         return {
-            title: '好望角超级讲师团',
+            title: '超级演说家钟林飞',
             path: '/pages/index/index',
             success: function (res) {
                 // 转发成功

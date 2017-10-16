@@ -20,7 +20,7 @@ Page({
         }
 
         wx.request({
-            url: "https://api.ai-life.me/api/Lecturer/index",
+            url: "https://demo.ai-life.me/api/Lecturer/index",
             data: { id: 2 },
             method: "POST",
             success: function (res) {
@@ -61,7 +61,7 @@ Page({
             console.log(res.target)
         }
         return {
-            title: '演说家童鹏',
+            title: '超级演说家童鹏',
             path: '/pages/index/index',
             success: function (res) {
                 // 转发成功

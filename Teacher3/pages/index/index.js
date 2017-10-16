@@ -11,7 +11,7 @@ Page({
 
         wx.request({
             url: "https://demo.ai-life.me/api/Lecturer/index",
-            data: { id: 4 },
+            data: { id: 3 },
             method: "POST",
             success: function (res) {
                 if (res.data.code === 1) {
@@ -77,7 +77,7 @@ Page({
             console.log(res.target)
         }
         return {
-            title: '演说家肖茂峰',
+            title: '平安周莉',
             path: '/pages/index/index',
             success: function (res) {
                 // 转发成功

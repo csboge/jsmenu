@@ -151,14 +151,14 @@
     <view class='spec-type'>
         <view class='spec-type-item {{item.is_checked?"spec-active":""}}' wx:for="{{curr_spec_obj.attrs}}" data-i='{{index}}' bindtap='choseSpec'>{{item.titles}}</view>
     </view>
-    <view class='spec-choose' wx:for="{{spec_list}}">
-        <view class='spec-price'>￥{{item.prices}}
-            <view class='spec-choosed'> ({{item.titles}})</view>
+    <view class='spec-choose'>
+        <view class='spec-price'>￥{{curr_spec.prices}}
+            <view class='spec-choosed'> ({{curr_spec.titles}})</view>
         </view>
         <view class="food-detail-num">
-            <view data-spec_i="{{index}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus"></view>
-            <view class="food-detail-number" style="visibility:{{item.num>0?'visible':'hidden'}}">{{item.num}}</view>
-            <view data-spec_i="{{index}}" class="count-img plus-img" bindtap="plus"></view>
+            <view data-obj='{{curr_spec}}' class="count-img minus-img" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}" bindtap="minus"></view>
+            <view class="food-detail-number" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}">{{curr_spec.num}}</view>
+            <view data-obj='{{curr_spec}}' class="count-img plus-img" bindtap="plus"></view>
         </view>
     </view>
 </view>

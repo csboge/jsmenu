@@ -48,6 +48,7 @@ Page({
         show_spec: false,       //是否弹出规格选择框
         curr_spec_obj: {},      //当前选择规格的商品对象
         spec_list: [],          //选中的规格商品数据
+        curr_spec: {},          //当前正在选的规格
 
     },
     rowIndex: 0,                //显示食物的行数,每行四
@@ -610,10 +611,18 @@ Page({
     //添加数量
     plus: function (e) {
 
-        let spec_i = e.currentTarget.dataset.spec_i;     //选择规格索引
+        let curr_spec = e.currentTarget.dataset.obj;     //选择规格索引
 
-        if (spec_i >= 0) {        //规格数量
+        if (curr_spec) {             //规格数量
 
+            let curr_spec_obj = this.data.curr_spec_obj;
+
+            curr_spec.num++;
+
+            this.setData({
+                curr_spec_obj: curr_spec_obj,
+                curr_spec: curr_spec
+            });
         } else {                      //直接数量
             var isfull = false;//购物车商品数量不满7个(控制购物车高度)
             var currentproduct = e.currentTarget.dataset.obj;//当前商品
@@ -653,7 +662,14 @@ Page({
 
         let cur_is_checked = product.attrs[index].is_checked;
 
-        product.attrs[index].is_checked = !cur_is_checked;
+        if (!cur_is_checked) {//当前的规格没有被选中，则选中
+            product.attrs.forEach((obj) => {
+                obj.is_checked = false;
+            });
+            product.attrs[index].is_checked = true;
+        } else {//当前规格被选中了，不作处理
+            return;
+        }
 
         this.setData({
             curr_spec_obj: product
@@ -664,24 +680,18 @@ Page({
 
         let product = e.currentTarget.dataset.obj;
 
-        let _spec_list = [];
-
         //默认选中第一种规格
         product.attrs.forEach((obj) => {
             obj.is_checked = false;
             obj.num = 0;
         });
         product.attrs[0].is_checked = true;
-        product.attrs[0].num = 1;
-
-        _spec_list.push(product.attrs[0]);
 
         this.setData({
             show_spec: true,
             curr_spec_obj: product,
-            spec_list: _spec_list
+            curr_spec: product.attrs[0]
         });
-        console.log(product.attrs[0])
     },
     //关闭规格选择
     closeSpec() {

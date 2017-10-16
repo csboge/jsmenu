@@ -156,9 +156,9 @@
             <view class='spec-choosed'> ({{item.titles}})</view>
         </view>
         <view class="food-detail-num">
-            <view data-id="{{item.id}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus"></view>
+            <view data-spec_i="{{index}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus"></view>
             <view class="food-detail-number" style="visibility:{{item.num>0?'visible':'hidden'}}">{{item.num}}</view>
-            <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus"></view>
+            <view data-spec_i="{{index}}" class="count-img plus-img" bindtap="plus"></view>
         </view>
     </view>
 </view>

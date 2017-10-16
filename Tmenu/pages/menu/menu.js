@@ -610,32 +610,40 @@ Page({
     //添加数量
     plus: function (e) {
 
-        var isfull = false;//购物车商品数量不满7个(控制购物车高度)
-        var currentproduct = e.currentTarget.dataset.obj;//当前商品
+        let spec_i = e.currentTarget.dataset.spec_i;     //选择规格索引
 
-        var originpage_menu = this.data.page_menu;
-        // console.log(originpage_menu)
-        //当前页面该商品数量增加
-        var newpage_menu = util.plus(originpage_menu, currentproduct.id);
+        if (spec_i >= 0) {        //规格数量
 
-        var origincartlist = util.getStorageSync(app.globalData.shop_id, "shopCart");
-        //购物车中该商品数量增加 或 新增该商品
-        util.addShopCart(app.globalData.shop_id, currentproduct);
+        } else {                      //直接数量
+            var isfull = false;//购物车商品数量不满7个(控制购物车高度)
+            var currentproduct = e.currentTarget.dataset.obj;//当前商品
 
-        //获取最新购物车
-        var shopCart = util.getShopCart(app.globalData.shop_id);
+            var originpage_menu = this.data.page_menu;
+            // console.log(originpage_menu)
+            //当前页面该商品数量增加
+            var newpage_menu = util.plus(originpage_menu, currentproduct.id);
 
-        //购物车是否满7个
-        shopCart.length > 7 ? isfull = true : isfull = false;
+            var origincartlist = util.getStorageSync(app.globalData.shop_id, "shopCart");
+            //购物车中该商品数量增加 或 新增该商品
+            util.addShopCart(app.globalData.shop_id, currentproduct);
 
-        this.setData({
-            page_menu: newpage_menu,
-            cartList: shopCart,
-            isFull: isfull
-        })
+            //获取最新购物车
+            var shopCart = util.getShopCart(app.globalData.shop_id);
 
-        //计算总价格和总数量
-        this.countAll(shopCart);
+            //购物车是否满7个
+            shopCart.length > 7 ? isfull = true : isfull = false;
+
+            this.setData({
+                page_menu: newpage_menu,
+                cartList: shopCart,
+                isFull: isfull
+            })
+
+            //计算总价格和总数量
+            this.countAll(shopCart);
+        }
+
+
     },
     //点击选择规格
     choseSpec(e) {

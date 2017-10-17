@@ -895,6 +895,11 @@ Page({
 
         let _goods_list = _order.goods_list;
         let _use_base = app.globalData.use_base;
+
+        //标识是否是餐具
+        _goods_list.forEach((obj)=>{
+            obj.is_canju = 0;
+        });
         // console.log(_goods_list)
         //加入餐具、纸巾等标配物品
         _use_base.forEach((obj) => {

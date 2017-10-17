@@ -894,3 +894,16 @@ swiper-item {
     background: rgba(255, 66, 70, .25);
     color: #ff4246;
 }
+
+.spec-num-circle{
+    position: absolute;
+    right: 6rpx;
+    top: -16rpx;
+    color: #fff;
+    background: #ffd161;
+    width: 26rpx;
+    height: 26rpx;
+    border-radius: 50%;
+    line-height: 26rpx;
+    text-align: center;
+}

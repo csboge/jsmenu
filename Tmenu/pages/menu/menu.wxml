@@ -86,7 +86,10 @@
                             <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus"></view>
                         </view>
                     </view>
-                    <view class='spec-btn' wx:if="{{item.attrs.length>0?true:false}}" data-obj="{{item}}" bindtap="showSpec">选规格</view>
+                    <view class='spec-btn' wx:if="{{item.attrs.length>0?true:false}}" data-obj="{{item}}" bindtap="showSpec">
+                        选规格
+                        <view class='spec-num-circle' wx:if="{{item.spec_num===0?false:true}}">{{item.spec_num}}</view>
+                    </view>
                 </view>
             </view>
         </view>

@@ -285,6 +285,12 @@ Page({
                         }
 
                     });
+                    //初始化规格商品总数
+                    init_page_menu.forEach((obj) => {
+                        if (obj.attrs.length > 0) {
+                            obj.spec_num = 0;
+                        }
+                    });
                     // console.log(init_page_menu);
                     // console.log(shop_cart)
                     // console.log(init_page_menu)
@@ -293,6 +299,7 @@ Page({
                         //计算购物车商品总数量和总价格
                         that.countAll(shop_cart);
                     }
+
 
                     that.setData({
                         menu_list: good_list,
@@ -540,6 +547,13 @@ Page({
             }
         });
 
+        //初始化规格商品总数
+        page_menu.forEach((obj) => {
+            if (obj.attrs.length > 0) {
+                obj.spec_num = 0;
+            }
+        });
+
         let new_page_menu = that.updatePageMenuNum(shop_cart, page_menu);
 
         that.setData({
@@ -581,6 +595,7 @@ Page({
         if (curr_spec) {             //规格数量
 
             let curr_spec_obj = e.currentTarget.dataset.curr_obj;
+            let _page_menu = this.data.page_menu;
 
             curr_spec.num--;
 
@@ -588,12 +603,25 @@ Page({
                 curr_spec_obj: curr_spec_obj,
                 curr_spec: curr_spec
             });
+            console.log(this.data.curr_spec);
 
             //加入到购物车
             curr_spec_obj.price = curr_spec.price;
             curr_spec_obj.attrs = curr_spec;
             //购物车中该商品数量减少
             util.cutShopCart(app.globalData.shop_id, "shopCart", curr_spec_obj.id, curr_spec.titles);
+
+            //当前页面该商品数量减少
+            _page_menu.forEach((obj) => {
+                if (obj.id === curr_spec_obj.id) {
+                    if (obj.spec_num > 0) {
+                        obj.spec_num--;
+                    }
+                }
+            });
+            this.setData({
+                page_menu: _page_menu
+            });
 
             console.log(util.getStorageSync(app.globalData.shop_id, "shopCart"))
         } else {
@@ -643,6 +671,7 @@ Page({
         if (curr_spec) {             //规格数量
 
             let curr_spec_obj = e.currentTarget.dataset.curr_obj;
+            let _page_menu = this.data.page_menu;
 
             curr_spec.num++;
             this.setData({
@@ -655,6 +684,16 @@ Page({
             curr_spec_obj.name += "(" + curr_spec.titles + ")";
             //购物车中该商品数量增加 或 新增该商品
             util.addShopCart(app.globalData.shop_id, curr_spec_obj);
+
+            //当前页面该商品数量增加
+            _page_menu.forEach((obj) => {
+                if (obj.id === curr_spec_obj.id) {
+                    obj.spec_num++;
+                }
+            });
+            this.setData({
+                page_menu: _page_menu
+            });
 
             console.log(util.getStorageSync(app.globalData.shop_id, "shopCart"))
         } else {                      //直接数量
@@ -711,6 +750,10 @@ Page({
             return;
         }
 
+        //初始化数量
+        product.attrs.forEach((obj) => {
+            obj.num = 0;
+        });
 
         //同步数量
         if (shop_cart.length > 0) {
@@ -908,6 +951,9 @@ Page({
                 if (res.confirm) {
                     for (var i = 0; i < page_menu.length; i++) {
                         page_menu[i].num = 0;
+                        if (page_menu[i].attrs.length > 0) {//有规格
+                            page_menu[i].spec_num = 0;
+                        }
                     }
                     let shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id);
                     shop_info.shopCart = [];
@@ -980,7 +1026,14 @@ Page({
                     }
                 }
             }
-
+            //统计购物车同种商品多种规格的总数量
+            for (var i = 0; i < cart_products.length; i++) {
+                for (var k = 0; k < page_menu.length; k++) {
+                    if (cart_products[i].attrs.titles && cart_products[i].id === page_menu[k].id) {
+                        page_menu[k].spec_num += cart_products[i].num;
+                    }
+                }
+            }
         } else {
             page_menu.forEach((obj) => {
                 obj.num = 0;

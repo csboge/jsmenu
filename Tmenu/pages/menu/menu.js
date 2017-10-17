@@ -580,7 +580,7 @@ Page({
 
         if (curr_spec) {             //规格数量
 
-            let curr_spec_obj = this.data.curr_spec_obj;
+            let curr_spec_obj = e.currentTarget.dataset.curr_obj;
 
             curr_spec.num--;
 
@@ -597,8 +597,7 @@ Page({
 
             console.log(util.getStorageSync(app.globalData.shop_id, "shopCart"))
         } else {
-            var isfull = false;
-            var show_cart = this.data.showCart;
+
             var id = e.currentTarget.dataset.id;//当前商品id
             // console.log(id)
             var originpage_menu = this.data.page_menu;//当前页面商品列表
@@ -609,35 +608,41 @@ Page({
             //购物车中该商品数量减少
             util.cutShopCart(app.globalData.shop_id, "shopCart", id, "");
 
-            //获取购物车
-            var shopCart = util.getShopCart(app.globalData.shop_id);
-
-            //购物车商品数是否满7个，控制高度
-            shopCart.length > 7 ? isfull = true : isfull = false;
-
-            if (shopCart.length === 0) {
-                this.closeCart();
-                show_cart = false;
-            }
-
             this.setData({
-                page_menu: new_page_menu,
-                cartList: shopCart,
-                isFull: isfull,
-                showCart: show_cart
+                page_menu: new_page_menu
             })
-            //计算总价格和总数
-            this.countAll(shopCart);
+
         }
+
+        var isfull = false;
+        var show_cart = this.data.showCart;
+        //获取购物车
+        var shopCart = util.getShopCart(app.globalData.shop_id);
+
+        //购物车商品数是否满7个，控制高度
+        shopCart.length > 7 ? isfull = true : isfull = false;
+        // console.log(shopCart.length);
+        if (shopCart.length === 0) {
+            this.closeCart();
+            show_cart = false;
+        }
+
+        this.setData({
+            cartList: shopCart,
+            isFull: isfull,
+            showCart: show_cart
+        })
+        //计算总价格和总数
+        this.countAll(shopCart);
     },
     //添加数量
     plus: function (e) {
 
-        let curr_spec = e.currentTarget.dataset.curr_spec;     //选择规格索引
+        let curr_spec = e.currentTarget.dataset.curr_spec;     //选择规格
 
         if (curr_spec) {             //规格数量
 
-            let curr_spec_obj = this.data.curr_spec_obj;
+            let curr_spec_obj = e.currentTarget.dataset.curr_obj;
 
             curr_spec.num++;
             this.setData({
@@ -647,12 +652,12 @@ Page({
             //加入到购物车
             curr_spec_obj.price = curr_spec.price;
             curr_spec_obj.attrs = curr_spec;
+            curr_spec_obj.name += "(" + curr_spec.titles + ")";
             //购物车中该商品数量增加 或 新增该商品
             util.addShopCart(app.globalData.shop_id, curr_spec_obj);
 
             console.log(util.getStorageSync(app.globalData.shop_id, "shopCart"))
         } else {                      //直接数量
-            var isfull = false;//购物车商品数量不满7个(控制购物车高度)
             var currentproduct = e.currentTarget.dataset.obj;//当前商品
 
             var originpage_menu = this.data.page_menu;
@@ -664,21 +669,25 @@ Page({
             //购物车中该商品数量增加 或 新增该商品
             util.addShopCart(app.globalData.shop_id, currentproduct);
 
-            //获取最新购物车
-            var shopCart = util.getShopCart(app.globalData.shop_id);
-
-            //购物车是否满7个
-            shopCart.length > 7 ? isfull = true : isfull = false;
-
             this.setData({
-                page_menu: newpage_menu,
-                cartList: shopCart,
-                isFull: isfull
-            })
+                page_menu: newpage_menu
+            });
 
-            //计算总价格和总数量
-            this.countAll(shopCart);
         }
+        var isfull = false;//购物车商品数量不满7个(控制购物车高度)
+        //获取最新购物车
+        var shopCart = util.getShopCart(app.globalData.shop_id);
+
+        //购物车是否满7个
+        shopCart.length > 7 ? isfull = true : isfull = false;
+
+        this.setData({
+            cartList: shopCart,
+            isFull: isfull
+        })
+
+        //计算总价格和总数量
+        this.countAll(shopCart);
 
 
     },
@@ -718,8 +727,8 @@ Page({
             shop_cart.forEach((obj) => {
                 if (obj.id === product.id && obj.attrs.titles === product.attrs[0].titles) {
                     _curr_spec = obj.attrs;
-                    product.attrs.forEach((obj)=>{
-                        if (obj.titles === _curr_spec.titles){
+                    product.attrs.forEach((obj) => {
+                        if (obj.titles === _curr_spec.titles) {
                             obj.is_checked = true;
                         }
                     });
@@ -728,7 +737,7 @@ Page({
             });
 
         }
-        if (!has_choose_sepc){
+        if (!has_choose_sepc) {
             //默认选中第一种规格
             product.attrs.forEach((obj) => {
                 obj.is_checked = false;
@@ -824,6 +833,7 @@ Page({
     // },
     //购物车信息
     showCart: function () {
+        console.log(this.data.cartList);
 
         let that = this;
         let isfull = false;

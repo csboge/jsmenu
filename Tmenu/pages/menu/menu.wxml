@@ -86,7 +86,7 @@
                             <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus"></view>
                         </view>
                     </view>
-                    <view class='spec-btn' wx:if="{{item.attrs.length>0?true:false}}" data-obj="{{item}}" bindtap="showSpec">多种规格</view>
+                    <view class='spec-btn' wx:if="{{item.attrs.length>0?true:false}}" data-obj="{{item}}" bindtap="showSpec">选规格</view>
                 </view>
             </view>
         </view>
@@ -124,11 +124,11 @@
                     <view class="detail-price">￥ {{item.price}}</view>
                     <view class="detail-num-box">
                         <view class="detail-num">
-                            <view class="minus-num" data-id="{{item.id}}" bindtap="minus">
+                            <view class="minus-num" data-curr_spec='{{item.attrs.titles?item.attrs:null}}' data-curr_obj='{{item}}' data-id="{{item.id}}" bindtap="minus">
                                 <view class="x-y-center-minus"></view>
                             </view>
                             <view class="detail-number">{{item.num}}</view>
-                            <view class="plus-num" data-obj="{{item}}" bindtap="plus">
+                            <view class="plus-num" data-curr_spec='{{item.attrs.titles?item.attrs:null}}' data-curr_obj='{{item}}' data-obj="{{item}}" bindtap="plus">
                                 <view class="x-y-center-plus"></view>
                             </view>
                         </view>
@@ -155,9 +155,9 @@
             <view class='spec-choosed'> ({{curr_spec.titles}})</view>
         </view>
         <view class="food-detail-num">
-            <view data-curr_spec='{{curr_spec}}' class="count-img minus-img" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}" bindtap="minus"></view>
+            <view data-curr_spec='{{curr_spec}}' data-curr_obj='{{curr_spec_obj}}' class="count-img minus-img" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}" bindtap="minus"></view>
             <view class="food-detail-number" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}">{{curr_spec.num}}</view>
-            <view data-curr_spec='{{curr_spec}}' class="count-img plus-img" bindtap="plus"></view>
+            <view data-curr_spec='{{curr_spec}}' data-curr_obj='{{curr_spec_obj}}' class="count-img plus-img" bindtap="plus"></view>
         </view>
     </view>
 </view>

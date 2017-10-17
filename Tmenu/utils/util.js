@@ -279,17 +279,17 @@ function addShopCart(shop_id, obj) {
 
             for (var i = 0; i < origin_list.length; i++) {
                 if (origin_list[i].id === obj.id && origin_list[i].attrs.titles === obj.attrs.titles) {
-                    console.log(origin_list[i].attrs.titles)
                     origin_list[i].attrs.num++;
                     origin_list[i].num = origin_list[i].attrs.num;
+                    origin_list[i].price = origin_list[i].attrs.prices;
                     break;
                 }
             }
             if (i === origin_list.length) {
-                console.log(222)
                 obj.attrs.num = 0;
                 obj.attrs.num++;
                 obj.num = obj.attrs.num;
+                obj.price = obj.attrs.prices;
                 origin_list.push(obj);
             }
         } else {//无规格
@@ -307,6 +307,7 @@ function addShopCart(shop_id, obj) {
 
     } else {
         obj.num++;
+        obj.price = obj.price || obj.attrs.prices;
         origin_list.push(obj);
     }
     // console.log(origin_list)

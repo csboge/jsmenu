@@ -48,7 +48,7 @@ Page({
         show_spec: false,       //是否弹出规格选择框
         curr_spec_obj: {},      //当前选择规格的商品对象
         spec_list: [],          //选中的规格商品数据
-        curr_spec: {},          //当前正在选的规格
+        curr_spec: {},          //当前正在选的规格     
 
     },
     rowIndex: 0,                //显示食物的行数,每行四
@@ -694,6 +694,9 @@ Page({
     //点击选择规格
     choseSpec(e) {
 
+        let that = this;
+        let shop_cart = util.getStorageSync(app.globalData.shop_id, "shopCart");
+
         let index = e.currentTarget.dataset.i;
         let product = this.data.curr_spec_obj;
 
@@ -708,10 +711,23 @@ Page({
             return;
         }
 
+
+        //同步数量
+        if (shop_cart.length > 0) {
+            shop_cart.forEach((obj, i) => {
+                if (obj.id === product.id && obj.attrs.titles === product.attrs[index].titles) {
+                    product.attrs[index].num = obj.num;
+                }
+            });
+        }
+
+        product.attrs[index].num = product.attrs[index].num > 0 ? product.attrs[index].num : 0;
+
         this.setData({
             curr_spec_obj: product,
             curr_spec: product.attrs[index]
         });
+
     },
     //弹出规格选择框
     showSpec(e) {

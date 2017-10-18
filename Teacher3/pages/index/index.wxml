@@ -21,7 +21,7 @@
                     <view class='person-xy-txt'>把保险带给千家万户!</view>
                 </view>
                 <view class='person-ad'>
-                    <image class='person-ad-img' src='http://img.my-shop.cc/teacher/tc3_person_ad.png' mode='widthFix'></image>
+                    <image class='person-ad-img' src='http://img.my-shop.cc/teacher/tc3_person_ad.png?2' mode='widthFix'></image>
                 </view>
             </view>
         </view>
@@ -35,23 +35,13 @@
             <view class='join-title'>
                 <image class='join-title-img' src='http://img.my-shop.cc/teacher/tc3_hd_title.png?1'></image>
             </view>
-            <view class='join-item-box join-mid-box'>
-                <!-- <view class='join-item'>
-                    <view class='join-des m red b'>
-                        <view class='join-txt'>{{user_data.deeds["1"].content}}</view>
-                    </view>
-                    <view class='join-time ms'>{{user_data.deeds["1"].title}}</view>
-                    <view class='join-line'></view>
-                </view> -->
-                <image class='join-img' src='{{user_data.bg+"?1"}}' mode='widthFix'></image>
-                <!-- <view class='join-item'>
-                    <view class='join-des m red b'>
-                        <view class='join-txt'>{{user_data.deeds["5"].content}}</view>
-                    </view>
-                    <view class='join-time ms'>{{user_data.deeds["5"].title}}</view>
-                    <view class='join-line'></view>
-                </view> -->
-            </view>
+            <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{700}}" wx:if="{{user_data.banner.length>0?true:false}}">
+                <block wx:for="{{user_data.banner}}">
+                    <swiper-item>
+                        <image src="{{item+'?1'}}" class="slide-image" mode='widthFix'/>
+                    </swiper-item>
+                </block>
+            </swiper>
             <view class='story-box'>
                 <image class='arrow-img' src='http://img.my-shop.cc/teacher/tc3_arrow.jpg' mode='widthFix'></image>
                 <view class='story-des-box'>
@@ -121,7 +111,7 @@
             <view class='bx-box'>
                 <image class='bx-title-img' src='http://img.my-shop.cc/teacher/tc3_bx_title.png' mode='widthFix'></image>
                 <view class='video-box'>
-                    <video src="http://img.my-shop.cc/video/tc3_bx_v.mp4" controls></video>
+                    <video src="http://img.my-shop.cc/video/tc3_bx_v.mp4" controls poster='http://img.my-shop.cc/teacher/tc3_v_post.jpg'></video>
                 </view>
                 <image class='join-us-img' src='http://img.my-shop.cc/teacher/tc3_join_us.jpg' mode='widthFix'></image>
             </view>
@@ -143,15 +133,8 @@
                     <view class='des-txt m'>{{item.content}}</view>
                 </view>
             </view>
-            <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{700}}" wx:if="{{user_data.banner.length>0?true:false}}">
-                <block wx:for="{{user_data.banner}}">
-                    <swiper-item>
-                        <image src="{{item}}" class="slide-image" />
-                    </swiper-item>
-                </block>
-            </swiper>
             <view class='img-box'>
-                <image class='content-img' src='{{item}}' wx:for="{{user_data.photo}}"></image>
+                <image class='content-img' src='{{item+"?1"}}' wx:for="{{user_data.photo}}"></image>
             </view>
         </view>
     </view>

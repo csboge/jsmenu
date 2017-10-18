@@ -274,6 +274,7 @@ swiper {
 .person-position {
     margin-left: 24rpx;
     color: #b01e1e;
+    font-weight: bold;
 }
 
 .head-img-box {

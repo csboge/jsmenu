@@ -33,7 +33,7 @@
         </view>
         <view class='join-us'>
             <view class='join-title'>
-                <image class='join-title-img' src='http://img.my-shop.cc/teacher/tc3_hd_title.png'></image>
+                <image class='join-title-img' src='http://img.my-shop.cc/teacher/tc3_hd_title.png?1'></image>
             </view>
             <view class='join-item-box join-mid-box'>
                 <!-- <view class='join-item'>

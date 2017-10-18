@@ -69,9 +69,9 @@
                 </scroll-view>
             </view>
             <view class="food-detail-box">
-                <view class="food-detail" wx:for="{{page_menu}}" wx:key="id">
+                <view class="food-detail" wx:for="{{page_menu}}" wx:key="id" data-obj='{{item}}' catchtap='showProductDetail'>
                     <view class="food-detail-main">
-                        <view class="food-detail-img" data-url='{{item.image}}' bindtap='previewImg'>
+                        <view class="food-detail-img" data-i='{{index}}' bindtap='previewImg'>
                             <image src="{{item.image}}" class="detail-img" mode="aspectFit"></image>
                         </view>
                         <view class="food-detail-des">
@@ -86,7 +86,7 @@
                             <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus"></view>
                         </view>
                     </view>
-                    <view class='spec-btn' wx:if="{{item.attrs.length>0?true:false}}" data-obj="{{item}}" bindtap="showSpec">
+                    <view class='spec-btn' wx:if="{{item.attrs.length>0?true:false}}" data-obj="{{item}}" catchtap="showSpec">
                         选规格
                         <view class='spec-num-circle' wx:if="{{item.spec_num===0?false:true}}">{{item.spec_num}}</view>
                     </view>
@@ -165,3 +165,16 @@
     </view>
 </view>
 <view class='spec-modal {{show_spec?"show":"hide"}}' bindtap='closeSpec'></view>
+
+
+<view class='product-detail-box {{show_product_detail?"show":"hide"}}' data-i='{{-1}}' data-url='{{curr_detail.image}}' bindtap='{{previewImg}}'>
+    <image class='product-detail-img' src='{{curr_detail.image}}' mode="widthFix"></image>
+    <view class='product-detail'>
+        <view class='product-name'>{{curr_detail.name}}</view>
+        <view class='product-price'>￥{{curr_detail.price}}</view>
+    </view>
+    <view class='close-btn-box'>
+        <view class='close-detail-btn' bindtap='closeDetail'></view>
+    </view>
+</view>
+<view class='product-detail-modal {{show_product_detail?"show":"hide"}}' bindtap='closeDetail'></view>

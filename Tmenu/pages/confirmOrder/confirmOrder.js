@@ -303,13 +303,29 @@ Page({
                     //区分固定数量的餐具和按用餐人数变化数量的餐具，并从菜品中区分
                     _use_base.forEach((obj) => {
                         obj.is_canju = true;
-                        if (obj.num === 0) {
+                        if ((obj.num - 0) === 0) {
                             obj.is_change_item = true;
                             is_must_customers = true;
                         } else {
                             obj.is_change_item = false;
                         }
                     });
+
+                    //判断是否显示固定数量的餐具
+                    let new_use_base = [];
+                    _use_base.forEach((obj) => {
+                        if (!obj.is_change_item) {
+                            obj.count_price = (obj.num - 0) * obj.price;
+                            new_use_base.push(obj);
+                        }
+                    });
+
+                    if (new_use_base.length > 0) {
+                        that.setData({
+                            show_use_base: true,
+                            use_base: new_use_base
+                        });
+                    }
 
 
                     app.setGlobalData("use_base", _use_base);
@@ -522,6 +538,7 @@ Page({
                 hide_show_more: true
             });
         }
+
 
     },
     //展开更多
@@ -897,7 +914,7 @@ Page({
         let _use_base = app.globalData.use_base;
 
         //标识是否是餐具
-        _goods_list.forEach((obj)=>{
+        _goods_list.forEach((obj) => {
             obj.is_canju = 0;
         });
         // console.log(_goods_list)

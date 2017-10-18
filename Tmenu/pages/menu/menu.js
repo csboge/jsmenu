@@ -50,6 +50,9 @@ Page({
         spec_list: [],          //选中的规格商品数据
         curr_spec: {},          //当前正在选的规格     
 
+        show_product_detail: false,     //是否显示菜品详情
+        curr_detail: {},                //当前查看的菜品
+
     },
     rowIndex: 0,                //显示食物的行数,每行四
     mark: 0,                    //tap的坐标 x或y
@@ -819,14 +822,43 @@ Page({
             show_spec: false
         });
     },
+    //显示菜品详情
+    showProductDetail(e) {
+
+        this.setData({
+            show_product_detail: true,
+            curr_detail: e.currentTarget.dataset.obj
+        });
+
+    },
+    //关闭菜品详情
+    closeDetail() {
+        this.setData({
+            show_product_detail: false
+        });
+    },
     //预览大图
     previewImg(e) {
+        
+        let index = e.currentTarget.dataset.i;
+        let page_menu = this.data.page_menu;
 
-        let url = e.currentTarget.dataset.url;
+        let curr_url = "";
+        let page_url_list = [];
+
+        if (index != -1) {
+            curr_url = page_menu[index].image;
+        } else {
+            curr_url = e.currentTarget.dataset.url;
+        }
+
+        page_menu.forEach((obj) => {
+            page_url_list.push(obj.image);
+        });
 
         wx.previewImage({
-            current: '', // 当前显示图片的http链接
-            urls: [url] // 需要预览的图片http链接列表
+            current: curr_url, // 当前显示图片的http链接
+            urls: page_url_list // 需要预览的图片http链接列表
         });
     },
     //商品数量变化时统计总数据并更新

@@ -1,48 +1,83 @@
 <view class="page-container">
     <view class='page-head'>
-        <image class='head-bg' src='http://img.my-shop.cc/teacher/tc3_hd_bg.jpg'></image>
+        <image class='head-bg' src='http://img.my-shop.cc/teacher/tc3_hd_bg.jpg?1'></image>
+    </view>
+    <view class='page-section'>
         <view class='person-info-box'>
             <view class='person-info'>
                 <view class='head-img-box'>
-                    <image class='head-img' src='{{user_data.portrait}}'></image>
+                    <image class='tel-icon' src='../../assets/images/tc3_tel_icon.png?1' bindtap='call'></image>
+                    <image class='head-img' src='{{user_data.portrait}}' mode='widthFix'></image>
+                    <button class='share-btn' open-type='share'>
+                        <image class='share-icon' src='../../assets/images/tc3_share_icon.png?1'></image>
+                    </button>
                 </view>
-                <view class='person-name w l b'>{{user_data.name}}</view>
-                <view class='person-position w m'>{{user_data.explain}}</view>
-                <view class='person-touch'>
-                    <view class='touch-box'>
-                        <image class='tel-icon' src='../../assets/images/tc3_tel_icon.png' bindtap='call'></image>
-                        <button class='share-btn' open-type='share'>
-                            <image class='share-icon' src='../../assets/images/tc3_share_icon.png'></image>
-                        </button>
-                    </view>
+                <view class='person-des-box'>
+                    <view class='person-name l b'>{{user_data.name}}</view>
+                    <view class='person-position m'>{{user_data.explain}}</view>
+                </view>
+                <view class='person-xy'>
+                    <view class='person-xy-title '>人生宣言：</view>
+                    <view class='person-xy-txt'>把保险带给千家万户!</view>
+                </view>
+                <view class='person-ad'>
+                    <image class='person-ad-img' src='http://img.my-shop.cc/teacher/tc3_person_ad.png' mode='widthFix'></image>
                 </view>
             </view>
         </view>
-        <view class='tri-angle'></view>
-    </view>
-    <view class='page-section'>
+        <view class='company-reduce'>
+            <image class='reduce-head' src='http://img.my-shop.cc/teacher/tc3_reduce_title.png' mode='widthFix'></image>
+            <view class='reduce-txt'>
+                中国平安保险（集团）股份有限公司（以下简称“中国平安” ）于1988年诞生于深圳蛇口，是中国第一家股份制保险企业，至今已经发展成为金融保险、银行投资等金融业务为一体的整合紧密、多元的综合金融服务集团。2017年6月，《2017BrandZ最具价值全球品牌100强》公布中国平安排名第61位；7月31日，《财富》中国500强排行榜发布，中国平安保险（集团）股份有限公司排名第五。 2017年9月，中国平安保险（集团）股份有限公司在2017中国企业500强中，排名第八。
+            </view>
+        </view>
         <view class='join-us'>
             <view class='join-title'>
-                <image class='join-title-img' src='http://img.my-shop.cc/teacher/tc3_hd_title.jpg?1'></image>
+                <image class='join-title-img' src='http://img.my-shop.cc/teacher/tc3_hd_title.png'></image>
             </view>
             <view class='join-item-box join-mid-box'>
-                <view class='join-item'>
+                <!-- <view class='join-item'>
                     <view class='join-des m red b'>
                         <view class='join-txt'>{{user_data.deeds["1"].content}}</view>
                     </view>
                     <view class='join-time ms'>{{user_data.deeds["1"].title}}</view>
                     <view class='join-line'></view>
-                </view>
-                <image class='join-img' src='{{user_data.bg}}'></image>
-                <view class='join-item'>
+                </view> -->
+                <image class='join-img' src='{{user_data.bg+"?1"}}' mode='widthFix'></image>
+                <!-- <view class='join-item'>
                     <view class='join-des m red b'>
                         <view class='join-txt'>{{user_data.deeds["5"].content}}</view>
                     </view>
                     <view class='join-time ms'>{{user_data.deeds["5"].title}}</view>
                     <view class='join-line'></view>
+                </view> -->
+            </view>
+            <view class='story-box'>
+                <image class='arrow-img' src='http://img.my-shop.cc/teacher/tc3_arrow.jpg' mode='widthFix'></image>
+                <view class='story-des-box'>
+                    <view class='story-des m b'>
+                        <view class='story-txt'>{{user_data.deeds["1"].content}}</view>
+                        <view class='story-time ms w'>{{user_data.deeds["1"].title}}</view>
+                    </view>
+                    <view class='story-des m b'>
+                        <view class='story-txt'>{{user_data.deeds["2"].content}}</view>
+                        <view class='story-time ms w'>{{user_data.deeds["2"].title}}</view>
+                    </view>
+                    <view class='story-des m b'>
+                        <view class='story-txt'>{{user_data.deeds["3"].content}}</view>
+                        <view class='story-time ms w'>{{user_data.deeds["3"].title}}</view>
+                    </view>
+                    <view class='story-des m b'>
+                        <view class='story-txt'>{{user_data.deeds["4"].content}}</view>
+                        <view class='story-time ms w'>{{user_data.deeds["4"].title}}</view>
+                    </view>
+                    <view class='story-des m b'>
+                        <view class='story-txt'>{{user_data.deeds["5"].content}}</view>
+                        <view class='story-time ms w'>{{user_data.deeds["5"].title}}</view>
+                    </view>
                 </view>
             </view>
-            <view class='join-item-box'>
+            <!-- <view class='join-item-box'>
                 <view class='join-item'>
                     <view class='join-des m red b'>
                         <view class='join-txt'>{{user_data.deeds["2"].content}}</view>
@@ -64,17 +99,16 @@
                     <view class='join-time ms'>{{user_data.deeds["4"].title}}</view>
                     <view class='join-line'></view>
                 </view>
-            </view>
+            </view> -->
         </view>
-        <image class='bg-md-img' src='{{user_data.img}}'></image>
+        <!-- <image class='bg-md-img' src='{{user_data.img}}'></image> -->
         <view class='choice-box'>
             <view class='choice-head'>
-                <image class='box-img' src='http://img.my-shop.cc/teacher/tc3_box_img.png?1'></image>
-                <view class='choice-title m'>一种选择，一种别样的人生</view>
+                <image class='box-img' src='http://img.my-shop.cc/teacher/tc3_box_img.png'></image>
             </view>
             <view class='choice-content'>
                 <view class='choice-item' bindtap='{{item.type===0?"":"jump"}}' data-index='{{index}}' wx:for="{{user_data.product}}">
-                    <image class='choice-img' src='{{item.img}}'></image>
+                    <image class='choice-img' src='{{item.img+"?1"}}'></image>
                     <view class='choice-des'>
                         <!-- <image class='choice-icon' src='http://img.my-shop.cc/teacher/tc3_yl_icon1.png'></image> -->
                         <view class='choice-txt m red'>{{item.title}}</view>
@@ -82,8 +116,15 @@
                 </view>
             </view>
         </view>
-        <image class='se-bg' src='http://img.my-shop.cc/teacher/tc3_se_bg.jpg'></image>
+        <!-- <image class='se-bg' src='http://img.my-shop.cc/teacher/tc3_se_bg.jpg'></image> -->
         <view class='img-content'>
+            <view class='bx-box'>
+                <image class='bx-title-img' src='http://img.my-shop.cc/teacher/tc3_bx_title.png' mode='widthFix'></image>
+                <view class='video-box'>
+                    <video src="http://img.my-shop.cc/video/tc3_bx_v.mp4" controls></video>
+                </view>
+                <image class='join-us-img' src='http://img.my-shop.cc/teacher/tc3_join_us.jpg' mode='widthFix'></image>
+            </view>
             <view class='img-content-title'>
                 <view class='title-txt m'>您是</view>
                 <view class='title-txt-b red b ls'>千里马</view>
@@ -105,12 +146,12 @@
             <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{700}}" wx:if="{{user_data.banner.length>0?true:false}}">
                 <block wx:for="{{user_data.banner}}">
                     <swiper-item>
-                        <image src="{{item}}" class="slide-image"/>
+                        <image src="{{item}}" class="slide-image" />
                     </swiper-item>
                 </block>
             </swiper>
             <view class='img-box'>
-                <image class='content-img' src='{{item}}' wx:for="{{user_data.image}}"></image>
+                <image class='content-img' src='{{item}}' wx:for="{{user_data.photo}}"></image>
             </view>
         </view>
     </view>

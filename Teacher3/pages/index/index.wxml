@@ -1,17 +1,19 @@
 <view class="page-container">
     <view class='page-head'>
         <image class='head-bg' src='http://img.my-shop.cc/teacher/tc3_hd_bg.jpg?1'></image>
+        <view class='head-img-box'>
+            <view class='person-head-box'>
+                <image class='tel-icon' src='../../assets/images/tc3_tel_icon1.png' bindtap='call'></image>
+                <image class='head-img' src='../../assets/images/portrait.jpg' mode='widthFix'></image>
+                <button class='share-btn' open-type='share'>
+                    <image class='share-icon' src='../../assets/images/tc3_share_icon1.png'></image>
+                </button>
+            </view>
+        </view>
     </view>
     <view class='page-section'>
         <view class='person-info-box'>
             <view class='person-info'>
-                <view class='head-img-box'>
-                    <image class='tel-icon' src='../../assets/images/tc3_tel_icon.png?1' bindtap='call'></image>
-                    <image class='head-img' src='{{user_data.portrait}}' mode='widthFix'></image>
-                    <button class='share-btn' open-type='share'>
-                        <image class='share-icon' src='../../assets/images/tc3_share_icon.png?1'></image>
-                    </button>
-                </view>
                 <view class='person-des-box'>
                     <view class='person-name l b'>{{user_data.name}}</view>
                     <view class='person-position m'>{{user_data.explain}}</view>
@@ -38,7 +40,7 @@
             <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{700}}" wx:if="{{user_data.banner.length>0?true:false}}">
                 <block wx:for="{{user_data.banner}}">
                     <swiper-item>
-                        <image src="{{item+'?1'}}" class="slide-image" mode='widthFix'/>
+                        <image src="{{item+'?1'}}" class="slide-image" mode='widthFix' />
                     </swiper-item>
                 </block>
             </swiper>
@@ -113,7 +115,9 @@
                 <view class='video-box'>
                     <video src="http://img.my-shop.cc/video/tc3_bx_v.mp4" controls poster='http://img.my-shop.cc/teacher/tc3_v_post.jpg'></video>
                 </view>
-                <image class='join-us-img' src='http://img.my-shop.cc/teacher/tc3_join_us.jpg' mode='widthFix'></image>
+                <view>
+                    <image class='join-us-img' src='http://img.my-shop.cc/teacher/tc3_join_us.jpg' mode='widthFix'></image>
+                </view>
             </view>
             <view class='img-content-title'>
                 <view class='title-txt m'>您是</view>

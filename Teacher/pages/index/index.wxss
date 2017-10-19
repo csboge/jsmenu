@@ -38,6 +38,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    /* 背景高度 */
+    height: 1740rpx;
+    overflow: hidden;
 }
 
 .bc-img {
@@ -110,6 +113,8 @@
     padding-top: 80rpx;
     padding-bottom: 24rpx;
     padding-left: 150rpx;
+    /* 分享按钮垂直居中 */
+    justify-content: center;
 }
 
 .reduction-touch::after {

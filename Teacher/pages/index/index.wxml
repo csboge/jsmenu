@@ -27,9 +27,10 @@
                     <button class='share-btn' open-type='share'>
                         <image class='share-img' src='../../assets/images/tc_share.jpg'></image>
                     </button>
-                    <view class='tel-btn' bindtap='call'>
+                    <!-- 电话按钮 -->
+                    <!-- <view class='tel-btn' bindtap='call'>
                         <image class='tel-img' src='../../assets/images/tc_tel.jpg'></image>
-                    </view>
+                    </view> -->
                 </view>
             </view>
         </view>
@@ -62,7 +63,7 @@
                     </view>
                 </view>
             </view>
-            <view class='history'>
+            <!-- <view class='history'>
                 <view class='item-title exp'>
                     <view class='title-ch xl b red'>百举百捷的事迹</view>
                     <view class='title-en e gray'>EXPERIENCE</view>
@@ -78,7 +79,7 @@
                     </view>
                     
                 </view>
-            </view>
+            </view> -->
         </view>
     </view>
 </view>

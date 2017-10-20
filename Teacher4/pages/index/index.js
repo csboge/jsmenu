@@ -4,10 +4,29 @@ const app = getApp()
 
 Page({
     data: {
-
+        data: {}
     },
     onLoad: function () {
 
+        let that = this;
+
+        wx.request({
+            url: "https://demo.ai-life.me/api/Lecturer/index",
+            data: { id: 5 },
+            success: function (res) {
+                if (res.data.code === 1) {
+                    that.setData({
+                        data: res.data.data
+                    });
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    })
+                }
+            }
+        })
     },
     nav(e) {
         let i = e.currentTarget.dataset.i;
@@ -31,9 +50,9 @@ Page({
 
         wx.navigateTo({
             url: url,
-            success: function(res) {},
-            fail: function(res) {},
-            complete: function(res) {},
+            success: function (res) { },
+            fail: function (res) { },
+            complete: function (res) { },
         })
     },
     call() {
@@ -48,13 +67,13 @@ Page({
         })
     },
     //扫码
-    scan(){
+    scan() {
         wx.previewImage({
             current: 'https://img.my-shop.cc/images/tc4_qr_code.png',
             urls: ['https://img.my-shop.cc/images/tc4_qr_code.png'],
-            success: function(res) {},
-            fail: function(res) {},
-            complete: function(res) {},
+            success: function (res) { },
+            fail: function (res) { },
+            complete: function (res) { },
         })
     },
     onShareAppMessage: function (res) {

@@ -19,6 +19,19 @@ Page({
     onLoad: function (options) {
 
     },
+    //删除分类
+    delCate(e){
+        
+        let id = e.currentTarget.dataset.id;
+
+        wx.showModal({
+            title: '提示',
+            content: '现在还不能删除喔',
+            showCancel: false
+        })
+
+        // util.request(app.globalData.ev_url+"","POST",)
+    },
     onShow() {
 
         let that = this;

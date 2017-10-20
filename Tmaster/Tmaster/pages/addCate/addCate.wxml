@@ -11,7 +11,7 @@
                     <view class="section-title">所属分类</view>
                     <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
                         <view class="input-txt {{index>0?'':'gray'}}">
-                            {{array[index].name}}
+                            {{array[index]}}
                         </view>
                     </picker>
                 </view>

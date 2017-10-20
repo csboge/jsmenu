@@ -13,7 +13,7 @@
                 <button class='del-btn'>
                     <image class='btn-img' src='../../img/update_icon.png' mode='widthFix'></image>
                 </button>
-                <button class='del-btn'>
+                <button class='del-btn' bindtap='delCate'>
                     <image class='btn-img' src='../../img/del_icon.png' mode='widthFix'></image>
                 </button>
             </view>

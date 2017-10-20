@@ -3,10 +3,12 @@
         <image class='head-bg' src='http://img.my-shop.cc/teacher/tc3_hd_bg.jpg?1'></image>
         <view class='head-img-box'>
             <view class='person-head-box'>
-                <image class='tel-icon' src='../../assets/images/tc3_tel_icon1.png' bindtap='call'></image>
+                <view class='tel-box' bindtap='call'>
+                    <image class='tel-icon' src='../../assets/images/tc3_tel_icon1.png'  mode='widthFix'></image>
+                </view>
                 <image class='head-img' src='../../assets/images/portrait.jpg' mode='widthFix'></image>
                 <button class='share-btn' open-type='share'>
-                    <image class='share-icon' src='../../assets/images/tc3_share_icon1.png'></image>
+                    <image class='share-icon' src='../../assets/images/tc3_share_icon1.png'  mode='widthFix'></image>
                 </button>
             </view>
         </view>

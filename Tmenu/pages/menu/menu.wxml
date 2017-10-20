@@ -71,7 +71,7 @@
             <view class="food-detail-box">
                 <view class="food-detail" wx:for="{{page_menu}}" wx:key="id" data-obj='{{item}}' catchtap='showProductDetail'>
                     <view class="food-detail-main">
-                        <view class="food-detail-img" data-i='{{index}}' bindtap='previewImg'>
+                        <view class="food-detail-img" data-i='{{index}}' catchtap='previewImg'>
                             <image src="{{item.image}}" class="detail-img" mode="aspectFit"></image>
                         </view>
                         <view class="food-detail-des">

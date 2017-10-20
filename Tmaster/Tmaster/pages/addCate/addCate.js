@@ -10,7 +10,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        array: ["点击选择", "11"],
+        array: [],
         index: 0,
         parent_id: null,
     },
@@ -20,21 +20,21 @@ Page({
      */
     onLoad: function (options) {
 
-        util.request(app.globalData.ev_url + "/category/category", "POST", app.getParams({}))
-            .then((res) => {
-                console.log(res.data.data);
-            }, (res) => {
-                util.disconnectModal();
-            });
+        this.fetchParentCate();
+
     },
     //加载一级分类
     fetchParentCate() {
-        util.request(app.globalData.ev_url + "", "POST", app.getParams({}))
+
+        util.request(app.globalData.ev_url + "/category/category", "POST", app.getParams({}))
             .then((res) => {
-                console.log(res);
+                that.setData({
+                    array: res.data.data
+                });
             }, (res) => {
                 util.disconnectModal();
             });
+            
     },
     //添加分类
     formSubmit(e) {

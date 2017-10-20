@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/addCate/addCate",
+    "pages/cateList/cateList",
     "pages/home/home",
     "pages/register/register",
     "pages/menuItem/menuItem",

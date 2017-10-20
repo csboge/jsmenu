@@ -1,0 +1,25 @@
+<view class="page-container">
+
+    <view class='cate-title-box'>
+        <view class='cate-title m b g'>名称</view>
+        <!-- <view class='cate-title m b g'>类型</view> -->
+        <view class='cate-title m b g'>操作</view>
+    </view>
+    <view class='cate-detail-box'>
+        <view class='cate-detail-item' wx:for="{{cate_list}}">
+            <view class='cate-name ls b'>{{item.name}}</view>
+            <!-- <view class='cate-type ls b'>西餐</view> -->
+            <view class='cate-btn'>
+                <button class='del-btn'>
+                    <image class='btn-img' src='../../img/update_icon.png' mode='widthFix'></image>
+                </button>
+                <button class='del-btn'>
+                    <image class='btn-img' src='../../img/del_icon.png' mode='widthFix'></image>
+                </button>
+            </view>
+        </view>
+    </view>
+</view>
+<view class='add-btn-box ls b w' bindtap='toAddCate'>
+    点击添加分类
+</view>

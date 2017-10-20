@@ -61,7 +61,7 @@ Page({
             console.log(res.target)
         }
         return {
-            title: '超级演说家钟林飞',
+            title: '首席创业导师萧鼎诚',
             path: '/pages/index/index',
             success: function (res) {
                 // 转发成功

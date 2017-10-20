@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/menuItem/menuItem",
     "pages/addCate/addCate",
     "pages/home/home",
     "pages/register/register",
+    "pages/menuItem/menuItem",
     "pages/saleReport/saleReport",
     "pages/collectionRecord/collectionRecord",
     "pages/reportDetail/reportDetail",

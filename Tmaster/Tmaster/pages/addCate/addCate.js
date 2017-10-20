@@ -20,6 +20,12 @@ Page({
      */
     onLoad: function (options) {
 
+        util.request(app.globalData.ev_url + "/category/category", "POST", app.getParams({}))
+            .then((res) => {
+                console.log(res.data.data);
+            }, (res) => {
+                util.disconnectModal();
+            });
     },
     //加载一级分类
     fetchParentCate() {

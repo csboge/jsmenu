@@ -75,7 +75,7 @@
                 </view>
                 <view class='sm-item last-item'>
                     <view class='sm-item-num m'>12</view>
-                    <view class='sm-item-txt ms'>3年内帮助200位总代 突破月收入10万
+                    <view class='sm-item-txt ms'>3年内帮助200位总代突破月收入10万
                     </view>
                 </view>
             </view>
@@ -103,19 +103,19 @@
             <view class='mx-des m b p'>您身边的养身专家！</view>
             <view class='mx-pro-box'>
                 <view class='mx-pro-item'>
-                    <image class='mx-pro-img' src='../../assets/images/tc4_menu1.jpg' mode='widthFix'></image>
+                    <image class='mx-pro-img' src='../../assets/images/tc4_menu1.jpg' mode='widthFix' data-i='{{1}}' bindtap='nav'></image>
                     <view class='mx-pro-title l p b'>古方暖护包</view>
                 </view>
                 <view class='mx-pro-item'>
-                    <image class='mx-pro-img' src='../../assets/images/tc4_menu2.jpg' mode='widthFix'></image>
+                    <image class='mx-pro-img' src='../../assets/images/tc4_menu2.jpg' mode='widthFix' data-i='{{2}}' bindtap='nav'></image>
                     <view class='mx-pro-title l p b'>古方纤秀包</view>
                 </view>
                 <view class='mx-pro-item'>
-                    <image class='mx-pro-img' src='../../assets/images/tc4_menu3.jpg' mode='widthFix'></image>
+                    <image class='mx-pro-img' src='../../assets/images/tc4_menu3.jpg' mode='widthFix' data-i='{{3}}' bindtap='nav'></image>
                     <view class='mx-pro-title l p b'>古方养护包</view>
                 </view>
                 <view class='mx-pro-item'>
-                    <image class='mx-pro-img' src='../../assets/images/tc4_menu4.jpg' mode='widthFix'></image>
+                    <image class='mx-pro-img' src='../../assets/images/tc4_menu4.jpg' mode='widthFix' data-i='{{4}}' bindtap='nav'></image>
                     <view class='mx-pro-title l p b'>肩颈暖护包</view>
                 </view>
             </view>

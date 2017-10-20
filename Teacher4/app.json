@@ -1,12 +1,16 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/first/first",
+    "pages/second/second",
+    "pages/third/third",
+    "pages/forth/forth",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "羽悦本草张丽雅",
     "navigationBarTextStyle":"black"
   }
 }

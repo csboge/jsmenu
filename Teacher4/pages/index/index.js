@@ -9,12 +9,39 @@ Page({
     onLoad: function () {
 
     },
+    nav(e) {
+        let i = e.currentTarget.dataset.i;
+
+        let url = "";
+
+        switch (i) {
+            case 1:
+                url = "../first/first";
+                break;
+            case 2:
+                url = "../second/second";
+                break;
+            case 3:
+                url = "../third/third";
+                break;
+            case 4:
+                url = "../forth/forth";
+                break;
+        }
+
+        wx.navigateTo({
+            url: url,
+            success: function(res) {},
+            fail: function(res) {},
+            complete: function(res) {},
+        })
+    },
     call() {
         wx.makePhoneCall({
             phoneNumber: '13'
         })
     },
-    previeImg(){
+    previeImg() {
         wx.previewImage({
             current: '../../assets/images/tc4_join_title2.png',
             urls: []

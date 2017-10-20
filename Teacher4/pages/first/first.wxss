@@ -1,0 +1,32 @@
+/* pages/first/first.wxss */
+
+.page-container {
+    width: 100%;
+}
+
+.bg-img {
+    width: 100%;
+    float: left;
+}
+
+.blank {
+    height: 50rpx;
+    background: #fff;
+}
+
+.pro-title {
+    padding: 20rpx 0;
+    width: 270rpx;
+}
+
+.pro{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20rpx;
+    background: #8991cf;
+}
+
+.slide-image{
+    padding: 20rpx 20rpx;
+    width: 650rpx;
+}

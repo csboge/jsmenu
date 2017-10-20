@@ -1,0 +1,14 @@
+<!--store.wxml-->
+<view class="wrapper">
+	<view class="head">
+		门店可区分收款流水，各门店收到的款项会汇总到结算账户中
+	</view>
+	<view class="section">
+		<view class="bg">伯格网络科技有限公司<span>></span></view>
+		<view class="bg">伯格电子菜谱<span>></span></view>
+		<view class="add" bindtap="btnStore"><span>+</span>添加门店</view>
+		<view class="add" bindtap="btnCook"><span>+</span>添加菜谱</view>
+		<view class="add" style="border: none"><span>+</span>添加餐桌</view>
+	</view>
+</view>
+

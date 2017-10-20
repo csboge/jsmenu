@@ -1,3 +1,6 @@
+page{
+    background: #FFf;
+}
 .page-container {
     width: 100%;
     display: flex;

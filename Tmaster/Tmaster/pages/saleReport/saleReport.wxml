@@ -1,0 +1,79 @@
+<!--pages/saleReport/saleReport.wxml-->
+<view class="page-container">
+    <view class="page-head">
+        <view class="tab-box">
+            <view class="tab-item {{report_type===0?'show-border':''}}" data-type="0" bindtap="changeTab">日报</view>
+            <view class="tab-item {{report_type===1?'show-border':''}}" data-type="1" bindtap="changeTab">周报</view>
+            <view class="tab-item {{report_type===2?'show-border':''}}" data-type="2" bindtap="changeTab">月报</view>
+        </view>
+    </view>
+    <view class="page-body">
+        <view class="report-list" wx:if="{{report_type===0?true:false}}">
+            <view class="report-item" wx:for="{{date_list}}" wx:key="id" wx:if="{{date_list.length>0?true:false}}">
+                <view class="report-price-box">
+                    <view class="report-time txt-mid gray">{{item.statistics}}</view>
+                    <view class="report-price">
+                        <view class="price-q">￥</view>
+                        <view class="price-txt">{{item.money}}</view>
+                    </view>
+                </view>
+                <view class="report-detail">
+                    <view class="detail-item in-box">
+                        <view class="detail-title txt-mid gray">收款笔数</view>
+                        <view class="detail-txt">{{item.people}}</view>
+                    </view>
+                    <view class="detail-item sigle-box">
+                        <view class="detail-title txt-mid gray">单笔均价</view>
+                        <view class="detail-txt">{{item.single}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class='load-more-btn {{date_has_more?"":"gray"}}' bindtap='{{date_has_more?"dateLoadMore":""}}' wx:if="{{date_list.length>0?true:false}}">{{date_has_more?'查看更多':'没有更多了'}}</view>
+            <view class='bg-white txt-mid gray' wx:if="{{date_list.length>0?false:true}}">暂无数据</view>
+        </view>
+        <view class="report-list" wx:if="{{report_type===1?true:false}}">
+            <view class="report-item" wx:for="{{week_list}}" wx:key="id" wx:if="{{week_list.length>0?true:false}}">
+                <view class="report-price-box">
+                    <view class="report-time txt-mid gray">{{item.statistics}}</view>
+                    <view class="report-price">
+                        <view class="price-q">￥</view>
+                        <view class="price-txt">{{item.money}}</view>
+                    </view>
+                </view>
+                <view class="report-detail">
+                    <view class="detail-item in-box">
+                        <view class="detail-title txt-mid gray">收款笔数</view>
+                        <view class="detail-txt">{{item.people}}</view>
+                    </view>
+                    <view class="detail-item sigle-box">
+                        <view class="detail-title txt-mid gray">单笔均价</view>
+                        <view class="detail-txt">{{item.single}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class='bg-white txt-mid gray' wx:if="{{week_list.length>0?false:true}}">正在开发中</view>
+        </view>
+        <view class="report-list" wx:if="{{report_type===2?true:false}}">
+            <view class="report-item" wx:for="{{month_list}}" wx:key="id" wx:if="{{month_list.length>0?true:false}}">
+                <view class="report-price-box">
+                    <view class="report-time txt-mid gray">{{item.statistics}}</view>
+                    <view class="report-price">
+                        <view class="price-q">￥</view>
+                        <view class="price-txt">{{item.money}}</view>
+                    </view>
+                </view>
+                <view class="report-detail">
+                    <view class="detail-item in-box">
+                        <view class="detail-title txt-mid gray">收款笔数</view>
+                        <view class="detail-txt">{{item.people}}</view>
+                    </view>
+                    <view class="detail-item sigle-box">
+                        <view class="detail-title txt-mid gray">单笔均价</view>
+                        <view class="detail-txt">{{item.single}}</view>
+                    </view>
+                </view>
+            </view>
+            <view class='bg-white txt-mid gray' wx:if="{{month_list.length>0?false:true}}">正在开发中</view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,75 @@
+<!--cookbook.wxml-->
+<view class="wrapper">
+<form bindsubmit="formSubmit" >
+	<view class="title">请填写菜名</view>
+	<view class="cook">
+		<input type="text"  />
+		<span>15</span>
+	</view>
+	<view class="add-pic">
+		<view hidden="{{isShow}}" class="add" bindtap="btnClick">+</view>
+		<image hidden="{{!isShow}}" src="{{mySrc}}" ></image>
+	</view>
+	<view class="sum">
+		<view class="left">
+			<view class="text">
+				<view >原价</view>
+				<span>¥</span>
+			</view>
+			<input type="text" name=""/>
+		</view>
+		<view class="right">
+			<view class="text">
+				<view>折扣</view>
+				<span>¥</span>
+			</view>
+			<input type="text" name=""/>
+		</view>
+		
+	</view>
+	<view class="taste">
+		<span class="taste-title">口味</span>
+		<checkbox-group bindchange="checkboxChange">
+		    <label class="checkbox">
+		        <checkbox value="" />
+		        不辣
+		    </label>
+		    <label class="checkbox">
+		        <checkbox value="" />
+		        中辣
+		    </label>
+		    <label class="checkbox">
+		        <checkbox value="" />
+		        微辣
+		    </label>
+
+		    <label class="checkbox">
+		        <checkbox value="" />
+		        变态辣
+		    </label>
+		</checkbox-group>
+	</view>
+	<view class="format">
+		<view >规格</view>
+		<view class="wrap-left" style="border-right: none">
+			¥
+			<input type="number" name=""/>
+		</view>
+		<view class="wrap-right">
+			<input type="text" name=""/>
+		</view>
+		<view class="add-format">+</view>
+
+	</view>
+	<view class="assess">
+		厨师评价
+		<textarea />		
+	</view>
+	<view class="btn-group">
+		<button class="btn" form-type="submit">保存</button>
+		<button class="btn">取消</button>
+	</view>
+	
+
+</form>
+</view>

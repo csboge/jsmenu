@@ -1,20 +1,22 @@
-<scroll-view scroll-y="{{showCart?false:true}}" style="height:1290rpx;" bindscroll="scroll">
+<scroll-view scroll-y="{{showCart?false:true}}" style="height:1290rpx;overflow:scroll;" bindscroll="scroll">
     <view class="page-container">
         <view class="page-head" bindtap="goShopInfo">
             <view class="page-head-box">
                 <view class="page-head-img">
-                    <image src="http://img.my-shop.cc/image/shop-logo.jpg" class="logo"></image>
+                    <image src="{{shop_logo}}" class="logo"></image>
                 </view>
                 <view class="page-head-detail">
                     <view class="page-head-title-box">
-                        <view class="page-head-title white txt-mid">真功夫-万达店</view>
+                        <view class="page-head-title white txt-mid">{{shop_name}}</view>
                         <view class="arrow white arrow-title"></view>
                     </view>
-                    <view class="page-head-notice white txt-small">
-                        公告: 联系电话0731-85056818，超出范围五份起送！
-                    </view>
-                    <view class="page-head-notice white txt-small">
-                        可送公司餐，团餐定制，团购餐
+                    <view class="notice-box">
+                        <view class="page-head-notice white txt-small">
+                            {{notice}}
+                        </view>
+                        <view class="page-head-notice white txt-small tel-txt">
+                            联系电话:{{tel}}
+                        </view>
                     </view>
                 </view>
             </view>
@@ -24,9 +26,9 @@
                 <view class="menu-other txt-middle">
                     <image src="http://img.my-shop.cc/image/laba.png" class="laba-img"></image>
                     <swiper indicator-dots="{{false}}" autoplay="{{true}}" interval="{{5000}}" duration="{{650}}" circular="{{true}}" vertical="{{true}}">
-                        <block wx:for="{{[0,1,2]}}">
+                        <block wx:for="{{notice_list}}" wx:key="id">
                             <swiper-item>
-                                <view class="item-notice">2号桌 辣椒炒肉 1份</view>
+                                <view class="item-notice">{{item}}</view>
                             </swiper-item>
                         </block>
                     </swiper>
@@ -56,34 +58,35 @@
             </view>
             <view class="yhq">
                 <scroll-view scroll-x class="yhq-scroll">
-                    <view class="yhq-item" wx:for="[3]" bindtap="getHb">
+                    <view class="yhq-item {{item.linqu===0||item.is_get_coupon?'bc-gray':''}}" wx:for="{{yhq_list}}" wx:key="id" wx:if="{{(item.biaoshi===0||item.over===0)?false:true}}">
                         <image src="http://img.my-shop.cc/image/dot.png" class="dot-img"></image>
                         <view class="yhq-price white txt-big">
-                            <text class="yhq-sign txt-small">￥</text>3
+                            <text class="yhq-sign txt-small">{{item.type===0?'折':'￥'}}</text>{{item.dis_price}}
                         </view>
-                        <view class="yhq-des white txt-small">满30元使用</view>
-                        <view class="yhq-get white txt-middle">领取</view>
+                        <view class="yhq-des white txt-small">{{item.title}}</view>
+                        <view class="yhq-get white txt-middle {{item.linqu===0||item.is_get_coupon?'get-coupon':''}}" data-id="{{item.id}}" bindtap="getYhq" data-is_linqu="{{item.linqu}}" data-index="{{index}}">{{item.linqu===0||item.is_get_coupon?'已领取':'领取'}}</view>
                     </view>
                 </scroll-view>
             </view>
             <view class="food-detail-box">
                 <view class="food-detail" wx:for="{{page_menu}}" wx:key="id">
                     <view class="food-detail-main">
-                        <view class="food-detail-img">
-                            <image src="{{item.img_url}}" class="detail-img" mode="aspectFit"></image>
+                        <view class="food-detail-img" data-url='{{item.image}}' bindtap='previewImg'>
+                            <image src="{{item.image}}" class="detail-img" mode="aspectFit"></image>
                         </view>
                         <view class="food-detail-des">
                             <view class="food-detail-title txt-title">{{item.name}}</view>
                             <view class="food-detail-price">￥{{item.price}}</view>
                         </view>
                     </view>
-                    <view class="food-detail-num-box">
+                    <view class="food-detail-num-box" wx:if="{{item.attrs.length>0?false:true}}">
                         <view class="food-detail-num">
-                            <view data-id="{{item.id}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus">-</view>
+                            <view data-id="{{item.id}}" class="count-img minus-img" style="visibility:{{item.num>0?'visible':'hidden'}}" bindtap="minus"></view>
                             <view class="food-detail-number" style="visibility:{{item.num>0?'visible':'hidden'}}">{{item.num}}</view>
-                            <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus">+</view>
+                            <view data-obj="{{item}}" class="count-img plus-img" bindtap="plus"></view>
                         </view>
                     </view>
+                    <view class='spec-btn' wx:if="{{item.attrs.length>0?true:false}}" data-obj="{{item}}" bindtap="showSpec">选规格</view>
                 </view>
             </view>
         </view>
@@ -99,7 +102,7 @@
         <view class="txt-ft cart-text {{totalNum >0?'cart-text-hidden':''}}">购物车</view>
         <view class="sumprice {{totalNum >0?'':'sumprice-hidden'}}">
             <view class="price-num">￥ {{totalPrice}}</view>
-            <view class="price-des">离10元可再减5元</view>
+            <!-- <view class="price-des">离10元可再减5元</view> -->
         </view>
     </view>
     <view class="count-btn {{totalNum >0?'bc-red':''}}" bindtap="gotoConfirmOrder">去结算</view>
@@ -121,12 +124,12 @@
                     <view class="detail-price">￥ {{item.price}}</view>
                     <view class="detail-num-box">
                         <view class="detail-num">
-                            <view class="minus-num">
-                                <view class="x-y-center-minus" data-id="{{item.id}}" bindtap="minus">-</view>
+                            <view class="minus-num" data-curr_spec='{{item.attrs.titles?item.attrs:null}}' data-curr_obj='{{item}}' data-id="{{item.id}}" bindtap="minus">
+                                <view class="x-y-center-minus"></view>
                             </view>
                             <view class="detail-number">{{item.num}}</view>
-                            <view class="plus-num">
-                                <view class="x-y-center-plus" data-obj="{{item}}" bindtap="plus">+</view>
+                            <view class="plus-num" data-curr_spec='{{item.attrs.titles?item.attrs:null}}' data-curr_obj='{{item}}' data-obj="{{item}}" bindtap="plus">
+                                <view class="x-y-center-plus"></view>
                             </view>
                         </view>
                     </view>
@@ -135,3 +138,27 @@
         </scroll-view>
     </view>
 </view>
+
+<view class='spec-box {{show_spec?"show":"hide"}}'>
+    <view class='spec-head-box'>
+        <view class='close-box'>
+            <view class='close-btn' bindtap='closeSpec'></view>
+        </view>
+        <view class='title'>{{curr_spec_obj.name}}</view>
+    </view>
+    <view class='spec-title'>规格：</view>
+    <view class='spec-type'>
+        <view class='spec-type-item {{item.is_checked?"spec-active":""}}' wx:for="{{curr_spec_obj.attrs}}" data-i='{{index}}' bindtap='choseSpec'>{{item.titles}}</view>
+    </view>
+    <view class='spec-choose'>
+        <view class='spec-price'>￥{{curr_spec.prices}}
+            <view class='spec-choosed'> ({{curr_spec.titles}})</view>
+        </view>
+        <view class="food-detail-num">
+            <view data-curr_spec='{{curr_spec}}' data-curr_obj='{{curr_spec_obj}}' class="count-img minus-img" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}" bindtap="minus"></view>
+            <view class="food-detail-number" style="visibility:{{curr_spec.num>0?'visible':'hidden'}}">{{curr_spec.num}}</view>
+            <view data-curr_spec='{{curr_spec}}' data-curr_obj='{{curr_spec_obj}}' class="count-img plus-img" bindtap="plus"></view>
+        </view>
+    </view>
+</view>
+<view class='spec-modal {{show_spec?"show":"hide"}}' bindtap='closeSpec'></view>

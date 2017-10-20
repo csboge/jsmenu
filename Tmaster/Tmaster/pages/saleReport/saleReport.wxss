@@ -1,0 +1,145 @@
+/* pages/saleReport/saleReport.wxss */
+
+page {
+    background: #509863;
+}
+
+.page-head {
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: 100%;
+    z-index: 1;
+}
+
+.tab-box {
+    display: flex;
+    justify-content: space-around;
+    background: #509863;
+}
+
+.tab-item {
+    padding: 38rpx 0;
+    font-size: 28rpx;
+    color: #fff;
+    text-align: center;
+    width: 190rpx;
+}
+
+.show-border {
+    border-bottom: 10rpx solid #fff;
+}
+
+.page-body {
+    padding: 50rpx 32rpx;
+    margin-top: 126rpx;
+    background: #509863;
+    border-top: 2rpx solid #c6decd;
+}
+
+.report-item {
+    border-radius: 10rpx;
+    background: #fff;
+}
+
+.report-price-box {
+    padding: 66rpx 48rpx;
+}
+
+.report-price {
+    display: flex;
+    margin-top: 50rpx;
+    color: #383838;
+}
+
+.report-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 25rpx 0;
+    background: #fbfbfb;
+    border-bottom-left-radius: 10rpx;
+    border-bottom-right-radius: 10rpx;
+}
+
+.detail-item {
+    padding-left: 48rpx;
+    width: 50%;
+}
+
+.in-box {
+    position: relative;
+}
+
+.in-box::after {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    content: "";
+    display: block;
+    width: 2rpx;
+    height: 110%;
+    background: #dcdcdc;
+}
+
+.sigle-box {
+    margin-left: 10rpx;
+}
+
+.detail-txt {
+    padding-top: 10rpx;
+}
+
+.txt-mid {
+    font-size: 28rpx;
+}
+
+.price-q {
+    display: flex;
+    align-items: center;
+    font-size: 38rpx;
+}
+
+.price-txt {
+    font-size: 60rpx;
+    font-weight: bold;
+}
+
+.detail-txt {
+    font-size: 42rpx;
+    font-weight: bold;
+}
+
+.report-item {
+    margin-bottom: 24rpx;
+}
+
+.bg-white {
+    padding: 480rpx 0;
+    text-align: center;
+    background: #fff;
+}
+
+.load-more-btn {
+    padding: 20rpx 0;
+    margin-top: 40rpx;
+    font-size: 28rpx;
+    text-align: center;
+    background: #fff;
+    color: #509863;
+}
+
+.load-more-btn:active {
+    background: #eee;
+    color: #4b7e58;
+}
+
+.gray {
+    color: #6a6a6a;
+}
+
+.gray:active{
+    background: #Fff;
+    color: #6a6a6a;
+}

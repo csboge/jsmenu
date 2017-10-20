@@ -1,19 +1,22 @@
+<import src="../tpl/footer.wxml" />
 <view class="page-container">
     <view class="page-head" bindtap="toIndex">
         <view class="page-head-box">
             <view class="page-head-img">
-                <image src="http://img.my-shop.cc/image/shop-logo.jpg" class="logo"></image>
+                <image src="{{shop_info.logo}}" class="logo"></image>
             </view>
             <view class="page-head-detail">
                 <view class="page-head-title-box">
-                    <view class="page-head-title white txt-mid">寻味-园丁街店</view>
+                    <view class="page-head-title white txt-mid">{{shop_info.title}}</view>
                     <view class="arrow white arrow-title"></view>
                 </view>
-                <view class="page-head-notice white txt-small">
-                    公告: 联系电话(微信)15957496790，超出范围五份起送！
-                </view>
-                <view class="page-head-notice white txt-small">
-                    可送公司餐，团餐定制，团购餐
+                <view class="notice-box">
+                    <view class="page-head-notice white txt-small">
+                        {{shop_info.notice}}
+                    </view>
+                    <view class="page-head-notice white txt-small tel-txt">
+                        联系电话:{{shop_info.mobile}}
+                    </view>
                 </view>
             </view>
         </view>
@@ -22,57 +25,83 @@
         <view class="shop-info-box">
             <view class="shop-address ml" bindtap="showAddress">
                 <image src="http://img.my-shop.cc/image/add-white-icon.png" class="add-white-icon"></image>
-                <view class="shop-address-txt txt-mid ml">浙江省宁波市江东区园丁街128号</view>
+                <view class="shop-address-txt txt-mid ml text-mid">{{shop_info.adress}}</view>
             </view>
             <view class="shop-tel mr" bindtap="call">
                 <image src="http://img.my-shop.cc/image/tel-white-icon.png" class="tel-white-icon"></image>
             </view>
         </view>
-        <view class="hb-remain-box">
+        <view class="hb-remain-box" bindtap="gotoHbDetail">
             <view class="hb-remain-txt ml">红包余额</view>
             <view class="hb-remain-count mr">
-                <view class="hb-remain-num">20元</view>
+                <view class="hb-remain-num">{{hb_rest_money}}元</view>
                 <view class="remain-arrow yearr"></view>
             </view>
         </view>
         <view class="yhq-box" bindtap="toMydiscount">
             <view class="yhq-txt ml">优惠券</view>
             <view class="yhq-count mr">
-                <view class="yhq-num">3张</view>
+                <!-- <view class="yhq-num">3张</view> -->
                 <view class="remain-arrow yhqarr"></view>
             </view>
         </view>
-        <view class="order-box">
-            <view class="order-left ml">
-                <view class="order-shop-name">店铺：寻味-园丁街店</view>
-                <view class="order-no">订单编号：E20170707401320077831032</view>
+
+
+        <view class="order-list-item" wx:for="{{order_record_list}}" wx:for-item="out_item" wx:key="order_sn" wx:for-index="out_index">
+            <view class="order-box">
+                <view class="order-left ml">
+                    <view class="order-shop-name">{{shop_info.title}}</view>
+                    <view class="order-no">订单编号：{{out_item.order_sn}}</view>
+                </view>
+                <view class="order-right mr">{{out_item.status}}</view>
             </view>
-            <view class="order-right mr">交易关闭</view>
-        </view>
-        <view class="order-list">
-            <view class="shop-logo ml">
-                <image src="http://img.my-shop.cc/image/shop-logo.jpg" class="shop-logo-img"></image>
+            <!-- 商品列表 -->
+            <view class="order-list" wx:for="{{out_item.goods_list}}" wx:for-item="inner_item" wx:if="{{out_item.show_more?true:false}}">
+                <view class="shop-logo ml">
+                    <image src="{{inner_item.bowl?inner_item.img_url:inner_item.image}}" class="shop-logo-img"></image>
+                </view>
+                <view class="food-detail ml">
+                    <view class="food-name">{{inner_item.name}}</view>
+                    <!-- <view class="food-type">五格</view> -->
+                    <!-- <view class="food-sned-type">外卖</view> -->
+                </view>
+                <view class="food-price mr">
+                    <view class="food-price-num">￥{{inner_item.price}}</view>
+                    <view class="food-purchase-num">x{{inner_item.num}}</view>
+                </view>
             </view>
-            <view class="food-detail ml">
-                <view class="food-name">番茄牛腩便当</view>
-                <view class="food-type">五格</view>
-                <view class="food-sned-type">外卖</view>
+
+            <view class="order-list" wx:if="{{out_item.show_more?false:true}}">
+                <view class="shop-logo ml">
+                    <image src="{{out_item.goods_list[0].image}}" class="shop-logo-img"></image>
+                </view>
+                <view class="food-detail ml">
+                    <view class="food-name">{{out_item.goods_list[0].name}}</view>
+                    <!-- <view class="food-type">五格</view> -->
+                    <!-- <view class="food-sned-type">外卖</view> -->
+                </view>
+                <view class="food-price mr">
+                    <view class="food-price-num">￥{{out_item.goods_list[0].price}}</view>
+                    <view class="food-purchase-num">x{{out_item.goods_list[0].num}}</view>
+                </view>
             </view>
-            <view class="food-price mr">
-                <view class="food-price-num">￥25.00</view>
-                <view class="food-purchase-num">x1</view>
+
+            <view class="show-more" data-i="{{out_index}}" bindtap="showMore">
+                {{out_item.show_more?'收起':'查看全部'+out_item.goods_list.length+'件商品'}}
+            </view>
+            <view class="total-price-box mr">
+                <view class="total-price-txt">合计</view>
+                <view class="total-price-count">￥{{out_item.pay_price}}</view>
+            </view>
+            <view class="another-order mr">
+                <button wx:if="{{out_item.bagid?true:false}}" class="hb-recorde-btn" type="default" data-bagid="{{out_item.bagid}}" bindtap="toHbRecord">红包记录</button>
+                <button class="another-boder-btn" type="default" data-index="{{out_index}}" bindtap="anotherOrder">再来一单</button>
             </view>
         </view>
-        <view class="show-more" bindtap="showMore">查看全部2件商品</view>
-        <view class="total-price-box mr">
-            <view class="total-price-txt">合计</view>
-            <view class="total-price-count">￥41.00</view>
-        </view>
-        <view class="another-order mr">
-            <button class="another-boder-btn" type="default" bindtap="anotherOrder">再来一单</button>
-        </view>
+
+        <view class="show-more {{has_more?'':'txt-gray'}}" bindtap="loadMore" wx:if="{{order_record_list.length>0?true:false}}">{{has_more?'查看更多':'没有更多了'}}</view>
+        <view class="show-more {{order_record_list.length===0?'txt-gray':''}}" wx:if="{{order_record_list.length>0?false:true}}">暂无数据</view>
+
     </view>
-    <view class="page-foot">
-        <image src="http://img.my-shop.cc/image/boge-logo.png" class="boge-logo-img"></image>
-    </view>
+    <template is="foot"/>
 </view>

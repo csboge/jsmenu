@@ -1,0 +1,50 @@
+/* menu.wxss */
+.head {
+	height: 130rpx;
+	line-height: 130rpx;
+	text-align: center;
+	background-color: #f6f6f6;
+	color: #999;
+}
+
+.head image {
+	width: 30rpx;
+	height: 17rpx;	
+}
+.item {
+	padding: 30rpx;
+	border-bottom:1rpx solid #ebebeb;
+}
+.timg {
+	width: 200rpx;
+	height: 150rpx;
+	float: left;
+}
+.wrods-top {
+	margin:20rpx 0 0 20rpx;
+	float: left;
+}
+.wrods-top image {
+	width: 130rpx;
+	height: 30rpx;
+}
+.wrods-bottom {
+	margin:50rpx 0 0 20rpx;
+	font-size: 30rpx;
+	float: left;
+}
+.wrods-bottom span {
+	color:#ff4246;
+}
+.right {
+	float: left;
+}
+.right image {
+	width: 45rpx;
+	height: 72rpx;
+	margin-left: 60rpx;
+	margin-top:-20rpx;
+}
+.fixclear {
+	clear: both;
+}

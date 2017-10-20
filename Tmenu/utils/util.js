@@ -28,6 +28,36 @@ function formatTime(date) {
 
 
 /*
+ * @des         封装request为promise格式       
+ * @param       string          url             
+ * 
+ * @return      object          promise          
+ */
+function request(url) {
+
+    let method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'POST';
+    let data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    let header = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
+
+    return new Promise(function (resolve, reject) {
+        wx.request({
+            url: url,
+            data: data,
+            method: method,
+            header: header,
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (res) {
+                reject(res)
+            }
+        })
+    })
+}
+
+
+
+/*
  * @des         格式化日期       MM/dd hh:mm       
  * @param       Date            date
  * 
@@ -239,27 +269,51 @@ function minus(arr, id) {
  *@des 本地购物车增加单个商品数量
  * @arr obj(添加的商品信息)
  */
-function addShopCart(obj) {
-    var origin_list = wx.getStorageSync("shopCart");
-    // console.log(origin_list)
+function addShopCart(shop_id, obj) {
+    let shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
+    var origin_list = shop_info.shopCart;
+    // console.log(shop_id)
     if (origin_list.length > 0) {
-        for (var i = 0; i < origin_list.length; i++) {
-            if (origin_list[i].id === obj.id) {
-                origin_list[i].num++;
-                break;
+        // console.log(obj.attrs)
+        if (obj.attrs.titles) {//有规格
+
+            for (var i = 0; i < origin_list.length; i++) {
+                if (origin_list[i].id === obj.id && origin_list[i].attrs.titles === obj.attrs.titles) {
+                    origin_list[i].attrs.num++;
+                    origin_list[i].num = origin_list[i].attrs.num;
+                    origin_list[i].price = origin_list[i].attrs.prices;
+                    break;
+                }
+            }
+            if (i === origin_list.length) {
+                obj.attrs.num = 0;
+                obj.attrs.num++;
+                obj.num = obj.attrs.num;
+                obj.price = obj.attrs.prices;
+                origin_list.push(obj);
+            }
+        } else {//无规格
+            for (var i = 0; i < origin_list.length; i++) {
+                if (origin_list[i].id === obj.id) {
+                    origin_list[i].num++;
+                    break;
+                }
+            }
+            if (i === origin_list.length) {
+                obj.num++;
+                origin_list.push(obj);
             }
         }
-        if (i === origin_list.length) {
-            obj.num++;
-            origin_list.push(obj);
-        }
+
     } else {
         obj.num++;
+        obj.price = obj.price || obj.attrs.prices;
         origin_list.push(obj);
     }
     // console.log(origin_list)
     try {
-        wx.setStorageSync("shopCart", origin_list);
+        shop_info.shopCart = origin_list;
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + shop_id, shop_info);
     } catch (e) {
         throw new Error("本地购物车存储失败");
     }
@@ -271,19 +325,32 @@ function addShopCart(obj) {
  *@des 本地购物车减少单个商品
  * @arr id(移除的商品id)
  */
-function cutShopCart(id) {
-    var origin_list = wx.getStorageSync("shopCart");
-    origin_list.forEach(function (product, i) {
-        if (product.id === id && product.num > 0) {
-            product.num--;
-            if (product.num === 0) {
-                origin_list.splice(i, 1);
+function cutShopCart(shop_id, key, id, spec_titles) {
+
+    var origin_list = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
+
+    origin_list[key].forEach(function (product, i) {
+        if (product.attrs.titles) {//有规格
+            if (product.id === id && product.attrs.titles === spec_titles && product.num > 0) {
+                product.attrs.num--;
+                product.num = product.attrs.num;
+                if (product.attrs.num === 0) {
+                    origin_list[key].splice(i, 1);
+                }
+            }
+        } else {//无规格
+            if (product.id === id && product.num > 0) {
+                product.num--;
+                if (product.num === 0) {
+                    origin_list[key].splice(i, 1);
+                }
             }
         }
+
     });
     // console.log(origin_list)
     try {
-        wx.setStorageSync("shopCart", origin_list);
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + shop_id, origin_list);
     } catch (e) {
         throw new Error("本地购物车存储失败");
     }
@@ -294,15 +361,16 @@ function cutShopCart(id) {
  *@des 获取购物车
  * 
  */
-function getShopCart() {
+function getShopCart(shop_id) {
     try {
-        var shopCart = wx.getStorageSync('shopCart');
+        var shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
         // console.log(333)
-        if (shopCart) {
-            return shopCart;
+        if (shop_info.shopCart) {
+            return shop_info.shopCart;
         } else {
             try {
-                wx.setStorageSync('shopCart', []);
+                shop_info.shopCart = []
+                wx.setStorageSync('bg_elec_caipu_shop_info_' + shop_id, shop_info);
                 return [];
             } catch (e) {
                 throw new Error("初始化购物车失败")
@@ -316,20 +384,41 @@ function getShopCart() {
 
 
 /*
+ *@des 清空购物车
+ * 
+ */
+function clearShopCart(ship_id) {
+    try {
+        let shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
+        shop_info.shopCart = null;
+        wx.setStorageSync('bg_elec_caipu_shop_info_' + shop_id, shop_info);
+    } catch (e) {
+        wx.showModal({
+            title: '提示',
+            content: '清除购物车失败',
+            showCancel: false
+        });
+    }
+}
+
+
+
+/*
  *@des 获取本地缓存(同步)
  * @params key(需要获取的key)
  * 
  */
-function getStorageSync(key) {
+function getStorageSync(shop_id, key) {
     try {
-        var value = wx.getStorageSync(key)
-        if (value) {
-            return value;
-        }else{
+        var value = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
+        if (value[key]) {
+            return value[key];
+        } else {
             return -1;
         }
     } catch (e) {
-        throw new Error("获取本地缓存" + key + "失败")
+        return -1;
+        // throw new Error("获取本地缓存" + key + "失败")
     }
 }
 
@@ -339,8 +428,9 @@ function getStorageSync(key) {
  * @params key(需要获取的key)
  * 
  */
-function setStorageSync(key, value) {
+function setStorageSync(shop_id, key, value) {
     try {
+        let val = getStorageSync(shop_id, key);
         wx.setStorageSync(key, value);
     } catch (e) {
         throw new Error("本地缓存" + key + "添加失败");
@@ -350,41 +440,11 @@ function setStorageSync(key, value) {
 
 
 /*
- * @des             封装request请求为promise格式
- * @params          string                  url
- * @return          object                  promise
- */
-function request(url) {
-
-    let method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'POST';
-    let data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-    let header = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' };
-
-    return new Promise(function (resolve, reject) {
-        wx.request({
-            url: url,
-            data: data,
-            method: method,
-            header: header,
-            success: function (res) {
-                resolve(res)
-            },
-            fail: function (res) {
-                reject(res)
-            }
-        })
-    })
-
-}
-
-
-
-/*
  * @des         网络链接失败模态框
  * 
  * 
- */ 
-function disconnectModal(){
+ */
+function disconnectModal() {
     wx.showModal({
         title: '提示',
         content: '网络链接失败，请重新尝试!',
@@ -393,11 +453,106 @@ function disconnectModal(){
         cancelColor: '',
         confirmText: '',
         confirmColor: '',
-        success: function(res) {},
-        fail: function(res) {},
-        complete: function(res) {},
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
     })
 }
+
+
+
+/*
+ * @des         下载并播放语音
+ * @params      string              url
+ * 
+ */
+function downAndPlayVoice(url) {
+
+    wx.downloadFile({
+        url: url,
+        success: function (res) {
+            wx.playVoice({
+                filePath: res.tempFilePath,
+                success() {
+                    console.log("播放成功")
+                },
+                fail() {
+
+                },
+                complete() {
+                    // wx.showToast({
+                    //     title: '播放完毕',
+                    //     icon: 'success',
+                    //     duration: 600,
+                    //     mask: true
+                    // });
+                    console.log("播放完成")
+                }
+            });
+        },
+        fail: function (res) {
+            wx.showModal({
+                title: '提示',
+                content: '下载失败',
+                showCancel: false
+            });
+        }
+    });
+
+}
+
+
+
+/*
+ * @des         加载更多/分页
+ * @params      string              url
+ * @params      object              data
+ * @params      array               old_list        旧的数据数组
+ * @params      function            fn              处理加载的数据格式为所需格式
+ * @params      function            resultFn        拿到结果数据
+ *  
+ */
+function loadMore(url, data, old_list, fn, resultFn) {
+
+    let new_list = [];
+
+    request(url, "POST", data)
+        .then((res) => {
+
+            if (res.data.code === 1) {
+
+                let load_list = fn(res.data.data);
+                if (load_list.length > 0) {
+                    new_list = old_list.concat(load_list);
+                }
+
+            } else {
+                wx.showModal({
+                    title: '提示',
+                    content: res.data.message,
+                    showCancel: false
+                });
+            }
+            resultFn(new_list);
+        }, (res) => {
+            disconnectModal();
+        });
+
+}
+
+function getShopInfoSync(shop_id) {
+    try {
+        var value = wx.getStorageSync("bg_elec_caipu_shop_info_" + shop_id);
+        if (value) {
+            return value;
+        } else {
+            return -1;
+        }
+    } catch (e) {
+        return -1;
+    }
+}
+
 
 
 //导出工具方法
@@ -419,6 +574,9 @@ module.exports = {
     getStorageSync: getStorageSync,
     setStorageSync: setStorageSync,
     request: request,
-    disconnectModal: disconnectModal
-    
+    disconnectModal: disconnectModal,
+    clearShopCart: clearShopCart,
+    downAndPlayVoice: downAndPlayVoice,
+    loadMore: loadMore,
+    getShopInfoSync: getShopInfoSync
 }

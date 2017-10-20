@@ -4,7 +4,7 @@
             <view class="user-img-box">
                 <image src="{{userInfo.avatarUrl}}" class="user-img"></image>
             </view>
-            <view class="notice-box">
+            <view class="notice-box-x">
                 <view class="notice-txt">发了一个语音口令</view>
                 <view class="notice-img">
                     <image src="http://img.my-shop.cc/image/hb-icon.png" class="hb-img"></image>

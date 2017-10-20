@@ -1,0 +1,28 @@
+<!--pages/register/register.wxml-->
+<view class="page-container">
+    <view class="page-head">
+        <view class="logo-box">
+            <image src="http://img.my-shop.cc/image/manage_logo.png" class="logo-img"></image>
+        </view>
+        <image src="http://img.my-shop.cc/image/lang.jpg" class="lang-img"></image>
+    </view>
+    <view class="page-body">
+
+        <form bindsubmit="login" class="form-box">
+            <view class='msg {{show_error?"":"hide-err"}}'>用户名或密码格式错误</view>
+            <view class="section">
+                <view class="section__title">
+                    <image src="http://img.my-shop.cc/image/tel_icon.png" class="input-img"></image>
+                </view>
+                <input name="tel" class="input-txt" placeholder="手机号码" placeholder-style="color:#dfdfdf"/>
+            </view>
+            <view class="section pwd-input-box">
+                <view class="section__title">
+                    <image src="http://img.my-shop.cc/image/pwd_icon.png" class="input-img"></image>
+                </view>
+                <input type="password" name="pwd" class="input-txt" placeholder="密码(6-12位字母数字)"  placeholder-style="color:#dfdfdf"/>
+            </view>
+            <button formType="submit" class="login-btn">登录</button>
+        </form>
+    </view>
+</view>

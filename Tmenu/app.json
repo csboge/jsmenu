@@ -1,17 +1,18 @@
 {
     "pages": [
-        "pages/filter/filter",
-        "pages/menu/menu",
         "pages/index/index",
-        "pages/confirmOrder/confirmOrder",
-        "pages/finishOrder/finishOrder",
-        "pages/voiceExample/voiceExample",
-        "pages/speakVoice/speakVoice",
-        "pages/hbRecord/hbRecord",
+        "pages/home/home",
+        "pages/filter/filter",
         "pages/transmitHB/transmitHB",
+        "pages/speakVoice/speakVoice",
+        "pages/voiceExample/voiceExample",
+        "pages/finishOrder/finishOrder",
+        "pages/confirmOrder/confirmOrder",
+        "pages/hbRecord/hbRecord",
+        "pages/menu/menu",
+        "pages/orderDetail/orderDetail",
         "pages/myRecord/myRecord",
         "pages/myDiscount/myDiscount",
-        "pages/orderDetail/orderDetail",
         "pages/foodRemark/foodRemark",
         "pages/findOrder/findOrder",
         "pages/shop/shop",
@@ -22,7 +23,6 @@
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#1a191f",
-        "navigationBarTitleText": "电子菜谱",
         "navigationBarTextStyle": "white"
     },
     "networkTimeout": {

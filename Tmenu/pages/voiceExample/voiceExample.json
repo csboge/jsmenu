@@ -2,5 +2,6 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#d95842",
     "navigationBarTitleText": "示例",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f2f2f2"
 }

@@ -1,45 +1,187 @@
 <!--index.wxml-->
+<import src="../tpl/footer.wxml"/>
 <view class="page-container">
     <view class="page-section" animation="{{animationData}}">
         <view class="shop-info">
             <view class="shop-logo">
-                <image src="http://img.my-shop.cc/image/official_logo.jpg" class="shop-logo-img"></image>
+                <image src="{{shop_info.logo}}" class="shop-logo-img"></image>
             </view>
             <view class="shop-detail">
-                <view class="shop-name">电子菜谱</view>
-                <view class="shop-add">
-                    <view class="shop-add-txt gray b">伯格小程序工作室</view>
+                <view class="shop-name">{{shop_info.title}}</view>
+                <view class="shop-add" bindtap="showLoca">
+                    <view class="shop-add-txt gray">{{shop_info.adress}} ></view>
+                    <!-- <view class="arrow"></view>  -->
                 </view>
-                <view class="shop-runtime gray b">上班时间：周一至周五 08:00-17:30</view>
+                <view class="shop-runtime gray">营业时间：周一至周五 {{shop_info.shop_hours.start}}-{{shop_info.shop_hours.end}}</view>
+                <view class="shop-voice-box">
+                    <view class="shop-voice-title gray">服务宣言</view>
+                    <image src="http://img.my-shop.cc/image/service_voice.png" data-url="{{shop_info.video}}" class="service-voice-img" bindtap="playVoice"></image>
+                </view>
             </view>
             <view class="line"></view>
         </view>
         <view class="menu-box">
-            <button class="share-btn" open-type="share">
-                <view class="menu-item share-item">
-                    <view class="menu-item-logo">
-                        <image src="http://img.my-shop.cc/image/menu-icon4.png" class="menu-item-img"></image>
-                    </view>
-                    <view class="menu-item-txt b gray transmit-txt">推荐好友</view>
+            <view class="menu-item" bindtap="navi" data-url="../menu/menu">
+                <view class="menu-item-logo">
+                    <image src="http://img.my-shop.cc/image/menu-icon1.png?1" class="menu-item-img"></image>
                 </view>
-            </button>
+                <view class="menu-item-txt b gray">点餐</view>
+            </view>
             <view class="menu-item" bindtap="call">
                 <view class="menu-item-logo">
-                    <image src="http://img.my-shop.cc/image/menu-icon2.png" class="menu-item-img"></image>
+                    <image src="http://img.my-shop.cc/image/menu-icon2.png?1" class="menu-item-img"></image>
                 </view>
                 <view class="menu-item-txt b gray">电话联系</view>
             </view>
             <view class="menu-item" bindtap="showLoca">
                 <view class="menu-item-logo">
-                    <image src="http://img.my-shop.cc/image/menu-icon3.png" class="menu-item-img"></image>
+                    <image src="http://img.my-shop.cc/image/menu-icon3.png?1" class="menu-item-img"></image>
                 </view>
                 <view class="menu-item-txt b gray">导航前往</view>
             </view>
+            <view class="menu-item">
+                <button class="share-btn" open-type="share">
+                    <view class="menu-item share-item">
+                        <view class="menu-item-logo">
+                            <image src="http://img.my-shop.cc/image/menu-icon4.png?1" class="menu-item-img"></image>
+                        </view>
+                        <view class="menu-item-txt b gray transmit-txt">推荐好友</view>
+                    </view>
+                </button>
+            </view>
+            <view class="menu-item" bindtap="navi" data-url="../myDiscount/myDiscount">
+                <view class="menu-item-logo">
+                    <image src="http://img.my-shop.cc/image/menu-icon5.png?1" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">优惠券</view>
+            </view>
+            <view class="menu-item" bindtap="navi" data-url="../myRecord/myRecord">
+                <view class="menu-item-logo">
+                    <image src="http://img.my-shop.cc/image/menu-icon6.png?1" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">订单记录</view>
+            </view>
         </view>
-        <view class="company-img-box">
-            <view class="img-box">
-                <image src="http://img.my-shop.cc/image/card1.png" class="company-img" mode="aspectFit"></image>
-                <image src="http://img.my-shop.cc/image/card2.png" class="company-img img2" mode="aspectFit"></image>
+        <view class="mid-line">welcome</view>
+        <view class="company-info">
+            <view class="slide-box">
+                <view class="slide-title-box">
+                    <view class="slide-title-ch txt-title-ch">餐厅环境</view>
+                    <view class="slide-title-en txt-title-en">ENVIRONMENT</view>
+                </view>
+                <view class="slide-content">
+                    <swiper class="mid-slide" indicator-dots="{{true}}" indicator-active-color="#ff4246" autoplay="{{true}}" interval="{{5000}}" duration="{{600}}">
+                        <block wx:for="{{ev_slide_urls}}" wx:key="id">
+                            <swiper-item>
+                                <image src="{{item.image}}" class="slide-image" />
+                            </swiper-item>
+                        </block>
+                    </swiper>
+                </view>
+                <view class="slide-line"></view>
+            </view>
+            <view class="slide-box">
+                <view class="slide-title-box">
+                    <view class="slide-title-ch txt-title-ch">优惠活动</view>
+                    <view class="slide-title-en txt-title-en">ACTIVITY</view>
+                </view>
+                <view class="slide-content">
+                    <swiper class="mid-slide" indicator-dots="{{true}}" indicator-active-color="#ff4246" autoplay="{{true}}" interval="{{5000}}" duration="{{600}}">
+                        <block wx:for="{{ac_slide_urls}}" wx:key="id">
+                            <swiper-item>
+                                <image src="{{item.image}}" class="slide-image" />
+                            </swiper-item>
+                        </block>
+                    </swiper>
+                </view>
+                <view class="slide-line"></view>
+            </view>
+            <view class="slide-box">
+                <view class="slide-title-box">
+                    <view class="slide-title-ch txt-title-ch">推荐菜品</view>
+                    <view class="slide-title-en txt-title-en">RECOMMEND</view>
+                </view>
+                <view class="slide-content recommend">
+                    <swiper class="big-slide" indicator-dots="{{false}}" autoplay="{{true}}" indicator-active-color="#ff4246" interval="{{5000}}" duration="{{600}}" current="{{curr_index}}" bindchange="change">
+                        <block wx:for="{{re_slide_urls}}" wx:key="id">
+                            <swiper-item>
+                                <image src="{{item.image}}" class="slide-image-big" />
+                                <view class="recommend-box">
+                                    <view class="recommend-title">
+                                        <view class="recommend-title-box">
+                                            <image src="http://img.my-shop.cc/image/rec_icon.png" class="rec-img"></image>
+                                            <view class="title-txt">{{item.title}}</view>
+                                        </view>
+                                        <view class="recommend-price">￥{{item.price}}</view>
+                                    </view>
+                                    <view class="recommend-detail">
+                                        {{item.intro}}
+                                    </view>
+                                </view>
+                            </swiper-item>
+                        </block>
+                        <view class="pre-btn {{curr_index===0?'hide':''}}" bindtap="preRecm"></view>
+                        <view class="next-btn {{curr_index===(re_slide_urls.length - 1)?'hide':''}}" bindtap="nextRecm"></view>
+                    </swiper>
+                </view>
+
+            </view>
+        </view>
+        <view class="zhaopin-box" wx:if="{{recruit.length>0?true:false}}">
+            <view class="zhaopin-title-box">
+                <view class="title-txt-ch">招聘贤士</view>
+                <view class="title-txt-en">RECRUIT</view>
+            </view>
+
+            <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{600}}">
+                <block wx:for="{{recruit}}" wx:key="id">
+                    <swiper-item>
+                        <view class="zhaopin-detail-box">
+                            <view class="zhaopin-detail-title">
+                                <view class="detail-title">招聘岗位：</view>
+                                <view class="detail-position">{{item.name}}</view>
+                            </view>
+                            <view class="position-detail">
+                                <view class="position-detail-title">岗位职务：</view>
+                                <view class="position-detail-des">
+                                    <view class="des-item">{{item.duty}}</view>
+                                    <!-- <view class="des-item">1.负责前台电话接听、客户接待、快递收发;</view>
+                                    <view class="des-item">2.负责维护办公环境;</view>
+                                    <view class="des-item">3.负责公司邮件收发、会议纪要、快递收发;</view>
+                                    <view class="des-item">4.负责每月行政费用的审核及申请;</view> -->
+                                </view>
+                            </view>
+                        </view>
+                    </swiper-item>
+                </block>
+            </swiper>
+
+        </view>
+        <template is="foot"/>
+    </view>
+
+    <view class="modal {{show_copy_modal?'':'hide-modal'}}">
+        <view class="copy-box">
+            <view class="copy-title-box">
+                <image src="http://img.my-shop.cc/image/dun.png" class="dun-img"></image>
+                <view class="copy-title-txt">开通权限</view>
+                <view class="copy-des">您将获得更好的产品体验</view>
+            </view>
+            <view class="copy-detial-box">
+                <view class="copy-item">
+                    <view class="item-left">
+                        <view class="item-title">录音功能</view>
+                        <view class="item-txt">通过语音识别，玩转语音红包</view>
+                    </view>
+                    <view class="item-right" bindtap="getAuthor">授权</view>
+                </view>
+                <view class="copy-item user-info">
+                    <view class="item-left">
+                        <view class="item-title">用户信息</view>
+                        <view class="item-txt">获取个人真实认证信息</view>
+                    </view>
+                    <view class="item-right" bindtap="getAuthor">授权</view>
+                </view>
             </view>
         </view>
     </view>

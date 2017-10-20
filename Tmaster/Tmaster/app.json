@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/menuItem/menuItem",
+    "pages/addCate/addCate",
+    "pages/home/home",
+    "pages/register/register",
+    "pages/saleReport/saleReport",
+    "pages/collectionRecord/collectionRecord",
+    "pages/reportDetail/reportDetail",
+    "pages/apply/apply",
+    "pages/menu/menu",
+    "pages/cookbook/cookbook",
+    "pages/store/store",
+    "pages/material/material",
+    "pages/sub/sub",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#509863",
+    "navigationBarTextStyle": "white"
+  }
+}

@@ -3,18 +3,20 @@
         <view class="page-head">
             <view class="page-head-box">
                 <view class="page-head-img">
-                    <image src="http://img.my-shop.cc/image/shop-logo.jpg" class="logo"></image>
+                    <image src="{{shop_logo}}" class="logo"></image>
                 </view>
                 <view class="page-head-detail">
                     <view class="page-head-title-box">
-                        <view class="page-head-title white txt-mid">真功夫-万达店</view>
-                        <view class="arrow white arrow-title"></view>
+                        <view class="page-head-title white txt-mid">{{shop_name}}</view>
+                        <!-- <view class="arrow white arrow-title"></view> -->
                     </view>
-                    <view class="page-head-notice white txt-small">
-                        公告: 联系电话(微信)0731-85056818，超出范围五份起送！
-                    </view>
-                    <view class="page-head-notice white txt-small">
-                        可送公司餐，团餐定制，团购餐
+                    <view class="notice-box">
+                        <view class="page-head-notice white txt-small">
+                            {{notice}}
+                        </view>
+                        <view class="page-head-notice white txt-small tel-txt">
+                            联系电话:{{tel}}
+                        </view>
                     </view>
                 </view>
             </view>
@@ -23,8 +25,9 @@
             <view class="product-info">
                 <view class="desk-customer">
                     <view class="customer-box">
-                        <view class="shop-name" bindtap="showUserBox">
-                            {{customer_num===0?'点击此处输入用餐人数':'用餐人数：'+customer_num+' 人'}}
+                        <view class="shop-name people-num-box" bindtap="showUserBox">
+                            <image src="http://img.my-shop.cc/image/people_num.png" class="people-num-img"></image>
+                            <view class="people-txt">{{customer_num===0?'点击此处输入用餐人数':'用餐人数：'+customer_num+' 人'}}</view>
                         </view>
                         <view class="cutomers">
                             <image src="http://img.my-shop.cc/image/menu-own1.jpg" class="customer-img"></image>
@@ -33,22 +36,22 @@
                         </view>
                     </view>
                 </view>
-                <view class="product-list" wx:for="{{foodList}}">
-                    <image src="{{item.img_url}}" class="product-img"></image>
+                <view class="product-list" wx:for="{{foodList}}" wx:key="id">
+                    <image src="{{item.image}}" class="product-img"></image>
                     <view class="product-detail">
                         <view class="product-head">
                             <view class="product-name txt-head">{{item.name}}</view>
-                            <view class="product-price txt-head">￥ {{item.price}}</view>
+                            <view class="product-price txt-head">￥ {{item.count_price}}</view>
                         </view>
                         <view class="product-num">x{{item.num}}</view>
                     </view>
                 </view>
-                <view class="product-list" wx:for="{{use_base}}">
-                    <image src="http://img.my-shop.cc/image/wan.jpg" class="product-img"></image>
+                <view class="product-list" wx:for="{{use_base}}" wx:if="{{show_use_base}}" wx:key="id">
+                    <image src="{{item.img_url}}" class="product-img"></image>
                     <view class="product-detail">
                         <view class="product-head">
                             <view class="product-name txt-head">{{item.name}}</view>
-                            <view class="product-price txt-head">￥ {{item.price}}</view>
+                            <view class="product-price txt-head">￥ {{item.count_price}}</view>
                         </view>
                         <view class="product-num">x{{item.num}}</view>
                     </view>
@@ -62,30 +65,31 @@
                     <view class="msg-title">买家留言</view>
                     <input name="umsg" class="msg-input" placeholder="点击给卖家留言" maxlength="12" />
                 </view>
-                <view class="use-honbao" bindtap="chooseHonbao">
-                    <view class="msg-title">使用红包</view>
-                    <view class="honbao-box">
-                        <view class="honbao-txt">{{honbaoTxt?honbaoTxt:"当前无红包可以使用"}}</view>
-                    </view>
+                <view class="discount-dyq discount-box">
+                    <view class="discount-detail ml txt-head">金额</view>
+                    <view class="discount-right mr txt-red">￥{{totalPrice}}</view>
                 </view>
-                <view class="discount-info">
+                <view class="discount-info" wx:if="{{newCustDiscount>0?true:false}}">
                     <view class="discount-new-customer discount-box">
+                        <image src="http://img.my-shop.cc/image/new.png" class="new-img"></image>
                         <view class="discount-left ml">
-                            <image src="http://img.my-shop.cc/image/new.jpg" class="new-img"></image>
-                            <view class="discount-detail txt-head">门店新客立减</view>
+                            <view class="discount-detail discount-detail-new txt-head">门店新客立减</view>
                         </view>
                         <view class="discount-right mr txt-red">- ￥{{newCustDiscount}}</view>
                     </view>
-                    <view class="discount-dyq discount-box">
-                        <view class="discount-detail ml txt-head">金额</view>
-                        <view class="discount-right mr txt-red">￥{{totalPrice}}</view>
-                    </view>
+
+                    <!-- <view class="use-honbao" bindtap="chooseHonbao">
+                        <view class="msg-title">使用红包</view>
+                        <view class="honbao-box">
+                            <view class="honbao-txt">{{honbaoTxt?honbaoTxt:"当前无红包可以使用"}}</view>
+                        </view>
+                    </view> -->
                 </view>
                 <view class="reduction-info" bindtap="showYhq">
                     <view class="reduction-title">优惠</view>
                     <view class="reduction-box">
-                        <view class="reduction-item">{{yhq_txt?'优惠券':'无'}}</view>
-                        <view class="reduction-detail">{{yhq_txt?yhq_txt:'该商家暂无优惠活动'}}</view>
+                        <view class="reduction-item">{{yhq_type=== -1?'无':(yhq_type=== 1?'抵扣券':'折扣券')}}</view>
+                        <view class="reduction-detail">{{yhq_list.length>0?(yhq_txt?yhq_txt:'请选择'):'暂无可用'}}</view>
                         <view class="reduction-arrow"></view>
                     </view>
                     <view class="dot-line">
@@ -96,7 +100,10 @@
                     </view>
                     <view class="reduction-count">
                         <view class="detail-box">
-                            <view class="reduction-count">已优惠 ￥5</view>
+                            <view class="reduction-count-box">
+                                <view class="reduction-title">已优惠</view>
+                                <view class="reduction-price">￥{{yhq_discount}}</view>
+                            </view>
                             <view class="total-count">
                                 <view class="count-txt">小计</view>
                                 <view class="count-num txt-red">￥{{discountPrice}}</view>
@@ -104,17 +111,29 @@
                         </view>
                     </view>
                 </view>
+                <view class="use-honbao" bindtap="chooseHonbao">
+                    <view class="msg-title">使用红包</view>
+                    <view class="honbao-box">
+                        <view class="honbao-txt">{{honbaoTxt?honbaoTxt:"暂无可用"}}</view>
+                    </view>
+                </view>
                 <view class="discount-dyq discount-box bc-white">
-                    <view class="discount-detail ml txt-head">手续费</view>
-                    <view class="discount-right mr txt-tax txt-red">(2%)￥{{taxPrice}}</view>
+                    <view class="discount-detail ml txt-head order-fee">服务费</view>
+                    <view class="discount-right mr txt-tax txt-red">￥{{taxPrice}}</view>
                 </view>
                 <view class="payment-info">
                     <view class="payment-title">支付方式</view>
-                    <view class="payment-way">在线支付</view>
+                    <view class="pay-way-box">
+                        <view class="pay-way-btn {{item.is_checked?'bd-green':''}}" data-i="{{index}}" bindtap="checkPayWay" wx:for="{{pay_type}}" wx:key="id">
+                            <image src="http://img.my-shop.cc/image/pay_arr.png?2" class="arr-img" wx:if="{{item.is_checked?true:false}}"></image>
+                            <view class="pay-txt {{item.is_checked?'pay-txt-red':''}}">{{item.title}}</view>
+                        </view>
+                    </view>
                 </view>
                 <view class="remark-info" bindtap="goFoodRemark">
                     <view class="remark-title">备注</view>
                     <view class="remark-detail">{{remarkText?remarkText:"口味、偏好、等要求"}}</view>
+                    <view class="food-arrow"></view>
                 </view>
                 <view class="total-price-box">
                     <view class="total-price">
@@ -134,33 +153,34 @@
 
 <!-- 选择红包 -->
 <view class="modal {{showModal?'show-modal':''}}" bindtap="hideHonbao"></view>
-<view class="honbao-item-box" animation="{{animationData}}">
-    <view class="honbao-title">选择红包</view>
-    <scroll-view scroll-y="true" style="height: 400rpx;">
+<!-- <view class="honbao-item-box" animation="{{animationData}}">
+    <view class="hb-box">
+        <view class="honbao-title">选择红包</view>
         <view class="honbao-list">
-            <view class="honbao-item" data-hb="{{item.discount}}" bindtap="useHonbao" wx:for="{{honbaoList}}">
-                <view class="honbao-detail">{{item.discount>=10?item.discount:item.discount+" "}}元现金红包</view>
-            </view>
-            <view class="honbao-item" bindtap="cancelUse">
-                <view class="honbao-detail">不使用现金红包</view>
+            <view class="honbao-box-x" data-hb="{{item.discount}}" data-index="{{index}}" bindtap="useHonbao" wx:for="{{honbaoList}}">
+                <image src="{{item.isChecked?'http://img.my-shop.cc/image/hb_arrow_red.png':''}}" class="hb-arrow"></image>
+                <view class="honbao-txt-x">{{item.discount}}元现金红包</view>
             </view>
         </view>
-    </scroll-view>
-</view>
+        <view class="btn-box">
+            <view class="hb-no-btn" bindtap="cancelUse">不使用红包</view>
+        </view>
+    </view>
+</view>  -->
 
 <!-- 选择优惠券 -->
 <view class="honbao-item-box" animation="{{yhq_animationData}}">
     <view class="honbao-title">选择优惠券</view>
-    <scroll-view scroll-y="true" style="height: 400rpx;">
-        <view class="honbao-list">
-            <view class="honbao-item" data-yhq="{{item.yhq_price}}" bindtap="useYhq" wx:for="{{yhq_list}}">
-                <view class="honbao-detail">{{item.yhq_price>=10?item.yhq_price:item.yhq_price+" "}}元优惠券</view>
-            </view>
-            <view class="honbao-item" bindtap="cancelUseYhq">
-                <view class="honbao-detail">不使优惠券</view>
-            </view>
+    <view class="{{yhq_list.length>2?'honbao-list':'honbao-list-b'}}">
+        <view class="{{yhq_list.length>2?'honbao-box-x':'honbao-box-y'}}" data-yhq="{{item.conditon}}" data-discount="{{item.dis_price}}" data-index="{{index}}" data-id="{{item.coupon_id}}" bindtap="useYhq" wx:for="{{yhq_list}}" wx:key="id">
+            <image src="{{item.isChecked?'http://img.my-shop.cc/image/hb_arrow_red.png':''}}" class="hb-arrow"></image>
+            <view class="honbao-txt-x">{{item.title}}</view>
         </view>
-    </scroll-view>
+    </view>
+    <view class="no-yhq-use" wx:if="{{yhq_list.length>0?false:true}}">暂无优惠券可用</view>
+    <view class="btn-box"  wx:if="{{yhq_list.length>0?true:false}}">
+        <view class="hb-no-btn" bindtap="cancelUseYhq">不使用优惠券</view>
+    </view>
 </view>
 
 <!-- 立即支付蒙板 -->
@@ -168,18 +188,22 @@
 
 <!-- 人数选择 -->
 <view class="user-num-box" wx:if="{{show_user_box}}">
-    <swiper indicator-dots="{{true}}" autoplay="{{false}}" interval="{{5000}}" duration="650" class="num-swiper">
-        <block>
-            <swiper-item wx:for="{{num_box}}">
-                <view class="num-slier-box">
-                    <view class="num-line" wx:for="{{item.page}}">
-                        <view class="num-no {{item.num===customer_num?'num-checked':''}}" data-num="{{item.num}}" bindtap="chooseNum" wx:for="{{item.line}}">
-                            <view class="no">{{item.num}}</view>
-                        </view>
-                    </view>
-                </view>
-            </swiper-item>
-        </block>
-    </swiper>
+    <view class="check-num-box">
+        <view class="check-num-txt">{{customer_num===0?'用餐人数':customer_num}}</view>
+        <image src="http://img.my-shop.cc/image/hand.png?1" class="hand-img" mode="aspectFit"></image>
+    </view>
+    <view class="num-box">
+        <view class="num-box-line" wx:for="{{num_box}}" wx:key="id" wx:for-index="out_index">
+            <view class="num-box-item {{(out_index%2===1&&inner_index%2===0)||(out_index%2===0&&inner_index%2===1)?'block-white':'block-gray'}} {{item.is_checked?'num-checked':''}}" wx:for="{{item.line}}" wx:key="id" wx:for-index="inner_index" data-num="{{item.num}}" data-inner_index="{{inner_index}}"
+                data-line_index="{{out_index}}" bindtap="chooseNum">{{item.num}}</view>
+        </view>
+        <view class="num-box-line">
+            <view class="num-box-item block-light {{is_zero?'num-checked':''}}" data-num="{{0}}" bindtap="chooseNum">0</view>
+            <view class="num-box-item reset block-yellow {{is_reset?'reset-block':''}}" bindtap="clearNum">重 输</view>
+        </view>
+    </view>
+    <view class="close-icon-box">
+        <view class="close-icon" bindtap="closeNumBox"></view>
+    </view>
 </view>
 <view class="{{show_user_box?'global-modal':''}}" bindtap="closeNumModal"></view>

@@ -30,9 +30,17 @@ function getUserStorageAttr(key) {
     let user = wx.getStorageSync("user");
 
     let value = user.hasOwnProperty(key) ? user[key] : null;
-    
-    return value;
 
+    if(value){
+        return value;
+    }else{
+        wx.showModal({
+            title: '提示',
+            content: key + '不存在',
+            showCancel: false
+        });
+    }
+    
 }
 
 

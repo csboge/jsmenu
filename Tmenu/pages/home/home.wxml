@@ -1,0 +1,56 @@
+<!--index.wxml-->
+<import src="../tpl/footer.wxml" />
+<view class="page-container">
+    <view class="page-section" animation="{{animationData}}">
+        <view class="shop-info">
+            <view class="shop-logo">
+                <image src="http://img.my-shop.cc/image/official_logo.jpg" class="shop-logo-img"></image>
+            </view>
+            <view class="shop-detail">
+                <view class="shop-name">电子菜谱</view>
+                <view class="shop-add" bindtap="showLoca">
+                    <view class="shop-add-txt gray">湖南省长沙市湘江中路万达C2 ></view>
+                    <!-- <view class="arrow"></view>  -->
+                </view>
+                <view class="shop-runtime gray">营业时间：周一至周五 8:00-20:00</view>
+                <!-- <view class="shop-voice-box">
+                    <view class="shop-voice-title gray">服务宣言</view>
+                    <image src="http://img.my-shop.cc/image/service_voice.png" data-url="{{shop_info.video}}" class="service-voice-img" bindtap="playVoice"></image>
+                </view> -->
+            </view>
+            <view class="line"></view>
+        </view>
+        <view class="menu-box">
+            <view class="menu-item" bindtap="call">
+                <view class="menu-item-logo">
+                    <image src="http://img.my-shop.cc/image/menu-icon2.png?1" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">电话联系</view>
+            </view>
+            <view class="menu-item" bindtap="showLoca">
+                <view class="menu-item-logo">
+                    <image src="http://img.my-shop.cc/image/menu-icon3.png?1" class="menu-item-img"></image>
+                </view>
+                <view class="menu-item-txt b gray">导航前往</view>
+            </view>
+            <view class="menu-item">
+                <button class="share-btn" open-type="share">
+                    <view class="menu-item share-item">
+                        <view class="menu-item-logo">
+                            <image src="http://img.my-shop.cc/image/menu-icon4.png?1" class="menu-item-img"></image>
+                        </view>
+                        <view class="menu-item-txt b gray transmit-txt">推荐好友</view>
+                    </view>
+                </button>
+            </view>
+        </view>
+        <view class="mid-line">welcome</view>
+        <view class="book-box">
+            <image src='http://img.my-shop.cc/image/card1.png' class='card-img'></image>
+            <image src='http://img.my-shop.cc/image/card2.png' class='card-img'></image>
+        </view>
+
+        <template is="foot"/>
+    </view>
+
+</view>

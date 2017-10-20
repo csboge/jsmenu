@@ -20,7 +20,7 @@
     margin: 0 auto;
 }
 
-.notice-box {
+.notice-box-x {
     display: flex;
     justify-content: center;
     margin-top: 14rpx;

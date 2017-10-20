@@ -1,4 +1,62 @@
-
+<import src="../tpl/footer.wxml" />
 <view class="page-container">
-    这是红包记录
+    <view class="page-head">
+        <view class="bc-box">
+            <view class="bc-top"></view>
+            <view class="bc-bottom"></view>
+        </view>
+        <image src="http://img.my-shop.cc/image/hb_record_left.png" class="img-left"></image>
+        <image src="http://img.my-shop.cc/image/hb_record_right.png" class="img-right"></image>
+    </view>
+    <view class="page-section">
+        <view class="tab-box">
+            <view class="tab-in tab {{hb_click_type===0?'txt-red':''}}" data-tab_index="{{0}}" bindtap="chooseTab">
+                收入的红包
+                <view class="{{hb_click_type===0?'line':''}}"></view>
+            </view>
+            <view class="tab-out tab {{hb_click_type===1?'txt-red':''}}" data-tab_index="{{1}}" bindtap="chooseTab">
+                支出的红包
+                <view class="{{hb_click_type===1?'line':''}}"></view>
+            </view>
+        </view>
+
+
+        <view class="in-list-box" wx:if="{{hb_click_type===0}}">
+            <view class="in-item" wx:for="{{hb_in_list}}">
+                <view class="in-title-box">
+                    <view class="in-title">
+                        <image src="{{item.logo}}" class="logo-img"></image>
+                        <view class="title-txt">{{item.title}}</view>
+                    </view>
+                    <view class="in-time">{{item.created}}</view>
+                </view>
+                <view class="in-content-box" data-url="{{item.audio}}" bindtap="play">
+                    <view class="content-des">
+                        <image src="http://img.my-shop.cc/image/vic_icon.png" class="vic-img"></image>
+                        <view class="content-txt">{{item.words}}</view>
+                    </view>
+                    <view class="content-price">￥{{item.menoy}}</view>
+                </view>
+            </view>
+            <view class="show-more {{income_has_more?'':'txt-gray'}}" wx:if="{{hb_in_list.length>0?true:false}}" bindtap="loadIncomeMore">{{income_has_more?'查看更多':'没有更多了'}}</view>
+            <view class="show-more txt-gray" wx:if="{{hb_in_list.length>0?false:true}}">暂无数据</view>
+        </view>
+
+
+        <view class="out-list-box" wx:if="{{hb_click_type===1}}">
+            <view class="out-item" wx:for="{{hb_out_list}}">
+                <view class="out-title-des">
+                    <image src="{{item.logo}}" class="logo-img out-logo"></image>
+                    <view class="out-txt">
+                        <view class="shop-name">{{item.title}}</view>
+                        <view class="out-detail">{{item.pay_time}} 订单号：{{item.order_sn}}</view>
+                    </view>
+                </view>
+                <view class="out-price">-{{item.offset_money}}</view>
+            </view>
+            <view class="show-more {{outcome_has_more?'':'txt-gray'}}" bindtap="loadOutcomeMore" wx:if="{{hb_out_list.length>0?true:false}}">{{outcome_has_more?'查看更多':'没有更多了'}}</view>
+            <view class="show-more txt-gray" wx:if="{{hb_out_list.length>0?false:true}}">暂无数据</view>
+        </view>
+    </view>
+    <template is="foot"/>
 </view>

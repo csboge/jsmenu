@@ -1,0 +1,6 @@
+<template name="foot">
+    <view class="foot">
+        <view class='copy'>© 伯格网络提供支持</view>
+        <view class='service-tel'>服务热线：150-8485-2913</view>
+    </view>
+</template>

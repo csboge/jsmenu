@@ -47,6 +47,16 @@ Page({
             urls: []
         })
     },
+    //扫码
+    scan(){
+        wx.previewImage({
+            current: 'https://img.my-shop.cc/images/tc4_qr_code.png',
+            urls: ['https://img.my-shop.cc/images/tc4_qr_code.png'],
+            success: function(res) {},
+            fail: function(res) {},
+            complete: function(res) {},
+        })
+    },
     onShareAppMessage: function (res) {
         if (res.from === 'button') {
             // 来自页面内转发按钮

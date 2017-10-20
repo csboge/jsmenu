@@ -145,7 +145,7 @@
                         <view class='join-txt'>4008265533</view>
                     </view>
                 </view>
-                <view class='join-qr-code'>
+                <view class='join-qr-code' bindtap='scan'>
                     <image class='qr-img' src='../../assets/images/tc4_qr_code.png' mode='widthFix'></image>
                 </view>
             </view>

@@ -41,7 +41,13 @@ Page({
         let that = this;
 
         wx.makePhoneCall({
-            phoneNumber: that.data.user_data.phone
+            phoneNumber: that.data.user_data.phone,
+            success(){
+                console.log(222)
+            },
+            fail(){
+                console.log("不支持")
+            }
         });
     },
     jump(e) {

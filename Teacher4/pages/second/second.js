@@ -5,17 +5,31 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    data:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+      let that = this;
       wx.request({
           url: "https://demo.ai-life.me/api/Lecturer/zly_details",
           data: { id: 2 },
-          success: function (res) { },
+          success: function (res) {
+              if (res.data.code === 1) {
+                  that.setData({
+                      data: res.data.data
+                  });
+              } else {
+                  wx.showModal({
+                      title: '提示',
+                      content: res.data.message,
+                      showCancel: false
+                  })
+              }
+           },
           fail: function (res) { },
           complete: function (res) { },
       })

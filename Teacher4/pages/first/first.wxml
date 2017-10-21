@@ -1,18 +1,18 @@
 <view class="page-container">
-    <image class='bg-img' src='../../assets/images/menu1_1.jpg' mode='widthFix'></image>
+    <image class='bg-img' src='{{data.content[0]}}' mode='widthFix'></image>
     <view style='clear:both;'></view>
     <view class='pro'>
         <image class='pro-title' src='../../assets/images/prd_title.png' mode='widthFix'></image>
         <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{700}}">
-            <block wx:for="{{imgUrls}}">
+            <block wx:for="{{data.banner}}">
                 <swiper-item>
                     <image src="{{item}}" class="slide-image"/>
                 </swiper-item>
             </block>
         </swiper>
     </view>
-    <image class='bg-img' src='../../assets/images/menu1_2.jpg' mode='widthFix'></image>
-    <image class='bg-img' src='../../assets/images/menu1_3.jpg' mode='widthFix'></image>
+    <image class='bg-img' src='{{data.content[1]}}' mode='widthFix'></image>
+    <image class='bg-img' src='{{data.content[2]}}' mode='widthFix'></image>
     <view style='clear:both;'></view>
     <view class='blank'></view>
 </view>

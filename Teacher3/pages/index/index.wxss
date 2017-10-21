@@ -63,7 +63,7 @@ button::after {
 }
 
 .page-section {
-    padding-top: 90rpx;
+    margin-top: 90rpx;
     width: 100%;
 }
 
@@ -270,6 +270,7 @@ swiper {
 
 .slide-image {
     width: 680rpx;
+    height: 360rpx;
 }
 
 .person-des-box {
@@ -318,10 +319,12 @@ swiper {
 
 .person-ad-img {
     width: 100%;
+    height: 120rpx;
 }
 
 .reduce-head {
     width: 100%;
+    height: 70rpx;
 }
 
 .reduce-txt {
@@ -336,6 +339,7 @@ swiper {
 
 .arrow-img {
     width: 100%;
+    height: 88rpx;
 }
 
 .story-box {
@@ -369,11 +373,13 @@ swiper {
 
 .bx-title-img {
     width: 100%;
+    height: 40rpx;
 }
 
 .join-us-img {
     margin: 35rpx 0;
     width: 100%;
+    height: 440rpx;
 }
 
 .video-box {

@@ -61,20 +61,23 @@ Page({
         })
     },
     previeImg() {
+
+        let that = this;
+
         wx.previewImage({
-            current: '../../assets/images/tc4_join_title2.png',
-            urls: []
+            current: that.data.data.join.code,
+            urls: [that.data.data.join.code]
         })
     },
     //扫码
     scan() {
-        wx.previewImage({
-            current: 'https://img.my-shop.cc/images/tc4_qr_code.png',
-            urls: ['https://img.my-shop.cc/images/tc4_qr_code.png'],
-            success: function (res) { },
-            fail: function (res) { },
-            complete: function (res) { },
-        })
+        // wx.previewImage({
+        //     current: 'https://img.my-shop.cc/images/tc4_qr_code.png',
+        //     urls: ['https://img.my-shop.cc/images/tc4_qr_code.png'],
+        //     success: function (res) { },
+        //     fail: function (res) { },
+        //     complete: function (res) { },
+        // })
     },
     onShareAppMessage: function (res) {
         if (res.from === 'button') {

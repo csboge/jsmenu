@@ -178,3 +178,6 @@
     </view>
 </view>
 <view class='product-detail-modal {{show_product_detail?"show":"hide"}}' bindtap='closeDetail'></view>
+
+
+<view style='position:fixed;top:0;left:0;width:750rpx;height:1290rpx;background:#fff;' wx:if="{{show_blank?true:false}}"></view>

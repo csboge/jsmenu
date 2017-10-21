@@ -53,6 +53,8 @@ Page({
         show_product_detail: false,     //是否显示菜品详情
         curr_detail: {},                //当前查看的菜品
 
+        show_blank: false,      //是否显示全屏空白
+
     },
     rowIndex: 0,                //显示食物的行数,每行四
     mark: 0,                    //tap的坐标 x或y
@@ -135,13 +137,30 @@ Page({
         let _is_refresh_menu = app.globalData.is_refresh_menu;
 
         if (_is_refresh_menu != undefined && _is_refresh_menu === true) {
-            wx.redirectTo({
-                url: '../menu/menu',
-                success() {
-                    app.setGlobalData("is_refresh_menu", false);
-                }
+
+            that.setData({
+                show_blank: true
             });
+
+            wx.redirectTo({
+                url: '../index/index',
+                success: function(res) {
+                    app.setGlobalData("is_refresh_menu", false);
+                },
+                fail: function(res) {},
+                complete: function(res) {},
+            })
+
+            // wx.redirectTo({
+            //     url: '../menu/menu',
+            //     success() {
+            //         app.setGlobalData("is_refresh_menu", false);
+            //     }
+            // });
         }
+
+
+        //--------------------------------------------------------------
 
         // let _is_refresh_menu = app.globalData.is_refresh_menu;
         // console.log(_is_refresh_menu);

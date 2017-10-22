@@ -10,7 +10,7 @@
             <view class='cate-name ls b'>{{item.name}}</view>
             <!-- <view class='cate-type ls b'>西餐</view> -->
             <view class='cate-btn'>
-                <button class='del-btn'>
+                <button class='del-btn' data-id='{{item.id}}' bindtap='update'>
                     <image class='btn-img' src='../../img/update_icon.png' mode='widthFix'></image>
                 </button>
                 <button class='del-btn' bindtap='delCate'>

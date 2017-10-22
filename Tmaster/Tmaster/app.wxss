@@ -22,3 +22,35 @@ page{
     text-align: center;
     color: #ccc;
 }
+
+.l{
+    font-size: 32rpx;
+}
+
+.ls{
+    font-size: 30rpx;
+}
+
+.m{
+    font-size: 28rpx;
+}
+
+.ms{
+    font-size: 24rpx;
+}
+
+.s{
+    font-size: 20rpx;
+}
+
+.b{
+    font-weight: bold;
+}
+
+.w{
+    color: #fff;
+}
+
+.g{
+    color: #a4a4a4;
+}

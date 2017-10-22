@@ -17,7 +17,7 @@ Page({
     //添加分类
     addCate() {
         wx.navigateTo({
-            url: '../addCate/addCate'
+            url: '../cateList/cateList'
         });
     },
     //添加菜品

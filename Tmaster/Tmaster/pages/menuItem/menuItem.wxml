@@ -1,6 +1,6 @@
 
 <view class="page-container">
-    <button class='btn' bindtap='addCate'>添加分类</button>
+    <button class='btn' bindtap='addCate'>分类管理</button>
     <!-- <button class='btn'>添加二级分类</button> -->
-    <button class='btn' bindtap='addProduct'>添加菜品</button>
+    <button class='btn' bindtap='addProduct'>菜品管理</button>
 </view>

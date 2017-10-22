@@ -50,6 +50,11 @@ Page({
         spec_list: [],          //选中的规格商品数据
         curr_spec: {},          //当前正在选的规格     
 
+        show_product_detail: false,     //是否显示菜品详情
+        curr_detail: {},                //当前查看的菜品
+
+        show_blank: false,      //是否显示全屏空白
+
     },
     rowIndex: 0,                //显示食物的行数,每行四
     mark: 0,                    //tap的坐标 x或y
@@ -132,13 +137,30 @@ Page({
         let _is_refresh_menu = app.globalData.is_refresh_menu;
 
         if (_is_refresh_menu != undefined && _is_refresh_menu === true) {
-            wx.redirectTo({
-                url: '../menu/menu',
-                success() {
-                    app.setGlobalData("is_refresh_menu", false);
-                }
+
+            that.setData({
+                show_blank: true
             });
+
+            wx.redirectTo({
+                url: '../index/index',
+                success: function(res) {
+                    app.setGlobalData("is_refresh_menu", false);
+                },
+                fail: function(res) {},
+                complete: function(res) {},
+            })
+
+            // wx.redirectTo({
+            //     url: '../menu/menu',
+            //     success() {
+            //         app.setGlobalData("is_refresh_menu", false);
+            //     }
+            // });
         }
+
+
+        //--------------------------------------------------------------
 
         // let _is_refresh_menu = app.globalData.is_refresh_menu;
         // console.log(_is_refresh_menu);
@@ -285,6 +307,12 @@ Page({
                         }
 
                     });
+                    //初始化规格商品总数
+                    init_page_menu.forEach((obj) => {
+                        if (obj.attrs.length > 0) {
+                            obj.spec_num = 0;
+                        }
+                    });
                     // console.log(init_page_menu);
                     // console.log(shop_cart)
                     // console.log(init_page_menu)
@@ -293,6 +321,7 @@ Page({
                         //计算购物车商品总数量和总价格
                         that.countAll(shop_cart);
                     }
+
 
                     that.setData({
                         menu_list: good_list,
@@ -540,6 +569,13 @@ Page({
             }
         });
 
+        //初始化规格商品总数
+        page_menu.forEach((obj) => {
+            if (obj.attrs.length > 0) {
+                obj.spec_num = 0;
+            }
+        });
+
         let new_page_menu = that.updatePageMenuNum(shop_cart, page_menu);
 
         that.setData({
@@ -581,6 +617,7 @@ Page({
         if (curr_spec) {             //规格数量
 
             let curr_spec_obj = e.currentTarget.dataset.curr_obj;
+            let _page_menu = this.data.page_menu;
 
             curr_spec.num--;
 
@@ -588,12 +625,25 @@ Page({
                 curr_spec_obj: curr_spec_obj,
                 curr_spec: curr_spec
             });
+            console.log(this.data.curr_spec);
 
             //加入到购物车
             curr_spec_obj.price = curr_spec.price;
             curr_spec_obj.attrs = curr_spec;
             //购物车中该商品数量减少
             util.cutShopCart(app.globalData.shop_id, "shopCart", curr_spec_obj.id, curr_spec.titles);
+
+            //当前页面该商品数量减少
+            _page_menu.forEach((obj) => {
+                if (obj.id === curr_spec_obj.id) {
+                    if (obj.spec_num > 0) {
+                        obj.spec_num--;
+                    }
+                }
+            });
+            this.setData({
+                page_menu: _page_menu
+            });
 
             console.log(util.getStorageSync(app.globalData.shop_id, "shopCart"))
         } else {
@@ -643,6 +693,7 @@ Page({
         if (curr_spec) {             //规格数量
 
             let curr_spec_obj = e.currentTarget.dataset.curr_obj;
+            let _page_menu = this.data.page_menu;
 
             curr_spec.num++;
             this.setData({
@@ -655,6 +706,16 @@ Page({
             curr_spec_obj.name += "(" + curr_spec.titles + ")";
             //购物车中该商品数量增加 或 新增该商品
             util.addShopCart(app.globalData.shop_id, curr_spec_obj);
+
+            //当前页面该商品数量增加
+            _page_menu.forEach((obj) => {
+                if (obj.id === curr_spec_obj.id) {
+                    obj.spec_num++;
+                }
+            });
+            this.setData({
+                page_menu: _page_menu
+            });
 
             console.log(util.getStorageSync(app.globalData.shop_id, "shopCart"))
         } else {                      //直接数量
@@ -711,6 +772,10 @@ Page({
             return;
         }
 
+        //初始化数量
+        product.attrs.forEach((obj) => {
+            obj.num = 0;
+        });
 
         //同步数量
         if (shop_cart.length > 0) {
@@ -776,14 +841,43 @@ Page({
             show_spec: false
         });
     },
+    //显示菜品详情
+    showProductDetail(e) {
+
+        this.setData({
+            show_product_detail: true,
+            curr_detail: e.currentTarget.dataset.obj
+        });
+
+    },
+    //关闭菜品详情
+    closeDetail() {
+        this.setData({
+            show_product_detail: false
+        });
+    },
     //预览大图
     previewImg(e) {
+        
+        let index = e.currentTarget.dataset.i;
+        let page_menu = this.data.page_menu;
 
-        let url = e.currentTarget.dataset.url;
+        let curr_url = "";
+        let page_url_list = [];
+
+        if (index != -1) {
+            curr_url = page_menu[index].image;
+        } else {
+            curr_url = e.currentTarget.dataset.url;
+        }
+
+        page_menu.forEach((obj) => {
+            page_url_list.push(obj.image);
+        });
 
         wx.previewImage({
-            current: '', // 当前显示图片的http链接
-            urls: [url] // 需要预览的图片http链接列表
+            current: curr_url, // 当前显示图片的http链接
+            urls: page_url_list // 需要预览的图片http链接列表
         });
     },
     //商品数量变化时统计总数据并更新
@@ -908,6 +1002,9 @@ Page({
                 if (res.confirm) {
                     for (var i = 0; i < page_menu.length; i++) {
                         page_menu[i].num = 0;
+                        if (page_menu[i].attrs.length > 0) {//有规格
+                            page_menu[i].spec_num = 0;
+                        }
                     }
                     let shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + app.globalData.shop_id);
                     shop_info.shopCart = [];
@@ -980,7 +1077,14 @@ Page({
                     }
                 }
             }
-
+            //统计购物车同种商品多种规格的总数量
+            for (var i = 0; i < cart_products.length; i++) {
+                for (var k = 0; k < page_menu.length; k++) {
+                    if (cart_products[i].attrs.titles && cart_products[i].id === page_menu[k].id) {
+                        page_menu[k].spec_num += cart_products[i].num;
+                    }
+                }
+            }
         } else {
             page_menu.forEach((obj) => {
                 obj.num = 0;

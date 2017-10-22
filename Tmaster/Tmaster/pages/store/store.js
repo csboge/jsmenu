@@ -14,13 +14,13 @@ Page({
   onLoad: function (options) {
   
   },
-  //添加门店
+  //门店信息管理
   btnStore:function(){
     wx.navigateTo({
       url: '../apply/apply'
     })
   },
-  //添加菜谱
+  //菜谱管理
   btnCook:function(){
       wx.navigateTo({
           url: '../menuItem/menuItem'

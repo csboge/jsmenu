@@ -745,42 +745,42 @@ swiper-item {
     background: #d2d2d2;
 }
 
-.spec-box{
+.spec-box {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     width: 80%;
     background: #fff;
     border-radius: 10rpx;
     z-index: 10006;
 }
 
-.title{
+.title {
     padding-top: 20rpx;
     text-align: center;
     font-weight: bold;
     font-size: 32rpx;
 }
 
-.spec-head-box{
+.spec-head-box {
     position: relative;
 }
 
-.close-box{
+.close-box {
     position: absolute;
     right: 20rpx;
     top: 20rpx;
 }
 
-.close-btn{
+.close-btn {
     position: relative;
     width: 36rpx;
     height: 36rpx;
     transform: rotate(45deg);
 }
 
-.close-btn::before{
+.close-btn::before {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -790,7 +790,8 @@ swiper-item {
     height: 100%;
     background: #000;
 }
-.close-btn::after{
+
+.close-btn::after {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -801,20 +802,20 @@ swiper-item {
     background: #000;
 }
 
-.spec-type-item{
+.spec-type-item {
     float: left;
     margin-left: 38rpx;
     font-size: 28rpx;
     color: #666;
 }
 
-.spec-type::after{
+.spec-type::after {
     content: "";
     display: block;
     clear: both;
 }
 
-.spec-choose{
+.spec-choose {
     display: flex;
     justify-content: space-between;
     padding: 30rpx 30rpx;
@@ -832,18 +833,18 @@ swiper-item {
     z-index: 10005;
 }
 
-.spec-type-item{
+.spec-type-item {
     padding: 6rpx 20rpx;
     border: 2rpx solid #ff4549;
     border-radius: 6rpx;
 }
 
-.spec-type{
+.spec-type {
     padding-top: 30rpx;
     padding-bottom: 55rpx;
 }
 
-.spec-title{
+.spec-title {
     padding-left: 24rpx;
     padding-top: 25rpx;
     font-size: 28rpx;
@@ -851,7 +852,7 @@ swiper-item {
     color: #666;
 }
 
-.spec-price{
+.spec-price {
     display: flex;
     align-items: center;
     font-size: 32rpx;
@@ -859,21 +860,21 @@ swiper-item {
     font-weight: bold;
 }
 
-.spec-choosed{
+.spec-choosed {
     font-size: 24rpx;
     color: #666;
     font-weight: normal;
 }
 
-.show{
+.show {
     display: block;
 }
 
-.hide{
+.hide {
     display: none;
 }
 
-.spec-btn{
+.spec-btn {
     position: absolute;
     right: 40rpx;
     bottom: 50rpx;
@@ -886,11 +887,104 @@ swiper-item {
     line-height: 46rpx;
 }
 
-.spec-btn:active{
+.spec-btn:active {
     background: #e33a3d;
 }
 
-.spec-active{
-    background: rgba(255, 66, 70, .25);
+.spec-active {
+    background: rgba(255, 66, 70, 0.25);
     color: #ff4246;
+}
+
+.spec-num-circle {
+    position: absolute;
+    right: 6rpx;
+    top: -16rpx;
+    color: #fff;
+    background: #ffd161;
+    width: 26rpx;
+    height: 26rpx;
+    border-radius: 50%;
+    line-height: 26rpx;
+    text-align: center;
+}
+
+.product-detail-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1290rpx;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10005;
+}
+
+.product-detail-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    background: #fff;
+    border-radius: 10rpx;
+    z-index: 10006;
+}
+
+.product-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 28rpx 30rpx;
+}
+
+.product-name {
+    font-size: 30rpx;
+    font-weight: bold;
+}
+
+.product-price {
+    font-size: 30rpx;
+    color: #a91818;
+    font-weight: bold;
+}
+
+.product-detail-img {
+    width: 100%;
+    border-top-left-radius: 10rpx;
+    border-top-right-radius: 10rpx;
+}
+
+.close-detail-btn {
+    position: relative;
+    width: 46rpx;
+    height: 46rpx;
+    transform: rotate(45deg);
+}
+
+.close-detail-btn::before {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    content: "";
+    width: 100%;
+    height: 6rpx;
+    background: #fff;
+}
+
+.close-detail-btn::after {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    content: "";
+    width: 6rpx;
+    height: 100%;
+    background: #fff;
+}
+
+.close-btn-box{
+    position: absolute;
+    bottom: -80rpx;
+    left: 50%;
+    transform: translateX(-50%);
 }

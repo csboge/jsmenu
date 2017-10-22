@@ -28,6 +28,9 @@ App({
     onShow(options) {
 
     },
+    onHide(){
+        this.globalData.is_refresh_menu = false;
+    },
     //通过商户号进行过滤
     filter(shop_id, cb, desk_sn) {
         let that = this;

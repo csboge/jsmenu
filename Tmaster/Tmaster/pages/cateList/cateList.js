@@ -20,8 +20,8 @@ Page({
 
     },
     //删除分类
-    delCate(e){
-        
+    delCate(e) {
+
         let id = e.currentTarget.dataset.id;
 
         wx.showModal({
@@ -31,6 +31,15 @@ Page({
         })
 
         // util.request(app.globalData.ev_url+"","POST",)
+    },
+    //修改分类
+    update(e) {
+
+        let id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '../updateCate/updateCate?cate_id=' + id
+        })
+
     },
     onShow() {
 
@@ -47,14 +56,7 @@ Page({
                     wx.showModal({
                         title: '提示',
                         content: res.data.message,
-                        showCancel: false,
-                        cancelText: '',
-                        cancelColor: '',
-                        confirmText: '',
-                        confirmColor: '',
-                        success: function (res) { },
-                        fail: function (res) { },
-                        complete: function (res) { },
+                        showCancel: false
                     })
                 }
             }, (res) => {

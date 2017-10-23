@@ -86,7 +86,7 @@
                     <view class="slide-title-en txt-title-en">VIDEO</view>
                 </view>
                 <view class="slide-content">
-                    <video class='video' src='{{shop_info.spread}}' controls></video>
+                    <video class='video' src='{{shop_info.spread}}' controls poster=''></video>
                 </view>
             </view>
             <view class="slide-box">

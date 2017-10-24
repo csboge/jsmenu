@@ -1,11 +1,11 @@
 /* pages/cateList/cateList.wxss */
 
-.page-container{
+.page-container {
     width: 100%;
     background: #f2f2f2;
 }
 
-.cate-title-box{
+.cate-title-box {
     position: fixed;
     top: 0;
     left: 0;
@@ -18,20 +18,20 @@
     z-index: 1;
 }
 
-.cate-detail-box{
+.cate-detail-box {
     margin-top: 6rpx;
     padding-top: 100rpx;
-    background: #FFf;
+    background: #fff;
     line-height: 3.5;
 }
 
-.cate-detail-item{
+.cate-detail-item {
     display: flex;
     justify-content: space-around;
     border-bottom: 2rpx solid #f2f2f2;
 }
 
-button{
+button {
     display: flex;
     align-items: center;
     border: 0;
@@ -42,25 +42,25 @@ button{
     background: transparent;
 }
 
-button::after{
+button::after {
     border: 0;
 }
 
-.button-hover{
+.button-hover {
     background: transparent;
 }
 
-.btn-img{
+.btn-img {
     width: 40rpx;
 }
 
-.cate-btn{
+.cate-btn {
     display: flex;
     justify-content: center;
     width: 33.3%;
 }
 
-.add-btn-box{
+.add-btn-box {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -71,17 +71,17 @@ button::after{
     background: #509863;
 }
 
-.add-btn-box:active{
+.add-btn-box:active {
     color: #ddd;
     background: #438355;
 }
 
-.cate-name{
+.cate-name {
     width: 33.3%;
     text-align: center;
 }
 
-.cate-type{
+.cate-type {
     width: 33.3%;
     text-align: center;
 }

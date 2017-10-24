@@ -35,9 +35,9 @@ Page({
     //修改分类
     update(e) {
 
-        let id = e.currentTarget.dataset.id;
+        let obj = e.currentTarget.dataset.obj;
         wx.navigateTo({
-            url: '../updateCate/updateCate?cate_id=' + id
+            url: '../updateCate/updateCate?cate=' + JSON.stringify(obj)
         })
 
     },
@@ -48,10 +48,21 @@ Page({
         util.request(app.globalData.ev_url + "/category/category", "POST", app.getParams({}))
             .then((res) => {
                 if (res.data.code === 1) {
-                    that.setData({
-                        cate_list: res.data.data
+
+                    let _list = res.data.data;
+
+                    _list.forEach((obj)=>{
+                        if(obj.list.length > 0){
+                           obj.list.forEach((ele)=>{
+                               ele.parent_name = obj.name;
+                               _list.push(ele);
+                           })
+                        }
                     });
-                    console.log(that.data.cate_list)
+
+                    that.setData({
+                        cate_list: _list
+                    });
                 } else {
                     wx.showModal({
                         title: '提示',

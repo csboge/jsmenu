@@ -5,7 +5,7 @@
             <form class='form-content' bindsubmit="formSubmit">
                 <view class="section">
                     <view class="section-title">分类名称</view>
-                    <input class='input-txt' name="cate_name" value='{{txt_val}}' placeholder="请输入分类名称" />
+                    <input class='input-txt' name="cate_name" value='{{curr_cate.name}}' placeholder="请输入分类名称" />
                 </view>
                 <view class="section">
                     <view class="section-title">所属分类</view>
@@ -15,6 +15,14 @@
                         </view>
                     </picker>
                 </view>
+                <!-- <view class="section">
+                    <view class="section-title">是否隐藏</view>
+                    <radio-group class="radio-group" bindchange="radioChange">
+                        <label class="radio" wx:for="{{hideList}}">
+                            <radio value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+                        </label>
+                    </radio-group>
+                </view> -->
                 <view class='line'></view>
                 <view class="btn-area">
                     <button formType="submit">保存</button>

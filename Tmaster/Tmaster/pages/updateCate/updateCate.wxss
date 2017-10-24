@@ -65,3 +65,12 @@ button{
 .gray{
     color: #808080;
 }
+
+radio-group {
+    margin-left: 30rpx;
+}
+
+label{
+    font-size: 28rpx;
+    margin: 0 20rpx;
+}

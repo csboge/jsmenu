@@ -70,15 +70,15 @@ Page({
 
         let data = {
             name: e.detail.value.cate_name,
-            parent_id: this.data.parent_id || 0,     //0为顶级菜单
-            hd_status: that.data.is_hide             //是否隐藏
+            parent_id: this.data.parent_id || 0     //0为顶级菜单
+            // hd_status: that.data.is_hide             //是否隐藏
         }
 
-        util.request(app.globalData.ev_url + "/category/add", "POST", app.getParams(data))
+        util.request(app.globalData.ev_url + "/category/update", "POST", app.getParams(data))
             .then((res) => {
                 if (res.data.code === 1) {
                     wx.showToast({
-                        title: '添加成功',
+                        title: '修改成功',
                         icon: 'success',
                         duration: 1000,
                         mask: true,

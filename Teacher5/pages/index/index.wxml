@@ -1,0 +1,5 @@
+<view class="page-container">
+    <view class='page-head'>
+        <image class='hd-bg' src='../../img/tc5_hd_bg.jpg'></image>
+    </view>
+</view>

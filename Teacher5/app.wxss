@@ -8,3 +8,39 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+.w{
+    color: #fff;
+}
+
+.l{
+    font-size: 32rpx;
+}
+
+.ls{
+    font-size: 30rpx;
+}
+
+.m{
+    font-size: 28rpx;
+}
+
+.ms{
+    font-size: 24rpx;
+}
+
+.s{
+    font-size: 20rpx;
+}
+
+.b{
+    font-weight: bold;
+}
+
+.red{
+    color: #c73030;
+}
+
+.page-container{
+    width: 100%;
+}

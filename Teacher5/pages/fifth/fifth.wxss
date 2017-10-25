@@ -1,0 +1,19 @@
+/* pages/fifth/fifth.wxss */
+
+image{
+    float: left;
+    width: 100%;
+}
+
+.img1{
+    height: 432rpx;
+}
+.img2{
+    height: 465rpx;
+}
+.img3{
+    height: 365rpx;
+}
+.img4{
+    height: 276rpx;
+}

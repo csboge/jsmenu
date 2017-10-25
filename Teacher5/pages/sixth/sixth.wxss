@@ -1,0 +1,16 @@
+/* pages/sixth/sixth.wxss */
+
+image{
+    float: left;
+    width: 100%;
+}
+
+.img1{
+    height: 434rpx;
+}
+.img2{
+    height: 457rpx;
+}
+.img3{
+    height: 443rpx;
+}

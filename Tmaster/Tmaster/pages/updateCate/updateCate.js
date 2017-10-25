@@ -70,7 +70,8 @@ Page({
 
         let data = {
             name: e.detail.value.cate_name,
-            parent_id: this.data.parent_id || 0     //0为顶级菜单
+            parent_id: this.data.parent_id || 0,     //0为顶级菜单
+            id: this.data.curr_cate.id
             // hd_status: that.data.is_hide             //是否隐藏
         }
 
@@ -83,12 +84,18 @@ Page({
                         duration: 1000,
                         mask: true,
                         success() {
+
                             that.setData({
                                 array: ["顶级分类"],
                                 index_array: [0],
                             })
 
-                            that.fetchParentCate();
+                            setTimeout(()=>{
+                                wx.navigateBack({
+                                    delta: 1,
+                                });
+                            },1000);
+
                         }
                     });
                 } else {

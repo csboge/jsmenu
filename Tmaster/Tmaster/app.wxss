@@ -54,3 +54,7 @@ page{
 .g{
     color: #a4a4a4;
 }
+
+.red{
+    color: #be3838;
+}

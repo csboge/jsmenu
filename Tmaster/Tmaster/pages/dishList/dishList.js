@@ -1,66 +1,59 @@
 // pages/dishList/dishList.js
+
+import util from "../../utils/util";
+
+let app = getApp();
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-  
-  },
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        dish_data: [],          //菜品数据
+    },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function (options) {
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
+        this.fetchData();
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
+    },
+    //获取列表
+    fetchData() {
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
+        let that = this;
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
+        let data = {
+            limit: 10,
+            page: 1
+        }
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
+        util.request(app.globalData.ev_url + "/goods/goods", "POST", app.getParams(data))
+            .then((res) => {
+                if (res.data.code === 1) {
+                    that.setData({
+                        dish_data: res.data.data
+                    })
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    })
+                }
+            }, (res) => {
+                util.disconnectModal();
+            });
+    },
+    //修改菜品
+    edit() {
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
+    },
+    //添加菜品
+    add() {
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
+    }
 })

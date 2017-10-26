@@ -4,7 +4,21 @@
         <view class='dish-item'>
             <image class='dish-img' src=''></image>
             <view class='dish-detail-box'>
-                
+                <view class='dish-top'>
+                    <view class='dish-name m b'>辣椒炒肉</view>
+                    <view class='btn-box'>
+                        <view class='btn-outer'>
+                            <image class='btn-edit' src='../../img/update_icon.png'></image>
+                        </view>
+                        <view class='btn-outer'>
+                            <image class='btn-edit' src='../../img/del_icon.png'></image>
+                        </view>
+                    </view>
+                </view>
+                <view class='dish-bottom'>
+                    <view class='dish-price m red b'>￥20</view>
+                    <view class='dish-spec m g'>规格：多规格</view>
+                </view>
             </view>
         </view>
     </view>

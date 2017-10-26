@@ -1,0 +1,11 @@
+<view class="page-container">
+    <view class='title m b'>菜品列表</view>
+    <view class='dish-box'>
+        <view class='dish-item'>
+            <image class='dish-img' src=''></image>
+            <view class='dish-detail-box'>
+                
+            </view>
+        </view>
+    </view>
+</view>

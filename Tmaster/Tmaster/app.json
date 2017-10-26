@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/dishList/dishList",
+    "pages/home/home",
     "pages/cateList/cateList",
     "pages/updateCate/updateCate",
     "pages/addCate/addCate",
-    "pages/home/home",
     "pages/register/register",
     "pages/menuItem/menuItem",
     "pages/saleReport/saleReport",

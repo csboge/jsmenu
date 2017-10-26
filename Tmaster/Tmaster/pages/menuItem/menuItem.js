@@ -14,16 +14,16 @@ Page({
     onLoad: function (options) {
 
     },
-    //添加分类
+    //分类管理
     addCate() {
         wx.navigateTo({
             url: '../cateList/cateList'
         });
     },
-    //添加菜品
+    //菜品管理
     addProduct() {
         wx.navigateTo({
-            url: '../addProduct/addProduct'
+            url: '../dishList/dishList'
         });
     }
 })

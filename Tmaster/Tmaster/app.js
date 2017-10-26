@@ -18,6 +18,8 @@ App({
 
         shop_info: { shop_id: 7 },                              //商户信息
         user_info: {},                              //用户信息
+
+        cut_url: "",                                //裁剪的图片地址
     },
     //组合请求数据
     getParams(data) {

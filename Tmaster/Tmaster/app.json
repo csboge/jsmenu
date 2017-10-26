@@ -1,6 +1,9 @@
 {
   "pages": [
+    "pages/addDish/addDish",
+    "pages/cutInside/cutInside",
     "pages/dishList/dishList",
+    "pages/updateDish/updateDish",
     "pages/home/home",
     "pages/cateList/cateList",
     "pages/updateCate/updateCate",

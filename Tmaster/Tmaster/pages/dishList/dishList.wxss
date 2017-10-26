@@ -9,10 +9,12 @@
     width: 100%;
     line-height: 3;
     border-bottom: 4rpx solid #f2f2f2;
+    background: #fff;
 }
 
 .dish-box {
     padding-top: 92rpx;
+    padding-bottom: 220rpx;
 }
 
 .dish-item {
@@ -22,7 +24,7 @@
 }
 
 .dish-img {
-    width: 144rpx;
+    width: 200rpx;
     height: 144rpx;
 }
 
@@ -51,11 +53,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 30rpx;
 }
 
 .dish-bottom {
     display: flex;
     justify-content: space-between;
+    padding-left: 30rpx;
 }
 
 .dish-item {
@@ -71,4 +75,41 @@
 
 .dish-spec{
     padding-right: 20rpx;
+}
+
+.add-box{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #509863;
+    line-height: 3;
+    width: 100%;
+    text-align: center;
+}
+
+.add-box:active{
+    color: #ddd;
+    background: #3d734b;
+}
+
+.has-more{
+    margin-top: 20rpx;
+    line-height: 3;
+    text-align: center;
+    background: #fff;
+    border-top: 2rpx solid #eee;
+    border-bottom: 2rpx solid #eee;
+    color: #509863;
+}
+
+.has-more:active{
+    background: #f3f3f3;
+    color: #3d734b;
+}
+
+.no-more{
+    margin-top: 20rpx;
+    line-height: 3;
+    text-align: center;
+    background: #Fff;
 }

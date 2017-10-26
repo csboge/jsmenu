@@ -1,25 +1,28 @@
 <view class="page-container">
     <view class='title m b'>菜品列表</view>
     <view class='dish-box'>
-        <view class='dish-item'>
-            <image class='dish-img' src=''></image>
+        <view class='dish-item' wx:for="{{dish_data}}">
+            <image class='dish-img' src='{{item.image}}'></image>
             <view class='dish-detail-box'>
                 <view class='dish-top'>
-                    <view class='dish-name m b'>辣椒炒肉</view>
+                    <view class='dish-name m b'>{{item.title}}</view>
                     <view class='btn-box'>
-                        <view class='btn-outer'>
+                        <view class='btn-outer' bindtap='edit'>
                             <image class='btn-edit' src='../../img/update_icon.png'></image>
                         </view>
-                        <view class='btn-outer'>
+                        <view class='btn-outer' bindtap='del'>
                             <image class='btn-edit' src='../../img/del_icon.png'></image>
                         </view>
                     </view>
                 </view>
                 <view class='dish-bottom'>
-                    <view class='dish-price m red b'>￥20</view>
-                    <view class='dish-spec m g'>规格：多规格</view>
+                    <view class='dish-price m red b'>￥{{item.price}}</view>
+                    <view class='dish-spec m g'>规格：{{item.attrs.length>0?'多规格':'单规格'}}</view>
                 </view>
             </view>
         </view>
+        <view class='has-more m' bindtap='getMore' wx:if="{{has_more}}">点击查看更多</view>
+        <view class='no-more m g' wx:if="{{!has_more}}">没有更多了</view>
     </view>
+    <view class='add-box w ls b' bindtap='add'>点击添加菜品</view>
 </view>

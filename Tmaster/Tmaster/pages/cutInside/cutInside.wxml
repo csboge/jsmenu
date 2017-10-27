@@ -7,7 +7,7 @@
             预览图片
         </view>
         <view class="getCropperImage" bindtap="finish">
-            完成
+            完成裁剪
         </view>
     </view>
 </view>

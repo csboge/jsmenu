@@ -7,17 +7,19 @@
                 <view class='dish-top'>
                     <view class='dish-name m b'>{{item.title}}</view>
                     <view class='btn-box'>
-                        <view class='btn-outer' bindtap='edit'>
+                        <view class='btn-outer' data-obj='{{item}}' bindtap='edit'>
                             <image class='btn-edit' src='../../img/update_icon.png'></image>
                         </view>
-                        <view class='btn-outer' bindtap='del'>
+                        <view class='btn-outer' data-i='{{index}}' bindtap='del'>
                             <image class='btn-edit' src='../../img/del_icon.png'></image>
                         </view>
                     </view>
                 </view>
                 <view class='dish-bottom'>
                     <view class='dish-price m red b'>￥{{item.price}}</view>
-                    <view class='dish-spec m g'>规格：{{item.attrs.length>0?'多规格':'单规格'}}</view>
+                    <view class='dish-spec m g'>规格：
+                        <view class='m {{item.attrs.length>0?"green":"g"}}'>{{item.attrs.length>0?'多规格':'单规格'}}</view>
+                    </view>
                 </view>
             </view>
         </view>

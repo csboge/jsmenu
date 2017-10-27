@@ -91,7 +91,7 @@ Page({
     //修改菜品
     edit(e) {
         wx.navigateTo({
-            url: '../updateDish/updateDish'
+            url: '../updateDish/updateDish?obj=' + JSON.stringify(e.currentTarget.dataset.obj)
         });
     },
     //添加菜品
@@ -102,6 +102,33 @@ Page({
     },
     //删除菜品
     del(e) {
+
+        let that = this;
+        let index = e.currentTarget.dataset.i;
+        let id = this.data.dish_data[index].id;
+
+        util.request(app.globalData.ev_url + "", "POST", app.getParams({ id: id }))
+            .then((res) => {
+                if (res.data.code === 1) {
+                    wx.showToast({
+                        title: '删除成功',
+                        icon: 'success',
+                        duration: 1000,
+                        mask: true
+                    });
+                    that.setData({
+                        dish_data: that.data.dish_data.splice(index, 1)
+                    });
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    });
+                }
+            }, (res) => {
+                util.disconnectModal();
+            });
 
     }
 })

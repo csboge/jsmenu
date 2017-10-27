@@ -1,18 +1,19 @@
 /* pages/addCate/addCate.wxss */
 
-page{
+page {
     padding-top: 40rpx;
+    padding-bottom: 40rpx;
     background: #509863;
 }
 
-.page-section{
+.page-section {
     width: 690rpx;
     margin: 0 auto;
     border-radius: 6rpx;
     background: #fff;
 }
 
-.form-title{
+.form-title {
     padding: 40rpx 0;
     text-align: center;
     font-size: 32rpx;
@@ -20,24 +21,24 @@ page{
     color: #363636;
 }
 
-.form-content{
+.form-content {
     display: flex;
     flex-direction: column;
 }
 
-.section{
+.section {
     display: flex;
     align-items: center;
     padding: 0 36rpx;
     margin-bottom: 26rpx;
 }
 
-.section-title{
+.section-title {
     font-size: 28rpx;
     color: #363636;
 }
 
-.input-txt{
+.input-txt {
     display: flex;
     align-items: center;
     padding-left: 20rpx;
@@ -47,30 +48,105 @@ page{
     font-size: 28rpx;
     border: 2rpx solid #c3c3c3;
 }
-.line{
+
+.line {
     margin: 0 auto;
     width: 630rpx;
     height: 2rpx;
     background: #f0f0f0;
 }
 
-.btn-area{
+.btn-area {
     padding: 36rpx 150rpx;
 }
-button{
+
+button {
     margin: 30rpx 0;
     color: #363636;
 }
 
-.gray{
+.gray {
     color: #808080;
 }
 
-radio-group {
+.spec-box {
+    margin-top: 20rpx;
+    flex-wrap: wrap;
+}
+
+.spec-input {
+    margin-left: 50rpx;
+}
+
+.spec-btn {
+    margin: 0 auto;
+    margin-bottom: 30rpx;
+    text-align: center;
+    line-height: 2;
+    background: #fff;
+    width: 48%;
+    border: 2rpx solid #509863;
+    border-radius: 6rpx;
+    color: #363636;
+}
+
+.spec-btn:active {
+    color: #333;
+    background: #ddd;
+}
+
+.dish-img-box {
+    position: relative;
+    margin-left: 30rpx;
+    width: 200rpx;
+    height: 144rpx;
+    border: 2rpx solid #c3c3c3;
+}
+
+.dish-img-box::before{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    content: "";
+    display: block;
+    width: 4rpx;
+    height: 55%;
+    background: #c3c3c3;
+}
+
+.dish-img-box::after{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    content: "";
+    display: block;
+    width: 55%;
+    height: 4rpx;
+    background: #c3c3c3;
+}
+
+.dish-img{
+    margin-left: 30rpx;
+    width: 200rpx;
+    height: 144rpx;
+    border: 2rpx solid #c3c3c3;
+}
+
+.spec-num-input{
+    margin-top: 30rpx;
+    margin-left: 140rpx;
+}
+
+.up-img-msg{
     margin-left: 30rpx;
 }
 
-label{
-    font-size: 28rpx;
-    margin: 0 20rpx;
+.green{
+    color: #509863;
+}
+
+.txt-g{
+    color: #363636;
 }

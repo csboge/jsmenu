@@ -44,7 +44,7 @@ Page({
                         array: _array,
                         index_array: _index_array
                     });
-                    console.log(that.data.array)
+                    // console.log(that.data.array)
                 } else {
                     wx.showModal({
                         title: '提示',

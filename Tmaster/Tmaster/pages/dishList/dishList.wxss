@@ -73,11 +73,12 @@
     padding-bottom: 14rpx;
 }
 
-.dish-spec{
+.dish-spec {
     padding-right: 20rpx;
+    display: flex;
 }
 
-.add-box{
+.add-box {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -87,12 +88,12 @@
     text-align: center;
 }
 
-.add-box:active{
+.add-box:active {
     color: #ddd;
     background: #3d734b;
 }
 
-.has-more{
+.has-more {
     margin-top: 20rpx;
     line-height: 3;
     text-align: center;
@@ -102,14 +103,14 @@
     color: #509863;
 }
 
-.has-more:active{
+.has-more:active {
     background: #f3f3f3;
     color: #3d734b;
 }
 
-.no-more{
+.no-more {
     margin-top: 20rpx;
     line-height: 3;
     text-align: center;
-    background: #Fff;
+    background: #fff;
 }

@@ -2,6 +2,7 @@
 
 page {
     padding-top: 40rpx;
+    padding-bottom: 40rpx;
     background: #509863;
 }
 
@@ -70,18 +71,20 @@ button {
 
 .spec-box {
     margin-top: 20rpx;
+    flex-wrap: wrap;
 }
 
 .spec-input {
-    margin-left: 34rpx;
+    margin-left: 50rpx;
 }
 
 .spec-btn {
     margin: 0 auto;
+    margin-bottom: 30rpx;
     text-align: center;
-    line-height: 2.5;
+    line-height: 2;
     background: #fff;
-    width: 65%;
+    width: 48%;
     border: 2rpx solid #509863;
     border-radius: 6rpx;
     color: #363636;
@@ -129,4 +132,21 @@ button {
     width: 200rpx;
     height: 144rpx;
     border: 2rpx solid #c3c3c3;
+}
+
+.spec-num-input{
+    margin-top: 30rpx;
+    margin-left: 140rpx;
+}
+
+.up-img-msg{
+    margin-left: 30rpx;
+}
+
+.green{
+    color: #509863;
+}
+
+.txt-g{
+    color: #363636;
 }

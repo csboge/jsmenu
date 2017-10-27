@@ -17,10 +17,10 @@ Page({
             scale: 2.5,
             zoom: 8,
             cut: {
-                x: (width - 300) / 2,
-                y: (height - 216) / 2,
-                width: 300,
-                height: 216
+                x: (width - 375) / 2,
+                y: (height - 270) / 2,
+                width: 375,
+                height: 270
             }
         },
         img_url: "",

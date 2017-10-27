@@ -5,7 +5,7 @@
             <form class='form-content' bindsubmit="formSubmit">
                 <view class="section">
                     <view class="section-title">菜品名称</view>
-                    <input class='input-txt' name="cate_name" placeholder="请输入菜品名称" />
+                    <input class='input-txt' name="title" placeholder="请输入菜品名称" />
                 </view>
                 <view class="section">
                     <view class="section-title">所属分类</view>
@@ -17,19 +17,20 @@
                 </view>
                 <view class="section">
                     <view class="section-title">菜品价格</view>
-                    <input class='input-txt' type='number' placeholder='请输入菜品价格'></input>
+                    <input class='input-txt' type='number' name="price" placeholder='请输入菜品价格'></input>
                 </view>
                 <view class="section">
                     <view class="section-title">菜品图片</view>
                     <view class='dish-img-box' bindtap='upImg' wx:if="{{!show_pic}}"></view>
                     <image class='dish-img' src='{{img_url}}' bindtap='upImg' wx:if="{{show_pic}}"></image>
+                    <view class='up-img-msg m {{is_finish===0?"txt-g":is_finish===1?"green":"red"}}' wx:if="{{show_pic}}">{{is_finish===0?"上传中...":is_finish===1?"上传成功！":"上传失败！"}}</view>
                 </view>
-                <view class='spec-btn m' bindtap='addSpec'>点击添加规格</view>
-                <view class='line'></view>
-                <view class="section spec-box">
-                    <view class="section-title">规 格 一</view>
-                    <input class='input-txt spec-input' type='number' placeholder='请输入菜品规格名称'></input>
+                <view class="section spec-box" wx:for="{{spec_num}}">
+                    <view class="section-title">规 格 {{index+1}}</view>
+                    <input class='input-txt spec-input' name="titles_{{index+1}}" type='number' placeholder='请输入规格名称'></input>
+                    <input class='input-txt spec-num-input' type='number' name="prices_{{index+1}}" placeholder='请输入规格价格'></input>
                 </view>
+                <view class='spec-btn m' bindtap='showSpec'>{{spec_num>=1?'继续添加':'点击添加规格'}}</view>
                 <view class='line'></view>
                 <view class="btn-area">
                     <button formType="submit">保存</button>

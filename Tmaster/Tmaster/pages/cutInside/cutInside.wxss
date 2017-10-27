@@ -24,3 +24,15 @@
     width: 50%;
     height: 100rpx;
 }
+
+.upload{
+    display: flex;
+    align-items: center;
+    padding-left: 30rpx;
+}
+
+.getCropperImage{
+    display: flex;
+    align-items: center;
+    padding-right: 30rpx;
+}

@@ -45,14 +45,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 
 
-
-
-
-
-
-
-
-
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -76,31 +68,6 @@ var createClass = function () {
     return Constructor;
   };
 }();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 var slicedToArray = function () {

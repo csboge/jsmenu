@@ -2,13 +2,13 @@
 
     <view class='cate-title-box'>
         <view class='cate-title m b g'>名称</view>
-         <view class='cate-title m b g'>所属分类</view> 
+        <view class='cate-title m b g'>所属分类</view>
         <view class='cate-title m b g'>操作</view>
     </view>
     <view class='cate-detail-box'>
         <view class='cate-detail-item' wx:for="{{cate_list}}">
             <view class='cate-name ls b'>{{item.name}}</view>
-             <view class='cate-type ls b'>{{item.parent_name?item.parent_name:'顶级分类'}}</view>
+            <view class='cate-type ls b'>{{item.parent_name?item.parent_name:'顶级分类'}}</view>
             <view class='cate-btn'>
                 <button class='del-btn' data-obj='{{item}}' bindtap='update'>
                     <image class='btn-img' src='../../img/update_icon.png' mode='widthFix'></image>

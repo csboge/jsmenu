@@ -25,6 +25,7 @@ Page({
         let _curr_cate = e.currentTarget.dataset.obj;
         let index = e.currentTarget.dataset.i;
         let that = this;
+        let id = e.currentTarget.dataset.id;
 
         wx.showModal({
             title: '提示',
@@ -70,6 +71,7 @@ Page({
     update(e) {
 
         let obj = e.currentTarget.dataset.obj;
+        console.log(obj)
         wx.navigateTo({
             url: '../updateCate/updateCate?cate=' + JSON.stringify(obj)
         })

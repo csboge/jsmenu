@@ -2,9 +2,9 @@
     "pages": [
         "pages/register/register",
         "pages/home/home",
+        "pages/cateList/cateList",
         "pages/saleReport/saleReport",
         "pages/collectionRecord/collectionRecord",
-        "pages/cateList/cateList",
         "pages/menuItem/menuItem",
         "pages/dishList/dishList",
         "pages/updateDish/updateDish",

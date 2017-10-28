@@ -4,6 +4,7 @@ import util from "../../utils/util";
 
 let app = getApp();
 
+// pages/updateCate/updateCate.js
 Page({
 
     /**
@@ -16,6 +17,7 @@ Page({
         parent_id: null,
         curr_cate: {},      //当前更改的分类对象
         hideList: [{ name: '是', value: 1 }, { name: '否', value: 0 }]
+
     },
 
     /**
@@ -90,11 +92,11 @@ Page({
                                 index_array: [0],
                             })
 
-                            setTimeout(()=>{
+                            setTimeout(() => {
                                 wx.navigateBack({
                                     delta: 1,
                                 });
-                            },1000);
+                            }, 1000);
 
                         }
                     });
@@ -122,5 +124,7 @@ Page({
             index: e.detail.value,
             parent_id: check_id
         });
-    }
+        console.log(options.cate_id);
+    },
+
 })

@@ -16,7 +16,7 @@ App({
         // ev_url: "https://api.ai-life.me/system",     //测试环境
         system_version: 'BGmenu-1.0-@)!&*@#',       //系统版本号
 
-        shop_info: {  },                              //商户信息
+        shop_info: {},                              //商户信息
         user_info: {},                              //用户信息
 
         cut_url: "",                                //菜品裁剪的图片地址

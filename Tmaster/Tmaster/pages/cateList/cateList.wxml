@@ -13,7 +13,7 @@
                 <button class='del-btn' data-obj='{{item}}' bindtap='update'>
                     <image class='btn-img' src='../../img/update_icon.png' mode='widthFix'></image>
                 </button>
-                <button class='del-btn' bindtap='delCate'>
+                <button class='del-btn' data-obj='{{item}}' data-i='{{index}}' bindtap='delCate'>
                     <image class='btn-img' src='../../img/del_icon.png' mode='widthFix'></image>
                 </button>
             </view>

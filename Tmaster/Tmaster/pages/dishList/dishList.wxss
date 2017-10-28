@@ -4,10 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    text-align: center;
-    color: #a4a4a4;
     width: 100%;
-    line-height: 3;
     border-bottom: 4rpx solid #f2f2f2;
     background: #fff;
 }
@@ -113,4 +110,28 @@
     line-height: 3;
     text-align: center;
     background: #fff;
+}
+
+.search-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20rpx 30rpx;
+}
+
+.search-input{
+    margin-left: 20rpx;
+    padding-left: 30rpx;
+    width: 480rpx;
+    height: 60rpx;
+    border-radius: 30rpx;
+    border: 2rpx solid #ddd;
+    font-weight: normal;
+}
+
+.search-btn{
+    height: 60rpx;
+    font-weight: normal;
+    line-height: 60rpx;
+    color: #363636;
 }

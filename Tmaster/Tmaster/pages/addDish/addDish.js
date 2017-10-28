@@ -208,7 +208,7 @@ Page({
         let data = {
             title: obj.title,
             price: obj.price - 0,
-            attrs: _attrs,
+            attrs: JSON.stringify(_attrs),
             cat_id: this.data.index_array[this.data.index],
             image: this.data.upload_img
         };

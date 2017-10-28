@@ -20,8 +20,6 @@ Page({
         img_url: "",                //菜品图片地址
         show_pic: false,            //是否显示图片
 
-        spec_num: 0,                //规格数量
-
         is_finish: 0,               //图片上传状态
         upload_img: "",             //图片上传后返回的地址
     },
@@ -33,24 +31,27 @@ Page({
 
         let _dish = JSON.parse(options.obj);
         let _index = null;
+        let that = this;
 
         //重置剪裁图片
         app.globalData.cut_url = "";
         //加载分类
-        this.fetchCate();
-
-        this.data.index_array.forEach((ele, i) => {
-            if (_dish.cate_id === ele) {
-                _index = i;
-            }
-        });
+        this.fetchCate(setDatas);
+        function setDatas(index_array) {
+            index_array.forEach((ele, i) => {
+                if (_dish.cat_id === ele) {
+                    _index = i;
+                }
+            });
+            that.setData({
+                index: _index
+            });
+        }
 
         this.setData({
             curr_dish: _dish,
-            spec_num: _dish.attrs.length,
-            index: _index
+            img_url: _dish.image
         });
-
     },
     onShow() {
 
@@ -59,8 +60,8 @@ Page({
         //显示菜品图片
         if (app.globalData.cut_url) {
             this.setData({
-                show_pic: true,
-                img_url: app.globalData.cut_url
+                img_url: app.globalData.cut_url,
+                show_pic: true
             });
             //上传图片
             wx.uploadFile({
@@ -88,7 +89,7 @@ Page({
         }
     },
     //加载一级分类
-    fetchCate() {
+    fetchCate(fn) {
 
         let that = this;
 
@@ -102,7 +103,7 @@ Page({
                         _array.push(obj.name);
                         _index_array.push(obj.id);
                     });
-
+                    fn(_index_array);
                     that.setData({
                         array: _array,
                         index_array: _index_array
@@ -141,13 +142,26 @@ Page({
     //添加规格选择框
     showSpec() {
 
-        let _spec_num = this.data.spec_num;
+        let _curr_dish = this.data.curr_dish;
 
-        _spec_num++;
+        _curr_dish.attrs.push({});
 
         this.setData({
-            spec_num: _spec_num
-        })
+            curr_dish: _curr_dish
+        });
+    },
+    //删除规格
+    delSpec(e) {
+
+        let index = e.currentTarget.dataset.i;
+        let _curr_dish = this.data.curr_dish;
+
+        _curr_dish.attrs.splice(index, 1);
+
+        this.setData({
+            curr_dish: _curr_dish
+        });
+
     },
     //选择分类
     bindPickerChange(e) {
@@ -163,15 +177,20 @@ Page({
         if (this.valid(obj)) {
             console.log(this.formatData(obj));
             let data = app.getParams(this.formatData(obj));
-            util.request(app.globalData.ev_url + "/goods/add", "POST", data)
+            util.request(app.globalData.ev_url + "/goods/update", "POST", data)
                 .then((res) => {
                     if (res.data.code === 1) {
                         wx.showToast({
-                            title: '添加成功',
+                            title: '修改成功',
                             icon: 'success',
                             duration: 1000,
                             mask: true
                         });
+                        setTimeout(() => {
+                            wx.navigateBack({
+                                delta: 1,
+                            });
+                        }, 500);
                     } else {
                         wx.showModal({
                             title: '提示',
@@ -200,21 +219,21 @@ Page({
                 });
             }
         }
-        if (!app.globalData.cut_url) {
-            sign = false;
-            wx.showModal({
-                title: '提示',
-                content: '请上传菜品图片',
-                showCancel: false
-            });
-        }
+        // if (!app.globalData.cut_url) {
+        //     sign = false;
+        //     wx.showModal({
+        //         title: '提示',
+        //         content: '请上传菜品图片',
+        //         showCancel: false
+        //     });
+        // }
         return sign;
     },
     //整理表单数据
     formatData(obj) {
 
         let _attrs = [];
-        let _spec_num = this.data.spec_num;
+        let _spec_num = this.data.curr_dish.attrs.length;
 
         //规格数组
         if (_spec_num > 0) {
@@ -223,11 +242,12 @@ Page({
             }
         }
         let data = {
+            id: this.data.curr_dish.id,
             title: obj.title,
             price: obj.price - 0,
-            attrs: _attrs,
+            attrs: JSON.stringify(_attrs),
             cat_id: this.data.index_array[this.data.index],
-            image: this.data.upload_img
+            image: this.data.upload_img || this.data.curr_dish.image
         };
 
         return data;

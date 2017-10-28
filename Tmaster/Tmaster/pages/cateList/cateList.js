@@ -22,15 +22,49 @@ Page({
     //删除分类
     delCate(e) {
 
-        let id = e.currentTarget.dataset.id;
+        let _curr_cate = e.currentTarget.dataset.obj;
+        let index = e.currentTarget.dataset.i;
+        let that = this;
 
         wx.showModal({
             title: '提示',
-            content: '现在还不能删除喔',
-            showCancel: false
-        })
+            content: '确定要删除吗?',
+            showCancel: true,
+            success: function (res) {
+                if (res.confirm) {
+                    _curr_cate.hd_status = 0;
+                    delete _curr_cate.list;
+                    util.request(app.globalData.ev_url + "/category/update", "POST", app.getParams(_curr_cate))
+                        .then((res) => {
+                            if (res.data.code === 1) {
 
-        // util.request(app.globalData.ev_url+"","POST",)
+                                let _cate_list = that.data.cate_list;
+                                _cate_list.splice(index, 1);
+
+                                that.setData({
+                                    cate_list: _cate_list
+                                });
+
+                                wx.showToast({
+                                    title: '删除成功',
+                                    icon: 'success',
+                                    duration: 1000,
+                                    mask: true
+                                });
+
+                            } else {
+                                wx.showModal({
+                                    title: '提示',
+                                    content: '删除失败!',
+                                    showCancel: false
+                                });
+                            }
+                        }, (res) => {
+                            util.disconnectModal();
+                        });
+                }
+            }
+        });
     },
     //修改分类
     update(e) {
@@ -51,12 +85,12 @@ Page({
 
                     let _list = res.data.data;
 
-                    _list.forEach((obj)=>{
-                        if(obj.list.length > 0){
-                           obj.list.forEach((ele)=>{
-                               ele.parent_name = obj.name;
-                               _list.push(ele);
-                           })
+                    _list.forEach((obj) => {
+                        if (obj.list.length > 0) {
+                            obj.list.forEach((ele) => {
+                                ele.parent_name = obj.name;
+                                _list.push(ele);
+                            })
                         }
                     });
 
@@ -77,10 +111,7 @@ Page({
     //跳转至添加分类
     toAddCate() {
         wx.navigateTo({
-            url: '../addCate/addCate',
-            success: function (res) { },
-            fail: function (res) { },
-            complete: function (res) { },
-        })
+            url: '../addCate/addCate'
+        });
     }
 })

@@ -38,10 +38,10 @@ Page({
                 mobile: tel,
                 password: pwd
             };
-            
+
             util.request(app.globalData.ev_url + "/user/isadmin", "POST", data)
                 .then((res) => {
-                    if(res.data.code === 1){
+                    if (res.data.code === 1) {
                         //商户id、用户id保存到全局
                         let shop_id = res.data.data.shop_id;
                         let user_id = res.data.data.user_id;
@@ -53,14 +53,14 @@ Page({
                             icon: 'success',
                             duration: 1000,
                             mask: true,
-                            success: function(res) {
-                                wx.navigateTo({
+                            success: function (res) {
+                                wx.redirectTo({
                                     url: '../home/home'
                                 });
                             }
                         });
 
-                    }else{
+                    } else {
                         wx.showModal({
                             title: '提示',
                             content: res.data.message,
@@ -78,7 +78,7 @@ Page({
         }
     },
     //全局数据
-    globalData:{
-        
+    globalData: {
+
     }
 })

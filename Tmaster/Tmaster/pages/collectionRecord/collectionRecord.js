@@ -11,7 +11,9 @@ Page({
      */
     data: {
         array: [],              //门店
-        data_list: [],          //数据列表
+        data_list: [],          //当前显示的数据列表
+        all_data_list: [],      //所有数据列表
+        index: 0,               //当前查看的索引
 
         has_more: true,         //是否显示查看更多
     },
@@ -29,10 +31,11 @@ Page({
 
         let that = this;
         //app.globalData.shop_info.shop_id
-        util.request(app.globalData.ev_url + "/orders/orderList", "POST", app.getParams({ page: 1 }))
+        util.request(app.globalData.ev_url + "/orders/orderList", "POST", app.getParams({}))
             .then((res) => {
                 if (res.data.code === 1) {
                     let _list = res.data.data || [];
+                    let _data_list = [];
 
                     let reg = /[\u4e00-\u9fa5]/g;
 
@@ -43,8 +46,14 @@ Page({
                         });
                     });
 
+                    if (_list.length > 0) {
+                        _data_list.push(_list[0])
+                    }
+
                     that.setData({
-                        data_list: _list
+                        all_data_list: _list,
+                        data_list: _data_list,
+                        has_more: _list.length > 1 ? true : false
                     });
 
                 } else {
@@ -57,6 +66,28 @@ Page({
             }, (res) => {
                 util.disconnectModal();
             });
+    },
+    //查看更多
+    loadMore() {
+
+        let index = this.data.index;
+        let _all_data_list = this.data.all_data_list;
+        let _has_more = true;
+
+        if (this.data.has_more) {
+            index++;
+            if (index + 1 < _all_data_list.length) {
+                _has_more = true;
+            } else {
+                _has_more = false;
+            }
+            this.setData({
+                index: index,
+                data_list: _all_data_list.slice(0, index + 1),
+                has_more: _has_more,
+            });
+        }
+
     },
     //选择门店
     selectShop(e) {

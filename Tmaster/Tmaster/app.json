@@ -1,29 +1,29 @@
 {
-  "pages": [
-    "pages/dishList/dishList",
-    "pages/updateDish/updateDish",
-    "pages/addDish/addDish",
-    "pages/cutInside/cutInside",
-    "pages/home/home",
-    "pages/cateList/cateList",
-    "pages/updateCate/updateCate",
-    "pages/addCate/addCate",
-    "pages/register/register",
-    "pages/menuItem/menuItem",
-    "pages/saleReport/saleReport",
-    "pages/collectionRecord/collectionRecord",
-    "pages/reportDetail/reportDetail",
-    "pages/apply/apply",
-    "pages/menu/menu",
-    "pages/cookbook/cookbook",
-    "pages/store/store",
-    "pages/material/material",
-    "pages/sub/sub",
-    "pages/logs/logs"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#509863",
-    "navigationBarTextStyle": "white"
-  }
+    "pages": [
+        "pages/register/register",
+        "pages/home/home",
+        "pages/saleReport/saleReport",
+        "pages/collectionRecord/collectionRecord",
+        "pages/cateList/cateList",
+        "pages/menuItem/menuItem",
+        "pages/dishList/dishList",
+        "pages/updateDish/updateDish",
+        "pages/addDish/addDish",
+        "pages/cutInside/cutInside",
+        "pages/updateCate/updateCate",
+        "pages/addCate/addCate",
+        "pages/reportDetail/reportDetail",
+        "pages/apply/apply",
+        "pages/menu/menu",
+        "pages/cookbook/cookbook",
+        "pages/store/store",
+        "pages/material/material",
+        "pages/sub/sub",
+        "pages/logs/logs"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#509863",
+        "navigationBarTextStyle": "white"
+    }
 }

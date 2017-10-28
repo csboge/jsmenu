@@ -103,11 +103,11 @@ button {
     border: 2rpx solid #c3c3c3;
 }
 
-.dish-img-box::before{
+.dish-img-box::before {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     content: "";
     display: block;
     width: 4rpx;
@@ -115,11 +115,11 @@ button {
     background: #c3c3c3;
 }
 
-.dish-img-box::after{
+.dish-img-box::after {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     content: "";
     display: block;
     width: 55%;
@@ -127,26 +127,48 @@ button {
     background: #c3c3c3;
 }
 
-.dish-img{
+.dish-img {
     margin-left: 30rpx;
     width: 200rpx;
     height: 144rpx;
     border: 2rpx solid #c3c3c3;
 }
 
-.spec-num-input{
+.spec-num-input {
     margin-top: 30rpx;
-    margin-left: 140rpx;
+    margin-left: 138rpx;
 }
 
-.up-img-msg{
+.up-img-msg {
     margin-left: 30rpx;
 }
 
-.green{
+.green {
     color: #509863;
 }
 
-.txt-g{
+.txt-g {
     color: #363636;
+}
+
+.spec-input {
+    width: 320rpx;
+}
+
+.spec-num-input {
+    width: 320rpx;
+}
+
+.del-btn {
+    margin-left: 20rpx;
+    width: 100rpx;
+    height: 64rpx;
+    background: #de443a;
+    text-align: center;
+    line-height: 64rpx;
+}
+
+.del-btn:active{
+    background: #c63d33;
+    color: #eee;
 }

@@ -1,4 +1,7 @@
 // pages/menuItem/menuItem.js
+
+let app = getApp();
+
 Page({
 
     /**

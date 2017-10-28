@@ -22,7 +22,36 @@ Page({
      */
     onLoad: function (options) {
 
+    },
+    onShow() {
         this.fetchData();
+    },
+    //搜索菜品
+    search(e) {
+
+        let txt = e.detail.value.searchTxt;
+        let that = this;
+
+        if (txt.length > 0 && txt.replace(" ", "").length > 0) {
+            util.request(app.globalData.ev_url + "/comman/goods_search", "POST", app.getParams({ value: txt }))
+                .then((res) => {
+                    if (res.data.code === 1) {
+                        that.setData({
+                            dish_data: res.data.data.list,
+                            count: res.data.data.count,
+                            has_more: res.data.data.count === res.data.data.list.length ? false : true
+                        });
+                    } else {
+                        wx.showModal({
+                            title: '提示',
+                            content: res.data.message,
+                            showCancel: false
+                        });
+                    }
+                }, (res) => {
+                    util.disconnectModal();
+                });
+        }
 
     },
     //获取列表
@@ -104,31 +133,45 @@ Page({
     del(e) {
 
         let that = this;
+        let _curr_dish = e.currentTarget.dataset.obj;
         let index = e.currentTarget.dataset.i;
-        let id = this.data.dish_data[index].id;
 
-        util.request(app.globalData.ev_url + "", "POST", app.getParams({ id: id }))
-            .then((res) => {
-                if (res.data.code === 1) {
-                    wx.showToast({
-                        title: '删除成功',
-                        icon: 'success',
-                        duration: 1000,
-                        mask: true
-                    });
-                    that.setData({
-                        dish_data: that.data.dish_data.splice(index, 1)
-                    });
-                } else {
-                    wx.showModal({
-                        title: '提示',
-                        content: res.data.message,
-                        showCancel: false
-                    });
+        wx.showModal({
+            title: '提示',
+            content: '确定要删除吗?',
+            showCancel: true,
+            success(res) {
+                if (res.confirm) {
+                    _curr_dish.attrs = JSON.stringify(_curr_dish.attrs);
+                    _curr_dish.hd_status = 0;
+
+                    util.request(app.globalData.ev_url + "/goods/update", "POST", app.getParams(_curr_dish))
+                        .then((res) => {
+                            if (res.data.code === 1) {
+                                let _dish_data = that.data.dish_data;
+                                _dish_data.splice(index, 1);
+                                wx.showToast({
+                                    title: '删除成功',
+                                    icon: 'success',
+                                    duration: 1000,
+                                    mask: true
+                                });
+                                that.setData({
+                                    dish_data: _dish_data
+                                });
+                            } else {
+                                wx.showModal({
+                                    title: '提示',
+                                    content: res.data.message,
+                                    showCancel: false
+                                });
+                            }
+                        }, (res) => {
+                            util.disconnectModal();
+                        });
                 }
-            }, (res) => {
-                util.disconnectModal();
-            });
+            }
+        });
 
     }
 })

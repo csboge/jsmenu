@@ -1,5 +1,12 @@
 <view class="page-container">
-    <view class='title m b'>菜品列表</view>
+    <view class='title m b'>
+        <form bindsubmit="search" class='search-form'>
+            <view class='search-box'>
+                <input class='search-input' name="searchTxt" placeholder="请输入菜品名称搜索" />
+                <button formType="submit" class='search-btn m'>搜索</button>
+            </view>
+        </form>
+    </view>
     <view class='dish-box'>
         <view class='dish-item' wx:for="{{dish_data}}">
             <image class='dish-img' src='{{item.image}}'></image>
@@ -10,7 +17,7 @@
                         <view class='btn-outer' data-obj='{{item}}' bindtap='edit'>
                             <image class='btn-edit' src='../../img/update_icon.png'></image>
                         </view>
-                        <view class='btn-outer' data-i='{{index}}' bindtap='del'>
+                        <view class='btn-outer' data-obj='{{item}}' data-i='{{index}}' bindtap='del'>
                             <image class='btn-edit' src='../../img/del_icon.png'></image>
                         </view>
                     </view>

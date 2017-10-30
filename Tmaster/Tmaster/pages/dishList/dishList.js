@@ -24,6 +24,9 @@ Page({
 
     },
     onShow() {
+        this.setData({
+            page: 1
+        });
         this.fetchData();
     },
     //搜索菜品

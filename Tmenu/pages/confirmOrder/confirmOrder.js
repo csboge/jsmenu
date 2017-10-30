@@ -303,13 +303,29 @@ Page({
                     //区分固定数量的餐具和按用餐人数变化数量的餐具，并从菜品中区分
                     _use_base.forEach((obj) => {
                         obj.is_canju = true;
-                        if (obj.num === 0) {
+                        if ((obj.num - 0) === 0) {
                             obj.is_change_item = true;
                             is_must_customers = true;
                         } else {
                             obj.is_change_item = false;
                         }
                     });
+
+                    //判断是否显示固定数量的餐具
+                    let new_use_base = [];
+                    _use_base.forEach((obj) => {
+                        if (!obj.is_change_item) {
+                            obj.count_price = (obj.num - 0) * obj.price;
+                            new_use_base.push(obj);
+                        }
+                    });
+
+                    if (new_use_base.length > 0) {
+                        that.setData({
+                            show_use_base: true,
+                            use_base: new_use_base
+                        });
+                    }
 
 
                     app.setGlobalData("use_base", _use_base);
@@ -522,6 +538,7 @@ Page({
                 hide_show_more: true
             });
         }
+
 
     },
     //展开更多
@@ -782,7 +799,18 @@ Page({
     formSubmit: function (e) {
 
         let that = this;
+        let desk_sn = app.globalData.desk_sn;
         let _customer_num = this.data.customer_num;
+
+        //判断桌号是否存在
+        if (desk_sn === -1) {
+            wx.showModal({
+                title: '提示',
+                content: '请输入桌号!',
+                showCancel: false
+            });
+            return;
+        }
 
         // console.log(_customer_num)
         //如果人数为0且为必填，就弹出选择人数框
@@ -797,7 +825,6 @@ Page({
             show_modal: true
         });
 
-        let desk_sn = util.getShopInfoSync(app.globalData.shop_id).user.userid;
         let mode_money = Math.ceil(this.data.discountPrice * this.data.mode_rate);
 
 
@@ -885,6 +912,11 @@ Page({
 
         let _goods_list = _order.goods_list;
         let _use_base = app.globalData.use_base;
+
+        //标识是否是餐具
+        _goods_list.forEach((obj) => {
+            obj.is_canju = 0;
+        });
         // console.log(_goods_list)
         //加入餐具、纸巾等标配物品
         _use_base.forEach((obj) => {

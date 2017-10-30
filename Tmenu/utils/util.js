@@ -272,20 +272,42 @@ function minus(arr, id) {
 function addShopCart(shop_id, obj) {
     let shop_info = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
     var origin_list = shop_info.shopCart;
-    // console.log(origin_list)
+    // console.log(shop_id)
     if (origin_list.length > 0) {
-        for (var i = 0; i < origin_list.length; i++) {
-            if (origin_list[i].id === obj.id) {
-                origin_list[i].num++;
-                break;
+        // console.log(obj.attrs)
+        if (obj.attrs.titles) {//有规格
+
+            for (var i = 0; i < origin_list.length; i++) {
+                if (origin_list[i].id === obj.id && origin_list[i].attrs.titles === obj.attrs.titles) {
+                    origin_list[i].attrs.num++;
+                    origin_list[i].num = origin_list[i].attrs.num;
+                    origin_list[i].price = origin_list[i].attrs.prices;
+                    break;
+                }
+            }
+            if (i === origin_list.length) {
+                obj.attrs.num = 0;
+                obj.attrs.num++;
+                obj.num = obj.attrs.num;
+                obj.price = obj.attrs.prices;
+                origin_list.push(obj);
+            }
+        } else {//无规格
+            for (var i = 0; i < origin_list.length; i++) {
+                if (origin_list[i].id === obj.id) {
+                    origin_list[i].num++;
+                    break;
+                }
+            }
+            if (i === origin_list.length) {
+                obj.num++;
+                origin_list.push(obj);
             }
         }
-        if (i === origin_list.length) {
-            obj.num++;
-            origin_list.push(obj);
-        }
+
     } else {
         obj.num++;
+        obj.price = obj.price || obj.attrs.prices;
         origin_list.push(obj);
     }
     // console.log(origin_list)
@@ -303,17 +325,28 @@ function addShopCart(shop_id, obj) {
  *@des 本地购物车减少单个商品
  * @arr id(移除的商品id)
  */
-function cutShopCart(shop_id, key, id) {
+function cutShopCart(shop_id, key, id, spec_titles) {
 
     var origin_list = wx.getStorageSync('bg_elec_caipu_shop_info_' + shop_id);
 
     origin_list[key].forEach(function (product, i) {
-        if (product.id === id && product.num > 0) {
-            product.num--;
-            if (product.num === 0) {
-                origin_list[key].splice(i, 1);
+        if (product.attrs.titles) {//有规格
+            if (product.id === id && product.attrs.titles === spec_titles && product.num > 0) {
+                product.attrs.num--;
+                product.num = product.attrs.num;
+                if (product.attrs.num === 0) {
+                    origin_list[key].splice(i, 1);
+                }
+            }
+        } else {//无规格
+            if (product.id === id && product.num > 0) {
+                product.num--;
+                if (product.num === 0) {
+                    origin_list[key].splice(i, 1);
+                }
             }
         }
+
     });
     // console.log(origin_list)
     try {
@@ -507,12 +540,12 @@ function loadMore(url, data, old_list, fn, resultFn) {
 
 }
 
-function getShopInfoSync(shop_id){
+function getShopInfoSync(shop_id) {
     try {
         var value = wx.getStorageSync("bg_elec_caipu_shop_info_" + shop_id);
         if (value) {
             return value;
-        }else{
+        } else {
             return -1;
         }
     } catch (e) {

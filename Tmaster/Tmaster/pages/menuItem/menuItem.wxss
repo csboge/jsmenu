@@ -1,0 +1,9 @@
+/* pages/menuItem/menuItem.wxss */
+
+.page-container{
+    width: 100%；
+}
+
+.btn{
+    
+}

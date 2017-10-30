@@ -80,6 +80,15 @@
                 </view>
                 <view class="slide-line"></view>
             </view>
+            <view class="slide-box" wx:if="{{shop_info.spread?true:false}}">
+                <view class="slide-title-box">
+                    <view class="slide-title-ch txt-title-ch">门店视频</view>
+                    <view class="slide-title-en txt-title-en">VIDEO</view>
+                </view>
+                <view class="slide-content">
+                    <video class='video' src='{{shop_info.spread}}' controls poster=''></video>
+                </view>
+            </view>
             <view class="slide-box">
                 <view class="slide-title-box">
                     <view class="slide-title-ch txt-title-ch">优惠活动</view>
@@ -127,7 +136,7 @@
 
             </view>
         </view>
-        <view class="zhaopin-box">
+        <view class="zhaopin-box" wx:if="{{recruit.length>0?true:false}}">
             <view class="zhaopin-title-box">
                 <view class="title-txt-ch">招聘贤士</view>
                 <view class="title-txt-en">RECRUIT</view>

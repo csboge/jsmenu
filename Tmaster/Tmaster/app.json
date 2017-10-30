@@ -1,22 +1,29 @@
 {
-  "pages": [
-    "pages/register/register",
-    "pages/collectionRecord/collectionRecord",
-    "pages/saleReport/saleReport",
-    "pages/home/home",
-    "pages/reportDetail/reportDetail",
-    "pages/apply/apply",
-    "pages/menu/menu",
-    "pages/cookbook/cookbook",
-    "pages/store/store",
-    "pages/material/material",
-    "pages/sub/sub",
-    "pages/logs/logs"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#509863",
-    "navigationBarTitleText": "请填写店铺信息",
-    "navigationBarTextStyle": "white"
-  }
+    "pages": [
+        "pages/register/register",
+        "pages/home/home",
+        "pages/cateList/cateList",
+        "pages/saleReport/saleReport",
+        "pages/collectionRecord/collectionRecord",
+        "pages/menuItem/menuItem",
+        "pages/dishList/dishList",
+        "pages/updateDish/updateDish",
+        "pages/addDish/addDish",
+        "pages/cutInside/cutInside",
+        "pages/updateCate/updateCate",
+        "pages/addCate/addCate",
+        "pages/reportDetail/reportDetail",
+        "pages/apply/apply",
+        "pages/menu/menu",
+        "pages/cookbook/cookbook",
+        "pages/store/store",
+        "pages/material/material",
+        "pages/sub/sub",
+        "pages/logs/logs"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#509863",
+        "navigationBarTextStyle": "white"
+    }
 }

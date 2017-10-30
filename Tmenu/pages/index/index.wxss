@@ -499,3 +499,7 @@
 .hide-modal{
     display: none;
 }
+
+.video{
+    width: 100%;
+}

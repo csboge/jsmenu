@@ -15,6 +15,7 @@ Page({
         date_list: [],              //日报表
         date_page: 1,               //日报表当前页
         date_has_more: true,        //日报是否还有更多可以查看
+        date_count: 0,              //日报表总记录数
 
         week_list: [],              //周报表
         week_page: 1,               //周报表当前页
@@ -37,20 +38,22 @@ Page({
 
         let that = this;
 
-        util.request(app.globalData.ev_url + "/orders/deyList", "POST", app.getParams({ page: that.data.date_page }))
+        util.request(app.globalData.ev_url + "/orders/deyList", "POST", app.getParams({ page: that.data.date_page, limit: 10 }))
             .then((res) => {
                 if (res.data.code === 1) {
 
-                    let list = res.data.data || [];
+                    let list = res.data.data.list || [];
+                    let count = res.data.data.count;
                     let has_more = true;
 
-                    if (list.length % 10 != 0) {
+                    if (list.length === count) {
                         has_more = false;
                     }
 
                     that.setData({
                         date_list: list,
-                        date_has_more: has_more
+                        date_has_more: has_more,
+                        date_count: count
                     });
 
                 } else {
@@ -78,10 +81,9 @@ Page({
             this.setData({
                 date_page: cur_page
             });
-            console.log(page, cur_page);
 
             let url = app.globalData.ev_url + "/orders/deyList";
-            let data = app.getParams({ page: that.data.date_page });
+            let data = app.getParams({ page: that.data.date_page, limit: 10 });
             let old_list = this.data.date_list;
 
             //加载数据
@@ -91,7 +93,7 @@ Page({
 
                 let has_more = true;
 
-                if (res % 10 != 0) {
+                if (res.length === that.data.date_count) {
                     has_more = false;
                 }
 

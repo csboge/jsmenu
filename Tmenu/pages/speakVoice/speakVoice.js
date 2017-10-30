@@ -42,6 +42,7 @@ Page({
         let scene = decodeURIComponent(options.scene);
         console.log(scene)
 
+
         //设置标题栏为商铺名
         wx.setNavigationBarTitle({
             title: shop_title
@@ -66,7 +67,7 @@ Page({
             //初始化红包列表
             that.initHbList();
 
-        });
+        }, -1);
 
     },
     //获取轮播图
@@ -390,7 +391,7 @@ Page({
     //点击去菜单
     toMenu: function () {
         wx.navigateTo({
-            url: '../menu/menu'
+            url: '../menu/menu?shop_id=' + app.globalData.shop_id,
         })
     },
     //查看红包记录

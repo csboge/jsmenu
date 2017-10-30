@@ -109,7 +109,7 @@ function request(url) {
  * @params      string              url
  * @params      object              data
  * @params      array               old_list        旧的数据数组
- * @params      function            fn              处理加载的数据格式为所需格式
+ * @params      function            fn              处理加载的新数据格式为所需格式
  * @params      function            resultFn        拿到结果数据
  *  
  */
@@ -122,9 +122,15 @@ function loadMore(url, data, old_list, fn, resultFn) {
 
             if (res.data.code === 1) {
 
-                let load_list = fn(res.data.data);
+                let load_list = fn(res.data.data.list, res.data.data.count);
                 if (load_list.length > 0) {
                     new_list = old_list.concat(load_list);
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: '没有更多数据啦！',
+                        showCancel: false
+                    });
                 }
 
             } else {

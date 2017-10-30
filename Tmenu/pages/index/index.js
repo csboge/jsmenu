@@ -43,12 +43,13 @@ Page({
         console.log(options.shop_id)
 
         let shop_id = null;
+        let desk_sn = options.desk_sn || -1;
 
         if (app.globalData.out_in === false) {
             shop_id = options.shop_id || app.globalData.shop_id;
         }
         console.log("我是indexshop_id" + app.globalData.out_in);
-        app.filter(shop_id, this.fetchData);
+        app.filter(shop_id, this.fetchData, desk_sn);
 
     },
     onShow: function () {

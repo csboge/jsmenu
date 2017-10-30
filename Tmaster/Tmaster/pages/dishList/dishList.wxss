@@ -1,0 +1,137 @@
+/* pages/dishList/dishList.wxss */
+
+.title {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 4rpx solid #f2f2f2;
+    background: #fff;
+}
+
+.dish-box {
+    padding-top: 92rpx;
+    padding-bottom: 220rpx;
+}
+
+.dish-item {
+    padding: 20rpx 20rpx;
+    display: flex;
+    background: #fff;
+}
+
+.dish-img {
+    width: 200rpx;
+    height: 144rpx;
+}
+
+.dish-detail-box {
+    flex-grow: 1;
+}
+
+.btn-box {
+    display: flex;
+}
+
+.btn-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15rpx 15rpx;
+    margin-left: 20rpx;
+}
+
+.btn-edit, .btn-edit {
+    width: 40rpx;
+    height: 40rpx;
+}
+
+.dish-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 30rpx;
+}
+
+.dish-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 30rpx;
+}
+
+.dish-item {
+    border-bottom: 2rpx solid #f2f2f2;
+}
+
+.dish-detail-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 14rpx;
+}
+
+.dish-spec {
+    padding-right: 20rpx;
+    display: flex;
+}
+
+.add-box {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #509863;
+    line-height: 3;
+    width: 100%;
+    text-align: center;
+}
+
+.add-box:active {
+    color: #ddd;
+    background: #3d734b;
+}
+
+.has-more {
+    margin-top: 20rpx;
+    line-height: 3;
+    text-align: center;
+    background: #fff;
+    border-top: 2rpx solid #eee;
+    border-bottom: 2rpx solid #eee;
+    color: #509863;
+}
+
+.has-more:active {
+    background: #f3f3f3;
+    color: #3d734b;
+}
+
+.no-more {
+    margin-top: 20rpx;
+    line-height: 3;
+    text-align: center;
+    background: #fff;
+}
+
+.search-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20rpx 30rpx;
+}
+
+.search-input{
+    margin-left: 20rpx;
+    padding-left: 30rpx;
+    width: 480rpx;
+    height: 60rpx;
+    border-radius: 30rpx;
+    border: 2rpx solid #ddd;
+    font-weight: normal;
+}
+
+.search-btn{
+    height: 60rpx;
+    font-weight: normal;
+    line-height: 60rpx;
+    color: #363636;
+}

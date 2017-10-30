@@ -1,24 +1,67 @@
 /**app.wxss**/
+
 .container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
-.page-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 200rpx 0;
+    box-sizing: border-box;
+}
+
+.page-container {
     display: block;
     width: 100%;
 }
-page{
+
+page {
     background: #fdfdfd;
 }
 
-.page-foot{
+.page-foot {
     padding: 110rpx 0 40rpx 0;
     font-size: 20rpx;
     text-align: center;
     color: #ccc;
+}
+
+.l {
+    font-size: 32rpx;
+}
+
+.ls {
+    font-size: 30rpx;
+}
+
+.m {
+    font-size: 28rpx;
+}
+
+.ms {
+    font-size: 24rpx;
+}
+
+.s {
+    font-size: 20rpx;
+}
+
+.b {
+    font-weight: bold;
+}
+
+.w {
+    color: #fff;
+}
+
+.g {
+    color: #a4a4a4;
+}
+
+.red {
+    color: #be3838;
+}
+
+.green {
+    color: #509863;
 }

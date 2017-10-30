@@ -1,0 +1,35 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true
+	},
+	"compileType": "weapp",
+	"libVersion": "1.5.4",
+	"appid": "wx3fcef4db43bcfaed",
+	"projectname": "Tmenu",
+	"condition": {
+		"weapp": {
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "扫二维码进入",
+					"pathName": "pages/menu/menu",
+					"query": "shop_id=7&desk_sn=1",
+					"scene": "1011"
+				}
+			]
+		},
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		}
+	}
+}

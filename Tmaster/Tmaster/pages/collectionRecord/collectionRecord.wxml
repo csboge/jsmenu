@@ -34,12 +34,13 @@
                     </view>
                 </view>
             </view>
-            <view class="load-more">
+            <view class="load-more" wx:if="{{has_more}}" bindtap='loadMore'>
                 <view class="shop-txt">查看更多</view>
                 <view class="arr-down lm-arr"></view>
             </view>
-            <!-- <view class='load-more shop-txt no-more'>没有更多了</view> -->
+            <view class='load-more shop-txt no-more' wx:if="{{!has_more}}">没有更多了</view>
         </view>
     </view>
+    <view class='no-data' wx:if="{{data_list.length>0?false:true}}">暂无数据</view>
     <template is="page-foot" />
 </view>

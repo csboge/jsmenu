@@ -30,29 +30,34 @@ App({
     onShow(options) {
 
     },
+    onHide(){
+        this.globalData.is_refresh_menu = false;
+    },
     //通过商户号进行过滤
-    filter(shop_id, cb) {
+    filter(shop_id, cb, desk_sn) {
         let that = this;
 
-        let desk_sn = "1";
-        console.log("接受到的shop_id" + shop_id)
-        //判断商户id是否存在
-        if (shop_id) {
-            // console.log("主页onshow")
-            that.setGlobalData("shop_id", shop_id);
+        console.log("shop_id" + shop_id + "  " + "桌号：" + desk_sn)
 
-            let _shop_info = util.getShopInfoSync(shop_id);
+        let _shop_id = shop_id || that.globalData.shop_id;
+        //判断商户id是否存在
+        if (_shop_id) {
+            // console.log("主页onshow")
+            that.setGlobalData("shop_id", _shop_id);
+            that.setGlobalData("desk_sn", desk_sn);
+
+            let _shop_info = util.getShopInfoSync(_shop_id);
             if (_shop_info === -1) {
-                wx.setStorageSync("bg_elec_caipu_shop_info_" + shop_id, { shop_id: shop_id });
+                wx.setStorageSync("bg_elec_caipu_shop_info_" + _shop_id, { shop_id: _shop_id });
             }
             //初始化用户本地数据
-            let shop_info = util.getShopInfoSync(shop_id);
+            let shop_info = util.getShopInfoSync(_shop_id);
 
             let _user = shop_info.user;
             //防止覆盖
             if (!_user) {
                 shop_info.user = { "desk_sn": desk_sn };
-                wx.setStorageSync("bg_elec_caipu_shop_info_" + shop_id, shop_info);
+                wx.setStorageSync("bg_elec_caipu_shop_info_" + _shop_id, shop_info);
             }
             // console.log(util.getShopInfoSync(shop_id))
 
@@ -293,8 +298,8 @@ App({
     //全局数据
     globalData: {
         // ev_url: "http://dev.csboge.com/api",
-        ev_url: "https://demo.ai-life.me/api",      //测试环境
-        // ev_url:"https://api.ai-life.me/api",        //生产环境
+        ev_url: "https://demo.ai-life.me/api",      //生产环境
+        // ev_url:"https://api.ai-life.me/api",        //测试环境
         system_version: 'BGmenu-1.0-@)!&*@#',       //系统版本号
         is_first_login: true,                       //是否是第一次登录 
         is_shop_path: 0                             //商户Id
@@ -307,7 +312,7 @@ App({
     makeCall: function () {
 
         let that = this;
-
+        console.log(that.globalData.shop_info.mobile + "111")
         wx.makePhoneCall({
             phoneNumber: that.globalData.shop_info.mobile,
             success: function (res) {

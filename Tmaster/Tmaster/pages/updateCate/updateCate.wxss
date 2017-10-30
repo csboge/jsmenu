@@ -1,0 +1,76 @@
+/* pages/addCate/addCate.wxss */
+
+page{
+    padding-top: 40rpx;
+    background: #509863;
+}
+
+.page-section{
+    width: 690rpx;
+    margin: 0 auto;
+    border-radius: 6rpx;
+    background: #fff;
+}
+
+.form-title{
+    padding: 40rpx 0;
+    text-align: center;
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #363636;
+}
+
+.form-content{
+    display: flex;
+    flex-direction: column;
+}
+
+.section{
+    display: flex;
+    align-items: center;
+    padding: 0 36rpx;
+    margin-bottom: 26rpx;
+}
+
+.section-title{
+    font-size: 28rpx;
+    color: #363636;
+}
+
+.input-txt{
+    display: flex;
+    align-items: center;
+    padding-left: 20rpx;
+    margin-left: 24rpx;
+    width: 440rpx;
+    height: 60rpx;
+    font-size: 28rpx;
+    border: 2rpx solid #c3c3c3;
+}
+.line{
+    margin: 0 auto;
+    width: 630rpx;
+    height: 2rpx;
+    background: #f0f0f0;
+}
+
+.btn-area{
+    padding: 36rpx 150rpx;
+}
+button{
+    margin: 30rpx 0;
+    color: #363636;
+}
+
+.gray{
+    color: #808080;
+}
+
+radio-group {
+    margin-left: 30rpx;
+}
+
+label{
+    font-size: 28rpx;
+    margin: 0 20rpx;
+}

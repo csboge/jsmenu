@@ -18,7 +18,7 @@
 					"id": 0,
 					"name": "扫二维码进入",
 					"pathName": "pages/menu/menu",
-					"query": "shop_id=8&desk_sn=1",
+					"query": "shop_id=7&desk_sn=1",
 					"scene": "1011"
 				}
 			]

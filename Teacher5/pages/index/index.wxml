@@ -1,13 +1,13 @@
 <view class="page-container">
     <view class='page-head'>
-        <image class='hd-bg' src='../../img/tc5_hd_bg.jpg'></image>
+        <image class='hd-bg' src='{{user_data.head_bg}}'></image>
         <view class='person-box'>
             <view class='person-head-box'>
                 <view class='p-box'>
                     <image class='person-head' src='../../img/tc5_p_hd.png'></image>
                 </view>
-                <view class='person-name w l b'>周伟</view>
-                <view class='person-position w m'>好望角汇成商学院创始人</view>
+                <view class='person-name w l b'>{{user_data.name}}</view>
+                <view class='person-position w m'>{{user_data.explain}}</view>
                 <view class='btn-box'>
                     <view class='tel-box' bindtap='call'>
                         <image class='btn-img' src='../../img/tel_icon.png'></image>
@@ -21,101 +21,86 @@
     </view>
     <view class='page-section'>
         <view class='company-box'>
-            <image class='company-img' src='../../img/tc5_c_title.png'></image>
-            <view class='company-detail'>
-                <view class='company-title l red b'>我们的愿景</view>
-                <view class='company-detail ls'>让中小企业花最少的钱学最落地的课程</view>
-                <view class='company-title l red b'>我们的使命</view>
-                <view class='company-detail ls'>解救中小企业于水深火热之中</view>
-                <view class='company-title l red b'>我们的宗旨</view>
-                <view class='company-detail ls'>经营人，影响人，成就人</view>
-                <view class='company-title l red b'>我们的精神</view>
-                <view class='company-detail ls'>积极、学习、快乐、团结、成功</view>
-                <view class='company-title l red b'>我们的作风</view>
-                <view class='company-detail ls'>指哪打哪，雷厉风行，没有借口，永不言败</view>
-                <view class='company-title l red b'>我们的核心价值观</view>
-                <view class='company-detail ls'>为天地立心，为生民立命，为往圣继绝学，</view>
-                <view class='company-detail ls'>为万世开太平为企业成功全力以赴......</view>
+            <image class='company-img' src='{{user_data.culture.image}}'></image>
+            <view class='company-detail' wx:for="{{user_data.culture.content}}">
+                <view class='company-title l red b' wx:if="{{item.title}}">{{item.title}}</view>
+                <view class='company-detail ls'>{{item.content}}</view>
             </view>
         </view>
         <view class='company-serv'>
-            <image class='company-serv-top' src='../../img/company_serv.jpg'></image>
-            <image class='company-serv-bg' src='../../img/company_serv_bg.jpg'></image>
+            <image class='company-serv-top' src='{{user_data.service[0]}}'></image>
+            <image class='company-serv-bg' src='{{user_data.service[1]}}'></image>
         </view>
         <view class='course-box'>
             <image class='course-title-img' src='../../img/class_title.jpg'></image>
             <view class='course-item-box'>
                 <view class='course-item'>
-                    <image class='course-img' src='../../img/item1.jpg'></image>
+                    <image class='course-img' src='{{user_data.boutique.content[0].img}}'></image>
                     <view class='course-detail'>
                         <image class='course-icon' src='../../img/item_icon1.png'></image>
-                        <view class='course-title ls red'>引流策略</view>
+                        <view class='course-title ls red'>{{user_data.boutique.content[0].title}}</view>
                     </view>
                 </view>
                 <view class='course-item'>
-                    <image class='course-img' src='../../img/item2.jpg'></image>
+                    <image class='course-img' src='{{user_data.boutique.content[1].img}}'></image>
                     <view class='course-detail'>
                         <image class='course-icon' src='../../img/item_icon2.png'></image>
-                        <view class='course-title ls red'>赚钱模式</view>
+                        <view class='course-title ls red'>{{user_data.boutique.content[1].title}}</view>
                     </view>
                 </view>
                 <view class='course-item'>
-                    <image class='course-img' src='../../img/item3.jpg'></image>
+                    <image class='course-img' src='{{user_data.boutique.content[2].img}}'></image>
                     <view class='course-detail'>
                         <image class='course-icon' src='../../img/item_icon3.png'></image>
-                        <view class='course-title ls red'>暴利营销</view>
+                        <view class='course-title ls red'>{{user_data.boutique.content[2].title}}</view>
                     </view>
                 </view>
                 <view class='course-item'>
-                    <image class='course-img' src='../../img/item4.jpg'></image>
+                    <image class='course-img' src='{{user_data.boutique.content[3].img}}'></image>
                     <view class='course-detail'>
                         <image class='course-icon' src='../../img/item_icon4.png'></image>
-                        <view class='course-title ls red'>自动化营销</view>
+                        <view class='course-title ls red'>{{user_data.boutique.content[3].title}}</view>
                     </view>
                 </view>
                 <view class='course-item' data-i='5' bindtap='jump'>
-                    <image class='course-img' src='../../img/item5.jpg'></image>
+                    <image class='course-img' src='{{user_data.boutique.content[4].img}}'></image>
                     <view class='course-detail'>
                         <image class='course-icon' src='../../img/item_icon5.png'></image>
-                        <view class='course-title ls red'>团队密训</view>
+                        <view class='course-title ls red'>{{user_data.boutique.content[4].title}}</view>
                     </view>
                 </view>
                 <view class='course-item' data-i='6' bindtap='jump'>
-                    <image class='course-img' src='../../img/item6.jpg'></image>
+                    <image class='course-img' src='{{user_data.boutique.content[5].img}}'></image>
                     <view class='course-detail'>
                         <image class='course-icon' src='../../img/item_icon6.png'></image>
-                        <view class='course-title ls red'>狼性销售</view>
+                        <view class='course-title ls red'>{{user_data.boutique.content[5].title}}</view>
                     </view>
                 </view>
             </view>
-            <image class='center-bg' src='../../img/bg.jpg'></image>
+            <image class='center-bg' src='{{user_data.human.image}}'></image>
             <view class='know-box'>
-                <image class='know-title' src='../../img/title.jpg'></image>
+                <image class='know-title' src='../../img/tc5_zrx.jpg'></image>
                 <view class='know-des'>
                     <view class='arrow'></view>
-                    <view class='know-des-txt m'>通过站在人的角度思考企业的未来。</view>
-                    <view class='know-des-txt m'>知人性者得人心，得人心者得天下！</view>
-                    <view class='know-des-txt m'>管理定江山，团队打天下！</view>
-                    <view class='know-des-txt m'>新的时代不是随便抓住一个机遇就能赚钱的，</view>
-                    <view class='know-des-txt m'>需要的是新的经营模式和一支强大的销售团队共同奋战。</view>
+                    <view class='know-des-txt m' wx:for="{{user_data.human.content}}">{{item}}</view>
                 </view>
                 <view class='know-video-box'>
-                    <video class='know-video' src='http://img.my-shop.cc/video/person.mp4' controls poster=''></video>
+                    <video class='know-video' src='{{user_data.human.video[0]}}' controls poster=''></video>
                 </view>
             </view>
             <view class='cust-box'>
                 <view class='cust-title l b red'>客户见证</view>
                 <view class='cust-video-box'>
-                    <video class='cust-video' src='http://img.my-shop.cc/video/cust.mp4' controls poster=''></video>
+                    <video class='cust-video' src='{{user_data.human.video[1]}}' controls poster=''></video>
                 </view>
             </view>
             <view class='mr-box'>
                 <view class='cust-title l b red'>名人交流</view>
                 <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
-                    <block wx:for="{{imgUrls}}">
+                    <block wx:for="{{user_data.human.banner}}">
                         <swiper-item>
-                            <image src="{{item.img}}" class="slide-image"/>
-                            <view class='m b'>{{item.txt}}</view>
+                            <image src="{{item.img}}" class="slide-image" />
+                            <view class='m b'>{{item.title}}</view>
                         </swiper-item>
                     </block>
                 </swiper>
@@ -123,16 +108,13 @@
             <view class='stu-box'>
                 <view class='cust-title l b red'>学员风采</view>
                 <view class='stu-img-box'>
-                    <image class='stu-img' src='../../img/stu1.jpg'></image>
-                    <image class='stu-img' src='../../img/stu2.jpg'></image>
-                    <image class='stu-img' src='../../img/stu3.jpg'></image>
-                    <image class='stu-img' src='../../img/stu4.jpg'></image>
+                    <image class='stu-img' src='{{item}}' wx:for="{{user_data.human.student}}"></image>
                 </view>
             </view>
         </view>
     </view>
     <view class='page-foot'>
-        <image class='qr-img' src='../../img/qr.jpg'></image>
+        <image class='qr-img' src='{{user_data.human.code}}'></image>
         <view class='info-box'>
             <view class='info-touch-tel ms'>咨询电话：15111276022</view>
             <view class='info-com-tel ms'>公司电话：0731-83091222</view>

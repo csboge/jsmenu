@@ -4,22 +4,42 @@ const app = getApp()
 
 Page({
     data: {
-        imgUrls: [
-            { img: "../../img/slide1.jpg", txt: "第九届全国政协委员-李晓华先生" },
-            { img: "../../img/slide2.jpg", txt: "共和国四大演说家之一-彭清一老师" },
-            { img: "../../img/slide3.jpg", txt: "昆仑决创始人-姜华先生" },
-            { img: "../../img/slide4.jpg", txt: "全国政协科教文卫体副主任-蔡冠深先生" },
-            { img: "../../img/slide5.jpg", txt: "全球社会性企业家生态论坛创始人-姜岚昕先生" },
-            { img: "../../img/slide6.jpg", txt: "世界著名投资家-吉姆-罗杰斯先生" },
-        ],
+        user_data: {}
     },
 
     onLoad: function () {
 
+        let that = this;
+
+        wx.request({
+            url: "https://demo.ai-life.me/api/lecturer/index",
+            data: { id: 6 },
+            success: function (res) {
+                if (res.data.code === 1) {
+                    that.setData({
+                        user_data: res.data.data
+                    });
+                } else {
+                    wx.showModal({
+                        title: '提示',
+                        content: res.data.message,
+                        showCancel: false
+                    })
+                }
+            },
+            fail: function (res) {
+                wx.showModal({
+                    title: '提示',
+                    content: '网络链接失败',
+                    showCancel: false
+                });
+            }
+        })
     },
     call() {
+        let that = this;
         wx.makePhoneCall({
-            phoneNumber: '13407482268'
+            phoneNumber: that.data.user_data.phone + ""
         })
     },
     jump(e) {
@@ -43,7 +63,7 @@ Page({
             console.log(res.target)
         }
         return {
-            title: '自定义转发标题',
+            title: '好望角汇成周伟',
             path: '/pages/index/index',
             success: function (res) {
                 // 转发成功
